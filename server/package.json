@@ -1,0 +1,25 @@
+{
+  "name": "gemini-server",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "build": "tsc -p ./tsconfig.json"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.2.0",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.0.10"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^7.2.6",
+    "@types/koa": "^2.0.44",
+    "@types/koa-bodyparser": "^4.2.0",
+    "@types/koa-router": "^7.0.27",
+    "@types/mongoose": "^5.0.7",
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.2"
+  }
+}
