@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import Login from './login/login'
 import Home from './home/home'
 import '@/assets/styles/normalize.scss'
@@ -12,6 +12,8 @@ class App extends React.Component {
           <Switch>
             <Route path="/login" component={Login}></Route>
             <Route path="/home" component={Home}></Route>
+            <Redirect from="/" to="/home"></Redirect>
+            <Route component={Home}></Route>
           </Switch>
         </React.Fragment>
       </BrowserRouter>
