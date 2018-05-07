@@ -18,7 +18,6 @@ class Nav extends React.Component {
     })
 
     const dataIdentify = target.getAttribute('data-identify')
-    target.className += 'selected'
     navActiveBG.style.transform = `translateX(${dataIdentify}00%)`
 
   }
