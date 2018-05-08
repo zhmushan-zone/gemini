@@ -6,12 +6,12 @@ class Login extends React.Component {
     switch (what) {
       case 'add':
         dom.classList.add(className)
-        break;
+        break
       case 'remove':
         dom.classList.remove(className)
-        break;
+        break
       default:
-        break;
+        break
     }
   }
 
@@ -33,7 +33,7 @@ class Login extends React.Component {
   }
   // 切换到注册
   changeRegister=(e)=>{
-    e.preventDefault();
+    e.preventDefault()
     const formBox =this.refs.formBox
     formBox.classList.remove('level-reg-revers')
     if(formBox.classList.contains('level-login')){
@@ -54,14 +54,14 @@ class Login extends React.Component {
   //忘记密码
   forgetPass=(e)=>{
     const formBox =this.refs.formBox
-    e.preventDefault();
+    e.preventDefault()
     this.classCal(formBox,'add','level-forget')
     this.classCal(formBox,'remove','level-reg')
   }
 
   handleBack=(e)=>{
     const formBox =this.refs.formBox
-    e.preventDefault();
+    e.preventDefault()
     this.classCal(formBox,'remove','level-forget')
     this.classCal(formBox,'add','level-login')
   }
@@ -74,7 +74,7 @@ class Login extends React.Component {
         <div className="box loginBox">
           <h2>登录</h2>
           <form className="form">
-            <div className="f_row">
+            <div className="f_row" >
               <label>用户名</label>
               <input type="text" className="input-field"  onFocus={this.usernameFocus} onBlur={this.usernameBlur} required ref="username"/>
               <u></u>
@@ -128,17 +128,17 @@ class Login extends React.Component {
           <form className="form">
             <div className="f_row">
               <label>邮箱</label>
-              <input type="text" className="input-field" required  />
+              <input type="text" className="input-field" required  onFocus={this.usernameFocus} onBlur={this.usernameBlur}/>
               <u></u>
             </div>
             <div className="f_row">
               <label>密码</label>
-              <input type="password" className="input-field" required  />
+              <input type="password" className="input-field" required  onFocus={this.usernameFocus} onBlur={this.usernameBlur}/>
               <u></u>
             </div>
             <div className="f_row last">
               <label> 再次输入密码</label>
-              <input type="password" className="input-field" required  />
+              <input type="password" className="input-field" required  onFocus={this.usernameFocus} onBlur={this.usernameBlur}/>
               <u></u>
             </div>
             <button className="btn-large">NEXT</button>
