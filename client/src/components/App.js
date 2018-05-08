@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
-import Login from './login/login'
+import Login from '../containers/login/login'
 import Nav from './nav/nav'
 import Home from '../containers/home/home'
 import '@/assets/styles/normalize.scss'
