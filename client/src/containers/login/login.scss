@@ -121,15 +121,15 @@ h1, h2, h3, h4, h5, h6 {
           }
       }
       &.focus {
-          label {
-              opacity: 0.5;
-              transform: translate(0px, -30px) scale(0.8);
-          }
-          u {
-              &:before {
-                  width: 100%;
-              }
-          }
+        label {
+          opacity: 0.5;
+          transform: translate(0px, -30px) scale(0.8);
+        }
+        u {
+            &:before {
+                width: 100%;
+            }
+        }
       }
   }
   .reg_bg {
@@ -506,4 +506,7 @@ from, to {
           color: #56ADC7;
       }
   }
+}
+.errorMsg{
+  width: 400px;
 }
