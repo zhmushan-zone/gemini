@@ -116,13 +116,15 @@
       "transform-decorators-legacy"
     ]
   },
+  "proxy": "http://localhost:9999",
   "eslintConfig": {
     "extends": "react-app",
     "rules": {
       "semi": [
         "warn",
         "never"
-      ]
+      ],
+      "no-useless-escape":"off"
     }
   },
   "devDependencies": {

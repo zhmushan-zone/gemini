@@ -507,6 +507,12 @@ from, to {
       }
   }
 }
-.errorMsg{
-  width: 400px;
+.login-alert{
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  .errorMsg{
+    width: 400px;
+  }
 }
+

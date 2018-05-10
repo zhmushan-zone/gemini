@@ -1,11 +1,11 @@
 import React from 'react'
 import "./login.scss"
-import { login,removeMsg } from '@/redux/actions.js'
+import { login,removeMsg,register,forgetPassword } from '@/redux/actions.js'
 import { connect } from 'react-redux'
-import { Alert } from 'antd';
+import { Alert } from 'antd'
 @connect(
   state=>state,
-  {login,removeMsg}
+  {login,removeMsg,register,forgetPassword}
 )
 class Login extends React.Component {
   constructor(props){
@@ -14,9 +14,20 @@ class Login extends React.Component {
       username:'',
       password:'',
       re_username:'',
+      re_password:'',
       repet_password:'',
+      forget_email:''
     }
-    console.log(this.props)
+  }
+  // 隔一段时间关闭消息提示
+  autoCloseMsg=()=>{
+    this.timer=setTimeout(()=>{
+            if(this.props.userstatus.msg){
+            setTimeout(()=>{
+              this.props.removeMsg()
+            },2000)
+          }
+        },10)
   }
 
   // 表单信息
@@ -24,15 +35,24 @@ class Login extends React.Component {
     this.setState({
       [key]:event.target.value
     })
-    console.log(this.state)
   }
   // 登录
   login=()=>{
-    this.props.login(this.state)
+    this.props.login(this.state.username,this.state.password)
+    this.timer=null
+    this.autoCloseMsg()
   }
   // 注册
   register=()=>{
-    console.log(this.state)
+    this.props.register(this.state.re_username,this.state.re_password,this.state.repet_password)
+    this.timer=null
+    this.autoCloseMsg()
+  }
+  // 重置密码
+  resetPass=()=>{
+    this.props.forgetPassword(this.state.forget_email)
+    this.timer=null
+    this.autoCloseMsg()
   }
 
   // 关闭提示
@@ -88,12 +108,13 @@ class Login extends React.Component {
       this.classCal(formBox,'add','level-reg-revers')
     }
   }
-  //忘记密码
+  //忘记密码?
   forgetPass=(e)=>{
     e.preventDefault()
     const formBox =this.formBox
     this.classCal(formBox,'add','level-forget')
     this.classCal(formBox,'remove','level-reg')
+
   }
 
   handleBack=(e)=>{
@@ -103,21 +124,20 @@ class Login extends React.Component {
     this.classCal(formBox,'add','level-login')
   }
 
-
-
-
   render() {
     return (
       <div className="login-container">
-      {this.props.userstatus.msg?
-      <Alert
-        description={this.props.userstatus.msg}
-        type="error"
-        showIcon
-        className="errorMsg"
-        closable
-        afterClose={this.handleErrorClose}
-      />:null}
+      <div className="login-alert">
+        {this.props.userstatus.msg?
+        <Alert
+          description={this.props.userstatus.msg}
+          type="error"
+          showIcon
+          className="errorMsg"
+          closable
+          afterClose={this.handleErrorClose}
+        />:null}
+      </div>
         <div className="formBox level-login" ref={(div)=>this.formBox=div}>
           <div className="box boxShaddow"></div>
           <div className="box loginBox">
@@ -158,10 +178,10 @@ class Login extends React.Component {
               <p>请在输入邮箱后打开邮件</p>
               <div className="f_row last">
                 <label>请输入邮箱</label>
-                <input type="text" className="input-field" required onFocus={this.inputFocus} onBlur={this.inputBlur}/>
+                <input type="text" className="input-field" value={this.state.forget_email} onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'forget_email')}/>
                 <u></u>
               </div>
-              <button type="button" className="btn"><span>重置密码</span><u></u>
+              <button type="button" className="btn"　onClick={this.resetPass}><span>重置密码</span><u></u>
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" viewBox="0 0 415.582 415.582" >
                   <path d="M411.47,96.426l-46.319-46.32c-5.482-5.482-14.371-5.482-19.853,0L152.348,243.058l-82.066-82.064
                       c-5.48-5.482-14.37-5.482-19.851,0l-46.319,46.32c-5.482,5.481-5.482,14.37,0,19.852l138.311,138.31
@@ -177,17 +197,17 @@ class Login extends React.Component {
             <form className="form">
               <div className="f_row">
                 <label>邮箱</label>
-                <input type="text" className="input-field" required  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'re_username')}/>
+                <input type="text" className="input-field" value={this.state.re_username}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'re_username')}/>
                 <u></u>
               </div>
               <div className="f_row">
                 <label>密码</label>
-                <input type="password" className="input-field" required  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'re_password')}/>
+                <input type="password" className="input-field" value={this.state.re_password}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'re_password')}/>
                 <u></u>
               </div>
               <div className="f_row last">
                 <label> 再次输入密码</label>
-                <input type="password" className="input-field" required  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'repet_password')}/>
+                <input type="password" className="input-field" value={this.state.repet_password}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'repet_password')}/>
                 <u></u>
               </div>
               <button type="button"  className="btn-large" onClick={this.register}> NEXT</button>
