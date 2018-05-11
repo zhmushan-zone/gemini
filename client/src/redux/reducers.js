@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import * as ActionTypes from "./actionTypes"
 
 const initState = {
-  msg:'',
+  msg: '',
   username: '',
   password: '',
   re_username: '',
@@ -17,13 +17,15 @@ export function userstatus(state = initState, action) {
     // case ActionTypes.LOGIN:
     //   return { ...state, msg: action.msg }
     case ActionTypes.AUTH_SUCCESS:
-      return { ...state, data: action.payload }
+      return { ...state, data: action.payload, redirectTo: '/home' }
     case ActionTypes.FORGET_PASS:
-      return { ...state, email:action.email}
+      return { ...state, email: action.email }
     case ActionTypes.ERROR_MSG:
       return { ...state, msg: action.msg }
     case ActionTypes.REMOVE_MSG:
       return { ...state, msg: action.msg }
+    case ActionTypes.LOAD_DATA:
+      return { ...state, ...action.payload }
     default:
       return state
   }

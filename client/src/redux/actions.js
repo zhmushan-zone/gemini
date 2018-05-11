@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
 import * as ActionTypes from './actionTypes'
 
 function errorMsg(msg) {
@@ -17,27 +18,40 @@ export function removeMsg() {
   return { msg: '', type: ActionTypes.REMOVE_MSG }
 }
 
+// 加载数据
+export function loadData(userinfo) {
+  return { type: ActionTypes.LOAD_DATA, payload: userinfo }
+}
 
-export function register(re_user, re_pass, repet_pass) {
-  if (!re_user || !re_pass || !repet_pass) {
+
+
+export function register(username, password, repet_pass) {
+  console.log(username)
+  if (!username || !password || !repet_pass) {
     return errorMsg("请输入注册的账号的密码")
   }
-  var regex =/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
-  if (!regex.test(re_user)) {
+  var regex = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
+  if (!regex.test(username)) {
     return errorMsg("邮箱格式错误")
   }
-  if (re_pass.length < 6 || re_pass.length >= 14) {
+  if (password.length < 6 || password.length >= 14) {
     return errorMsg("密码个数不能少于６位或者大于14位")
   }
-  if (re_pass !== repet_pass) {
+  if (password !== repet_pass) {
     return errorMsg("两次密码不一致")
   }
   return async dispatch => {
-    const res = await axios.post('/user/register', { re_user, re_pass })
-    if (res.status === 200 && res.data.code === 0) {
-      dispatch(authSuccess({ re_user, re_pass }))
+    const res = await axios.post('/api/users/register', { username, password })
+    if (res.data.code === 1) {
+      Cookies.set('_id', res.data.data.id)
+      Cookies.set('_token', res.data.data.token)
+      dispatch(authSuccess({ username, password, data: res.data.data }))
+    } else if (res.data.code === -1) {
+      dispatch(errorMsg("未知错误"))
+    } else if (res.data.code === 102) {
+      dispatch(errorMsg("用户已存在"))
     } else {
-      dispatch(errorMsg(res.data.msg))
+      dispatch(errorMsg("后端错误"))
     }
   }
 }
@@ -52,7 +66,7 @@ export function forgetPassword(forget_email) {
   }
   return async dispatch => {
     const res = await axios.post('/user/forget', { forget_email })
-    if (res.status === 200 && res.data.code === 0) {
+    if (res.data.code === 1) {
       dispatch(forgetPass(forget_email))
     } else {
       dispatch(res.data.msg)
@@ -60,16 +74,23 @@ export function forgetPassword(forget_email) {
   }
 }
 
-export function login(username, passwd) {
-  if (!username || !passwd) {
+export function login(username, password) {
+  if (!username || !password) {
     return errorMsg("请输入账号或者密码")
   }
   return async dispatch => {
-    const res = await axios.post('/user/login', { username, passwd })
-    if (res.status === 200 && res.data.code === 0) {
-      dispatch(authSuccess({ username, passwd }))
+    const res = await axios.post('/api/users/login', { username, password })
+    if (res.data.code === 1) {
+      Cookies.set('_id', res.data.data.id)
+      Cookies.set('_token', res.data.data.token)
+      dispatch(authSuccess({ username, password, data: res.data.data }))
+
+    } else if (res.data.code === 100) {
+      dispatch(errorMsg("登录失败"))
+    } else if (res.data.code === -1) {
+      dispatch(errorMsg("未知错误"))
     } else {
-      dispatch(errorMsg(res.data.msg))
+      dispatch(errorMsg("后端错误"))
     }
   }
 }

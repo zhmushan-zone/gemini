@@ -10,4 +10,5 @@ export const ERROR_MSG = 'ERROR_MSG'
 export const REMOVE_MSG = 'REMOVE_MSG'
 // 身份验证成功
 export const AUTH_SUCCESS = 'AUTH_SUCCESS'
-
+// 加载数据
+export const LOAD_DATA = 'LOAD_DATA'

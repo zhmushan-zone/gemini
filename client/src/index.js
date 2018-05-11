@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import registerServiceWorker from './registerServiceWorker'
+import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './redux/stores'
 import App from './components/App'
@@ -8,7 +9,9 @@ import "./index.scss"
 
 ReactDOM.render(
   <Provider store={store}>
-    <App></App>
+    <BrowserRouter>
+      <App></App>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root'))
 registerServiceWorker()
