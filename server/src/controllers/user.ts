@@ -1,9 +1,8 @@
 import { Context } from 'koa'
-import { IUser } from '../models'
+import { IUser, UserRole } from '../models'
 import { UserService } from '../services'
 import { CustomError } from '../error'
 import { ResultCode, ResultVO } from '../vo'
-import { verifyToken } from '../utils'
 
 export class UserController {
   static async login(ctx: Context) {
@@ -40,15 +39,30 @@ export class UserController {
   }
 
   static async auth(ctx: Context) {
-    const { token, id } = ctx.request.headers
+    const user: IUser = ctx.state.user
 
     try {
-      const user = await UserService.findById(id)
-      if (!user) { throw new CustomError(ResultCode.TOKEN_EXPIRED, 'token已失效') }
-      verifyToken(token, user.tokenSecret)
       const userVO = await UserService.refreshToken(user._id, user.tokenSecret)
 
       ctx.body = ResultVO.success(userVO)
+    } catch (err) {
+      ctx.body = new ResultVO(err.code || ResultCode.UNKNOWN, err.message)
+    }
+  }
+
+  static async fetchAll(ctx: Context) {
+    const user: IUser = ctx.state.user
+
+    try {
+      switch (user.role) {
+        case UserRole.USER:
+          throw new CustomError(ResultCode.NO_PERMISSION, '没有权限')
+        case UserRole.ADMIN:
+          const users = await UserService.findAll()
+
+          ctx.body = ResultVO.success(users)
+          break
+      }
     } catch (err) {
       ctx.body = new ResultVO(err.code || ResultCode.UNKNOWN, err.message)
     }

@@ -4,6 +4,8 @@ export const enum ResultCode {
   LOGIN_FAILED = 100,
   TOKEN_EXPIRED = 101,
   USERNAME_EXISIT = 102,
+  ID_INVALID = 103,
+  NO_PERMISSION = 104,
 }
 
 export class ResultVO<T> {

@@ -48,4 +48,8 @@ export class UserService {
 
     return this.updateById(id, { password, salt } as IUser)
   }
+
+  static findAll() {
+    return User.find()
+  }
 }
