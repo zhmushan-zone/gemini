@@ -2,7 +2,7 @@ import { Context } from 'koa'
 import { IUser, UserRole } from '../models'
 import { UserService } from '../services'
 import { CustomError } from '../error'
-import { ResultCode, ResultVO } from '../vo'
+import { ResultCode, ResultVO, UserVO } from '../vo'
 
 export class UserController {
   static async login(ctx: Context) {
@@ -60,7 +60,7 @@ export class UserController {
         case UserRole.ADMIN:
           const users = await UserService.findAll()
 
-          ctx.body = ResultVO.success(users)
+          ctx.body = ResultVO.success(users.map(v => new UserVO(v)))
           break
       }
     } catch (err) {
