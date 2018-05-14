@@ -5,6 +5,8 @@ import AutoRoute from './authRoute/authRoute'
 import Nav from './nav/nav'
 import Home from '../containers/home/home'
 import '@/assets/styles/normalize.scss'
+// icon图标
+import '@/assets/styles/font/icon.css'
 class App extends React.Component {
   render() {
     return (

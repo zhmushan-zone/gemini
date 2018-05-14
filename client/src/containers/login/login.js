@@ -128,8 +128,8 @@ class Login extends React.Component {
   render() {
     return (
 
-      <div className="login-container">
-           {(this.props.userstatus.redirectTo && this.props.userstatus.redirectTo !== '/login') ? <Redirect to={this.props.userstatus.redirectTo}></Redirect> : null}
+    <div className="login-container">
+        {(this.props.userstatus.redirectTo && this.props.userstatus.redirectTo !== '/login') ? <Redirect to={this.props.userstatus.redirectTo}></Redirect> : null}
       <div className="login-alert">
         {this.props.userstatus.msg?
         <Alert
