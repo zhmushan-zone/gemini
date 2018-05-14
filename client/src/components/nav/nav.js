@@ -1,4 +1,5 @@
 import React from 'react'
+import UserStatus from './userStatus/userStatus'
 
 import './nav.scss'
 
@@ -47,6 +48,7 @@ class Nav extends React.Component {
           </ul>
           <span className="navActiveBG"></span>
         </div>
+        <UserStatus />
       </nav>
     )
   }

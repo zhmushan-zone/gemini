@@ -1,0 +1,12 @@
+.userStatus {
+    width: 120px;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    color: #D9DDE1;
+    align-items: center;
+
+    .nav-login-btn, .nav-register-btn {
+        color: #4D555D;
+    }
+}
