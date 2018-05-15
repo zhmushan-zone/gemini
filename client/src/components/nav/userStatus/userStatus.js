@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import userAvator from '@/assets/imgs/user-avator.jpg'
 import CustomIcon from '@/common/customIcon/customIcon'
 import { connect } from 'react-redux'
@@ -103,9 +104,9 @@ class UserStatus extends React.Component {
           </React.Fragment>
           :
           <React.Fragment>
-            <a href="#javascript" className="nav-login-btn">登录</a>
+            <Link to="/login" className="nav-login-btn">登录</Link>
             /
-            <a href="#javascript" className="nav-register-btn">注册</a>
+            <Link to="/login" className="nav-register-btn">注册</Link>
           </React.Fragment>
         }
       </div>
