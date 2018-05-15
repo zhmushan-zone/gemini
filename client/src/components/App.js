@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import Login from '../containers/login/login'
 import AutoRoute from './authRoute/authRoute'
 import Layout from './layout/layout'
+import PersonCenter from './personCenter/personCenter'
 import Home from '../containers/home/home'
 import '@/assets/styles/normalize.scss'
 // icon图标
@@ -18,6 +19,7 @@ class App extends React.Component {
           <Route path="/login" component={Login}></Route>
           <Layout>
             <Route path="/home" component={Home}></Route>
+            <Route path="/personCenter" component={PersonCenter}></Route>
           </Layout>
         </Switch>
       </React.Fragment>
