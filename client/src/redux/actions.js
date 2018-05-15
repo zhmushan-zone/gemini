@@ -23,8 +23,6 @@ export function loadData(userinfo) {
   return { type: ActionTypes.LOAD_DATA, payload: userinfo }
 }
 
-
-
 export function register(username, password, repet_pass) {
   console.log(username)
   if (!username || !password || !repet_pass) {
@@ -93,4 +91,10 @@ export function login(username, password) {
       dispatch(errorMsg("后端错误"))
     }
   }
+}
+
+export function logout () {
+  Cookies.remove('_id')
+  Cookies.remove('_token')
+  return {type: ActionTypes.LOGOUT, username: '', id: ''}
 }

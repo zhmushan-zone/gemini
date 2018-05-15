@@ -12,3 +12,5 @@ export const REMOVE_MSG = 'REMOVE_MSG'
 export const AUTH_SUCCESS = 'AUTH_SUCCESS'
 // 加载数据
 export const LOAD_DATA = 'LOAD_DATA'
+// 注销
+export const LOGOUT =  'LOGOUT'

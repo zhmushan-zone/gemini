@@ -1,4 +1,5 @@
 import React from 'react'
+import UserStatus from './userStatus/userStatus'
 
 import './nav.scss'
 
@@ -9,6 +10,7 @@ class Nav extends React.Component {
       selected: 0
     }
   }
+
   navSectionClick (e) {
     const navActiveBG = document.querySelector('.navActiveBG')
     const target = e.target
@@ -23,7 +25,7 @@ class Nav extends React.Component {
   }
 
   render() {
-    const navList = ['导航', '导航2', '导航3', '导航4', '导航5']
+    const navList = ['首页', '在线学习', '讨论区', '看法']
     const navSections = navList.map((section, index) => {
         if (index === this.state.selected) {
           return (
@@ -47,6 +49,7 @@ class Nav extends React.Component {
           </ul>
           <span className="navActiveBG"></span>
         </div>
+        <UserStatus />
       </nav>
     )
   }
