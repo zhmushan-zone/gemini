@@ -14,7 +14,8 @@ nav {
     display: flex;
     justify-content: space-around;
     box-shadow: 0 0 10px rgba(0, 0, 0, .3);
-
+    position: relative;
+    z-index: 100;
     .nav-sections {
         width: 500px;
         position: relative;
@@ -24,11 +25,11 @@ nav {
             display: flex;
             justify-content: space-between;
             line-height: 60px;
-            
+
             li {
                 width: 25%;
                 text-align: center;
-    
+
                 a {
                     display: flex;
                     justify-content: center;
@@ -46,7 +47,7 @@ nav {
                 }
             }
         }
-    
+
         .navActiveBG {
             position: absolute;
             top: 18px;

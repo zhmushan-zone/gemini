@@ -36,7 +36,7 @@
     border-radius: 0 0 4px 4px;
     background: #fff;
     box-shadow: 0 8px 16px 0 rgba(7,17,27,.2);
-    -index: 1000;
+    z-index: 1000;
 
     .user-info-top {
       height: 76px;
@@ -58,7 +58,7 @@
 
         .user-info-name {
           font-size: 16px;
-          
+
           a {
             color: #07111b;
           }
@@ -118,7 +118,7 @@
       position: relative;
       font-size: 12px;
       color: #787d82;
-      
+
       .user-info-icon-shizhong {
         position: absolute;
         top: -2px;
@@ -127,8 +127,8 @@
 
       .user-info-history-title, .user-info-history-section {
         white-space:nowrap;
-        overflow:hidden;  
-        text-overflow:ellipsis;  
+        overflow:hidden;
+        text-overflow:ellipsis;
       }
 
       .user-info-history-title {

@@ -1,4 +1,6 @@
 .personCenter-container {
+    position: relative;
+    top: -60px;
     width: 100%;
     overflow: hidden;
     .header {
@@ -9,30 +11,34 @@
             width: 1152px;
             margin: 0px auto;
         }
-        .user-pic{
-          float: left;
-          width: 150px;
-          height: 150px;
+        .user-pic {
+            float: left;
+            width: 150px;
+            height: 150px;
         }
-        .user-pic-bg{
-          border: 4px solid #FFF;
-          box-shadow: 0 4px 8px 0 rgba(7,17,27,.1);
-          width: 140px;
-          height: 140px;
-          position: relative;
-          border-radius: 50%;
-          background: #fff;
-          top: 24px;
-          >img{
-            border-radius: 50%;
-            text-align: center;
+        .user-pic-bg {
+            border: 4px solid #FFF;
+            box-shadow: 0 4px 8px 0 rgba(7, 17, 27, .1);
             width: 140px;
             height: 140px;
-          }
+            position: relative;
+            border-radius: 50%;
+            background: #fff;
+            top: 24px;
+            >img {
+                border-radius: 50%;
+                text-align: center;
+                width: 140px;
+                height: 140px;
+            }
         }
-        .user-info-right{
-          float: right;
-
+        .user-info-right {
+            float: right;
+            width: 980px;
         }
     }
+}
+
+.personCenterNavBgColor {
+    background: rgb(240, 20, 20) !important;
 }
