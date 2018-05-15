@@ -31,7 +31,7 @@ class Nav extends React.Component {
   }
 
   render() {
-    var is = this.props.location.pathname==='/personCenter'
+    var is = this.props.location.pathname.split('/')[1]==='personCenter'
     const personCenterNavBgColor=classnames({
       'personCenterNavBgColor':is
     })
@@ -61,7 +61,9 @@ class Nav extends React.Component {
             is?null:<span className={`navActiveBG ${personCenterNavBgColor}`}></span>
           }
         </div>
-        <UserStatus />
+        {
+          !is?<UserStatus />:null
+        }
       </nav>
     )
   }

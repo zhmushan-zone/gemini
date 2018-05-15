@@ -6,7 +6,6 @@ import { logout } from '@/redux/actions'
 import Cookies from 'js-cookie'
 
 import './userStatus.scss'
-
 @connect(
   state => state.userstatus,
   { logout }
@@ -36,23 +35,23 @@ class UserStatus extends React.Component {
     })
     this.props.logout()
   }
-  
+
   render () {
-    console.log(this.props)
+
     const { username } = this.props
     const linkStyle = this.state.isUserInfoShow ? {border: '2px solid #f01414'} : {border: 'none'}
     return (
-      <div className="userStatus" 
-        onMouseEnter={() => this.toggleHover()} 
+      <div className="userStatus"
+        onMouseEnter={() => this.toggleHover()}
         onMouseLeave={() => this.toggleHover()}>
         {
-          this.state.isLogin ? 
+          this.state.isLogin ?
           <React.Fragment>
             <a href="#javascript" className="nav-user-avator">
               <img style={linkStyle} src={userAvator} alt="user-avator"/>
             </a>
             {
-              this.state.isUserInfoShow ? 
+              this.state.isUserInfoShow ?
                 <div className="user-info-wrapper">
                 <div className="user-info-top">
                   <a href="#javascript">
@@ -102,14 +101,14 @@ class UserStatus extends React.Component {
               </div> : ""
             }
           </React.Fragment>
-          : 
+          :
           <React.Fragment>
             <a href="#javascript" className="nav-login-btn">登录</a>
             /
             <a href="#javascript" className="nav-register-btn">注册</a>
           </React.Fragment>
         }
-      </div>    
+      </div>
     )
   }
 }
