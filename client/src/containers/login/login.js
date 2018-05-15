@@ -20,6 +20,14 @@ class Login extends React.Component {
       forget_email:''
     }
   }
+  componentDidMount = () => {
+    document.addEventListener('keydown',(e)=>{
+      if(e.code==='Enter'){
+        this.login()
+      }
+    })
+  }
+
   // 隔一段时间关闭消息提示
   autoCloseMsg=()=>{
     this.timer=setTimeout(()=>{
