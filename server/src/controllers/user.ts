@@ -52,10 +52,10 @@ export class UserController {
 
   static async updateOne(ctx: Context) {
     const user: IUser = ctx.state.user
-    const { nickname } = ctx.request.body
+    const { nickname, job } = ctx.request.body
 
     try {
-      const res = await UserService.updateOne(user, { nickname } as IUser)
+      const res = await UserService.updateOne(user, { nickname, job } as IUser)
       if (!res.ok) { throw new CustomError(ResultCode.UPDATE_FAILED, '更新失败') }
       ctx.body = ResultVO.success()
     } catch (err) {
