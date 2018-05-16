@@ -1,27 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { NavLink } from 'react-router-dom'
 import CustomIcon from '@/common/customIcon/customIcon'
 import PersonCenterDynamic from '../personCenterDynamic/personCenterDynamic'
+import PersonCenterInformation from '../personCenterInformation/personCenterInformation'
+import PersonCenterArticle from '../personCenterArticle/personCenterArticle'
 import personCenterClass from '../personCenterClass/personCenterClass'
 import './personCenter.scss'
-function Test1() {
-  return <h2>test1</h2>
-}
-function Test2() {
-  return <h2>test2</h2>
-}
 @connect(
   state => state
 )
-
-
-
-
-
 class PersonCener extends React.Component {
-
   render() {
     const nav = [
       {
@@ -43,15 +32,14 @@ class PersonCener extends React.Component {
         icon: 'gerenxinxi',
         to: '/personCenter/set',
         is: this.props.location.pathname === '/personCenter/set',
-        component: Test1
+        component: PersonCenterInformation
       },
       {
         name: '文章',
         icon: 'icon_article',
         to: '/personCenter/article',
         is: this.props.location.pathname === '/personCenter/article',
-        component: Test2
-
+        component: PersonCenterArticle
       }
 
     ]
@@ -59,7 +47,7 @@ class PersonCener extends React.Component {
       return (
         <li key={v.to}>
           <NavLink exact activeClassName="active color" to={v.to}>
-            <CustomIcon type={v.icon}></CustomIcon>
+            <CustomIcon type={v.icon} className="my-icon"></CustomIcon>
             <span>{v.name}</span>
           </NavLink>
         </li>
@@ -76,7 +64,7 @@ class PersonCener extends React.Component {
               </div>
             </div>
             <div className="user-info-right">
-              <h3 className="user-name">{username}</h3>
+              <h3 className="user-name">{this.props.userstatus.nickname?this.props.userstatus.nickname:this.props.userstatus.username}</h3>
             </div>
             <div className="user-sign">
               <p className="user-desc">这位同学很懒，木有签名的说～</p>

@@ -14,3 +14,5 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS'
 export const LOAD_DATA = 'LOAD_DATA'
 // 注销
 export const LOGOUT =  'LOGOUT'
+// 修改信息
+export const UPDATE_PERSON_MSG =  'UPDATE_PERSON_MSG'

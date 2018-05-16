@@ -10,9 +10,13 @@ const initState = {
   re_password: '',
   repet_password: '',
   forget_email: '',
-  id:'',
-  data:'',
-  redirectTo:''
+  id: '',
+  data: '',
+  redirectTo: '',
+  job: '未设置',
+  city: '未设置',
+  sex: '未设置',
+  signature: '未设置'
 }
 
 export function userstatus(state = initState, action) {
@@ -29,8 +33,10 @@ export function userstatus(state = initState, action) {
       return { ...state, msg: action.msg }
     case ActionTypes.LOAD_DATA:
       return { ...state, ...action.payload }
-    case ActionTypes.LOGOUT: 
-      return {...initState}
+    case ActionTypes.UPDATE_PERSON_MSG:
+      return { ...state, data: action.payload, username: '', nickname: action.payload.username }
+    case ActionTypes.LOGOUT:
+      return { ...initState }
     default:
       return state
   }

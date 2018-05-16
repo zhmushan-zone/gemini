@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { loadData } from '@/redux/actions'
 @withRouter
 @connect(
-  null,
+  state=>state,
   { loadData }
 )
 class AutoRoute extends React.Component {
