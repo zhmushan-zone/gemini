@@ -1,11 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { NavLink } from 'react-router-dom'
 import CustomIcon from '@/common/customIcon/customIcon'
+import PersonCenterDynamic from '../personCenterDynamic/personCenterDynamic'
+import personCenterClass from '../personCenterClass/personCenterClass'
 import './personCenter.scss'
+function Test1() {
+  return <h2>test1</h2>
+}
+function Test2() {
+  return <h2>test2</h2>
+}
 @connect(
   state => state
 )
+
+
+
+
+
 class PersonCener extends React.Component {
 
   render() {
@@ -13,22 +27,31 @@ class PersonCener extends React.Component {
       {
         name: '动态',
         icon: 'home',
-        to: '/personCenter'
+        to: '/personCenter',
+        is: this.props.location.pathname === '/personCenter',
+        component: PersonCenterDynamic
       },
       {
         name: '课程',
         icon: 'kecheng',
-        to: '/personCenter/class'
+        to: '/personCenter/class',
+        is: this.props.location.pathname === '/personCenter/class',
+        component: personCenterClass
       },
       {
         name: '个人信息',
         icon: 'gerenxinxi',
-        to: '/personCenter/set'
+        to: '/personCenter/set',
+        is: this.props.location.pathname === '/personCenter/set',
+        component: Test1
       },
       {
         name: '文章',
         icon: 'icon_article',
-        to: '/personCenter/article'
+        to: '/personCenter/article',
+        is: this.props.location.pathname === '/personCenter/article',
+        component: Test2
+
       }
 
     ]
@@ -49,7 +72,7 @@ class PersonCener extends React.Component {
           <div className="user-info">
             <div className="user-pic">
               <div className="user-pic-bg">
-                <img src={require('@/assets/imgs/user-avator.jpg')} alt="" />
+                <img src={require(`@/assets/imgs/user-avator.jpg`)} alt="" />
               </div>
             </div>
             <div className="user-info-right">
@@ -99,11 +122,18 @@ class PersonCener extends React.Component {
             </ul>
           </div>
           <div className="u-container">
-
+            {
+              nav.map(v => {
+                return v.is ? <v.component key={v.component} /> : null
+              })
+            }
           </div>
         </div>
       </div>
     )
   }
 }
+
+
+
 export default PersonCener
