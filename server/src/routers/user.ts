@@ -8,4 +8,5 @@ userRouter
   .post('/login', UserController.login)
   .post('/register', UserController.register)
   .get('/auth', userAuth, UserController.auth)
+  .put('/', userAuth, UserController.updateOne)
   .get('/', userAuth, UserController.fetchAll)
