@@ -20,6 +20,14 @@ class Login extends React.Component {
       forget_email:''
     }
   }
+  componentDidMount = () => {
+    document.addEventListener('keydown',(e)=>{
+      if(e.code==='Enter'){
+        this.login()
+      }
+    })
+  }
+
   // 隔一段时间关闭消息提示
   autoCloseMsg=()=>{
     this.timer=setTimeout(()=>{
@@ -128,8 +136,8 @@ class Login extends React.Component {
   render() {
     return (
 
-      <div className="login-container">
-           {(this.props.userstatus.redirectTo && this.props.userstatus.redirectTo !== '/login') ? <Redirect to={this.props.userstatus.redirectTo}></Redirect> : null}
+    <div className="login-container">
+        {(this.props.userstatus.redirectTo && this.props.userstatus.redirectTo !== '/login') ? <Redirect to={this.props.userstatus.redirectTo}></Redirect> : null}
       <div className="login-alert">
         {this.props.userstatus.msg?
         <Alert

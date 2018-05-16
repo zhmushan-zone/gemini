@@ -1,0 +1,157 @@
+.personCenter-container {
+  position: relative;
+  top: -60px;
+  width: 100%;
+  overflow: hidden;
+  .header {
+    background: url('./person-back.png') center top no-repeat #000;
+    .user-info {
+      height: 208px;
+      position: relative;
+      width: 1152px;
+      margin: 0px auto;
+    }
+    .user-pic {
+      float: left;
+      width: 150px;
+      height: 150px;
+    }
+    .user-pic-bg {
+      border: 4px solid #FFF;
+      box-shadow: 0 4px 8px 0 rgba(7, 17, 27, .1);
+      width: 148px;
+      height: 148px;
+      position: relative;
+      border-radius: 50%;
+      background: #fff;
+      top: 64px;
+      >img {
+        border-radius: 50%;
+        text-align: center;
+        width: 140px;
+        height: 140px;
+      }
+    }
+    .user-info-right {
+      float: right;
+      width: 980px;
+      position: relative;
+      top: 40px;
+      .user-name {
+        font-weight: 600;
+        text-align: left;
+        font-size: 24px;
+        color: #fff;
+        line-height: 28px;
+        margin-top: 48px;
+      }
+    }
+    .user-sign {
+      font-size: 14px;
+      color: #fff;
+      line-height: 24px;
+      width: 440px;
+      overflow: hidden;
+      word-break: break-all;
+      word-wrap: break-word;
+      >p {
+        font-size: 14px;
+        line-height: 24px;
+        color: #fff;
+        text-align: left;
+        margin-top: 50px;
+        word-break: break-all;
+        word-wrap: break-word;
+        opacity: .5;
+        margin-left: 24px;
+      }
+    }
+    .study-info {
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      min-width: 200px;
+      text-align: right;
+      color: white;
+      .follows {
+        margin-right: 24px;
+      }
+      .item {
+        line-height: 48px;
+        vertical-align: middle;
+        height: 48px;
+        float: left;
+        em {
+          display: block;
+          text-align: center;
+          font-weight: 700;
+          font-size: 24px;
+          color: rgba(255, 255, 255, .8);
+          line-height: 28px;
+        }
+        span {
+          display: block;
+          text-align: center;
+          font-size: 14px;
+          color: rgba(255, 255, 255, .8);
+          line-height: 20px;
+          margin-top: 4px;
+        }
+      }
+    }
+  }
+  .wrap {
+    position: relative;
+    width: 1200px;
+    margin: 0 auto;
+  }
+  .slider {
+    position: absolute;
+    width: 172px;
+    left: 24px;
+    top: 0;
+    ul li:first-child {
+      margin-top: 40px;
+    }
+    a {
+      position: relative;
+      display: block;
+      height: 48px;
+      font-size: 16px;
+      line-height: 48px;
+      color: #787d82;
+      padding-left: 64px;
+      text-align: left;
+      &.active {
+        color: #fff;
+        background: rgba(240, 20, 20, .8);
+        border-radius: 8px 0 0 8px;
+      }
+      &.active::after {
+        display: block;
+        content: "";
+        bottom: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        position: absolute;
+        border-top: 24px solid #F8FAFC;
+        border-left: 15px solid transparent;
+        border-bottom: 24px solid #F8FAFC;
+      }
+    }
+  }
+  .u-container {
+    margin-left: 240px;
+    min-height: 589px;
+  }
+}
+.color{
+  a{
+    color: white;
+  }
+}
+
+.personCenterNavBgColor {
+  background: rgb(240, 20, 20) !important;
+}

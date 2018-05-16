@@ -7,22 +7,22 @@ import { connect } from 'react-redux'
 import { loadData } from '@/redux/actions'
 @withRouter
 @connect(
-  state => state.userstatus,
+  null,
   { loadData }
 )
 class AutoRoute extends React.Component {
   componentDidMount() {
-    console.log(this.props)
     var publicList = ['/login']
     var pathname = this.props.location.pathname
-    console.log(pathname)
+    var _id = Cookies.get('_id')
+    var _token = Cookies.get('_token')
     if (publicList.indexOf(pathname) !== -1) {
       return null
     }
     axios.get('/api/users/auth', {
       headers: {
-        "id": Cookies.get('_id'),
-        "token": Cookies.get('_token'),
+        "id": _id,
+        "token": _token,
       }
     })
       .then(res => {
@@ -30,10 +30,12 @@ class AutoRoute extends React.Component {
           // 有登录信息
           // 其实是为了解决刷新的时候虽然页面不跳转但是，数据没了
           this.props.loadData(res.data.data)
-        } else {
-          // 无登录信息
-          this.props.history.push('/login')
+          Cookies.set('_token', res.data.data.token)
         }
+        // else {
+        //   // 无登录信息
+        //   this.props.history.push('/login')
+        // }
       })
   }
 

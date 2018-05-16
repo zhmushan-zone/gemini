@@ -10,6 +10,9 @@ const initState = {
   re_password: '',
   repet_password: '',
   forget_email: '',
+  id:'',
+  data:'',
+  redirectTo:''
 }
 
 export function userstatus(state = initState, action) {
@@ -26,6 +29,8 @@ export function userstatus(state = initState, action) {
       return { ...state, msg: action.msg }
     case ActionTypes.LOAD_DATA:
       return { ...state, ...action.payload }
+    case ActionTypes.LOGOUT: 
+      return {...initState}
     default:
       return state
   }

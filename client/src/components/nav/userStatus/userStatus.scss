@@ -1,0 +1,168 @@
+.userStatus {
+  width: 120px;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  color: #D9DDE1;
+  align-items: center;
+
+  .nav-login-btn, .nav-register-btn {
+    color: #4D555D;
+  }
+
+  .nav-user-avator {
+    width: 60px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      box-sizing: content-box;
+    }
+  }
+
+  .user-info-wrapper {
+    width: 306px;
+    height: 318px;
+    position: absolute;
+    right: 0;
+    top: 60px;
+    padding: 24px;
+    border-radius: 0 0 4px 4px;
+    background: #fff;
+    box-shadow: 0 8px 16px 0 rgba(7,17,27,.2);
+    z-index: 1000;
+
+    .user-info-top {
+      height: 76px;
+      display: flex;
+
+      img {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+      }
+
+      .user-info-data {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        height: 76px;
+        padding-top: 14px;
+        padding-left: 12px;
+
+        .user-info-name {
+          font-size: 16px;
+
+          a {
+            color: #07111b;
+          }
+        }
+
+        .user-info-assets {
+          font-size: 12px;
+          margin-top: 6px;
+
+          a {
+            color: #93999f;
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+
+    .user-info-center {
+      height: 76px;
+      margin-top: 16px;
+      margin-bottom: 14px;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        li {
+          width: 128px;
+          height: 36px;
+          font-size: 12px;
+          line-height: 36px;
+          text-align: center;
+          margin-top: 2px;
+
+          a {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #F8FAFC;
+            color: #787d82;
+            transition: .3s all ease-in-out;
+
+            &:hover {
+              background: #dadde1;
+              color: #4e555c;
+            }
+          }
+        }
+      }
+    }
+
+    .user-info-history {
+      height: 61px;
+      border-bottom: 1px solid #edf1f2;
+      padding-left: 24px;
+      position: relative;
+      font-size: 12px;
+      color: #787d82;
+
+      .user-info-icon-shizhong {
+        position: absolute;
+        top: -2px;
+        left: -2px;
+      }
+
+      .user-info-history-title, .user-info-history-section {
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+
+      .user-info-history-title {
+        margin-bottom: 12px;
+        font-weight: 700;
+      }
+
+      .user-info-history-section {
+        margin-right: 34px;
+      }
+
+      .user-info-history-continue {
+        position: absolute;
+        right: 0;
+        bottom: 11px;
+        color: rgba(0,180,60,.6);
+
+        &:hover {
+          color: #00b43c;
+        }
+      }
+    }
+
+    .user-info-logout {
+      font-size: 12px;
+      padding-top: 12px;
+
+      .user-info-logout-btn {
+        color: #93999f;
+
+        &:hover {
+          color: #4D555D;
+        }
+      }
+    }
+  }
+}
