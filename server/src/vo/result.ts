@@ -6,6 +6,7 @@ export const enum ResultCode {
   USERNAME_EXISIT = 102,
   ID_INVALID = 103,
   NO_PERMISSION = 104,
+  UPDATE_FAILED = 105,
 }
 
 export class ResultVO<T> {

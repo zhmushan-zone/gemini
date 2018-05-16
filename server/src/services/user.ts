@@ -42,6 +42,10 @@ export class UserService {
     return User.findByIdAndUpdate(id, user)
   }
 
+  static updateOne(user: IUser, update: IUser) {
+    return User.updateOne(user, update)
+  }
+
   static changePassword(id: string, password: string) {
     const salt = generateSalt()
     password = encrpty(password, salt)

@@ -8,6 +8,7 @@ export const enum UserRole {
 export interface IUser extends Document {
   _id: string
   username: string
+  nickname: string
   password: string
   role: UserRole
   salt: string
@@ -19,6 +20,9 @@ const userSchema = new Schema({
     type: String,
     unique: true,
     required: true,
+  },
+  nickname: {
+    type: String,
   },
   password: {
     type: String,
