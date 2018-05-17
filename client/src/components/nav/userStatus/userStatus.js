@@ -37,6 +37,7 @@ class UserStatus extends React.Component {
     this.props.logout()
   }
 
+
   render() {
 
     const nickname = this.props.nickname ? this.props.nickname : this.props.username
@@ -48,7 +49,7 @@ class UserStatus extends React.Component {
         {
           this.state.isLogin ?
             <React.Fragment>
-              <a href="#javascript" className="nav-user-avator">
+              <a className="nav-user-avator">
                 <img style={linkStyle} src={userAvator} alt="user-avator" />
               </a>
               {

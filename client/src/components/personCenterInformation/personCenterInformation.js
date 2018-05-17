@@ -37,7 +37,7 @@ class PersonCenterInformation extends React.Component {
     })
     this.props.changePersonMsg(this.state)
     console.log(this.props.userstatus)
-    this.props.userstatus.data.msg == '成功' ? this.success() : null
+    this.props.userstatus.data.msg === '成功' ? this.success() : null
     setTimeout(() => {
       this.setState({
         visible: false,
