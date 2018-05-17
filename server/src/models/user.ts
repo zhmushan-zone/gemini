@@ -10,6 +10,10 @@ export interface IUser extends Document {
   username: string
   nickname: string
   password: string
+  job: string
+  city: string
+  sex: string
+  signature: string
   role: UserRole
   salt: string
   tokenSecret: string
@@ -27,6 +31,18 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
+  },
+  job: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  sex: {
+    type: String,
+  },
+  signature: {
+    type: String,
   },
   role: {
     type: Number,

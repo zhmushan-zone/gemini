@@ -13,15 +13,15 @@ import './userStatus.scss'
 )
 
 class UserStatus extends React.Component {
-  constructor (props) {
-    super (props)
+  constructor(props) {
+    super(props)
     this.state = {
-      isLogin: Cookies.get('_id')?true:false,
+      isLogin: Cookies.get('_id') ? true : false,
       isUserInfoShow: false
     }
   }
   //  鼠标移到头像显示用户板块
-  toggleHover () {
+  toggleHover() {
     if (this.state.isLogin) {
       this.setState({
         isUserInfoShow: !this.state.isUserInfoShow
@@ -29,7 +29,7 @@ class UserStatus extends React.Component {
     }
   }
   // 注销用户的登录状态
-  logout () {
+  logout() {
     this.setState({
       isLogin: false,
       isUserInfoShow: false
@@ -37,77 +37,77 @@ class UserStatus extends React.Component {
     this.props.logout()
   }
 
-  render () {
+  render() {
 
-    const { username } = this.props
-    const linkStyle = this.state.isUserInfoShow ? {border: '2px solid #f01414'} : {border: 'none'}
+    const nickname = this.props.nickname ? this.props.nickname : this.props.username
+    const linkStyle = this.state.isUserInfoShow ? { border: '2px solid #f01414' } : { border: 'none' }
     return (
       <div className="userStatus"
         onMouseEnter={() => this.toggleHover()}
         onMouseLeave={() => this.toggleHover()}>
         {
           this.state.isLogin ?
-          <React.Fragment>
-            <a href="#javascript" className="nav-user-avator">
-              <img style={linkStyle} src={userAvator} alt="user-avator"/>
-            </a>
-            {
-              this.state.isUserInfoShow ?
-                <div className="user-info-wrapper">
-                <div className="user-info-top">
-                  <a href="#javascript">
-                    <img src={userAvator} alt="user-avator"/>
-                  </a>
-                  <div className="user-info-data">
-                    <div className="user-info-name">
+            <React.Fragment>
+              <a href="#javascript" className="nav-user-avator">
+                <img style={linkStyle} src={userAvator} alt="user-avator" />
+              </a>
+              {
+                this.state.isUserInfoShow ?
+                  <div className="user-info-wrapper">
+                    <div className="user-info-top">
                       <a href="#javascript">
-                        {username}
+                        <img src={userAvator} alt="user-avator" />
                       </a>
+                      <div className="user-info-data">
+                        <div className="user-info-name">
+                          <a href="#javascript">
+                            {nickname}
+                          </a>
+                        </div>
+                        <div className="user-info-assets">
+                          <a href="#javascript">
+                            <span className="user-info-experience">经验868</span>
+                          </a>
+                          <a href="#javascript">
+                            <span className="user-info-integral">积分0</span>
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                    <div className="user-info-assets">
-                      <a href="#javascript">
-                        <span className="user-info-experience">经验868</span>
-                      </a>
-                      <a href="#javascript">
-                        <span className="user-info-integral">积分0</span>
-                      </a>
+                    <div className="user-info-center">
+                      <ul>
+                        <li>
+                          <a href="#javascript">我是链接</a>
+                        </li>
+                        <li>
+                          <a href="#javascript">我是链接</a>
+                        </li>
+                        <li>
+                          <a href="#javascript">我是链接</a>
+                        </li>
+                        <li>
+                          <a href="#javascript">我是链接</a>
+                        </li>
+                      </ul>
                     </div>
-                  </div>
-                </div>
-                <div className="user-info-center">
-                  <ul>
-                    <li>
-                      <a href="#javascript">我是链接</a>
-                    </li>
-                    <li>
-                      <a href="#javascript">我是链接</a>
-                    </li>
-                    <li>
-                      <a href="#javascript">我是链接</a>
-                    </li>
-                    <li>
-                      <a href="#javascript">我是链接</a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="user-info-history">
-                  <CustomIcon className="user-info-icon-shizhong" type="shizhong" />
-                  <div className="user-info-history-title">React是世界上最好的框架</div>
-                  <div className="user-info-history-section">1-1 初识React</div>
-                  <a className="user-info-history-continue" href="#javascript">继续</a>
-                </div>
-                <div className="user-info-logout">
-                  <a className="user-info-logout-btn" href="#javascript" onClick={() => this.logout()}>安全退出</a>
-                </div>
-              </div> : ""
-            }
-          </React.Fragment>
-          :
-          <React.Fragment>
-            <Link to="/login" className="nav-login-btn">登录</Link>
-            /
+                    <div className="user-info-history">
+                      <CustomIcon className="user-info-icon-shizhong" type="shizhong" />
+                      <div className="user-info-history-title">React是世界上最好的框架</div>
+                      <div className="user-info-history-section">1-1 初识React</div>
+                      <a className="user-info-history-continue" href="#javascript">继续</a>
+                    </div>
+                    <div className="user-info-logout">
+                      <a className="user-info-logout-btn" href="#javascript" onClick={() => this.logout()}>安全退出</a>
+                    </div>
+                  </div> : ""
+              }
+            </React.Fragment>
+            :
+            <React.Fragment>
+              <Link to="/login" className="nav-login-btn">登录</Link>
+              /
             <Link to="/login" className="nav-register-btn">注册</Link>
-          </React.Fragment>
+            </React.Fragment>
         }
       </div>
     )

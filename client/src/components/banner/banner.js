@@ -65,6 +65,9 @@ class Banner extends React.Component {
                     {menuTabs}
                   </div>
                 </div>
+                <div className="menu-type-course">
+                  
+                </div>
               </div> 
               :
               ''
@@ -72,12 +75,12 @@ class Banner extends React.Component {
           </ul>
         </div>
         <div className="banner-content">
-        <Carousel autoplay={true} effect="fade">
-          <Link to="/home"><img src={require('@/assets/imgs/banner1.jpg')} alt="banner1"/></Link>
-          <Link to="/home"><img src={require('@/assets/imgs/banner2.jpg')} alt="banner2"/></Link>
-          <Link to="/home"><img src={require('@/assets/imgs/banner3.jpg')} alt="banner3"/></Link>
-          <Link to="/home"><img src={require('@/assets/imgs/banner4.jpg')} alt="banner4"/></Link>
-        </Carousel>
+          <Carousel autoplay={true} effect="fade">
+            <Link to="/home"><img src={require('@/assets/imgs/banner1.jpg')} alt="banner1"/></Link>
+            <Link to="/home"><img src={require('@/assets/imgs/banner2.jpg')} alt="banner2"/></Link>
+            <Link to="/home"><img src={require('@/assets/imgs/banner3.jpg')} alt="banner3"/></Link>
+            <Link to="/home"><img src={require('@/assets/imgs/banner4.jpg')} alt="banner4"/></Link>
+          </Carousel>
         </div>
       </div>
     )
