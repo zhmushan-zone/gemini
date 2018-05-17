@@ -52,10 +52,16 @@ export class UserController {
 
   static async updateOne(ctx: Context) {
     const user: IUser = ctx.state.user
-    const { nickname, job } = ctx.request.body
+    const { nickname, job, city, sex, signature } = ctx.request.body
+    const updateUser = {} as IUser
+    if (nickname) { updateUser.nickname = nickname }
+    if (job) { updateUser.job = job }
+    if (city) { updateUser.city = city }
+    if (sex) { updateUser.sex = sex }
+    if (signature) { updateUser.signature = signature }
 
     try {
-      const res = await UserService.updateOne(user, { nickname, job } as IUser)
+      const res = await UserService.updateOne(user, updateUser)
       if (!res.ok) { throw new CustomError(ResultCode.UPDATE_FAILED, '更新失败') }
       ctx.body = ResultVO.success()
     } catch (err) {

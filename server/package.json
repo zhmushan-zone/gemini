@@ -11,7 +11,8 @@
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.4.0",
-    "mongoose": "^5.0.10"
+    "mongoose": "^5.0.10",
+    "nodemailer": "^4.6.4"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^7.2.6",
@@ -19,6 +20,7 @@
     "@types/koa-bodyparser": "^4.2.0",
     "@types/koa-router": "^7.0.27",
     "@types/mongoose": "^5.0.7",
+    "@types/nodemailer": "^4.6.0",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2"
   }

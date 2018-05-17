@@ -5,6 +5,9 @@ export class UserVO {
   username: string
   nickname: string
   job: string
+  city: string
+  sex: string
+  signature: string
   role: UserRole
   token?: string
 
@@ -13,6 +16,9 @@ export class UserVO {
     this.username = user.username
     this.nickname = user.nickname
     this.job = user.job
+    this.city = user.city
+    this.sex = user.sex
+    this.signature = user.signature
     this.role = user.role
   }
 }
