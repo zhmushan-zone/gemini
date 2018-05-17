@@ -34,7 +34,7 @@ export function userstatus(state = initState, action) {
     case ActionTypes.LOAD_DATA:
       return { ...state, ...action.payload }
     case ActionTypes.UPDATE_PERSON_MSG:
-      return { ...state, data: action.payload, username: '', nickname: action.payload.username }
+      return { ...state, data: action.payload, nickname: action.payload.username, msg: action.payload.msg }
     case ActionTypes.LOGOUT:
       return { ...initState }
     default:

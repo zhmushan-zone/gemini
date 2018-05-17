@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Modal, Input, Radio } from 'antd'
+import { Modal, Input, Radio, message } from 'antd'
 import './PersonCenterInformation.scss'
 import { changePersonMsg } from '@/redux/actions'
 import CustomIcon from '@/common/customIcon/customIcon'
@@ -21,6 +21,10 @@ class PersonCenterInformation extends React.Component {
       city: ""
     }
   }
+  success = () => {
+    message.success("修改成功")
+  };
+
   showModal = () => {
     this.setState({
       visible: true,
@@ -32,13 +36,14 @@ class PersonCenterInformation extends React.Component {
       confirmLoading: true,
     })
     this.props.changePersonMsg(this.state)
-
+    console.log(this.props.userstatus)
+    this.props.userstatus.data.msg == '成功' ? this.success() : null
     setTimeout(() => {
       this.setState({
         visible: false,
         confirmLoading: false,
       })
-    }, 1000)
+    }, 100)
   }
   // 取消修改信息
   handleCancel = () => {

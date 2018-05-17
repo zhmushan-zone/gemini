@@ -123,6 +123,8 @@ export function changePersonMsg(a) {
     })
     if (res.data.code === 1) {
       return dispatch(updateSuccesss({ msg: res.data.msg, sex, username, job, city, signature }))
+    }else{
+      return dispatch(errorMsg("修改失败了"))
     }
   }
 
