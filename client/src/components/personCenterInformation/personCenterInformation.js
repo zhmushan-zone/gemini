@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Modal, Button, Input, Radio } from 'antd'
+import { Modal, Input, Radio } from 'antd'
 import './PersonCenterInformation.scss'
 import { changePersonMsg } from '@/redux/actions'
 import CustomIcon from '@/common/customIcon/customIcon'
@@ -55,28 +55,27 @@ class PersonCenterInformation extends React.Component {
     })
   }
   render() {
-    // const { username } = this.props.userstatus
     const { visible, confirmLoading } = this.state
     const information = [
       {
         name: '昵称',
-        value: this.props.userstatus.nickname?this.props.userstatus.nickname:this.props.userstatus.username
+        value: this.props.userstatus.nickname ? this.props.userstatus.nickname : this.props.userstatus.username
       },
       {
         name: '职位',
-        value: this.props.userstatus.data.job?this.props.userstatus.data.job:'未设置'
+        value: this.props.userstatus.job ? this.props.userstatus.job : '未设置'
       },
       {
         name: '城市',
-        value: this.props.userstatus.data.city?this.props.userstatus.data.city:'未设置'
+        value: this.props.userstatus.city ? this.props.userstatus.city : '未设置'
       },
       {
         name: '性别',
-        value: this.props.userstatus.data.sex?this.props.userstatus.data.sex:'未设置'
+        value: this.props.userstatus.sex ? this.props.userstatus.sex : '未设置'
       },
       {
         name: '个性签名',
-        value: this.props.userstatus.data.signature?this.props.userstatus.data.sex:"未设置"
+        value: this.props.userstatus.signature ? this.props.userstatus.signature : "未设置"
       }
     ]
     const { TextArea } = Input

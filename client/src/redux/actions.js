@@ -101,7 +101,7 @@ export function login(username, password) {
 
 // 修改个人信息
 export function changePersonMsg(a) {
-  const { sex, username, job, city, signature } = a;
+  const { sex, username, job, city, signature } = a
   const _id = Cookies.get('_id')
   const _token = Cookies.get('_token')
   console.log(_id)
@@ -120,7 +120,7 @@ export function changePersonMsg(a) {
         city,
         signature
       }
-    });
+    })
     if (res.data.code === 1) {
       return dispatch(updateSuccesss({ msg: res.data.msg, sex, username, job, city, signature }))
     }

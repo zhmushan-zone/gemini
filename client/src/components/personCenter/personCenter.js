@@ -53,7 +53,6 @@ class PersonCener extends React.Component {
         </li>
       )
     })
-    const { username } = this.props.userstatus
     return (
       <div className="personCenter-container">
         <div className="header">
