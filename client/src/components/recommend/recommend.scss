@@ -1,0 +1,45 @@
+.recommend {
+  height: 414px;
+  padding: 40px 0 48px;
+
+  h3 {
+    font-size: 20px;
+    color: #4D555D;
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .recommend-content {
+    width: 1152px;
+    height: 252px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+
+    .recommend-course {
+      width: 216px;
+
+      a {
+        img {
+          width: 216px;
+          height: 120px;
+          border-radius: 8px;
+        }
+
+        h3 {
+          font-size: 16px;
+          color: #07111B;
+          line-height: 24px;
+          word-wrap: break-word;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-height: 46px;
+          transition: color .3s;
+          text-align: left;
+          padding: 0 8px;
+          margin-top: 12px;
+        }
+      }
+    }
+  }
+}
