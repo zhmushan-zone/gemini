@@ -1,0 +1,41 @@
+.person-information-container {
+  .title {
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: 700;
+    padding-top: 46px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d0d6d9;
+    .edit-info {
+      color: #93999f;
+      font-weight: 400;
+      font-size: 14px;
+    }
+  }
+  .info-wapper {
+    margin: 24px auto 24px 40px;
+    .info-box {
+      margin-bottom: 12px;
+      display: flex;
+      label {
+        display: block;
+        width: 120px;
+        line-height: 20px;
+        padding: 20px 0;
+        text-align: center;
+        background-color: #f3f5f7;
+        color: #07111b;
+        font-weight: 700;
+      }
+      .content {
+        width: 708px;
+        margin-left: 8px;
+        line-height: 20px;
+        padding: 20px 0 20px 22px;
+        border-bottom: 1px solid #d9dde1;
+      }
+    }
+  }
+}

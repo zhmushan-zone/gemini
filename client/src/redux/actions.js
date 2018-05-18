@@ -14,6 +14,11 @@ function forgetPass(email) {
   return { msg: '', type: ActionTypes.FORGET_PASS, email }
 }
 
+// 修改成功
+function updateSuccesss(obj) {
+  return { payload: { ...obj }, type: ActionTypes.UPDATE_PERSON_MSG }
+}
+
 export function removeMsg() {
   return { msg: '', type: ActionTypes.REMOVE_MSG }
 }
@@ -22,6 +27,8 @@ export function removeMsg() {
 export function loadData(userinfo) {
   return { type: ActionTypes.LOAD_DATA, payload: userinfo }
 }
+
+
 
 export function register(username, password, repet_pass) {
   console.log(username)
@@ -82,7 +89,6 @@ export function login(username, password) {
       Cookies.set('_id', res.data.data.id)
       Cookies.set('_token', res.data.data.token)
       dispatch(authSuccess({ username, password, data: res.data.data }))
-
     } else if (res.data.code === 100) {
       dispatch(errorMsg("登录失败"))
     } else if (res.data.code === -1) {
@@ -93,8 +99,39 @@ export function login(username, password) {
   }
 }
 
-export function logout () {
+// 修改个人信息
+export function changePersonMsg(a) {
+  const { sex, username, job, city, signature } = a
+  const _id = Cookies.get('_id')
+  const _token = Cookies.get('_token')
+  console.log(_id)
+  return async dispatch => {
+    const res = await axios({
+      method: 'put',
+      url: '/api/users',
+      headers: {
+        "id": _id,
+        "token": _token,
+      },
+      data: {
+        "nickname": username,
+        sex,
+        job,
+        city,
+        signature
+      }
+    })
+    if (res.data.code === 1) {
+      return dispatch(updateSuccesss({ msg: res.data.msg, sex, username, job, city, signature }))
+    }else{
+      return dispatch(errorMsg("修改失败了"))
+    }
+  }
+
+}
+
+export function logout() {
   Cookies.remove('_id')
   Cookies.remove('_token')
-  return {type: ActionTypes.LOGOUT, username: '', id: ''}
+  return { type: ActionTypes.LOGOUT, username: '', id: '' }
 }

@@ -155,3 +155,15 @@
 .personCenterNavBgColor {
   background: rgb(240, 20, 20) !important;
 }
+a{
+  text-decoration: none;
+  &:focus{
+    text-decoration: none;
+  }
+}
+.my-icon{
+  margin-left: -20px;
+  &+span{
+    padding-left: 10px; 
+  }
+}
