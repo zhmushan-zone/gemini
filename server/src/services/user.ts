@@ -33,7 +33,7 @@ export class UserService {
     const user = await this.updateById(id, { tokenSecret } as IUser) as IUser
     user.tokenSecret = tokenSecret
     const userVO = new UserVO(user)
-    userVO.token = generateToken(JSON.stringify(userVO), user.tokenSecret)
+    userVO.token = generateToken(userVO, user.tokenSecret)
 
     return userVO
   }
