@@ -63,10 +63,10 @@ class PersonCener extends React.Component {
               </div>
             </div>
             <div className="user-info-right">
-              <h3 className="user-name">{this.props.userstatus.nickname?this.props.userstatus.nickname:this.props.userstatus.username}</h3>
+              <h3 className="user-name">{this.props.userstatus.nickname ? this.props.userstatus.nickname : this.props.userstatus.username}</h3>
             </div>
             <div className="user-sign">
-              <p className="user-desc">这位同学很懒，木有签名的说～</p>
+              <p className="user-desc">{this.props.userstatus.signature ? this.props.userstatus.signature : "未设置"}</p>
             </div>
             <div className="study-info">
               <div className="item follows">
