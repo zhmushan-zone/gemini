@@ -34,7 +34,7 @@ export class VideoController {
 
   static async fetchAll(ctx: Context) {
     try {
-      const videos: IVideo[] = await VideoService.fetchAll()
+      const videos: IVideo[] = await VideoService.findAll()
       ctx.body = ResultVO.success(videos.map(v => new VideoVO(v)))
     } catch (err) {
       ctx.body = new ResultVO(err.code || ResultCode.UNKNOWN, err.message)

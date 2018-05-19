@@ -6,7 +6,7 @@ export class VideoService {
     return new Video(video).save()
   }
 
-  static fetchAll() {
+  static findAll() {
     return Video.find()
   }
 }
