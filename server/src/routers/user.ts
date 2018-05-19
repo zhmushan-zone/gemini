@@ -1,6 +1,6 @@
 import * as koaRouter from 'koa-router'
 import { UserController } from '../controllers'
-import { userAuth } from '../utils/auth'
+import { userAuth } from '../utils'
 
 export const userRouter = new koaRouter({ prefix: '/api/users' })
 
