@@ -20,10 +20,13 @@
       width: 216px;
 
       a {
+        height: 100%;
+        display: block;
         img {
           width: 216px;
           height: 120px;
           border-radius: 8px;
+          transition: box-shadow .3s;
         }
 
         h3 {
@@ -38,6 +41,28 @@
           text-align: left;
           padding: 0 8px;
           margin-top: 12px;
+          margin-bottom: 0;
+        }
+
+        .recommend-course-data {
+          padding: 0 8px;
+          margin-top: 10px;
+
+          span {
+            color: #93999F;
+            font-size: 12px;
+            margin-right: 16px;
+          }
+        }
+
+        .recomend-course-price {
+          padding: 0 8px;
+          margin-top: 4px;
+
+          span {
+            color: #93999F;
+            margin-left: 8px;
+          }
         }
       }
     }

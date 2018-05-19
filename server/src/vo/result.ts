@@ -1,4 +1,4 @@
-export const enum ResultCode {
+export enum ResultCode {
   UNKNOWN = -1,
   SUCCESS = 1,
   LOGIN_FAILED = 100,
@@ -7,6 +7,9 @@ export const enum ResultCode {
   ID_INVALID = 103,
   NO_PERMISSION = 104,
   UPDATE_FAILED = 105,
+  FILE_DEL_FAILED = 200,
+  EXTNAME_ERR = 201,
+  FILE_NOT_EXISIT = 202,
 }
 
 export class ResultVO<T> {
