@@ -1,5 +1,5 @@
 import { Context } from 'koa'
-import { IUser, IFile } from '../models'
+import { IUser, IFile, IVideo } from '../models'
 import { ResultVO, ResultCode, VideoVO } from '../vo'
 import * as path from 'path'
 import * as fs from 'fs'
@@ -27,6 +27,15 @@ export class VideoController {
         }
       }
       ctx.body = ResultVO.success(res)
+    } catch (err) {
+      ctx.body = new ResultVO(err.code || ResultCode.UNKNOWN, err.message)
+    }
+  }
+
+  static async fetchAll(ctx: Context) {
+    try {
+      const videos: IVideo[] = await VideoService.fetchAll()
+      ctx.body = ResultVO.success(videos.map(v => new VideoVO(v)))
     } catch (err) {
       ctx.body = new ResultVO(err.code || ResultCode.UNKNOWN, err.message)
     }
