@@ -19,10 +19,7 @@ export class VideoController {
         const ext = path.extname(file.name)
         if (!isVideo(ext)) {
           fs.unlink(file.path, () => {})
-          res.push({
-            key,
-            code: ResultCode.EXTNAME_ERR,
-          })
+          res.push(ResultCode.EXTNAME_ERR)
         } else {
           const video = await VideoService.createOne({ userId: user.id, name })
           res.push(new VideoVO(video))
