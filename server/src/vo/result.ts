@@ -9,6 +9,7 @@ export enum ResultCode {
   UPDATE_FAILED = 105,
   FILE_DEL_FAILED = 200,
   EXTNAME_ERR = 201,
+  FILE_NOT_EXISIT = 202,
 }
 
 export class ResultVO<T> {

@@ -1,23 +1,22 @@
 import * as koa from 'koa'
 import * as mongoose from 'mongoose'
 import * as koaStatic from 'koa-static'
-import * as path from 'path'
 import { router } from './routers'
+import { config } from './config'
 const koaBody = require('koa-body')
 
-mongoose.connect('mongodb://localhost/gemini', { config: { autoIndex: false } })
+mongoose.connect(config.DB_NAME, { config: { autoIndex: false } })
 
 const app = new koa()
 
-app.use(koaStatic(path.join(__dirname, '../public')))
+app.use(koaStatic(config.PUBLIC_PATH))
 app.use(koaBody({
   multipart: true,
   formidable: {
-    maxFileSize: '3000 * 1024 * 1024',
-    uploadDir: path.join(__dirname, '../private'),
+    maxFileSize: config.UPLOAD_MAX_FILE_SIZE,
+    uploadDir: config.UPLOAD_PATH,
   },
 }))
 app.use(router.routes())
-
-app.listen(9999)
-console.log('run 9999')
+app.listen(config.PORT)
+console.log(`run as ${config.PORT}`)

@@ -9,4 +9,8 @@ export class VideoService {
   static findAll() {
     return Video.find()
   }
+
+  static findById(id: string) {
+    return Video.findById(id)
+  }
 }
