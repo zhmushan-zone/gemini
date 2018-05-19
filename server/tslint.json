@@ -19,7 +19,7 @@
 		"only-arrow-functions": true,
 		"curly": true,
 		"eofline": true,
-		"array-type": true,
+		"array-type": false,
 		"arrow-return-shorthand": true,
 		"no-angle-bracket-type-assertion": true,
 		"no-inferrable-types": true,
