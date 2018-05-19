@@ -1,0 +1,45 @@
+.clear-all {
+    clear: both;
+}
+
+#root {
+    height: 100%;
+}
+
+.markdown-container {
+    height: 100%;
+    ul li{
+      margin-left: 20px;
+      list-style: circle;
+    }
+    #markdown-title {
+        text-align: center;
+        color: white;
+        height: 80px;
+    }
+    #markdown-content {
+        display: flex;
+        background: white;
+        width: 80%;
+        height: calc(100% - 140px);
+        border-radius: 10px;
+        margin: 10px auto;
+        padding: 10px;
+    }
+    #markdown-src,
+    #markdown-des {
+        width: 48%;
+        height: 60%;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 10px;
+        overflow: auto;
+    }
+    #markdown-src textarea {
+        width: 100%;
+        height: calc(100% - 30px);
+        font-size: 20px;
+    }
+}
