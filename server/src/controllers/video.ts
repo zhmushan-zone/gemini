@@ -45,13 +45,25 @@ export class VideoController {
 
   static async fetchOne(ctx: Context) {
     const { id } = ctx.params
+    const range: string = ctx.headers.range
 
     try {
       const video = await VideoService.findById(id)
-      if (!video) { throw new CustomError(ResultCode.FILE_NOT_EXISIT, ResultCode[ResultCode.FILE_NOT_EXISIT])}
-      ctx.body = fs.createReadStream(path.join(config.VIDEOS_PATH, video.name))
+      if (!video) { throw new CustomError(ResultCode.FILE_NOT_EXISIT, ResultCode[ResultCode.FILE_NOT_EXISIT]) }
+      const filePath = path.join(config.VIDEOS_PATH, video.name)
+      const stat = fs.statSync(filePath)
+      const [, start, end] =
+        (/bytes=([0-9]+)-([0-9]*)/.exec(range) as Array<string>)
+          .map(v => v ? parseInt(v) : stat.size - 1)
+
+      const file = fs.createReadStream(filePath, { start, end }).on('error', err => console.log(err))
+      ctx.res.writeHead(206, {
+        'Content-Range': `bytes ${start}-${end}/${stat.size}`,
+      })
+      ctx.body = file.pipe(ctx.res)
     } catch (err) {
       ctx.body = new ResultVO(err.code || ResultCode.UNKNOWN, err.message)
     }
+    ctx.onerror = err => console.log(err)
   }
 }
