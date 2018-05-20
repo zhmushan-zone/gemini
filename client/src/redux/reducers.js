@@ -24,7 +24,7 @@ export function userstatus(state = initState, action) {
     // case ActionTypes.LOGIN:
     //   return { ...state, msg: action.msg }
     case ActionTypes.AUTH_SUCCESS:
-      return { ...state, data: action.payload, redirectTo: '/home' }
+      return { ...state, data: action.payload, redirectTo: '/home', username: action.payload.username }
     case ActionTypes.FORGET_PASS:
       return { ...state, email: action.email }
     case ActionTypes.ERROR_MSG:

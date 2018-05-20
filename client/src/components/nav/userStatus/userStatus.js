@@ -39,7 +39,6 @@ class UserStatus extends React.Component {
 
 
   render() {
-
     const nickname = this.props.nickname ? this.props.nickname : this.props.username
     const linkStyle = this.state.isUserInfoShow ? { border: '2px solid #f01414' } : { border: 'none' }
     return (

@@ -1,6 +1,7 @@
 import React from "react"
 import Banner from '@/components/banner/banner'
 import Recommend from '@/components/recommend/recommend'
+import LastestCourse from '@/components/lastestCourse/lastestCourse'
 
 import './home.scss'
 
@@ -11,6 +12,7 @@ class Home extends React.Component {
         <div className="home-top">
           <Banner />
           <Recommend />
+          <LastestCourse />
         </div>
       </div>
     )

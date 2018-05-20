@@ -4,6 +4,7 @@ import Login from '../containers/login/login'
 import AutoRoute from './authRoute/authRoute'
 import Layout from './layout/layout'
 import PersonCenter from './personCenter/personCenter'
+import Editor from './editor/editor'
 import Home from '../containers/home/home'
 import '@/assets/styles/normalize.scss'
 // icon图标
@@ -20,6 +21,7 @@ class App extends React.Component {
           <Layout>
             <Route path="/home" component={Home}></Route>
             <Route path="/personCenter" component={PersonCenter}></Route>
+            <Route path="/editor" component={Editor}></Route>
           </Layout>
         </Switch>
       </React.Fragment>
