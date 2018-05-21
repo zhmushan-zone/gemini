@@ -13,6 +13,8 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS'
 // 加载数据
 export const LOAD_DATA = 'LOAD_DATA'
 // 注销
-export const LOGOUT =  'LOGOUT'
+export const LOGOUT = 'LOGOUT'
 // 修改信息
-export const UPDATE_PERSON_MSG =  'UPDATE_PERSON_MSG'
+export const UPDATE_PERSON_MSG = 'UPDATE_PERSON_MSG'
+// 修改头像
+export const CHANGE_AVATAR = 'CHANGE_AVATAR'

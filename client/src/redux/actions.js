@@ -14,6 +14,10 @@ function forgetPass(email) {
   return { msg: '', type: ActionTypes.FORGET_PASS, email }
 }
 
+function changeAvatarFunc(last, now) {
+  return { type: ActionTypes.CHANGE_AVATAR, avatar: now, lastPic: last }
+}
+
 // 修改成功
 function updateSuccesss(obj) {
   return { payload: { ...obj }, type: ActionTypes.UPDATE_PERSON_MSG }
@@ -123,7 +127,7 @@ export function changePersonMsg(a) {
     })
     if (res.data.code === 1) {
       return dispatch(updateSuccesss({ msg: res.data.msg, sex, username, job, city, signature }))
-    }else{
+    } else {
       return dispatch(errorMsg("修改失败了"))
     }
   }
@@ -133,4 +137,10 @@ export function logout() {
   Cookies.remove('_id')
   Cookies.remove('_token')
   return { type: ActionTypes.LOGOUT, username: '', id: '' }
+}
+
+// 修改头像
+export function changeAvatar(last, name) {
+  console.log(last)
+  return changeAvatarFunc(last, name)
 }

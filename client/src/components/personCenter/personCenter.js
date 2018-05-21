@@ -5,22 +5,23 @@ import { Modal } from 'antd'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import CustomIcon from '@/common/customIcon/customIcon'
+import { changeAvatar } from '@/redux/actions'
 import PersonCenterDynamic from '../personCenterDynamic/personCenterDynamic'
 import PersonCenterInformation from '../personCenterInformation/personCenterInformation'
 import PersonCenterArticle from '../personCenterArticle/personCenterArticle'
 import personCenterClass from '../personCenterClass/personCenterClass'
 import './personCenter.scss'
-import avatar from '@/assets/imgs/user-avator.jpg'
 @connect(
-  state => state
+  state => state,
+  { changeAvatar }
 )
+
 class PersonCener extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       visible: false,
       confirmLoading: false,
-      avatar: avatar
     }
   }
   showModal = () => {
@@ -29,7 +30,7 @@ class PersonCener extends React.Component {
     })
   }
   changAvatar = () => {
-    var _this = this;
+    var _this = this
     document.getElementById("avatar").addEventListener("change", function () {
       var avatar = document.getElementById("avatar").files[0]
       var bodyFormData = new FormData()
@@ -46,17 +47,15 @@ class PersonCener extends React.Component {
       })
         .then(function (res) {
           if (res.data.code === 1) {
-            console.log(res.data.data)
-            _this.setState({
-              avatar: `/api/users/avatar/${res.data.data}`
-            })
+            var namePic = res.data.data
+            _this.props.changeAvatar(avatar, namePic)
+            avatar = namePic
           }
-
         })
         .catch(function (res) {
 
         })
-    });
+    })
   }
   handleOk = () => {
     this.setState({
@@ -71,7 +70,6 @@ class PersonCener extends React.Component {
     }, 100)
   }
   handleCancel = () => {
-    console.log('Clicked cancel button')
     this.setState({
       visible: false,
     })
@@ -125,7 +123,7 @@ class PersonCener extends React.Component {
             <div className="user-pic">
               <div className="user-pic-bg">
                 <label onClick={this.showModal}>更换</label>
-                <img src={this.state.avatar} alt="" />
+                <img src={this.props.userstatus.avatar ? `/api/users/avatar/${this.props.userstatus.avatar}` : ''} alt="" />
                 <Modal title="更换头像"
                   visible={this.state.visible}
                   onOk={this.handleOk}
@@ -137,7 +135,7 @@ class PersonCener extends React.Component {
                   <div className="change-avatar-container">
                     <input type="file" id="avatar" style={{ 'display': 'none' }} />
                     <label htmlFor="avatar" onClick={this.changAvatar}></label>
-                    <img src={this.state.avatar} alt="" />
+                    <img src={this.props.userstatus.avatar ? `/api/users/avatar/${this.props.userstatus.avatar}` : ''} alt="" />
                   </div>
                 </Modal>
               </div>

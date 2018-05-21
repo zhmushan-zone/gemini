@@ -35,8 +35,12 @@ export function userstatus(state = initState, action) {
       return { ...state, ...action.payload }
     case ActionTypes.UPDATE_PERSON_MSG:
       return { ...state, job: action.payload.job, nickname: action.payload.username, msg: action.payload.msg, city: action.payload.msg, signature: action.payload.signature, sex: action.payload.sex }
+    case ActionTypes.CHANGE_AVATAR:
+      console.log(action)
+      return { ...state, avatar: action.avatar, lastPic: action.lastPic }
     case ActionTypes.LOGOUT:
       return { ...initState }
+
     default:
       return state
   }
