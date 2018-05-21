@@ -127,7 +127,6 @@ export function changePersonMsg(a) {
       return dispatch(errorMsg("修改失败了"))
     }
   }
-
 }
 
 export function logout() {

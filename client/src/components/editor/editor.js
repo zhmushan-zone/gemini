@@ -35,6 +35,7 @@ class Editor extends React.Component {
             tag: this.state.tag
           })
         }
+        return null
       })
     }
   }

@@ -131,7 +131,8 @@
         "warn",
         "never"
       ],
-      "no-useless-escape": "off"
+      "no-useless-escape": "off",
+      "no-unused-expressions": "off"
     }
   },
   "devDependencies": {

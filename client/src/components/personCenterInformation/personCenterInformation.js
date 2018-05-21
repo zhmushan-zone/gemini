@@ -105,7 +105,7 @@ class PersonCenterInformation extends React.Component {
             <Input placeholder="昵称" size="large" defaultValue="1" value={this.state.username} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'username')} />
             <Input placeholder="职位" size="large" value={this.state.job} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'job')} />
             <Input placeholder="城市" size="large" value={this.state.city} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'city')} />
-            <RadioGroup onChange={this.onRadioChange} value={this.state.sex} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'sex')}>
+            <RadioGroup value={this.state.sex} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'sex')}>
               <Radio value={'男'}>男</Radio>
               <Radio value={'女'}>女</Radio>
             </RadioGroup>

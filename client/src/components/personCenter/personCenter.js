@@ -1,16 +1,81 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { Modal } from 'antd'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 import CustomIcon from '@/common/customIcon/customIcon'
 import PersonCenterDynamic from '../personCenterDynamic/personCenterDynamic'
 import PersonCenterInformation from '../personCenterInformation/personCenterInformation'
 import PersonCenterArticle from '../personCenterArticle/personCenterArticle'
 import personCenterClass from '../personCenterClass/personCenterClass'
 import './personCenter.scss'
+import avatar from '@/assets/imgs/user-avator.jpg'
 @connect(
   state => state
 )
 class PersonCener extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      visible: false,
+      confirmLoading: false,
+      avatar: avatar
+    }
+  }
+  showModal = () => {
+    this.setState({
+      visible: true,
+    })
+  }
+  changAvatar = () => {
+    var _this = this;
+    document.getElementById("avatar").addEventListener("change", function () {
+      var avatar = document.getElementById("avatar").files[0]
+      var bodyFormData = new FormData()
+      bodyFormData.set('avatar', avatar)
+      axios({
+        method: 'post',
+        url: '/api/users/avatar',
+        data: bodyFormData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          "id": Cookies.get('_id'),
+          "token": Cookies.get('_token'),
+        },
+      })
+        .then(function (res) {
+          if (res.data.code === 1) {
+            console.log(res.data.data)
+            _this.setState({
+              avatar: `/api/users/avatar/${res.data.data}`
+            })
+          }
+
+        })
+        .catch(function (res) {
+
+        })
+    });
+  }
+  handleOk = () => {
+    this.setState({
+      confirmLoading: true,
+    })
+
+    setTimeout(() => {
+      this.setState({
+        visible: false,
+        confirmLoading: false,
+      })
+    }, 100)
+  }
+  handleCancel = () => {
+    console.log('Clicked cancel button')
+    this.setState({
+      visible: false,
+    })
+  }
   render() {
     const nav = [
       {
@@ -59,7 +124,22 @@ class PersonCener extends React.Component {
           <div className="user-info">
             <div className="user-pic">
               <div className="user-pic-bg">
-                <img src={require(`@/assets/imgs/user-avator.jpg`)} alt="" />
+                <label onClick={this.showModal}>更换</label>
+                <img src={this.state.avatar} alt="" />
+                <Modal title="更换头像"
+                  visible={this.state.visible}
+                  onOk={this.handleOk}
+                  confirmLoading={this.state.confirmLoading}
+                  onCancel={this.handleCancel}
+                  okText="确定"
+                  cancelText="取消"
+                >
+                  <div className="change-avatar-container">
+                    <input type="file" id="avatar" style={{ 'display': 'none' }} />
+                    <label htmlFor="avatar" onClick={this.changAvatar}></label>
+                    <img src={this.state.avatar} alt="" />
+                  </div>
+                </Modal>
               </div>
             </div>
             <div className="user-info-right">
@@ -67,7 +147,7 @@ class PersonCener extends React.Component {
             </div>
             <div className="user-sign">
               <p className="user-desc">{this.props.userstatus.signature ? this.props.userstatus.signature : "未设置"}</p>
-            </div>
+            </div>ModalText
             <div className="study-info">
               <div className="item follows">
                 <div className="u-info-learn" title="学习时长335小时18分">
