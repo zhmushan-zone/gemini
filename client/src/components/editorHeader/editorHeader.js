@@ -12,10 +12,11 @@ class EditorHeader extends React.Component {
     this.inputText.focus()
   }
 
-  handleTitle(e) {
+  async handleTitle(e) {
     this.setState({
       title: e.target.value
     })
+    await this.props.editorHeader(this.state.title)
   }
   render() {
     return (

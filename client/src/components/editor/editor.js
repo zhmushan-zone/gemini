@@ -1,28 +1,19 @@
 import React from 'react'
 import SimpleMDE from 'react-simplemde-editor'
-import { Tag, Button } from 'antd'
+import { Button } from 'antd'
 import EditorHeader from '../editorHeader/editorHeader'
 import CustomIcon from '@/common/customIcon/customIcon'
+import MyTag from '../tag/tag'
 import 'simplemde/dist/simplemde.min.css'
 import './editor.scss'
-const { CheckableTag } = Tag
-class MyTag extends React.Component {
-  state = { checked: false };
-  handleChange = (checked, e) => {
-    this.setState({ checked: !this.state.checked })
-    this.props.getnowchecked(checked)
-  }
-  render() {
-    return <CheckableTag {...this.props} checked={this.state.checked} onChange={this.handleChange} />
-  }
-}
 
 class Editor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       textValue: '',
-      tag: []
+      tag: [],
+      title: '',
     }
   }
   handleChange(value) {
@@ -30,15 +21,37 @@ class Editor extends React.Component {
       textValue: value
     })
   }
-  getChecked(check){
-    console.log(check)
+  handleChecked(check, text) {
+    if (check) {
+      this.state.tag.push(text)
+      this.setState({
+        tag: this.state.tag
+      })
+    } else {
+      this.state.tag.map((v, index) => {
+        if (v === text) {
+          this.state.tag.splice(index, 1)
+          this.setState({
+            tag: this.state.tag
+          })
+        }
+      })
+    }
+  }
+  geteditorHeader = (title) => [
+    this.setState({
+      title: title
+    })
+  ]
+  sendArticle = () => {
+    console.log(this.state)
   }
 
   render() {
     const category = ['JavaScript', 'Node.js', 'Vue', 'react', 'angular', 'html', 'css', 'jquery', 'bootstrap', '前端工具', 'sass/less', 'java', 'python', 'go', 'php', 'ruby', 'thinkphp', 'c', 'c++', 'c#', 'spring boot', 'Yli', '算法', '数据库', 'android', 'ios', '大数据', '人工智能', '机器学习', '产品', '设计']
     return (
       <div className="editorContainer">
-        <EditorHeader />
+        <EditorHeader editorHeader={(title) => this.geteditorHeader(title)} />
         <SimpleMDE
           onChange={this.handleChange.bind(this)}
           value={this.state.textValue}
@@ -60,12 +73,12 @@ class Editor extends React.Component {
           <div>
             {category.map(v => {
               return (
-                <MyTag key={v} getnowchecked={check => this.getChecked(check)}>{v}</MyTag>
+                <MyTag key={v} text={v} getChecked={(check, text) => this.handleChecked(check, text)}></MyTag>
               )
             })}
           </div>
           <p>
-            <Button type="danger" size={"large"} ghost>发表</Button>
+            <Button type="danger" size={"large"} ghost onClick={this.sendArticle}>发表文章</Button>
           </p>
         </div>
       </div>

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Tabs } from 'antd'
-import CustomIcon from '@/common/customIcon/customIcon'
 import './personCenterClass.scss'
 const TabPane = Tabs.TabPane
 class PersonCenterClass extends React.Component {
