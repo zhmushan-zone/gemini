@@ -5,6 +5,16 @@ import CustomIcon from '@/common/customIcon/customIcon'
 import './wonderfulContent.scss'
 
 class WonderfulContent extends React.Component {
+  componentDidMount() {
+    const grid = document.querySelector('.masonry')
+    const msnry = new Masonry( grid, {
+      // options...
+      itemSelector: '.grid-item',
+      gutter: 18,
+      isFitWidth: true
+    })
+    console.log(msnry)
+  }
   render () {
     const periodTopics = period.map((item, index) => {
       return (
@@ -20,7 +30,7 @@ class WonderfulContent extends React.Component {
     
     const wonderfulArticles = articles.map((item, index) => {
       return (
-        <div className="wonderful-article" key={index}>
+        <div className="wonderful-article grid-item" key={index}>
           <label className="wonderful-article-label">
             <CustomIcon type="article" size={16} />
             手记文章
@@ -47,7 +57,7 @@ class WonderfulContent extends React.Component {
       <div className="wonderful-content">
         <h3>优质精选</h3>
         <div className="masonry">
-          <div className="home-hot-topic">
+          <div className="home-hot-topic grid-item">
             <label className="home-topic-label">
               本期热门
             </label>
@@ -86,6 +96,11 @@ const period = [
 ]
 
 const articles = [
+  { title: '如何基于区块链技术开发应用', content: '随着区块链的火热，相信很多同学已经跃跃欲试想投入到区块链开发队伍当中来，可是又感觉无从下手，本文就基于以太坊平台，轻松带大家入区块链技术开发应用的大门。 以太坊是什么 我们要开发一个区块链应用，如果要从头开发一个区块链，是不现实的，这时我们就需要以太坊这样的平台。 以太坊（Ethereum）是一个建立在区块链技术之上的应用平台。它允许任何人在平台中建立和使用通过区块链技术运行的去中心化应用。 对这...', viewerCoutent: '951', recommendCount: '12', img: 'https://img.mukewang.com/5afba9300001878502560256-210-130.jpg' },
+  { title: '如何基于区块链技术开发应用', content: '随着区块链的火热，相信很多同学已经跃跃欲试想投入到区块链开发队伍当中来，可是又感觉无从下手，本文就基于以太坊平台，轻松带大家入区块链技术开发应用的大门。 以太坊是什么 我们要开发一个区块链应用，如果要从头开发一个区块链，是不现实的，这时我们就需要以太坊这样的平台。 以太坊（Ethereum）是一个建立在区块链技术之上的应用平台。它允许任何人在平台中建立和使用通过区块链技术运行的去中心化应用。 对这...', viewerCoutent: '951', recommendCount: '12', img: 'https://img.mukewang.com/5afba9300001878502560256-210-130.jpg' },
+  { title: '如何基于区块链技术开发应用', content: '随着区块链的火热，相信很多同学已经跃跃欲试想投入到区块链开发队伍当中来，可是又感觉无从下手，本文就基于以太坊平台，轻松带大家入区块链技术开发应用的大门。 以太坊是什么 我们要开发一个区块链应用，如果要从头开发一个区块链，是不现实的，这时我们就需要以太坊这样的平台。 以太坊（Ethereum）是一个建立在区块链技术之上的应用平台。它允许任何人在平台中建立和使用通过区块链技术运行的去中心化应用。 对这...', viewerCoutent: '951', recommendCount: '12', img: 'https://img.mukewang.com/5afba9300001878502560256-210-130.jpg' },
+  { title: '如何基于区块链技术开发应用', content: '随着区块链的火热，相信很多同学已经跃跃欲试想投入到区块链开发队伍当中来，可是又感觉无从下手，本文就基于以太坊平台，轻松带大家入区块链技术开发应用的大门。 以太坊是什么 我们要开发一个区块链应用，如果要从头开发一个区块链，是不现实的，这时我们就需要以太坊这样的平台。 以太坊（Ethereum）是一个建立在区块链技术之上的应用平台。它允许任何人在平台中建立和使用通过区块链技术运行的去中心化应用。 对这...', viewerCoutent: '951', recommendCount: '12', img: 'https://img.mukewang.com/5afba9300001878502560256-210-130.jpg' },
+  { title: '如何基于区块链技术开发应用', content: '随着区块链的火热，相信很多同学已经跃跃欲试想投入到区块链开发队伍当中来，可是又感觉无从下手，本文就基于以太坊平台，轻松带大家入区块链技术开发应用的大门。 以太坊是什么 我们要开发一个区块链应用，如果要从头开发一个区块链，是不现实的，这时我们就需要以太坊这样的平台。 以太坊（Ethereum）是一个建立在区块链技术之上的应用平台。它允许任何人在平台中建立和使用通过区块链技术运行的去中心化应用。 对这...', viewerCoutent: '951', recommendCount: '12', img: 'https://img.mukewang.com/5afba9300001878502560256-210-130.jpg' },
   { title: '如何基于区块链技术开发应用', content: '随着区块链的火热，相信很多同学已经跃跃欲试想投入到区块链开发队伍当中来，可是又感觉无从下手，本文就基于以太坊平台，轻松带大家入区块链技术开发应用的大门。 以太坊是什么 我们要开发一个区块链应用，如果要从头开发一个区块链，是不现实的，这时我们就需要以太坊这样的平台。 以太坊（Ethereum）是一个建立在区块链技术之上的应用平台。它允许任何人在平台中建立和使用通过区块链技术运行的去中心化应用。 对这...', viewerCoutent: '951', recommendCount: '12', img: 'https://img.mukewang.com/5afba9300001878502560256-210-130.jpg' }
 ]
 
