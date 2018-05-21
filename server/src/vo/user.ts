@@ -4,6 +4,7 @@ export class UserVO {
   id: string
   username: string
   nickname: string
+  avatar: string
   job: string
   city: string
   sex: string
@@ -15,6 +16,7 @@ export class UserVO {
     this.id = user.id
     this.username = user.username
     this.nickname = user.nickname
+    this.avatar = user.avatar
     this.job = user.job
     this.city = user.city
     this.sex = user.sex
