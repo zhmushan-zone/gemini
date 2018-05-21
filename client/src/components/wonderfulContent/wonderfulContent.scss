@@ -11,8 +11,9 @@
   }
 
   .masonry {
+    margin: 0 auto;
+
     .home-hot-topic {
-      width: 372px;
       padding: 24px 32px 32px;
       box-shadow: 0 4px 8px 0 rgba(7,17,27,.05);
       transition: box-shadow .3s;
@@ -133,7 +134,6 @@
     }
 
     .wonderful-article {
-      width: 372px;
       padding: 24px 32px 32px;
       box-shadow: 0 4px 8px 0 rgba(7,17,27,.05);
       transition: box-shadow .3s;
@@ -207,6 +207,11 @@
           }
         }
       }
+    }
+
+    .grid-item {
+      width: 372px;
+      margin-bottom: 18px;
     }
   }
 }
