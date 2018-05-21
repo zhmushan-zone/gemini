@@ -1,6 +1,5 @@
 .wonderful-content {
   padding: 36px 0 48px;
-  height: 1000px;
   font-size: 12px;
   background: #f8fafc;
 
@@ -11,122 +10,201 @@
     margin-bottom: 36px;
   }
 
-  .home-hot-topic {
-    width: 372px;
-    padding: 24px 32px 32px;
-    box-shadow: 0 4px 8px 0 rgba(7,17,27,.05);
-    transition: box-shadow .3s;
-    margin: 0 auto;
-
-    &:hover {
-      box-shadow: 0 8px 16px 0 rgba(7,17,27,.1);
-    }
-
-    .home-topic-label {
-      background: rgba(0,180,60,.5);
-      border-radius: 12px;
-      padding: 4px 12px;
-      color: #fff;
-    }
-
-    .this-period-topic-title {
-      height: 72px;
-      display: flex;
-      margin-top: 8px;
-      justify-content: space-between;
-
-      a {
-        width: 224px;
-        color: rgba(0,180,60,.6);
-        font-size: 16px;
-        transition: color .3s;
-
-        &:hover {
-          color: rgba(0,180,60,.8);
+  .masonry {
+    .home-hot-topic {
+      width: 372px;
+      padding: 24px 32px 32px;
+      box-shadow: 0 4px 8px 0 rgba(7,17,27,.05);
+      transition: box-shadow .3s;
+      border-radius: 8px;
+  
+      &:hover {
+        box-shadow: 0 8px 16px 0 rgba(7,17,27,.1);
+      }
+  
+      .home-topic-label {
+        background: rgba(0,180,60,.5);
+        border-radius: 12px;
+        padding: 4px 12px;
+        color: #fff;
+      }
+  
+      .this-period-topic-title {
+        height: 72px;
+        display: flex;
+        margin-top: 8px;
+        justify-content: space-between;
+  
+        a {
+          width: 224px;
+          color: rgba(0,180,60,.6);
+          font-size: 16px;
+          transition: color .3s;
+  
+          &:hover {
+            color: rgba(0,180,60,.8);
+          }
+        }
+  
+        img {
+          width: 72px;
         }
       }
-
-      img {
-        width: 72px;
-      }
-    }
-
-    p.this-period-topic-content {
-      max-height: 120px;
-      color: #4D555D;
-      font-weight: 400;
-      margin: 0;
-      margin-top: 12px;
-      line-height: 24px;
-      white-space:wrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .this-period-topic-details {
-      height: 24px;
-      margin-top: 12px;
-      display: flex;
-      justify-content: flex-end;
-
-      a {
-        color: rgba(0,180,60,.6);
-        transition: color .3s;
-
-        &:hover {
-          color: rgba(0,180,60,.8);
-        }
-      }
-    }
-    h4 {
-      font-size: 12px;
-      color: #93999F;
-      font-weight: normal;
-      position: relative;
   
-      &:after {
-        content: '';
-        width: 245px;
-        height: 1px;
-        background: #D9DDE1;
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin:  auto 0;
-      }
-    }
-  
-    .home-period-topic {
-      height: 72px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      color: #4D555D;
-      margin-bottom: 16px;
-  
-      .home-period-topic-title {
-        width: 224px;
+      p.this-period-topic-content {
+        max-height: 120px;
+        color: #4D555D;
+        font-weight: 400;
+        margin: 0;
+        margin-top: 12px;
+        line-height: 24px;
         white-space:wrap;
         overflow:hidden;
         text-overflow:ellipsis;
       }
   
-      img {
-        width: 72px;
+      .this-period-topic-details {
+        height: 24px;
+        margin-top: 12px;
+        display: flex;
+        justify-content: flex-end;
+  
+        a {
+          color: rgba(0,180,60,.6);
+          transition: color .3s;
+  
+          &:hover {
+            color: rgba(0,180,60,.8);
+          }
+        }
+      }
+      h4 {
+        font-size: 12px;
+        color: #93999F;
+        font-weight: normal;
+        position: relative;
+    
+        &:after {
+          content: '';
+          width: 245px;
+          height: 1px;
+          background: #D9DDE1;
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          margin:  auto 0;
+        }
+      }
+    
+      .home-period-topic {
+        height: 72px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #4D555D;
+        margin-bottom: 16px;
+    
+        .home-period-topic-title {
+          width: 224px;
+          white-space:wrap;
+          overflow:hidden;
+          text-overflow:ellipsis;
+        }
+    
+        img {
+          width: 72px;
+        }
+      }
+      .more-period-topics {
+        height: 24px;
+        display: flex;
+        justify-content: flex-end;
+  
+        a {
+          color: rgba(0,180,60,.6);
+          transition: color .3s;
+  
+          &:hover {
+            color: rgba(0,180,60,.8);
+          }
+        }
       }
     }
-    .more-period-topics {
-      height: 24px;
-      display: flex;
-      justify-content: flex-end;
 
-      a {
-        color: rgba(0,180,60,.6);
-        transition: color .3s;
+    .wonderful-article {
+      width: 372px;
+      padding: 24px 32px 32px;
+      box-shadow: 0 4px 8px 0 rgba(7,17,27,.05);
+      transition: box-shadow .3s;
+      margin: 0 auto;
+      border-radius: 8px;
+      font-size: 12px;
+  
+      &:hover {
+        box-shadow: 0 8px 16px 0 rgba(7,17,27,.1);
+      }
 
-        &:hover {
-          color: rgba(0,180,60,.8);
+      .wonderful-article-label {
+        color: rgba(0,140,200,.6);
+
+        i {
+          position: relative;
+          top: 1px;
+          margin-right: 3px;
+        }
+      }
+
+      .wonderful-article-title {
+        display: flex;
+        justify-content: space-between;
+        height: 48px;
+        margin-top: 8px;
+
+        a {
+          width: 224px;
+          color: #07111B;
+          font-size: 16px;
+          white-space:wrap;
+          overflow:hidden;
+          text-overflow:ellipsis;
+        }
+
+        img {
+          width: 72px;
+        }
+      }
+
+      .wonderful-article-content {
+        color: #4D555D;
+        line-height: 24px;
+        max-height: 192px;
+        white-space:wrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+
+      .wonderful-article-bottom {
+        display: flex;
+
+        .wonderful-article-data {
+          flex: 1;
+          font-weight: 400;
+          color: #93999F;
+
+          span {
+            margin-left: 5px;
+            margin-right: 25px;
+          }
+        }
+
+        a {
+          color: rgba(0,140,200,.6);
+          transition: .3s color;
+
+          &:hover {
+            color: #008CC8;
+          }
         }
       }
     }
