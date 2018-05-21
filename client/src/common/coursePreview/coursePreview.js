@@ -42,16 +42,16 @@ class CoursePreview extends React.Component {
           <div className="course-preview-data">
             <span className="course-preview-difficulty-data">{this.props.level}</span>
             <span className="course-preview-viewer-data">
-              <CustomIcon type="yonghu" size="12" />
+              <CustomIcon type="yonghu" size={12} />
               {this.props.viewerCount}
             </span>
             <span className="course-preview-rate-data">
               {
                 this.rateJudgment(this.props.rate).map((item, index) => {
                   if (item === 'complete') {
-                    return <CustomIcon type="star1" color="#f29d39" size="14" />
+                    return <CustomIcon type="star1" color="#f29d39" size={14} key={index} />
                   } else {
-                    return <CustomIcon type="star2" color="#f29d39" size="14" />
+                    return <CustomIcon type="star2" color="#f29d39" size={14} key={index} />
                   }
                 })
               }

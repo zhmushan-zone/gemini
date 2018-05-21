@@ -1,5 +1,5 @@
 .lastest-course {
-  height: 674px;
+  height: 644px;
   padding: 36px 0 48px;
   background: #f8fafc;
 
@@ -16,5 +16,6 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 }

@@ -1,8 +1,12 @@
 import { Context } from 'koa'
-import { IUser, UserRole } from '../models'
+import { IUser, UserRole, IFile } from '../models'
 import { UserService } from '../services'
 import { CustomError } from '../error'
 import { ResultCode, ResultVO, UserVO } from '../vo'
+import { isImg } from '../utils'
+import * as path from 'path'
+import * as fs from 'fs'
+import { config } from '../config'
 
 export class UserController {
   static async login(ctx: Context) {
@@ -82,6 +86,40 @@ export class UserController {
           ctx.body = ResultVO.success(users.map(v => new UserVO(v)))
           break
       }
+    } catch (err) {
+      ctx.body = new ResultVO(err.code || ResultCode.UNKNOWN, err.message)
+    }
+  }
+
+  static async createAvatar(ctx: Context) {
+    const user: IUser = ctx.state.user
+    const { avatar }: { [index: string]: IFile } = ctx.request.body.files
+
+    try {
+      const name = path.basename(avatar.path)
+      const ext = path.extname(avatar.name)
+      if (!isImg(ext)) { fs.unlink(avatar.path, err => console.log(err)) }
+      else {
+        fs.renameSync(avatar.path, path.join(config.AVATARS_PATH, name))
+        const res = await UserService.updateOne(user, { avatar: name } as IUser)
+        if (!res.ok) { throw new CustomError(ResultCode.UPDATE_FAILED, '更新失败') }
+        if (user.avatar) { fs.unlink(path.join(config.AVATARS_PATH, user.avatar), err => console.log(err)) }
+        ctx.body = ResultVO.success(name)
+      }
+    } catch (err) {
+      ctx.body = new ResultVO(err.code || ResultCode.UNKNOWN, err.message)
+    }
+  }
+
+  static fetchAvatar(ctx: Context) {
+    const { name } = ctx.params
+
+    const avatarPath = path.join(config.AVATARS_PATH, name)
+    try {
+      if (!fs.existsSync(avatarPath)) { throw new CustomError(ResultCode.FILE_NOT_EXISIT, '文件不存在') }
+      const stream = fs.createReadStream(avatarPath)
+      stream.on('error', () => stream.close())
+      ctx.body = stream.pipe(ctx.res)
     } catch (err) {
       ctx.body = new ResultVO(err.code || ResultCode.UNKNOWN, err.message)
     }

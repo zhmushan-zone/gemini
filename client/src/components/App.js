@@ -18,10 +18,10 @@ class App extends React.Component {
         {/* 有了switch后，匹配到path后就不会再匹配下去了 */}
         <Switch>
           <Route path="/login" component={Login}></Route>
+          <Route path="/editor" component={Editor}></Route>
           <Layout>
             <Route path="/home" component={Home}></Route>
             <Route path="/personCenter" component={PersonCenter}></Route>
-            <Route path="/editor" component={Editor}></Route>
           </Layout>
         </Switch>
       </React.Fragment>

@@ -5,6 +5,7 @@ import { router } from './routers'
 import { config } from './config'
 const koaBody = require('koa-body')
 
+config.initDir()
 mongoose.connect(config.DB_NAME, { config: { autoIndex: false } })
 
 const app = new koa()
