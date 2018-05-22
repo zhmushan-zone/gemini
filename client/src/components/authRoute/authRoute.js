@@ -30,7 +30,6 @@ class AutoRoute extends React.Component {
           // 有登录信息
           // 其实是为了解决刷新的时候虽然页面不跳转但是，数据没了
           this.props.loadData(res.data.data)
-          console.log(res.data.data)
           Cookies.set('_token', res.data.data.token)
         }
         // else {

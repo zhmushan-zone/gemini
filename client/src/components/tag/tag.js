@@ -19,7 +19,7 @@ export default class Tag extends Component {
     var TagClass = classNames({
       'tag-span': true,
       'checked-color': this.state.checked,
-    });
+    })
     return (
       <span className={TagClass} onClick={this.handle.bind(this)} value={this.props.text}>{this.props.text}</span>
     )
