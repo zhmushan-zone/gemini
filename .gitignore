@@ -22,7 +22,9 @@ dist/
 .env.production.local
 
 # IDE - VS
-.vs/*
+.vs/
+*.njsproj
+*.sln
 
 npm-debug.log*
 yarn-debug.log*
