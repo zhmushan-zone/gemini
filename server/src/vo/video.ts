@@ -1,7 +1,7 @@
 import { IVideo } from '../models/video'
 
 export class VideoVO {
-  id?: string
+  id?: any
   userId: string
   name: string
 

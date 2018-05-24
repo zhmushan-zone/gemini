@@ -21,6 +21,11 @@ dist/
 .env.test.local
 .env.production.local
 
+# IDE - VS
+.vs/
+*.njsproj
+*.sln
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

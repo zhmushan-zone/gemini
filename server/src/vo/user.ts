@@ -1,7 +1,7 @@
 import { UserRole, IUser } from '../models'
 
 export class UserVO {
-  id: string
+  id?: any
   username: string
   nickname: string
   avatar: string

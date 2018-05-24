@@ -1,11 +1,12 @@
 import { Document, Schema, model } from 'mongoose'
+import { UserVO } from '../vo'
 
 export const enum UserRole {
   USER,
   ADMIN,
 }
 
-export interface IUser extends Document {
+export interface IUser extends Document, UserVO {
   _id: string
   username: string
   nickname: string
