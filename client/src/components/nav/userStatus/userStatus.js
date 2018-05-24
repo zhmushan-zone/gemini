@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import userAvator from '@/assets/imgs/user-avator.jpg'
 import CustomIcon from '@/common/customIcon/customIcon'
 import { connect } from 'react-redux'
 import { logout } from '@/redux/actions'
@@ -49,14 +48,14 @@ class UserStatus extends React.Component {
           this.state.isLogin ?
             <React.Fragment>
               <a className="nav-user-avator">
-                <img style={linkStyle} src={userAvator} alt="user-avator" />
+                <img style={linkStyle} src={this.props.avatar ? `/api/users/avatar/${this.props.avatar}` : ''} alt="user-avator" />
               </a>
               {
                 this.state.isUserInfoShow ?
                   <div className="user-info-wrapper">
                     <div className="user-info-top">
                       <a href="#javascript">
-                        <img src={userAvator} alt="user-avator" />
+                        <img src={this.props.avatar ? `/api/users/avatar/${this.props.avatar}` : ''} alt="user-avator" />
                       </a>
                       <div className="user-info-data">
                         <div className="user-info-name">
