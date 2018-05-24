@@ -13,6 +13,7 @@ node_modules/
 # production
 build/
 dist/
+server/test/*.js
 
 # misc
 .DS_Store

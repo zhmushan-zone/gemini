@@ -5,19 +5,13 @@
     "sourceMap": false,
     "rootDir": "./src",
     "outDir": "./dist",
-    "watch": true,
     "strict": true,
     "experimentalDecorators": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "emitDecoratorMetadata": true,
-    "plugins": [
-      {
-        "name": "tslint-language-service"
-      }
-    ]
+    "emitDecoratorMetadata": true
   },
   "include": [
-    "./src/**/*"
+    "./src/"
   ]
 }
