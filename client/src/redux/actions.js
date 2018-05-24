@@ -14,9 +14,10 @@ function forgetPass(email) {
   return { msg: '', type: ActionTypes.FORGET_PASS, email }
 }
 
-function changeAvatarFunc(last, now) {
-  return { type: ActionTypes.CHANGE_AVATAR, avatar: now, lastPic: last }
+function changeAvatarFunc(now) {
+  return { type: ActionTypes.CHANGE_AVATAR, avatar: now }
 }
+
 
 // 修改成功
 function updateSuccesss(obj) {
@@ -133,6 +134,8 @@ export function changePersonMsg(a) {
   }
 }
 
+
+
 export function logout() {
   Cookies.remove('_id')
   Cookies.remove('_token')
@@ -140,7 +143,6 @@ export function logout() {
 }
 
 // 修改头像
-export function changeAvatar(last, name) {
-  console.log(last)
-  return changeAvatarFunc(last, name)
+export function changeAvatar(name) {
+  return changeAvatarFunc(name)
 }

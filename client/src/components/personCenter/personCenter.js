@@ -5,7 +5,7 @@ import { Modal } from 'antd'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import CustomIcon from '@/common/customIcon/customIcon'
-import { changeAvatar } from '@/redux/actions'
+import { changeAvatar, cancelAvatar } from '@/redux/actions'
 import PersonCenterDynamic from '../personCenterDynamic/personCenterDynamic'
 import PersonCenterInformation from '../personCenterInformation/personCenterInformation'
 import PersonCenterArticle from '../personCenterArticle/personCenterArticle'
@@ -13,7 +13,7 @@ import personCenterClass from '../personCenterClass/personCenterClass'
 import './personCenter.scss'
 @connect(
   state => state,
-  { changeAvatar }
+  { changeAvatar, cancelAvatar }
 )
 
 class PersonCener extends React.Component {
@@ -22,6 +22,7 @@ class PersonCener extends React.Component {
     this.state = {
       visible: false,
       confirmLoading: false,
+      imgurl: ''
     }
   }
   showModal = () => {
@@ -35,32 +36,43 @@ class PersonCener extends React.Component {
       var avatar = document.getElementById("avatar").files[0]
       var bodyFormData = new FormData()
       bodyFormData.set('avatar', avatar)
-      axios({
-        method: 'post',
-        url: '/api/users/avatar',
-        data: bodyFormData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          "id": Cookies.get('_id'),
-          "token": Cookies.get('_token'),
-        },
-      })
-        .then(function (res) {
-          if (res.data.code === 1) {
-            var namePic = res.data.data
-            _this.props.changeAvatar(avatar, namePic)
-            avatar = namePic
-          }
+      var reader = new FileReader();
+      reader.readAsDataURL(avatar)
+      reader.onload = function (e) {
+        var txt = e.target.result
+        _this.setState({
+          imgurl: txt
         })
-        .catch(function (res) {
-
-        })
+      }
     })
   }
   handleOk = () => {
     this.setState({
       confirmLoading: true,
     })
+    var avatar = document.getElementById("avatar").files[0]
+    var bodyFormData = new FormData()
+    bodyFormData.set('avatar', avatar)
+    var _this=this
+    axios({
+      method: 'post',
+      url: '/api/users/avatar',
+      data: bodyFormData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        "id": Cookies.get('_id'),
+        "token": Cookies.get('_token'),
+      },
+    })
+      .then(function (res) {
+        console.log(res)
+        if (res.data.code === 1) {
+          _this.props.changeAvatar(res.data.data)
+        }
+      })
+      .catch(function (res) {
+        console.log(res)
+      })
 
     setTimeout(() => {
       this.setState({
@@ -72,6 +84,7 @@ class PersonCener extends React.Component {
   handleCancel = () => {
     this.setState({
       visible: false,
+      imgurl: ''
     })
   }
   render() {
@@ -135,7 +148,7 @@ class PersonCener extends React.Component {
                   <div className="change-avatar-container">
                     <input type="file" id="avatar" style={{ 'display': 'none' }} />
                     <label htmlFor="avatar" onClick={this.changAvatar}></label>
-                    <img src={this.props.userstatus.avatar ? `/api/users/avatar/${this.props.userstatus.avatar}` : ''} alt="" />
+                    <img src={this.state.imgurl ? this.state.imgurl : `/api/users/avatar/${this.props.userstatus.avatar}`} alt="" />
                   </div>
                 </Modal>
               </div>
