@@ -18,7 +18,6 @@ class App extends React.Component {
         <AutoRoute />
         {/* 有了switch后，匹配到path后就不会再匹配下去了 */}
         <Switch>
-          <Redirect path="/" to={{pathname: '/home'}} />
           <Route path="/login" component={Login}></Route>
           <Route path="/editor" component={Editor}></Route>
           <Layout>
@@ -26,6 +25,7 @@ class App extends React.Component {
             <Route path="/personCenter" component={PersonCenter}></Route>
             <Footer />
           </Layout>
+          <Redirect path="/" to={{pathname: '/home'}} />
         </Switch>
       </React.Fragment>
     )
