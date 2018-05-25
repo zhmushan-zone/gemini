@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import Login from '../containers/login/login'
 import AutoRoute from './authRoute/authRoute'
 import Layout from './layout/layout'
@@ -18,6 +18,7 @@ class App extends React.Component {
         <AutoRoute />
         {/* 有了switch后，匹配到path后就不会再匹配下去了 */}
         <Switch>
+          <Redirect path="/" to={{pathname: '/home'}} />
           <Route path="/login" component={Login}></Route>
           <Route path="/editor" component={Editor}></Route>
           <Layout>
