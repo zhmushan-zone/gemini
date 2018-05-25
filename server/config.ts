@@ -3,6 +3,7 @@ import * as fs from 'fs'
 
 export namespace config {
   export const DB_NAME = 'mongodb://localhost/gemini'
+  export const DB_NAME_TEST = 'mongodb://localhost/gemini_test'
   export const PUBLIC_PATH = path.join(__dirname, '../public')
   export const UPLOAD_PATH = path.join(__dirname, '../private')
   export const VIDEOS_PATH = path.join(UPLOAD_PATH, 'videos')

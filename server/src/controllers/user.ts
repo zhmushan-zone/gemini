@@ -6,7 +6,7 @@ import { ResultCode, ResultVO, UserVO } from '../vo'
 import { isImg } from '../utils'
 import * as path from 'path'
 import * as fs from 'fs'
-import { config } from '../config'
+import { config } from '../../config'
 
 export class UserController {
   static async login(ctx: Context) {
