@@ -6,6 +6,7 @@ import Layout from './layout/layout'
 import PersonCenter from './personCenter/personCenter'
 import Editor from './editor/editor'
 import Home from '../containers/home/home'
+import Footer from '../components/footer/footer'
 import '@/assets/styles/normalize.scss'
 // icon图标
 import '@/assets/styles/font/icon.css'
@@ -22,6 +23,7 @@ class App extends React.Component {
           <Layout>
             <Route path="/home" component={Home}></Route>
             <Route path="/personCenter" component={PersonCenter}></Route>
+            <Footer />
           </Layout>
         </Switch>
       </React.Fragment>
