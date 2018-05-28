@@ -2,7 +2,7 @@ import * as koa from 'koa'
 import * as mongoose from 'mongoose'
 import * as koaStatic from 'koa-static'
 import { router } from './routers'
-import { config } from './config'
+import { config } from '../config'
 const koaBody = require('koa-body')
 
 config.initDir()

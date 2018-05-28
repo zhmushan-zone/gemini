@@ -1,4 +1,4 @@
-import { Document, Schema, model, Types } from 'mongoose'
+import { Document, Schema, model } from 'mongoose'
 import { VideoVO } from '../vo'
 
 export interface IVideo extends Document, VideoVO {
@@ -8,8 +8,8 @@ export interface IVideo extends Document, VideoVO {
 
 const videoSchema = new Schema({
   userId: {
-    type: Types.ObjectId,
-    ref: 'users',
+    type: Schema.Types.ObjectId,
+    ref: 'User',
   },
   name: {
     type: String,

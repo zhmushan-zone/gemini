@@ -6,7 +6,7 @@ import * as fs from 'fs'
 import { isVideo } from '../utils'
 import { VideoService } from '../services'
 import { CustomError } from '../error'
-import { config } from '../config'
+import { config } from '../../config'
 
 export class VideoController {
   static async createOne(ctx: Context) {

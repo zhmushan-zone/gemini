@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "node ./dist/index.js",
-    "build": "tsc -p ./tsconfig.json"
+    "start": "node ./dist/src/index.js",
+    "build": "tsc",
+    "test": "ava ./dist/test/"
   },
   "dependencies": {
     "jsonwebtoken": "^8.2.0",
@@ -23,6 +24,7 @@
     "@types/koa-static": "^4.0.0",
     "@types/mongoose": "^5.0.7",
     "@types/nodemailer": "^4.6.0",
+    "ava": "^0.25.0",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2"
   }

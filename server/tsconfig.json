@@ -1,23 +1,16 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
     "module": "commonjs",
     "target": "es2017",
     "sourceMap": false,
-    "rootDir": "./src",
+    "rootDir": ".",
+    "baseUrl": ".",
     "outDir": "./dist",
-    "watch": true,
     "strict": true,
     "experimentalDecorators": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "emitDecoratorMetadata": true,
-    "plugins": [
-      {
-        "name": "tslint-language-service"
-      }
-    ]
-  },
-  "include": [
-    "./src/**/*"
-  ]
+    "emitDecoratorMetadata": true
+  }
 }

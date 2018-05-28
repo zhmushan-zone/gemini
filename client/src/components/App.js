@@ -1,11 +1,12 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import Login from '../containers/login/login'
 import AutoRoute from './authRoute/authRoute'
 import Layout from './layout/layout'
 import PersonCenter from './personCenter/personCenter'
 import Editor from './editor/editor'
 import Home from '../containers/home/home'
+import Footer from '../components/footer/footer'
 import '@/assets/styles/normalize.scss'
 // icon图标
 import '@/assets/styles/font/icon.css'
@@ -25,10 +26,11 @@ class App extends React.Component {
                 <Route path="/home" component={Home}></Route>
                 <Route path="/personCenter" component={PersonCenter}></Route>
               </Switch>
+              <Footer />
             </Layout>
           )}></Route>
-
         </Switch>
+        <Redirect path="/" to={{ pathname: '/home' }} />
       </React.Fragment>
     )
   }
