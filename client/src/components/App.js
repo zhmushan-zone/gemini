@@ -19,10 +19,15 @@ class App extends React.Component {
         <Switch>
           <Route path="/login" component={Login}></Route>
           <Route path="/editor" component={Editor}></Route>
-          <Layout>
-            <Route path="/home" component={Home}></Route>
-            <Route path="/personCenter" component={PersonCenter}></Route>
-          </Layout>
+          <Route path="/" render={(props) => (
+            <Layout>
+              <Switch>
+                <Route path="/home" component={Home}></Route>
+                <Route path="/personCenter" component={PersonCenter}></Route>
+              </Switch>
+            </Layout>
+          )}></Route>
+
         </Switch>
       </React.Fragment>
     )
