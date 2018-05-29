@@ -36,7 +36,7 @@ class PersonCener extends React.Component {
       var avatar = document.getElementById("avatar").files[0]
       var bodyFormData = new FormData()
       bodyFormData.set('avatar', avatar)
-      var reader = new FileReader();
+      var reader = new FileReader()
       reader.readAsDataURL(avatar)
       reader.onload = function (e) {
         var txt = e.target.result

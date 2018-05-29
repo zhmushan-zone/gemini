@@ -20,12 +20,16 @@ class App extends React.Component {
         <Switch>
           <Route path="/login" component={Login}></Route>
           <Route path="/editor" component={Editor}></Route>
-          <Layout>
-            <Route path="/home" component={Home}></Route>
-            <Route path="/personCenter" component={PersonCenter}></Route>
-            <Footer />
-          </Layout>
-          <Redirect path="/" to={{pathname: '/home'}} />
+          <Route path="/" render={(props) => (
+            <Layout>
+              <Switch>
+                <Route path="/home" component={Home}></Route>
+                <Route path="/personCenter" component={PersonCenter}></Route>
+                <Redirect path="/" to={{ pathname: '/home' }} />       
+              </Switch>
+              <Footer />
+            </Layout>
+          )}></Route>
         </Switch>
       </React.Fragment>
     )
