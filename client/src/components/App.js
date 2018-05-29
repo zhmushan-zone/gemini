@@ -7,6 +7,7 @@ import PersonCenter from './personCenter/personCenter'
 import Editor from './editor/editor'
 import Home from '../containers/home/home'
 import Footer from '../components/footer/footer'
+import Admin from '../adminComponents/admin/admin'
 import '@/assets/styles/normalize.scss'
 // icon图标
 import '@/assets/styles/font/icon.css'
@@ -20,6 +21,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/login" component={Login}></Route>
           <Route path="/editor" component={Editor}></Route>
+          <Route path="/admin" component={Admin}></Route>
           <Route path="/" render={(props) => (
             <Layout>
               <Switch>
