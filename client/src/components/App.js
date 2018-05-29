@@ -25,12 +25,12 @@ class App extends React.Component {
               <Switch>
                 <Route path="/home" component={Home}></Route>
                 <Route path="/personCenter" component={PersonCenter}></Route>
+                <Redirect path="/" to={{ pathname: '/home' }} />       
               </Switch>
               <Footer />
             </Layout>
           )}></Route>
         </Switch>
-        <Redirect path="/" to={{ pathname: '/home' }} />
       </React.Fragment>
     )
   }

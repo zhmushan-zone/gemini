@@ -18,7 +18,7 @@ class PersonCenterInformation extends React.Component {
       username: "",
       job: "",
       signature: "",
-      city: ""
+      city: "",
     }
   }
   success = () => {
