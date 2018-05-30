@@ -6,6 +6,9 @@ import Layout from './layout/layout'
 import PersonCenter from './personCenter/personCenter'
 import Editor from './editor/editor'
 import Home from '../containers/home/home'
+import OnlineStudying from '../containers/onlineStudying/onlineStudying'
+import Forum from '../containers/forum/forum'
+import Opinion from '../containers/opinion/opinion'
 import Footer from '../components/footer/footer'
 import Admin from '../adminComponents/admin/admin'
 import '@/assets/styles/normalize.scss'
@@ -26,6 +29,9 @@ class App extends React.Component {
             <Layout>
               <Switch>
                 <Route path="/home" component={Home}></Route>
+                <Route path="/onlineStudying" component={OnlineStudying}></Route>
+                <Route path="/forum" component={Forum}></Route>
+                <Route path="/opinion" component={Opinion}></Route>
                 <Route path="/personCenter" component={PersonCenter}></Route>
                 <Redirect path="/" to={{ pathname: '/home' }} />       
               </Switch>

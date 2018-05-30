@@ -18,7 +18,7 @@ class ExcellentUsers extends React.Component {
     })
     const excellentUserItems = users.slice(3).map((item, index) => {
       return (
-        <div className="excellent-user-item">
+        <div className="excellent-user-item" key={index}>
           <a href="#javascript">
             <img src={require(`@/assets/imgs/${item.img}.jpg`)} alt=""/>
           </a>
