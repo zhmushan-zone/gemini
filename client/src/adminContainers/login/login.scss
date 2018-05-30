@@ -1,0 +1,22 @@
+.login {
+  width: 340px;
+  height: 340px;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+  padding: 24px;
+
+  h3 {
+    color: #555;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 20px;
+  }
+}
