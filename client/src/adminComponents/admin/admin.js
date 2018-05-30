@@ -3,12 +3,13 @@ import { withRouter } from 'react-router-dom'
 import BackstageMenu from '../backstageMenu/backstageMenu'
 import BackstageTop from '../backstageTop/backstageTop'
 import Login from '@/adminContainers/login/login'
+import BackStageContent from '@/adminComponents/backstageConent/backstageConent'
 
 import './admin.scss'
 
 @withRouter
 class Admin extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       collapsed: false
@@ -25,15 +26,15 @@ class Admin extends Component {
     return (
       <React.Fragment>
         {
-          pathname === '/admin/login' ? 
-          <Login /> :
-          <div className="admin">
-            <BackstageMenu collapsed={this.state.collapsed} />
-            <div className="backstage-content">
-              <BackstageTop collapsed={this.state.collapsed} toggleCollapsed={this.toggleCollapsed} />
-              {this.props.children}
+          pathname === '/admin/login' ?
+            <Login /> :
+            <div className="admin">
+              <BackstageMenu collapsed={this.state.collapsed} />
+              <div className="backstage-content">
+                <BackstageTop collapsed={this.state.collapsed} toggleCollapsed={this.toggleCollapsed} />
+                <BackStageContent></BackStageContent>
+              </div>
             </div>
-          </div>
         }
       </React.Fragment>
     )
