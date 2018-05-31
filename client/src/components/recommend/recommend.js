@@ -7,10 +7,10 @@ class Recommend extends React.Component {
   
   render () {
     const recommendCourse = recmd.map((item, index) => {
-      const { name, level, viewCount, rate, price, img } = item
+      const { name, level, viewerCount, rate, price, img } = item
       return <CoursePreview name={name}
         level={level}
-        viewCount={viewCount}
+        viewerCount={viewerCount}
         rate={rate}
         price={price}
         img={img}  
