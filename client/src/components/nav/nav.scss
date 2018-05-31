@@ -33,7 +33,7 @@ nav {
                 a {
                     display: flex;
                     justify-content: center;
-                    color: #f45154;
+                    color: #4D555D;
                     transition: all .15s ease;
                     text-decoration: none;
                     &:hover {
@@ -53,7 +53,7 @@ nav {
             top: 18px;
             width: 25%;
             height: 24px;
-            background: slategrey;
+            background: #f45154;
             border-radius: 4px;
             transition: transform .5s cubic-bezier(0.7, -0.2, 0.2, 1.5);
             will-change: transform;
