@@ -7,7 +7,7 @@ function errorMsg(msg) {
 }
 
 function authSuccess(obj) {
-  const { data } = obj;
+  const { data } = obj
   return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: { ...obj },avatar: data.avatar }
 }
 
