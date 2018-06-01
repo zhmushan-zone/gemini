@@ -6,7 +6,6 @@ import classnames from 'classnames'
 import './nav.scss'
 @withRouter
 class Nav extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -16,7 +15,6 @@ class Nav extends React.Component {
 
   componentWillMount () {
     const { pathname } = this.props.location
-    console.log(pathname)
     if (pathname === '/onlineStudying') {
       this.setState({
         selected: 1

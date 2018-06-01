@@ -98,9 +98,63 @@
           }
         }
 
-        .menu-type-course {
+        .menu-type-courses {
           flex: 1;
           background: #F8FAFC;
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          padding-top: 36px;
+
+          
+          a {
+            width: 312px;
+            display: block;
+            height: 70px;
+            margin: 0 24px;
+          }
+
+          .menu-course-item {
+            display: flex;
+
+            img {
+              width: 64px;
+              height: 42px;
+              border-radius: 4px;
+            }
+
+            .menu-course-item-right {
+              flex: 1;
+              padding-left: 16px;
+
+              h3 {
+                width: 232px;
+                font-size: 12px;
+                color: #07111B;
+                line-height: 20px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-weight: 400;
+                margin: 0;
+              }
+
+              .menu-course-item-data {
+                margin-top: 4px;
+                span {
+                  font-size: 12px;
+                  color: #5e5e5e;
+                  margin-right: 20px;
+                }
+              }
+
+              .menu-course-item-price {
+                color: #999;
+                margin-top: 6px;
+                font-size: 12px;
+              }
+            }
+          }
         }
       }
     }

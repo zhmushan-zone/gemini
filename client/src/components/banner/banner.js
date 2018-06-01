@@ -1,5 +1,5 @@
 import React from 'react'
-import CustomIcom from '@/common/customIcon/customIcon'
+import CustomIcon from '@/common/customIcon/customIcon'
 import { Link } from 'react-router-dom'
 import { Carousel } from 'antd'
 
@@ -34,7 +34,7 @@ class Banner extends React.Component {
           <a href="#javascript" 
             onMouseEnter={() => this.menuItemHover(index)}>
             <span>{item}</span>
-            <CustomIcom type="previewright" className="home-menu-icon" />
+            <CustomIcon type="previewright" className="home-menu-icon" />
           </a>
         </li>
       )
@@ -44,6 +44,30 @@ class Banner extends React.Component {
       return (
         <a href="/home" key={index}>
           {item}
+        </a>
+      )
+    })
+    // 通过map menuIndex来显示对应选项卡的课程
+    const menuCourseItems = courses[0].map((item, index) => {
+      return (
+        <a href="#javascript" key={index}>
+          <div className="menu-course-item">
+            <img src={item.img} alt=""/>
+            <div className="menu-course-item-right">
+              <h3>{item.title}</h3>
+              <div className="menu-course-item-data">
+                <span className="menu-course-item-difficulty-data">{item.level}</span>
+                <span className="menu-course-item-viewer-data">
+                  <CustomIcon type="yonghu" size={12} />
+                  {item.viewerCount}
+                </span>
+              </div>
+              <div className="menu-course-item-price">
+                <CustomIcon type="jifen" size={12} />
+                <span style={{marginLeft: 4}}>{item.price}</span>
+              </div>
+            </div>
+          </div>
         </a>
       )
     })
@@ -65,8 +89,8 @@ class Banner extends React.Component {
                     {menuTabs}
                   </div>
                 </div>
-                <div className="menu-type-course">
-                  
+                <div className="menu-type-courses">
+                  {menuCourseItems}
                 </div>
               </div> 
               :
@@ -88,6 +112,7 @@ class Banner extends React.Component {
 }
 
 const menuType = ['前端开发', '后端开发', '移动开发', '数据库', '云计算&大数据', '运维&测试', 'UI设计']
+
 const tabs = [
   ['HTML5', 'CSS3', 'Javascript', 'Jquery', 'Node.js', 'Bootstrap', 'Sass/Less', 'Vue', 'React', 'Angular'],
   ['PHP', 'Java', 'SpringBoot', 'Python', 'C', 'C++', 'Go', 'C#', 'Ruby'],
@@ -98,4 +123,37 @@ const tabs = [
   ['动效动画', 'APPUI设计', '设计工具', '设计基础']
 ]
 
+// 测试数据
+const courses =  [
+  [
+    {
+      title: '前端进阶：响应式开发与常用框架',
+      level: '中级',
+      viewerCount: 2200,
+      price: 300,
+      img: 'https://climg.mukewang.com/5915802b0001da6206000338.jpg'
+    },
+    {
+      title: '前端面试项目冲刺，京东金融Vue组件化实战',
+      level: '中级',
+      viewerCount: 2200,
+      price: 300,
+      img: 'https://img2.mukewang.com/szimg/5a5c07bd00010ee005400300.jpg'
+    },
+    {
+      title: 'React16+React-Router4 从零打造企业级电商后台管理系统',
+      level: '中级',
+      viewerCount: 2200,
+      price: 300,
+      img: 'https://img4.mukewang.com/szimg/5a6e7fdf0001e7bb05400300.jpg'
+    },
+    {
+      title: '揭秘一线互联网企业 前端JavaScript高级面试',
+      level: '中级',
+      viewerCount: 2200,
+      price: 300,
+      img: 'https://img3.mukewang.com/szimg/5a9dfab40001bf1005400300.jpg'
+    },
+  ]
+]
 export default Banner
