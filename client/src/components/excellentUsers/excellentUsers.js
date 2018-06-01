@@ -4,7 +4,7 @@ import './excellentUsers.scss'
 
 class ExcellentUsers extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       name: '该用户已成仙',
       experience: '9999',
