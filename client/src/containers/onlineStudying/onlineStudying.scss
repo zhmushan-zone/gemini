@@ -11,10 +11,38 @@
 
     .course-menu-direction-title {
       width: 52px;
+      height: 44px;
       line-height: 30px;
       font-weight: 700;
       font-size: 14px;
       color: #07111b;
+    }
+
+    .course-menu-direction-tab {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+
+      a {
+        height: 14px;
+        padding: 10px;
+        font-size: 14px;
+        color: #1c1f21;
+        border-radius: 2px;
+        box-sizing: content-box;
+        line-height: 14px;
+        margin-right: 12px;
+        transition: none;
+
+        &.no-active:hover {
+          color: #da3421;
+        }
+      }
+
+      a.active {
+        background: #2b333b;
+        color: #fff;
+      }
     }
   }
 
@@ -27,10 +55,39 @@
 
     .course-menu-type-title {
       width: 52px;
+      height: 44px;
       line-height: 30px;
       font-weight: 700;
       font-size: 14px;
       color: #07111b;
+    }
+
+    .course-menu-type-tab {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+
+      a {
+        height: 14px;
+        padding: 10px;
+        font-size: 14px;
+        color: #1c1f21;
+        border-radius: 2px;
+        box-sizing: content-box;
+        line-height: 14px;
+        margin-right: 12px;
+        transition: none;
+        margin-bottom: 10px;
+        
+        &.no-active:hover {
+          color: #da3421;
+        }
+      }
+
+      a.active {
+        background: #2b333b;
+        color: #fff;
+      }
     }
   }
 }
