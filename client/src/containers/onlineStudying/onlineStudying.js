@@ -18,6 +18,7 @@ class OnlineStudying extends Component {
   }
 
   render() {
+    console.log(1)
     const menuDirTabs = direction.map((item, index) => {
       if (item === this.state.direction) {
         return <a className="active" href="#javascript" key={index}>{item}</a>
@@ -47,7 +48,7 @@ class OnlineStudying extends Component {
         }
       })
     } else {
-      const menuTypeTabs = type[direction.indexOf(this.state.direction) - 1]
+      const menuTypeTabs = [...type[direction.indexOf(this.state.direction) - 1]]
       menuTypeTabs.unshift('全部')
       menuTypeTabsItems = menuTypeTabs.map((item, index) => {
         if (item === this.state.type) {
