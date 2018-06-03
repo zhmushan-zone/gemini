@@ -11,6 +11,7 @@ import PersonCenterInformation from '../personCenterInformation/personCenterInfo
 import PersonCenterArticle from '../personCenterArticle/personCenterArticle'
 import personCenterClass from '../personCenterClass/personCenterClass'
 import personCenterFocus from '../personCenterFocus/personCenterFocus'
+import personCenterUpload from '../personCenterUpload/personCenterUpload'
 import './personCenter.scss'
 @connect(
   state => state,
@@ -54,7 +55,7 @@ class PersonCener extends React.Component {
     var avatar = document.getElementById("avatar").files[0]
     var bodyFormData = new FormData()
     bodyFormData.set('avatar', avatar)
-    var _this=this
+    var _this = this
     axios({
       method: 'post',
       url: '/api/users/avatar',
@@ -119,11 +120,18 @@ class PersonCener extends React.Component {
         component: PersonCenterArticle
       },
       {
-        name:'关注',
+        name: '关注',
         icon: 'guanzhuxuanzhong',
         to: '/personCenter/focus',
         is: this.props.location.pathname === '/personCenter/focus',
         component: personCenterFocus
+      },
+      {
+        name: '视频',
+        icon: 'shangchuan',
+        to: '/personCenter/myvideo',
+        is: this.props.location.pathname === '/personCenter/myvideo',
+        component: personCenterUpload
       }
 
     ]
