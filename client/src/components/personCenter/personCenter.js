@@ -10,6 +10,7 @@ import PersonCenterDynamic from '../personCenterDynamic/personCenterDynamic'
 import PersonCenterInformation from '../personCenterInformation/personCenterInformation'
 import PersonCenterArticle from '../personCenterArticle/personCenterArticle'
 import personCenterClass from '../personCenterClass/personCenterClass'
+import personCenterFocus from '../personCenterFocus/personCenterFocus'
 import './personCenter.scss'
 @connect(
   state => state,
@@ -116,6 +117,13 @@ class PersonCener extends React.Component {
         to: '/personCenter/article',
         is: this.props.location.pathname === '/personCenter/article',
         component: PersonCenterArticle
+      },
+      {
+        name:'关注',
+        icon: 'guanzhuxuanzhong',
+        to: '/personCenter/focus',
+        is: this.props.location.pathname === '/personCenter/focus',
+        component: personCenterFocus
       }
 
     ]

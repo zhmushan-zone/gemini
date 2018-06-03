@@ -1,6 +1,6 @@
 import React from 'react'
 import { Menu, Icon } from 'antd'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import './backstageMenu.scss'
 
 const SubMenu = Menu.SubMenu
@@ -11,23 +11,18 @@ class BackstageMenu extends React.Component {
     return (
       <Menu
         className="backstage-menu"
-        defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         mode="inline"
         theme="dark"
         inlineCollapsed={this.props.collapsed}
       >
-        <Menu.Item key="1" onClick={() => {
-          this.props.history.push('/admin')
-        }}>
+        <Menu.Item key="1">
           <Icon type="pie-chart" />
-          <span>网站分析</span>
+          <Link to="/admin"><span>网站分析</span></Link>
         </Menu.Item>
-        <Menu.Item key="2" onClick={() => {
-          this.props.history.push('/admin/user')
-        }}>
+        <Menu.Item key="2">
           <Icon type="desktop" />
-          <span>用户列表</span>
+          <Link to="/admin/user"><span >用户列表</span></Link>
         </Menu.Item>
         <Menu.Item key="3">
           <Icon type="inbox" />
