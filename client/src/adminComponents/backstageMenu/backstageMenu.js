@@ -29,6 +29,7 @@ class BackstageMenu extends React.Component {
         <Menu.Item key="3">
           <Icon type="inbox" />
           <span>课程列表</span>
+          <Link to="/admin/course"></Link>
         </Menu.Item>
         <Menu.Item key="4">
           <Icon type="inbox" />

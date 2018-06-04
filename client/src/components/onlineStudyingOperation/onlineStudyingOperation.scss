@@ -1,0 +1,31 @@
+.online-studying-courses-operation {
+  width: 1152px;
+  padding-top: 26px;
+  padding-bottom: 16px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  a {
+    margin: 0 12px;
+    line-height: 14px;
+    font-size: 14px;
+    color: #787d82;
+    transition: none;
+  }
+  .courses-operation-right {
+    display: flex;
+    align-items: flex-end;
+    
+    .is-hide-attened-course {
+      margin-left: 20px;
+      label {
+        color: #787d82;
+        font-size: 12px;
+        padding-left: 10px;
+      }
+      .hide-attened-switch.ant-switch-checked {
+        background: rgb(240, 20, 20);
+      }
+    }
+  }
+}
