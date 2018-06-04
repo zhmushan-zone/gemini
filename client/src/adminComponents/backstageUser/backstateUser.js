@@ -79,33 +79,33 @@ class BackstateUser extends React.Component {
         render: () => <a href="">Delete</a>
       },
     ]
-
-    const data = [
-      {
-        key: 1,
-        name: '张三',
-        city: '深圳',
-        sex: '男',
-        job: '后端',
-        description: '啊哈哈哈'
-      },
-      {
-        key: 2,
-        name: '李四',
-        city: '北京',
-        sex: '男',
-        job: '前端',
-        description: '签名1'
-      },
-      {
-        key: 3,
-        name: '李二狗',
-        city: '杭州',
-        sex: '男',
-        job: '安卓开发',
-        description: '签名二'
-      },
-    ]
+    // 这是假数据
+    // const data = [
+    //   {
+    //     key: 1,
+    //     name: '张三',
+    //     city: '深圳',
+    //     sex: '男',
+    //     job: '后端',
+    //     description: '啊哈哈哈'
+    //   },
+    //   {
+    //     key: 2,
+    //     name: '李四',
+    //     city: '北京',
+    //     sex: '男',
+    //     job: '前端',
+    //     description: '签名1'
+    //   },
+    //   {
+    //     key: 3,
+    //     name: '李二狗',
+    //     city: '杭州',
+    //     sex: '男',
+    //     job: '安卓开发',
+    //     description: '签名二'
+    //   },
+    // ]
     return (
       <React.Fragment>
         <Table

@@ -11,6 +11,7 @@ import Forum from '../containers/forum/forum'
 import Opinion from '../containers/opinion/opinion'
 import Footer from '../components/footer/footer'
 import Admin from '../adminComponents/admin/admin'
+import UploadVideo from './uploadVideo/uploadVideo'
 import '@/assets/styles/normalize.scss'
 // icon图标
 import '@/assets/styles/font/icon.css'
@@ -33,6 +34,7 @@ class App extends React.Component {
                 <Route path="/forum" component={Forum}></Route>
                 <Route path="/opinion" component={Opinion}></Route>
                 <Route path="/personCenter" component={PersonCenter}></Route>
+                <Route path="/uploadVideo" component={UploadVideo}></Route>
                 <Redirect path="/" to={{ pathname: '/home' }} />       
               </Switch>
               <Footer />
