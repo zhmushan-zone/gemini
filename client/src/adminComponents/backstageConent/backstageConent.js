@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import BackstageAnalyze from '../backstageAnalyze/backstageAnalyze'
 import BackstageUser from '../backstageUser/backstateUser'
-import { withRouter } from 'react-router-dom'
+import BackstageArticle from '../backstageArticle/backstageArticle'
 @withRouter
 export default class BackstageConent extends Component {
   constructor(props) {
@@ -23,7 +24,9 @@ export default class BackstageConent extends Component {
         path: '/admin/user'
       },
       {
-
+        name: 'BackstageArticle',
+        component: BackstageArticle,
+        path: '/admin/article'
       },
       {
 

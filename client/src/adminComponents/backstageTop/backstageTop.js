@@ -1,8 +1,10 @@
 import React from 'react'
 import { Icon, Avatar } from 'antd'
-
+import { connect } from 'react-redux'
 import './backstageTop.scss'
-
+@connect(
+  state => state.userstatus,
+)
 class BackstageTop extends React.Component {
   render () {
     return (
@@ -15,7 +17,7 @@ class BackstageTop extends React.Component {
             Admin
           </Avatar>
           <span className="admin-name">
-            LiZhiHao
+            {this.props.username?this.props.username:'我是帅逼'}
           </span>
         </span>
       </div>
