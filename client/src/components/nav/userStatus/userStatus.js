@@ -48,14 +48,14 @@ class UserStatus extends React.Component {
           this.state.isLogin ?
             <React.Fragment>
               <a className="nav-user-avator">
-                <img style={linkStyle} src={this.props.avatar ? `/api/users/avatar/${this.props.avatar}` : ''} alt="user-avator" />
+                <img style={linkStyle} src={this.props.avatar ? `/api/users/avatar/${this.props.avatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt="user-avator" />
               </a>
               {
                 this.state.isUserInfoShow ?
                   <div className="user-info-wrapper">
                     <div className="user-info-top">
                       <a href="#javascript">
-                        <img src={this.props.avatar ? `/api/users/avatar/${this.props.avatar}` : ''} alt="user-avator" />
+                        <img src={this.props.avatar ? `/api/users/avatar/${this.props.avatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt="user-avator" />
                       </a>
                       <div className="user-info-data">
                         <div className="user-info-name">

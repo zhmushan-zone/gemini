@@ -24,7 +24,7 @@ class PersonCener extends React.Component {
     this.state = {
       visible: false,
       confirmLoading: false,
-      imgurl: ''
+      imgurl: 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'
     }
   }
   showModal = () => {
@@ -152,7 +152,7 @@ class PersonCener extends React.Component {
             <div className="user-pic">
               <div className="user-pic-bg">
                 <label onClick={this.showModal}>更换</label>
-                <img src={this.props.userstatus.avatar ? `/api/users/avatar/${this.props.userstatus.avatar}` : ''} alt="" />
+                <img src={this.props.userstatus.avatar ? `/api/users/avatar/${this.props.userstatus.avatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt="" />
                 <Modal title="更换头像"
                   visible={this.state.visible}
                   onOk={this.handleOk}

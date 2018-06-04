@@ -73,7 +73,7 @@ class BackstateUser extends React.Component {
         key: 'sex',
       },
       {
-        title: 'Action',
+        title: '操作',
         dataIndex: '',
         key: 'x',
         render: () => <a href="">Delete</a>

@@ -18,11 +18,13 @@ class BackstageMenu extends React.Component {
       >
         <Menu.Item key="1">
           <Icon type="pie-chart" />
-          <Link to="/admin"><span>网站分析</span></Link>
+          <span>网站分析</span>
+          <Link to="/admin"></Link>
         </Menu.Item>
         <Menu.Item key="2">
           <Icon type="desktop" />
-          <Link to="/admin/user"><span >用户列表</span></Link>
+          <span >用户列表</span>
+          <Link to="/admin/user"></Link>
         </Menu.Item>
         <Menu.Item key="3">
           <Icon type="inbox" />
