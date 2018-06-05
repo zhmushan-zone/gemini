@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import BackstageAnalyze from '../backstageAnalyze/backstageAnalyze'
 import BackstageUser from '../backstageUser/backstateUser'
+import BackstageArticle from '../backstageArticle/backstageArticle'
 import BackstageCourse from '../backstageCourse/backstageCourse'
 import AdminBreadcrumb from '../adminBreadcrumb/adminBreadcrumb'
-import { withRouter } from 'react-router-dom'
 
 @withRouter
 export default class BackstageConent extends Component {
@@ -28,13 +29,16 @@ export default class BackstageConent extends Component {
         address: '用户列表'
       },
       {
+        name: 'BackstageArticle',
+        component: BackstageArticle,
+        path: '/admin/article'
+
+      },
+      {
         name: 'BackstageCourse',
         component: BackstageCourse,
         path: '/admin/course',
         address: '课程列表'
-      },
-      {
-
       }
     ]
     return (
