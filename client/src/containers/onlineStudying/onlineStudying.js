@@ -35,6 +35,7 @@ class OnlineStudying extends Component {
               rate={item.rate}
               price={item.price}
               img={item.img}
+              key={index}
               />
     })
     return (
