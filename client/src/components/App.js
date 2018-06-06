@@ -11,6 +11,7 @@ import Forum from '../containers/forum/forum'
 import Opinion from '../containers/opinion/opinion'
 import Footer from '../components/footer/footer'
 import Admin from '../adminComponents/admin/admin'
+import VideoPage from '../components/video/videoPage'
 import UploadVideo from './uploadVideo/uploadVideo'
 import '@/assets/styles/normalize.scss'
 // icon图标
@@ -26,6 +27,7 @@ class App extends React.Component {
           <Route path="/login" component={Login}></Route>
           <Route path="/editor" component={Editor}></Route>
           <Route path="/admin" component={Admin}></Route>
+          <Route path="/video/:id" component={VideoPage}></Route>
           <Route path="/" render={(props) => (
             <Layout>
               <Switch>
