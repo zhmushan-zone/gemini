@@ -4,8 +4,14 @@ import { Row, Col , Select, Button } from 'antd'
 class BackgroundCourseQuery extends Component {
   directionHandleChange (v) {
     this.props.stateChange(v, 'direction')
-    this.props.stateChange('', 'type')
+    this.props.stateChange('全部', 'type')
   }
+
+  reset() {
+    this.props.stateChange('全部', 'direction')
+    this.props.stateChange('全部', 'type')
+  }
+
   render() {
     const Option = Select.Option
     const directionOptions = direction.map(item => {
@@ -28,7 +34,7 @@ class BackgroundCourseQuery extends Component {
               <label style={{paddingRight: 8}} >课程方向:</label>
               <Select dropdownClassName="directionSelect"
                 showSearch
-                placeholder="请选择"
+                value={this.props.direction}
                 optionFilterProp="children"
                 style={{flex: 1}}
                 onChange={(v) => {this.directionHandleChange(v)}}
@@ -42,7 +48,7 @@ class BackgroundCourseQuery extends Component {
               <Select dropdownClassName="typeSelect"
                 ref="typeSelect"
                 showSearch
-                placeholder="请选择"
+                value={this.props.type}
                 optionFilterProp="children"
                 style={{flex: 1}}
                 onChange={(v) => this.props.stateChange(v, 'type')}
@@ -53,8 +59,8 @@ class BackgroundCourseQuery extends Component {
               </Select>
             </Col>
             <Col  span={8}>
-              <Button type="primary" style={{marginRight: 10}}>查询</Button>
-              <Button>重置</Button>
+              <Button style={{lineHeight: '32px', marginRight: 10}} type="primary">查询</Button>
+              <Button style={{lineHeight: '32px'}} onClick={() => this.reset()}>重置</Button>
             </Col>
           </Row>
     )
