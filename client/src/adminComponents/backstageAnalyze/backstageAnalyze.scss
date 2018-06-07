@@ -1,0 +1,35 @@
+
+.analyze-container{
+  margin:   24px 24px 0px;
+  .analyze-card{
+    margin-bottom: 24px;
+    span{
+      color: rgba(0,0,0,.45);
+      font-size: 14px;
+      line-height: 22px;
+    }
+    p.number{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      white-space: nowrap;
+      color: rgba(0,0,0,.85);
+      margin-top: 4px;
+      margin-bottom: 0;
+      font-size: 30px;
+      line-height: 38px;
+      height: 38px;
+    }
+    p.number2{
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+      color: rgba(0,0,0,.85);
+      position: absolute;
+      width:calc( 100% - 48px);
+      bottom: 0px;
+    }
+    .victors-number{
+      transform: translateX(-50px);
+    }
+  }
+}

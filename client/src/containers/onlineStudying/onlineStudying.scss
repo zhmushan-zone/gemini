@@ -1,0 +1,82 @@
+.online-studying-courses {
+  background: #f3f5f7;
+
+  .online-studying-courses-wrapper {
+    width: 1152px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 30px;
+    padding-top: 4px;
+
+    .online-studying-courses-pagination {
+      margin: 0 auto;
+      margin-top: 20px;
+
+      .ant-pagination-item {
+        min-width: 32px;
+        height: 32px;
+        border-radius: 16px;
+        margin: 0 8px;
+        background: none;
+        border: none;
+        font-size: 14px;
+
+        a {
+          display: block;
+          height: 100%;
+          margin: 0;
+          line-height: 32px;
+          border-radius: 50%;
+          color: #4d555d;
+
+          &:hover {
+            background: #dadde1;
+          }
+        }
+      }
+      .ant-pagination-item.ant-pagination-item-active {
+        a {
+          background: #4d555d;
+          color: #fff;
+
+          &:hover {
+            background: #4d555d;
+          }
+        }
+      }
+
+      .ant-pagination-next, .ant-pagination-prev {
+        width: 32px;
+        height: 32px;
+
+        a {
+          display: block;
+          height: 100%;
+          color: #4d555d;
+          margin: 0;
+          line-height: 32px;
+          background: none;
+          border: none;
+          border-radius: 50%;
+          transition: none;
+
+          &:hover {
+            background: #4d555d;
+            color: #fff;
+          }
+        }
+      }
+
+      .ant-pagination-disabled {
+        a {
+          &:hover {
+            background: none;
+            color: #4d555d;
+          }
+        }
+      }
+    }
+  }
+}

@@ -7,7 +7,8 @@ function errorMsg(msg) {
 }
 
 function authSuccess(obj) {
-  return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: { ...obj } }
+  const { data } = obj
+  return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: { ...obj },avatar: data.avatar }
 }
 
 function forgetPass(email) {

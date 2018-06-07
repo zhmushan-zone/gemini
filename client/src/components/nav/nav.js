@@ -1,12 +1,11 @@
 import React from 'react'
 import UserStatus from './userStatus/userStatus'
-import {withRouter} from 'react-router-dom'
+import {withRouter, NavLink} from 'react-router-dom'
 import classnames from 'classnames'
 
 import './nav.scss'
 @withRouter
 class Nav extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -14,7 +13,22 @@ class Nav extends React.Component {
     }
   }
 
-
+  componentWillMount () {
+    const { pathname } = this.props.location
+    if (pathname === '/onlineStudying') {
+      this.setState({
+        selected: 1
+      })
+    } else if (pathname === '/forum') {
+      this.setState({
+        selected: 2
+      })
+    } else if (pathname === '/opinion') {
+      this.setState({
+        selected: 3
+      })
+    }
+  }
 
   navSectionClick (e) {
     const navActiveBG = document.querySelector('.navActiveBG')
@@ -36,17 +50,18 @@ class Nav extends React.Component {
       'personCenterNavBgColor':is
     })
     const navList = ['首页', '在线学习', '讨论区', '看法']
+    const navRoute = ['/home', '/onlineStudying', '/forum', '/opinion']
     const navSections = navList.map((section, index) => {
         if (index === this.state.selected) {
           return (
             <li key={index}>
-              <a className={is?'':'selected'} style={is?{'color':'white'}:null}   href="#javascript" onClick={(e) => this.navSectionClick(e)} data-identify={index}>{section}</a>
+              <NavLink className={is?'':'selected'} style={is?{'color':'white'}:null} to={navRoute[index]} onClick={(e) => this.navSectionClick(e)} data-identify={index}>{section}</NavLink>
             </li>
           )
         } else {
           return (
             <li key={index}>
-              <a href="#javascript" style={is?{'color':'white'}:null}  onClick={(e) => this.navSectionClick(e)} data-identify={index}>{section}</a>
+              <NavLink to={navRoute[index]} style={is?{'color':'white'}:null}  onClick={(e) => this.navSectionClick(e)} data-identify={index}>{section}</NavLink>
             </li>
           )
         }
@@ -58,7 +73,7 @@ class Nav extends React.Component {
             {navSections}
           </ul>
           {
-            is?null:<span className={`navActiveBG ${personCenterNavBgColor}`}></span>
+            is?null:<span style={{transform: `translateX(${this.state.selected}00%)`}} className={`navActiveBG ${personCenterNavBgColor}`}></span>
           }
         </div>
         {
