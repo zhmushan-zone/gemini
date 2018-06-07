@@ -1,16 +1,23 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2017",
-    "sourceMap": false,
-    "rootDir": ".",
-    "baseUrl": ".",
-    "outDir": "./dist",
-    "strict": true,
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "emitDecoratorMetadata": true
-  }
+    "target": "es6",
+    "sourceMap": true,
+    "allowJs": true,
+    "outDir": "./dist"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }
