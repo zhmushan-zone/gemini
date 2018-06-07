@@ -39,7 +39,7 @@ const columns = [
     key: 'type',
   },
   {
-    title: 'Action',
+    title: '操作',
     key: 'action',
     render: () => (
       <React.Fragment>

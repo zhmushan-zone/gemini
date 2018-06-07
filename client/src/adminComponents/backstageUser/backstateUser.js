@@ -28,24 +28,26 @@ class BackstateUser extends React.Component {
         }).then(res => {
           if (res.data.code === 1) {
             res.data.data.map(v => {
-              const data = {
-                key: v.id,
-                name: v.nickname ? v.nickname : v.username,
-                city: v.city ? v.city : '该用户未未设置',
-                sex: v.sex ? v.sex : '该用户未未设置',
-                job: v.job ? v.job : '该用户未未设置',
-                description: v.signature ? v.signature : '未设置签名'
+              if (v.role === 0) {
+                const data = {
+                  key: v.id,
+                  name: v.nickname ? v.nickname : v.username,
+                  city: v.city ? v.city : '该用户未未设置',
+                  sex: v.sex ? v.sex : '该用户未未设置',
+                  job: v.job ? v.job : '该用户未未设置',
+                  description: v.signature ? v.signature : '未设置签名'
+                }
+                this.state.users.push(data)
+                this.setState({
+                  users: this.state.users
+                })
               }
-              this.state.users.push(data)
-              this.setState({
-                users: this.state.users
-              })
             })
           } else {
             console.log('出错了')
           }
         })
-      }, 100)
+      },100)
 
     }
   }

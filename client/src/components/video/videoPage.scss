@@ -1,0 +1,36 @@
+.video-page-container{
+  display: flex;
+  height: 800px;
+  .course-sidebar-layout{
+    display: flex;
+    background: #1C1F21;
+    width: 80px;
+    align-items: center;
+    height: 100%;
+    dl{
+      flex: 1;
+      width: 100%;
+      dd{
+        display: flex;
+        height: 72px;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+    }
+    span{
+      font-size: 12px;
+      color: rgba(255,255,255,.4);
+      line-height: 18px;
+    }
+  }
+  .video{
+    flex: 1;
+    height: 100%;
+  }
+  .video-panel{
+    justify-content: center;
+  }
+}

@@ -12,6 +12,7 @@ import PersonCenterArticle from '../personCenterArticle/personCenterArticle'
 import personCenterClass from '../personCenterClass/personCenterClass'
 import personCenterFocus from '../personCenterFocus/personCenterFocus'
 import personCenterUpload from '../personCenterUpload/personCenterUpload'
+import personCenterYuanwen from '../personCenterYuanwen/personCenterYuanwen'
 import './personCenter.scss'
 @connect(
   state => state,
@@ -132,8 +133,14 @@ class PersonCener extends React.Component {
         to: '/personCenter/myvideo',
         is: this.props.location.pathname === '/personCenter/myvideo',
         component: personCenterUpload
+      },
+      {
+        name: '问答',
+        icon: 'wenti_icon',
+        to: '/personCenter/yuanwen',
+        is: this.props.location.pathname === '/personCenter/yuanwen',
+        component: personCenterYuanwen
       }
-
     ]
     const personCenterNav = nav.map(v => {
       return (
@@ -174,7 +181,7 @@ class PersonCener extends React.Component {
             </div>
             <div className="user-sign">
               <p className="user-desc">{this.props.userstatus.signature ? this.props.userstatus.signature : "未设置"}</p>
-            </div>ModalText
+            </div>
             <div className="study-info">
               <div className="item follows">
                 <div className="u-info-learn" title="学习时长335小时18分">
