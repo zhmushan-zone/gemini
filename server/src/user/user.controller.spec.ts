@@ -1,46 +1,57 @@
 import { Test } from '@nestjs/testing';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { SharedModule } from '../shared/shared.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user.entity';
+import { User, Sex, UserRole } from './user.entity';
 import { success, ResponseCode } from '../common/utils';
 import { UserVO } from './vo/user.vo';
+import { config } from '../config';
+import { AuthService } from '../common/auth/auth.service';
+import { JwtStrategy } from '../common/auth/jwt.strategy';
 
 describe('UserController', () => {
   let userController: UserController;
   let userService: UserService;
+  let authService: AuthService;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       imports: [
         TypeOrmModule.forRoot({
           keepConnectionAlive: true,
-          entities: [User]
+          entities: [User],
+          ...config.typeorm
         }),
-        TypeOrmModule.forFeature([User]),
-        SharedModule
+        TypeOrmModule.forFeature([User])
       ],
       controllers: [UserController],
-      providers: [UserService]
+      providers: [
+        UserService,
+        AuthService,
+        JwtStrategy
+      ]
     }).compile();
 
     userService = module.get(UserService);
+    authService = module.get(AuthService);
     userController = module.get(UserController);
   });
 
   const user: User = {
-    id: 'id' as any,
+    id: 'id',
     username: 'username',
+    nickname: 'nickname',
     email: 'email',
     avatar: 'avatar',
     password: 'password',
+    job: 'job',
     city: 'city',
-    sex: 0,
+    sex: Sex.FEMALE,
     signature: 'signature',
-    role: 0,
+    role: UserRole.USER,
     salt: 'salt',
-    token: 'token',
+    jwtKey: 'jwtKey',
+    videos: [],
     createdAt: new Date(),
     updatedAt: new Date()
   };
@@ -56,16 +67,18 @@ describe('UserController', () => {
   describe('register', () => {
     it('success', async () => {
       jest.spyOn(userService, 'register').mockImplementation(() => user);
+      jest.spyOn(authService, 'generateToken').mockImplementation(() => 'token');
       expect(await userController.register(user))
-        .toEqual(success(new UserVO(user)));
+        .toEqual(success(new UserVO(user, 'token')));
     });
   });
 
   describe('login', () => {
     it('success', async () => {
       jest.spyOn(userService, 'login').mockImplementation(() => user);
+      jest.spyOn(authService, 'generateToken').mockImplementation(() => 'token');
       expect(await userController.login(user))
-        .toEqual(success(new UserVO(user)));
+        .toEqual(success(new UserVO(user, 'token')));
     });
   });
 
