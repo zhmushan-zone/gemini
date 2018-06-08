@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col , Select, Button } from 'antd'
 
-class BackgroundCourseQuery extends Component {
+class BackstageCourseQuery extends Component {
   directionHandleChange (v) {
     this.props.stateChange(v, 'direction')
     this.props.stateChange('全部', 'type')
@@ -79,4 +79,4 @@ const type = [
   ['动效动画', 'APPUI设计', '设计工具', '设计基础']
 ]
 
-export default BackgroundCourseQuery
+export default BackstageCourseQuery

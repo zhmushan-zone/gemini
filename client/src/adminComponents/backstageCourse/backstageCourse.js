@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import BackgroundCourseQuery from '../backgroundCourseQuery/backgroundCourseQuery'
-import BackgroundCourseList from '../backgroundCourseList/backgroundCourseList'
+import BackstageCourseQuery from '../backgstageCourseQuery/backgroundCourseQuery'
+import BackstageCourseList from '../backstageCourseList/backgroundCourseList'
 import { Button, Icon } from 'antd'
+import { Link } from 'react-router-dom'
 
 import './backstageCourse.scss'
 
@@ -24,12 +25,14 @@ class BackstageCourse extends Component {
     const { direction, type } = this.state
     return (
       <div className="backstage-course">
-        <BackgroundCourseQuery stateChange={this.stateChange} direction={direction} type={type} />
+        <BackstageCourseQuery stateChange={this.stateChange} direction={direction} type={type} />
         <Button style={{lineHeight: '32px', marginBottom: 16, marginTop: 24}} type="primary">
-          <Icon type="plus"></Icon>
-          <span>新建</span>
+          <Link to="/admin/course/create">
+            <Icon type="plus"></Icon>
+            <span>新建</span>
+          </Link>
         </Button>
-        <BackgroundCourseList />
+        <BackstageCourseList />
       </div>
     )
   }

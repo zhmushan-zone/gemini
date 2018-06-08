@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Divider } from 'antd'
 
-class BackgroundCourseList extends Component {
+class BackstageCourseList extends Component {
   render() {
     return <Table dataSource={dataSource} columns={columns} />
   }
@@ -51,4 +51,4 @@ const columns = [
   }
 ]
 
-export default BackgroundCourseList
+export default BackstageCourseList
