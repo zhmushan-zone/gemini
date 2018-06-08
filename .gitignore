@@ -35,4 +35,4 @@ yarn-error.log*
 
 server/private
 server/public
-
+server/.cache
