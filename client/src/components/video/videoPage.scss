@@ -18,6 +18,10 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        &:hover{
+          background: #26292C;
+          color: #ccc;
+        }
       }
     }
     span{
@@ -32,5 +36,54 @@
   }
   .video-panel{
     justify-content: center;
+    &:hover{
+      cursor: pointer;
+    }
   }
+  .teacher-msg{
+    padding: 20px;
+    position: relative;
+    background: #1C1F21;
+    .delete{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+    .v-teachers{
+      margin-bottom: 16px;
+      display: flex;
+      dd{
+        margin-left: 12px;
+      }
+      .v-t-nickname{
+        font-size: 16px;
+        color: #FFF;
+        line-height: 24px;
+      }
+      .v-t-title{
+        font-size: 12px;
+        color: rgba(255,255,255,.8);
+        line-height: 18px;
+      }
+    }
+    .v-teachers-info{
+      font-size: 12px;
+      color: rgba(255,255,255,.6);
+      line-height: 22px;
+    }
+    .v-teachers-img{
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      img{
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+.none{
+  display: none!important;
 }

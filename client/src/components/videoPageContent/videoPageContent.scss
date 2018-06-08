@@ -1,4 +1,6 @@
 .video-page-content{
+  display: flex;
+  flex-direction: column;
   .course-subnav{
     width: 100%;
     height: 68px;
@@ -20,6 +22,33 @@
       &.current{
         color: #F20D0D
       }
+    }
+  }
+  .course-content{
+    display: flex;
+    flex-direction: row;
+  }
+  .course-left{
+    flex:2;
+    margin-left: 40px;
+    padding: 20px;
+  }
+  .course-right{
+    flex: 1;
+    padding-bottom: 50px;
+    padding-top: 28px;
+    margin-right: 40px;
+    h4{
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 24px;
+      color: #07111b;
+      text-align: center;
+    }
+    .recom-course-list-box{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 }

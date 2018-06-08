@@ -18,7 +18,7 @@ class OnlineStudying extends Component {
     }
     this.stateChange = this.stateChange.bind(this)
   }
-  
+
   stateChange(key, value) {
     this.setState({
       [key]: value
@@ -26,27 +26,27 @@ class OnlineStudying extends Component {
   }
 
   render() {
-    const { direction, type, newOrHot, difficulty } = this.state 
+    const { direction, type, newOrHot, difficulty } = this.state
     const coursesItem = courses.map((item, index) => {
-      return <CoursePreview 
-              name={item.name}
-              level={item.level}
-              viewerCount={item.viewerCount}
-              rate={item.rate}
-              price={item.price}
-              img={item.img}
-              key={index}
-              />
+      return <CoursePreview
+        name={item.name}
+        level={item.level}
+        viewerCount={item.viewerCount}
+        rate={item.rate}
+        price={item.price}
+        img={item.img}
+        key={index}
+      />
     })
     return (
       <div className="online-studying">
-        <OnlineStudyingMenu 
+        <OnlineStudyingMenu
           direction={direction}
           type={type}
           tabChange={this.stateChange}
         />
         <div className="online-studying-courses">
-          <OnlineStudyingOperation 
+          <OnlineStudyingOperation
             newOrHot={newOrHot}
             difficulty={difficulty}
             operationChange={this.stateChange}
