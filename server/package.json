@@ -1,31 +1,71 @@
 {
-  "name": "gemini-server",
-  "version": "0.0.0",
+  "name": "gemini",
+  "version": "1.0.0",
+  "description": "description",
+  "author": "木杉",
   "license": "MIT",
   "scripts": {
-    "start": "node ./dist/src/index.js",
-    "build": "tsc",
-    "test": "ava ./dist/test/"
+    "format": "prettier --write \"**/*.ts\"",
+    "start": "ts-node -r tsconfig-paths/register src/main.ts",
+    "start:dev": "nodemon",
+    "prestart:prod": "rm -rf dist && tsc",
+    "start:prod": "node dist/main.js",
+    "test": "jest"
   },
   "dependencies": {
-    "jsonwebtoken": "^8.2.0",
-    "koa": "^2.5.0",
-    "koa-body": "^2.5.0",
-    "koa-router": "^7.4.0",
-    "koa-static": "^4.0.3",
-    "mongoose": "^5.0.10",
-    "nodemailer": "^4.6.4"
+    "@nestjs/common": "^5.0.0",
+    "@nestjs/core": "^5.0.0",
+    "@nestjs/microservices": "^5.0.0",
+    "@nestjs/passport": "^1.0.11",
+    "@nestjs/testing": "^5.0.0",
+    "@nestjs/typeorm": "^5.0.0",
+    "@nestjs/websockets": "^5.0.0",
+    "class-transformer": "^0.1.9",
+    "class-validator": "^0.8.5",
+    "fastify-formbody": "^2.0.0",
+    "jsonwebtoken": "^8.2.2",
+    "mongodb": "^3.1.0-beta4",
+    "nodemailer": "^4.6.5",
+    "passport": "^0.4.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-jwt": "^4.0.0",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "^6.0.0",
+    "typeorm": "^0.2.6",
+    "typescript": "^2.6.2"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^7.2.6",
-    "@types/koa": "^2.0.44",
-    "@types/koa-bodyparser": "^4.2.0",
-    "@types/koa-router": "^7.0.27",
-    "@types/koa-static": "^4.0.0",
-    "@types/mongoose": "^5.0.7",
+    "@types/express": "^4.0.39",
+    "@types/jest": "^21.1.8",
+    "@types/jsonwebtoken": "^7.2.7",
+    "@types/node": "^9.3.0",
     "@types/nodemailer": "^4.6.0",
-    "ava": "^0.25.0",
-    "tslint": "^5.9.1",
-    "typescript": "^2.7.2"
+    "@types/passport-jwt": "^3.0.1",
+    "@types/supertest": "^2.0.4",
+    "jest": "^21.2.1",
+    "nodemon": "^1.14.1",
+    "prettier": "^1.11.1",
+    "supertest": "^3.0.0",
+    "ts-jest": "^21.2.4",
+    "ts-loader": "^4.1.0",
+    "ts-node": "^4.1.0",
+    "tsconfig-paths": "^3.1.1",
+    "tslint": "5.3.2",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage"
   }
 }
