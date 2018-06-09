@@ -93,7 +93,7 @@ export class UserController {
       this.userService.updateById(user.id, { avatar: avatar.filename } as User);
       if (user.avatar) { fs.unlink(path.join(config.path.avatar, user.avatar), err => err); }
     }
-    return success();
+    return success(avatar.filename);
   }
 
   @Post('/email/send/:email')
