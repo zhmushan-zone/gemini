@@ -4,6 +4,7 @@ import BackstageAnalyze from '../backstageAnalyze/backstageAnalyze'
 import BackstageUser from '../backstageUser/backstateUser'
 import BackstageArticle from '../backstageArticle/backstageArticle'
 import BackstageCourse from '../backstageCourse/backstageCourse'
+import BackstageCourseCreate from '../backstageCourseCreate/backstageCourseCreate'
 import AdminBreadcrumb from '../adminBreadcrumb/adminBreadcrumb'
 
 @withRouter
@@ -39,6 +40,12 @@ export default class BackstageConent extends Component {
         component: BackstageCourse,
         path: '/admin/course',
         address: '课程列表'
+      },
+      {
+        name: 'BackstageCourseCreate',
+        component: BackstageCourseCreate,
+        path: '/admin/course/create',
+        address: '课程列表-新建课程'
       }
     ]
     return (
