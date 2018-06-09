@@ -14,7 +14,7 @@ class PersonCenterInformation extends React.Component {
     this.state = {
       visible: false,
       confirmLoading: false,
-      sex: '男',
+      sex: 1,
       username: "",
       job: "",
       signature: "",
@@ -36,7 +36,6 @@ class PersonCenterInformation extends React.Component {
       confirmLoading: true,
     })
     this.props.changePersonMsg(this.state)
-    console.log(this.props.userstatus)
     this.props.userstatus.data.msg === '成功' ? this.success() : null
     setTimeout(() => {
       this.setState({
@@ -106,8 +105,8 @@ class PersonCenterInformation extends React.Component {
             <Input placeholder="职位" size="large" value={this.state.job} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'job')} />
             <Input placeholder="城市" size="large" value={this.state.city} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'city')} />
             <RadioGroup value={this.state.sex} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'sex')}>
-              <Radio value={'男'}>男</Radio>
-              <Radio value={'女'}>女</Radio>
+              <Radio value={1}>男</Radio>
+              <Radio value={0}>女</Radio>
             </RadioGroup>
             <TextArea rows={4} value={this.state.signature} placeholder="个性签名" onChange={this.handleChange.bind(this, 'signature')} />
           </Modal>

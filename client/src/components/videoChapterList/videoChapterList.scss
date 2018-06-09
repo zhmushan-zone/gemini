@@ -1,0 +1,19 @@
+.video-chapter-list-container {
+  position: absolute;
+  left: -400px;
+  top: 0;
+  bottom: 0;
+  width: 400px;
+  background: #26292C;
+  box-shadow: 0 8px 16px 0 #1C1F21;
+  z-index: 9999;
+  transition: .3s all linear;
+  opacity: 0;
+  padding: 8px 0;
+  box-sizing: border-box;
+  padding-bottom: 20px;
+  &.active {
+    left: 80px;
+    opacity: 1;
+  }
+}

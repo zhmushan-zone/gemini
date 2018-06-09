@@ -58,7 +58,7 @@ class PersonCener extends React.Component {
     bodyFormData.set('avatar', avatar)
     var _this = this
     axios({
-      method: 'post',
+      method: 'put',
       url: '/api/users/avatar',
       data: bodyFormData,
       headers: {
@@ -159,7 +159,7 @@ class PersonCener extends React.Component {
             <div className="user-pic">
               <div className="user-pic-bg">
                 <label onClick={this.showModal}>更换</label>
-                <img src={this.props.userstatus.avatar ? `/api/users/avatar/${this.props.userstatus.avatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt="" />
+                <img src={this.props.userstatus.avatar ? `/avatar/${this.props.userstatus.avatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt="" />
                 <Modal title="更换头像"
                   visible={this.state.visible}
                   onOk={this.handleOk}
@@ -171,7 +171,7 @@ class PersonCener extends React.Component {
                   <div className="change-avatar-container">
                     <input type="file" id="avatar" style={{ 'display': 'none' }} />
                     <label htmlFor="avatar" onClick={this.changAvatar}></label>
-                    <img src={this.state.imgurl ? this.state.imgurl : `/api/users/avatar/${this.props.userstatus.avatar}`} alt="" />
+                    <img src={this.state.imgurl ? this.state.imgurl : `/avatar/${this.props.userstatus.avatar}`} alt="" />
                   </div>
                 </Modal>
               </div>

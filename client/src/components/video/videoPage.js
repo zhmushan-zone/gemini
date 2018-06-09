@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { Modal } from 'antd'
 import { DefaultPlayer as Video } from 'react-html5video'
 import CustomIcon from '@/common/customIcon/customIcon'
 import VideoHeader from '../videoHeader/videoHeader'
 import VideoContent from '../videoPageContent/videoPageContent'
+import videoChapterList from '../videoChapterList/videoChapterList'
 import Footer from '../footer/footer'
 import 'react-html5video/dist/styles.css'
 import './videoPage.scss'
@@ -10,16 +12,43 @@ export default class VideoPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      show: false
+      show: false,
+      ModalText: 'Content of the modal',
+      visible: false,
+      confirmLoading: false,
+      videoChapterList: false
     }
     this.openCourseSider = this.openCourseSider.bind(this)
     this.closeCourseSider = this.closeCourseSider.bind(this)
-    this.comment=this.comment.bind(this)
+    this.chapterList = this.chapterList.bind(this)
+  }
+  showModal = () => {
+    this.setState({
+      visible: true,
+    })
+  }
+  handleOk = () => {
+    this.setState({
+      ModalText: 'The modal will be closed after two seconds',
+      confirmLoading: true,
+    })
+    setTimeout(() => {
+      this.setState({
+        visible: false,
+        confirmLoading: false,
+      })
+    }, 2000)
+  }
+  handleCancel = () => {
+    console.log('Clicked cancel button')
+    this.setState({
+      visible: false,
+    })
   }
   componentDidMount() {
-
+    document.querySelector('.video').parentNode.style.flex='1'
   }
-  comment(){
+  comment() {
     console.log('object')
   }
   openCourseSider(e) {
@@ -32,14 +61,33 @@ export default class VideoPage extends Component {
       show: false
     })
   }
+  chapterList() {
+    this.setState({
+      videoChapterList: !this.state.videoChapterList
+    })
+  }
   render() {
+    const { visible, confirmLoading, ModalText } = this.state
     return (
       <React.Fragment>
         <VideoHeader courseName="课程介绍" />
+        {/* 评论 */}
+        <Modal title="我要评论"
+          visible={visible}
+          onOk={this.handleOk}
+          confirmLoading={confirmLoading}
+          onCancel={this.handleCancel}
+          okText="发表评论"
+          cancelText="取消"
+        >
+          <p>{ModalText}</p>
+        </Modal>
         <div className="video-page-container">
           <div className="course-sidebar-layout">
+            {/* 章节信息 */}
+            <videoChapterList className={`video-chapter-list-container ${this.state.videoChapterList ? 'active' : ''}`} />
             <dl>
-              <dd className="openchapter">
+              <dd className="openchapter" onClick={this.chapterList}>
                 <CustomIcon type="zhangjiekecheng" size={24} color="white" />
                 <span>章节</span>
               </dd>
@@ -51,8 +99,8 @@ export default class VideoPage extends Component {
                 <CustomIcon type="biji" size={24} color="white" />
                 <span>笔记</span>
               </dd>
-              <dd onClick={this.comment}>
-                <CustomIcon type="pinglun" size={24} color="white"  />
+              <dd onClick={this.showModal}>
+                <CustomIcon type="pinglun" size={24} color="white" />
                 <span>评论</span>
               </dd>
             </dl>
