@@ -57,7 +57,7 @@ export class UserController {
     return success(new UserVO(user, this.authService.generateToken(user.username, user.jwtKey)));
   }
 
-  @Post('/auth')
+  @Get('/auth')
   @UseGuards(AuthGuard('jwt'))
   auth(@Usr() user: User) {
     return success(
