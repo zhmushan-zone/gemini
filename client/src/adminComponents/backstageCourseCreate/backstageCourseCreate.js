@@ -5,6 +5,9 @@ import DifficultySelect from '../backstageCourseCreateItem/difficultySelect/diff
 import DirectionSelect from '../backstageCourseCreateItem/directionSelect/directionSelect'
 import CoverUpload from '../backstageCourseCreateItem/coverUpload/coverUpload'
 import DescInput from '../backstageCourseCreateItem/descInput/descInput'
+import TypeSelect from '../backstageCourseCreateItem/typeSelect/typeSelect'
+import PriceInput from '../backstageCourseCreateItem/priceInput/priceInput'
+import SectionAdd from '../backstageCourseCreateItem/sectionAdd/sectionAdd'
 
 import './backstageCourseCreate.scss'
 
@@ -21,6 +24,7 @@ class BackstageCourseCreate extends React.Component {
       type: [],
       difficulty: '',
       price: '',
+      section: []
     }
     this.stateChange = this.stateChange.bind(this)
   }
@@ -107,6 +111,36 @@ class BackstageCourseCreate extends React.Component {
           </FormItem>
           <FormItem
             {...formItemLayout}
+            label="课程分类"
+          >
+            {getFieldDecorator('type', {
+              rules: [{
+                required: true, message: '请添加课程分类'
+              }]
+            })(
+              <TypeSelect
+                typeChange={this.stateChange}
+                direction={this.state.direction}
+                type={this.state.type}
+              />
+            )}
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="所需积分"
+          >
+            {getFieldDecorator('price', {
+              rules: [{
+                required: true, message: '请设定课程所需积分'
+              }]
+            })(
+              <PriceInput
+                priceChange={this.stateChange}
+              />
+            )}
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
             label="课程封面"
           >
             {getFieldDecorator('cover', {
@@ -116,6 +150,20 @@ class BackstageCourseCreate extends React.Component {
             })(
               <CoverUpload
                 coverChange={this.stateChange}
+              />
+            )}
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="课程章节"
+          >
+            {getFieldDecorator('section', {
+              rules: [{
+                required: true, message: '请添加课程章节'
+              }]
+            })(
+              <SectionAdd
+                sectionChange={this.stateChange}
               />
             )}
           </FormItem>

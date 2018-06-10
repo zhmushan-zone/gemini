@@ -6,6 +6,7 @@ const Option = Select.Option
 class DirectionSelect extends Component {
   handleChange (v) {
     this.props.directionChange('direction', v)
+    this.props.directionChange('type', [])
   }
   render() {
     const directionOptions = direction.map(item => {
