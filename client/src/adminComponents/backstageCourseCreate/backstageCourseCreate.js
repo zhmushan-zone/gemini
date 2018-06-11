@@ -155,7 +155,7 @@ class BackstageCourseCreate extends React.Component {
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label="课程章节"
+            label="课程章节数"
           >
             {getFieldDecorator('section', {
               rules: [{
@@ -164,6 +164,7 @@ class BackstageCourseCreate extends React.Component {
             })(
               <SectionAdd
                 sectionChange={this.stateChange}
+                section={this.state.section}
               />
             )}
           </FormItem>
@@ -190,4 +191,4 @@ class BackstageCourseCreate extends React.Component {
   }
 }
 
-export default BackstageCourseCreate = Form.create({})(BackstageCourseCreate);
+export default BackstageCourseCreate = Form.create({})(BackstageCourseCreate)
