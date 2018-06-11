@@ -26,14 +26,15 @@ class SectionAdd extends Component {
     let sectionInputs
     if (this.props.section) {
       sectionInputs = this.props.section.map(item => {
+        const sections = [...this.props.section]
         const key = Object.keys(item)[1]
         return <Input
           style={{marginTop: 10}}
           prefix={<span style={{ color: 'rgba(0,0,0,.25)' }}>{item.key}</span>}
           placeholder={`请输入标题`}
           onChange={(e) => {
-            this.props.section[item.key - 1][key] = e.target.value
-            this.props.sectionChange('section', this.props.section)
+            sections[item.key - 1][key] = e.target.value
+            this.props.sectionChange('section', sections)
           }}
           key={item.key}
         />
