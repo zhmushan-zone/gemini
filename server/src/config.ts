@@ -1,5 +1,5 @@
 export const config = {
-  port: 3000,
+  port: 9999,
   token: {
     secret: 'sdkjfnaskfjnhewkjnfkn',
     expiresIn: '7 days'

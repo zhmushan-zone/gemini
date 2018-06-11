@@ -8,7 +8,7 @@ function errorMsg(msg) {
 
 function authSuccess(obj) {
   const { data } = obj
-  return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: { ...obj },avatar: data.avatar }
+  return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: { ...obj }, avatar: data.avatar }
 }
 
 function forgetPass(email) {
@@ -128,7 +128,7 @@ export function changePersonMsg(a) {
       }
     })
     if (res.data.code === 1) {
-      return dispatch(updateSuccesss({ msg: res.data.msg, sex, username, job, city, signature }))
+      return dispatch(updateSuccesss({ msg: res.data.msg, sex: sex === 1 ? '男' : '女', username, job, city, signature }))
     } else {
       return dispatch(errorMsg("修改失败了"))
     }
