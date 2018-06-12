@@ -31,10 +31,12 @@ export class UserService {
   }
 
   async login(user: User) {
-    const userFromDB = await this.userRepository.findOne({ username: user.username });
-    if (encrpty(user.password, userFromDB.salt) === userFromDB.password) {
+    const userFromDB = await this.userRepository.findOne({username: user.username});
+    if (userFromDB && encrpty(user.password, userFromDB.salt) === userFromDB.password) {
       return userFromDB;
     }
+
+    return null;
   }
 
   refreshToken(user: User) {
