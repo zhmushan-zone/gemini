@@ -68,7 +68,12 @@ describe('UserController', () => {
     it('success', async () => {
       jest.spyOn(userService, 'register').mockImplementation(() => user);
       jest.spyOn(authService, 'generateToken').mockImplementation(() => 'token');
-      expect(await userController.register(user))
+      jest.spyOn(userService, 'getCaptchaInfo').mockImplementation(() => {
+        const map = new Map<string, { email: string, captcha: string, ban: boolean }>();
+        map.set('127.0.0.1', { email: 'email', captcha: 'captcha', ban: true });
+        return map;
+      });
+      expect(await userController.register(user, 'captcha'))
         .toEqual(success(new UserVO(user, 'token')));
     });
   });
@@ -94,6 +99,22 @@ describe('UserController', () => {
     it('err', async () => {
       expect(await userController.sendEmail('test'))
         .toEqual(expect.objectContaining({ code: ResponseCode.EMAIL_SEND_FAILED }));
+    });
+  });
+
+  describe('auth', () => {
+    it('success', async () => {
+      jest.spyOn(authService, 'generateToken').mockImplementation(() => 'token');
+      expect(await userController.auth(user))
+        .toEqual(success(
+          new UserVO(
+            user,
+            authService.generateToken(
+              user.username,
+              userService.refreshToken(user)
+            )
+          )
+        ));
     });
   });
 });
