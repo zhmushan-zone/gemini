@@ -147,7 +147,7 @@ export default class VideoPage extends Component {
             onCanPlayThrough={() => {
               // Do stuff
             }}>
-            <source src={`/api/videos/${this.props.match.params.id}`} type="video/webm" />
+            <source src={`/video/${this.props.match.params.id}`} type="video/webm" />
           </Video>
           <div className={`video-panel course-sidebar-layout ${this.state.show ? 'none' : ''} ${this.state.questionShow ? 'none' : ''} ${this.state.noteShow ? 'none' : ''}`} onClick={this.openCourseSider} >
             <CustomIcon type="icon-arrow-left4" size={24} color="white" />

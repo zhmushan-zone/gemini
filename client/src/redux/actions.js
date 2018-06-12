@@ -34,6 +34,11 @@ export function loadData(userinfo) {
   return { type: ActionTypes.LOAD_DATA, payload: userinfo }
 }
 
+// 发送邮箱成功
+function sendEmailSuccess(){
+  return {type:ActionTypes.SEND_EMAIL_SUCCESS,code:1}
+}
+
 
 
 export function register(username, password, repet_pass) {
@@ -61,8 +66,8 @@ export function register(username, password, repet_pass) {
       dispatch(errorMsg("未知错误"))
     } else if (res.data.code === 102) {
       dispatch(errorMsg("用户已存在"))
-    } else {
-      dispatch(errorMsg("后端错误"))
+    } else if(res.data.code===104){
+      dispatch(errorMsg("请输入正确的验证码"))
     }
   }
 }
@@ -134,7 +139,24 @@ export function changePersonMsg(a) {
     }
   }
 }
+// 注册发送邮件
+export function LoginSendEamil(email) {
+  if (!email ) {
+    return errorMsg("请输入邮箱")
+  }
+  return async dispatch => {
+    const res = await axios.post(`/api/users/email/send/${email}`)
+    if (res.data.code === 1) {
+      dispatch(sendEmailSuccess())
+    }else if(res.data.code===103){
+      dispatch(errorMsg("发送验证码太过频发"))
+    } 
+    else  {
+      dispatch(errorMsg("验证码错误"))
+    } 
+  }
 
+}
 
 
 export function logout() {

@@ -1,14 +1,18 @@
 import React from 'react'
 import "./login.scss"
-import { login,removeMsg,register,forgetPassword } from '@/redux/actions.js'
+import { login,removeMsg,register,forgetPassword,LoginSendEamil } from '@/redux/actions.js'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Alert } from 'antd'
+import SendEmail from '../../components/sendEmail/sendEmail'
+
 @connect(
   state=>state,
-  {login,removeMsg,register,forgetPassword}
+  {login,removeMsg,register,forgetPassword,LoginSendEamil}
 )
+
 class Login extends React.Component {
+  
   constructor(props){
     super(props)
     this.state={
@@ -17,8 +21,12 @@ class Login extends React.Component {
       re_username:'',
       re_password:'',
       repet_password:'',
-      forget_email:''
+      forget_email:'',
+      captcha:" ",
+      show:false,
+      registerUsername:''
     }
+    this.registerSendEamil=this.registerSendEamil.bind(this)
   }
   componentDidMount = () => {
     document.addEventListener('keydown',(e)=>{
@@ -26,7 +34,9 @@ class Login extends React.Component {
         this.login()
       }
     })
+    
   }
+  
 
   // 隔一段时间关闭消息提示
   autoCloseMsg=()=>{
@@ -67,6 +77,22 @@ class Login extends React.Component {
   // 关闭提示
   handleErrorClose=()=>{
     this.props.removeMsg()
+  }
+  registerSendEamil(){
+    this.props.LoginSendEamil(this.state.re_username)
+    setTimeout(()=>{
+      if(this.props.userstatus.code===1){
+        this.setState({
+          show:!this.state.show
+        },()=>{
+          setTimeout(()=>{
+            this.setState({
+              show:!this.state.show
+            })
+          },60000)
+        })
+      }
+    },200)
   }
 
   classCal=(dom,what,className)=>{
@@ -134,6 +160,7 @@ class Login extends React.Component {
   }
 
   render() {
+  
     return (
 
     <div className="login-container">
@@ -206,22 +233,33 @@ class Login extends React.Component {
             <span className="reg_bg"></span>
             <h2>注册</h2>
             <form className="form">
-              <div className="f_row">
-                <label>邮箱</label>
-                <input type="text" className="input-field" value={this.state.re_username}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'re_username')}/>
-                <u></u>
-              </div>
-              <div className="f_row">
-                <label>密码</label>
-                <input type="password" className="input-field" value={this.state.re_password}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'re_password')}/>
-                <u></u>
-              </div>
-              <div className="f_row last">
-                <label> 再次输入密码</label>
-                <input type="password" className="input-field" value={this.state.repet_password}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'repet_password')}/>
-                <u></u>
-              </div>
-              <button type="button"  className="btn-large" onClick={this.register}> NEXT</button>
+              {this.state.show? 
+            <div>
+            <div className="f_row">
+              <label>验证码</label>
+              <input type="text" className="input-field" value={this.state.captcha}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'captcha')}/>
+              <u></u>
+            </div>
+            <div className="f_row">
+              <label>密码</label>
+              <input type="password" className="input-field" value={this.state.re_password}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'re_password')}/>
+              <u></u>
+            </div>
+            <div className="f_row last">
+              <label> 用户名</label>
+              <input type="text" className="input-field" value={this.state.registerUsername}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'registerUsername')}/>
+              <u></u>
+            </div>
+            <button type="button"  className="btn-large" onClick={this.register}> NEXT</button>
+            </div>: 
+          <SendEmail 
+            re_username={this.state.re_username} 
+            inputFocus={this.inputFocus} 
+            inputBlur={this.inputBlur} 
+            handleChange={this.handleChange}
+            registerSendEamil={this.registerSendEamil}
+          />
+  }
             </form>
           </div>
           <a href="" className="regTag icon-add" onClick={this.changeRegister}>
