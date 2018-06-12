@@ -18,3 +18,5 @@ export const LOGOUT = 'LOGOUT'
 export const UPDATE_PERSON_MSG = 'UPDATE_PERSON_MSG'
 // 修改头像
 export const CHANGE_AVATAR = 'CHANGE_AVATAR'
+// 创建课程
+export const CREATE_COURSE = 'CREATE_COURSE'

@@ -150,6 +150,7 @@ class BackstageCourseCreate extends React.Component {
             })(
               <CoverUpload
                 coverChange={this.stateChange}
+                coverImg={this.state.coverImg}
               />
             )}
           </FormItem>
