@@ -9,8 +9,9 @@
     display: flex;
     ul{
       display: flex;
-      margin-left: 60px;
       align-items: center;
+      width: 1152px;
+      margin: 0 auto;
     }
     li{
       margin-right: 96px;
@@ -27,17 +28,17 @@
   .course-content{
     display: flex;
     flex-direction: row;
+    width: 1152px;
+    margin: auto;
   }
   .course-left{
     flex:2;
-    margin-left: 40px;
     padding: 20px;
   }
   .course-right{
     flex: 1;
     padding-bottom: 50px;
     padding-top: 28px;
-    margin-right: 40px;
     h4{
       font-size: 16px;
       font-weight: 700;

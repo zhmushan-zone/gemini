@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { Modal, Input } from 'antd'
 import CustomIcon from '@/common/customIcon/customIcon'
-import './videoPageContentCommentList.scss'
 const { TextArea } = Input
-export default class VideoPageContentCommentList extends Component {
+export default class VideoPageContentNoteList extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -24,7 +23,7 @@ export default class VideoPageContentCommentList extends Component {
   }
   handleOk = () => {
     this.setState({
-      report:"",
+      report: "",
       confirmLoading: true,
     })
     setTimeout(() => {
@@ -50,16 +49,23 @@ export default class VideoPageContentCommentList extends Component {
         </div>
         <div className="text">
           <div className="name">精慕门6508062</div>
-          <div className="content">wwwwwwwwwwwwwwwwww</div>
+          <div className="content">
+            1.变量定义，常量不可修改
+            2作用域
+            3箭头函数写法简洁
+            4箭头函数的this指向定义时的this
+            5可扩展运算符 例如不可确定的参数个数的传递，数组连接
+            6对象代理 数据保护的写法。
+          </div>
           <div className="replymegfooter">
             <div className="l-box">
               <div className="thump">
                 <CustomIcon type="dianzan" color="#ccc" size={14}></CustomIcon>
                 1
-              </div>
+            </div>
               <a onClick={this.showModal}>举报</a>
             </div>
-            <div className="r-time"><span>12小时前</span></div>
+            <div className="r-time"><span>13小时前</span></div>
           </div>
         </div>
         <Modal title="举报信息"

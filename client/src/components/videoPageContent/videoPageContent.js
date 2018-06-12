@@ -1,23 +1,12 @@
 import React, { Component } from 'react'
 import CoursePreview from '@/common/coursePreview/coursePreview'
 import VideoPageContentComment from '../videoPageContentComment/videoPageContentComment'
+import VideoPageContentQuestion from '../videoPageContentQuestion/videoPageContentQuestion'
+import VideoPageContentNote from '../videoPageContentNote/videoPageContentNote'
 import './videoPageContent.scss'
 
-function A() {
-  return (
-    <div className="tab-nodata">
-      目前暂无任何问答
-    </div>
-  )
-}
 
-function C() {
-  return (
-    <div>
-      目前暂无任何同学笔记
-    </div>
-  )
-}
+
 export default class VideoPageContent extends Component {
   constructor(props) {
     super(props)
@@ -25,7 +14,7 @@ export default class VideoPageContent extends Component {
       show: [
         {
           '问答': 'true',
-          component: A
+          component: VideoPageContentQuestion
         },
         {
           '评论': 'false',
@@ -33,7 +22,7 @@ export default class VideoPageContent extends Component {
         },
         {
           '笔记': 'false',
-          component: C
+          component: VideoPageContentNote
         }
       ],
       firstKey: '问答'

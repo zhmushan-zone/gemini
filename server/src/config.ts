@@ -11,8 +11,8 @@ export const config = {
     html: (captcha: string) => `<h1>${captcha.toUpperCase()}</h1> is your Gemini captcha`,
     host: 'smtp.qq.com',
     auth: {
-      user: 'zhmushan@foxmail.com',
-      pass: 'dyiiknrftlndbahg'
+      user: '',
+      pass: ''
     }
   },
   typeorm: {
