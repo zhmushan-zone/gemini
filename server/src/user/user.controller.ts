@@ -46,15 +46,33 @@ export class UserController {
   }
 
   @Post('/register')
-  async register(@Body() createUserDTO: CreateUserDTO) {
-    const user = await this.userService.register(createUserDTO);
-    return success(new UserVO(user, this.authService.generateToken(user.username, user.jwtKey)));
+  async register(
+    @Body() createUserDTO: CreateUserDTO,
+    @Headers('captcha') captcha,
+    @Headers('x-forwarded-for') ip = '127.0.0.1'
+  ) {
+    const captchaInfo = this.userService.getCaptchaInfo().get(ip);
+    if (
+      captchaInfo &&
+      captchaInfo.captcha === captcha &&
+      captchaInfo.email === createUserDTO.email
+    ) {
+      const user = await this.userService.register(createUserDTO);
+      return success(new UserVO(user, this.authService.generateToken(user.username, user.jwtKey)));
+    }
+    return response(ResponseCode.CAPTCHA_ERROR, ResponseCode[ResponseCode.CAPTCHA_ERROR]);
   }
 
   @Post('/login')
   async login(@Body() loginUserDTO: LoginUserDTO) {
     const user = await this.userService.login(loginUserDTO);
-    return success(new UserVO(user, this.authService.generateToken(user.username, user.jwtKey)));
+    if (user) {
+      return success(new UserVO(user, this.authService.generateToken(user.username, user.jwtKey)));
+    }
+    return response(
+      ResponseCode.LOGIN_FAILED,
+      ResponseCode[ResponseCode.LOGIN_FAILED]
+    );
   }
 
   @Get('/auth')
@@ -98,26 +116,32 @@ export class UserController {
 
   @Post('/email/send/:email')
   sendEmail(@Param('email') email: string, @Headers('x-forwarded-for') ip = '127.0.0.1') {
-    let captcha = emailCode.get(ip);
-    if (!captcha) {
-      captcha = generateCaptcha();
-      emailCode.set(ip, captcha);
-      setTimeout(() => emailCode.delete(ip), config.email.resendTime);
-    }
-    return new Promise((resolve, reject) => {
-      mailTransport.sendMail({
-        from: config.email.from,
-        to: email,
-        subject: config.email.subject,
-        html: config.email.html(captcha)
-      }, (err, info) => {
-        if (err) {
-          resolve(response(ResponseCode.EMAIL_SEND_FAILED, err.message));
-        } else {
-          resolve(success());
-        }
+    const captchaInfo = this.userService.getCaptchaInfo().get(ip);
+    if (!captchaInfo || !captchaInfo.ban) {
+      const captcha = generateCaptcha();
+      this.userService.getCaptchaInfo().set(ip, { email, captcha, ban: true });
+      setTimeout(() => this.userService.getCaptchaInfo().delete(ip), config.email.expiresIn);
+      setTimeout(() => this.userService.getCaptchaInfo().set(ip, { email, captcha, ban: false }), config.email.resendTime);
+      return new Promise((resolve, reject) => {
+        mailTransport.sendMail({
+          from: config.email.from,
+          to: email,
+          subject: config.email.subject,
+          html: config.email.html(captcha)
+        }, (err, info) => {
+          if (err) {
+            resolve(response(ResponseCode.EMAIL_SEND_FAILED, err.message));
+          } else {
+            resolve(success());
+          }
+        });
       });
-    });
+    }
+    return response(
+      ResponseCode.EMAIL_SEND_FAILED,
+      ResponseCode[ResponseCode.EMAIL_SEND_FAILED]
+    );
+
   }
 
   constructor(
@@ -126,8 +150,8 @@ export class UserController {
   ) { }
 }
 
-const emailCode = new Map<string, string>();
 const mailTransport = nodemailer.createTransport({
   host: config.email.host,
-  auth: config.email.auth
+  auth: config.email.auth,
+  secure: config.email.secure
 });

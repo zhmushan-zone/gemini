@@ -43,8 +43,14 @@ export class UserService {
     return jwtKey;
   }
 
+  getCaptchaInfo() {
+    return captchaInfo;
+  }
+
   constructor(
     @InjectRepository(User)
     private readonly userRepository: MongoRepository<User>
   ) { }
 }
+
+const captchaInfo = new Map<string, { email: string, captcha: string, ban: boolean }>();
