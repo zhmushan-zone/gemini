@@ -29,6 +29,9 @@ server/dist-test/
 server/obj/
 server/bin/
 
+# IDE - IDEA
+.idea/
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
