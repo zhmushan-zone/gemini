@@ -117,4 +117,13 @@ describe('UserController', () => {
         ));
     });
   });
+
+  describe('updateOne', () => {
+    it('success', async () => {
+      jest.spyOn(userService, 'updateById').mockImplementation(() => user);
+      jest.spyOn(authService, 'generateToken').mockImplementation(() => 'token');
+      expect(await userController.updateOne(user, user))
+        .toEqual(success());
+    });
+  });
 });
