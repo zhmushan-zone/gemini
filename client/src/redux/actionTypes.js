@@ -20,3 +20,5 @@ export const UPDATE_PERSON_MSG = 'UPDATE_PERSON_MSG'
 export const CHANGE_AVATAR = 'CHANGE_AVATAR'
 // 创建课程
 export const CREATE_COURSE = 'CREATE_COURSE'
+// 发送邮箱
+export const SEND_EMAIL_SUCCESS = 'SEND_EMAIL_SUCCESS'

@@ -16,7 +16,8 @@ const initState = {
   job: '未设置',
   city: '未设置',
   sex: '未设置',
-  signature: '未设置'
+  signature: '未设置',
+  code:''
 }
 
 export function userstatus(state = initState, action) {
@@ -37,6 +38,8 @@ export function userstatus(state = initState, action) {
       return { ...state, job: action.payload.job, nickname: action.payload.username, msg: action.payload.msg, city: action.payload.city, signature: action.payload.signature, sex: action.payload.sex }
     case ActionTypes.CHANGE_AVATAR:
       return { ...state, avatar: action.avatar }
+    case ActionTypes.SEND_EMAIL_SUCCESS:
+      return { ...state, code: action.code }
 
     case ActionTypes.LOGOUT:
       return { ...initState }

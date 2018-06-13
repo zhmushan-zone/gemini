@@ -15,7 +15,7 @@ class UploadVideo extends Component {
       bodyFormData = new FormData()
       for (let index = 0; index < video.length; index++) {
         const videoNow = video[index]
-        bodyFormData.set(videoNow.name,videoNow)
+        bodyFormData.append('video',videoNow)
         console.log('1')
       }
       axios({
