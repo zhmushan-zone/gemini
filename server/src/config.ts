@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+
 export const config = {
   port: 9999,
   token: {
@@ -9,12 +11,7 @@ export const config = {
     expiresIn: 300000,
     from: 'Gemini <zhangtest@yeah.net>',
     subject: 'Welcome to Gemini',
-    html: (captcha: string) => `<h1>${captcha.toUpperCase()}</h1> is your Gemini captcha.
-      Gemini is the third astrological sign in the zodiac, originating from the constellation of Gemini.
-      Under the tropical zodiac, the sun transits this sign between May 21 and June 21.
-      Gemini is represented by the twins Castor and Pollux.
-      The symbol of the twins is based on the Dioscuri, one mortal and one immortal,
-      that were granted shared half-immortality after the death of the mortal brother (Castor).`,
+    html: (captcha: string) => getEmailTemplate().replace('{{captcha}}', captcha),
     host: 'smtp.yeah.net',
     auth: {
       user: 'zhangtest@yeah.net',
@@ -37,3 +34,6 @@ export const config = {
     video: __dirname + '/../public/video'
   }
 };
+
+const emailTemplatePath = __dirname + '/../assets/email.template.html';
+const getEmailTemplate = () => fs.readFileSync(emailTemplatePath).toString();
