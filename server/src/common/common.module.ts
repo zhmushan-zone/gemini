@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
+import {Module} from '@nestjs/common';
+import {AuthModule} from './auth/auth.module';
 
 @Module({
   imports: [
@@ -9,4 +9,5 @@ import { AuthModule } from './auth/auth.module';
     AuthModule
   ]
 })
-export class CommonModule {}
+export class CommonModule {
+}
