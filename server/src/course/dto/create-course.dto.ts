@@ -1,11 +1,30 @@
-import {IsEnum, IsInt, IsJSON, IsString} from 'class-validator';
-import {CourseDifficulty, CourseDirection, CourseType} from '../course.entity';
+import {
+  ArrayNotEmpty,
+  Contains,
+  IsEnum,
+  IsInstance,
+  IsJSON,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  ValidateNested
+} from 'class-validator';
+import {Course, CourseDifficulty, CourseDirection, CourseType, Section} from '../course.entity';
+import {Type} from 'class-transformer';
 
-export class CreateCourseDTO {
-  @IsString() readonly title;
+export class CreateSectionDTO extends Section {
+  @IsNotEmpty() @IsString() title;
+}
+
+export class CreateCourseDTO extends Course {
+  @IsNotEmpty() @IsString() readonly title;
   @IsEnum(CourseDirection) readonly direction;
-  @IsEnum(CourseType) readonly tyle;
+  @ArrayNotEmpty() @IsEnum(CourseType, {each: true}) readonly type;
   @IsEnum(CourseDifficulty) readonly difficulty;
-  @IsInt() readonly price;
-  @IsJSON({each: true}) readonly section;
+  @IsNumber() readonly price;
+
+  @ArrayNotEmpty()
+  @ValidateNested({each: true})
+  @Type(() => CreateSectionDTO)
+  readonly sections: CreateSectionDTO[];
 }

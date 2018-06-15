@@ -8,14 +8,12 @@ import {
   UseGuards,
   Put,
   UseInterceptors,
-  FilesInterceptor,
-  UploadedFiles,
   UploadedFile,
   FileInterceptor,
-  UnsupportedMediaTypeException, ValidationPipe, UsePipes
+  UnsupportedMediaTypeException, UsePipes
 } from '@nestjs/common';
 import {UserService} from './user.service';
-import {LoginUserDTO, CreateUserDTO, CheckUserDTO} from './dto';
+import {LoginUserDTO, CreateUserDTO, CheckUserDTO, UpdateUserDTO} from './dto';
 import {success, response, ResponseCode} from '../common/utils/response.util';
 import {UserVO} from './vo/user.vo';
 import {generateCaptcha} from '../common/utils';
@@ -25,7 +23,6 @@ import {AuthService} from '../common/auth/auth.service';
 import {AuthGuard} from '@nestjs/passport';
 import {Usr} from './user.decorators';
 import {User} from './user.entity';
-import {UpdateUserDTO} from './dto/update-user.dto';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -46,7 +43,7 @@ export class UserController {
   }
 
   @Post('/register')
-  @UsePipes(new ValidationPipe({skipMissingProperties: false}))
+  @UsePipes()
   async register(
     @Body() createUserDTO: CreateUserDTO,
     @Headers('captcha') captcha,
@@ -65,7 +62,7 @@ export class UserController {
   }
 
   @Post('/login')
-  @UsePipes(new ValidationPipe({skipMissingProperties: false}))
+  @UsePipes()
   async login(@Body() loginUserDTO: LoginUserDTO) {
     const user = await this.userService.login(loginUserDTO);
     if (user) {

@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { encrpty, generateSalt } from '../common/utils';
-import { Repository, MongoRepository } from 'typeorm';
+import { MongoRepository } from 'typeorm';
 
 @Injectable()
 export class UserService {

@@ -9,6 +9,26 @@ import { config } from '../config';
 import { AuthService } from '../common/auth/auth.service';
 import { JwtStrategy } from '../common/auth/jwt.strategy';
 
+const user: User = {
+  id: 'id',
+  username: 'username',
+  nickname: 'nickname',
+  email: 'email',
+  avatar: 'avatar',
+  password: 'password',
+  job: 'job',
+  city: 'city',
+  sex: Sex.FEMALE,
+  signature: 'signature',
+  role: UserRole.USER,
+  salt: 'salt',
+  jwtKey: 'jwtKey',
+  videos: [],
+  courses: [],
+  createdAt: new Date(),
+  updatedAt: new Date()
+};
+
 describe('UserController', () => {
   let userController: UserController;
   let userService: UserService;
@@ -27,8 +47,8 @@ describe('UserController', () => {
       controllers: [UserController],
       providers: [
         UserService,
-        AuthService,
-        JwtStrategy
+        JwtStrategy,
+        AuthService
       ]
     }).compile();
 
@@ -36,25 +56,6 @@ describe('UserController', () => {
     authService = module.get(AuthService);
     userController = module.get(UserController);
   });
-
-  const user: User = {
-    id: 'id',
-    username: 'username',
-    nickname: 'nickname',
-    email: 'email',
-    avatar: 'avatar',
-    password: 'password',
-    job: 'job',
-    city: 'city',
-    sex: Sex.FEMALE,
-    signature: 'signature',
-    role: UserRole.USER,
-    salt: 'salt',
-    jwtKey: 'jwtKey',
-    videos: [],
-    createdAt: new Date(),
-    updatedAt: new Date()
-  };
 
   describe('findAll', () => {
     it('success', async () => {

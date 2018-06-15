@@ -1,13 +1,14 @@
 import {
   Entity,
   ObjectIdColumn,
-  ObjectID, Column,
+  Column,
   CreateDateColumn,
   UpdateDateColumn,
   Index,
   OneToMany
 } from 'typeorm';
-import { Video } from '../video/video.entity';
+import {Video} from '../video/video.entity';
+import {Course} from '../course/course.entity';
 
 @Entity()
 export class User {
@@ -16,14 +17,14 @@ export class User {
   id: string;
 
   @Column()
-  @Index({ unique: true })
+  @Index({unique: true})
   username: string;
 
   @Column()
   nickname: string;
 
   @Column()
-  @Index({ unique: true })
+  @Index({unique: true})
   email: string;
 
   @Column()
@@ -55,6 +56,9 @@ export class User {
 
   @OneToMany(type => Video, video => video.user)
   videos: Video[];
+
+  @OneToMany(type => Course, course => course.author)
+  courses: Course[];
 
   @CreateDateColumn()
   createdAt: Date;
