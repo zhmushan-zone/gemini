@@ -1,8 +1,9 @@
-import {Column, Entity, ManyToOne, ObjectIdColumn} from 'typeorm';
+import {Column, Entity, ObjectIdColumn} from 'typeorm';
 import {User} from '../user/user.entity';
 
 @Entity()
 export class Course {
+
   @ObjectIdColumn()
   id: string;
 
@@ -24,8 +25,8 @@ export class Course {
   @Column()
   sections: Section[];
 
-  @ManyToOne(type => User, user => user.courses)
-  author: User;
+  @Column()
+  authorId: string;
 }
 
 export class Section {

@@ -4,11 +4,8 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  Index,
-  OneToMany
+  Index
 } from 'typeorm';
-import {Video} from '../video/video.entity';
-import {Course} from '../course/course.entity';
 
 @Entity()
 export class User {
@@ -53,12 +50,6 @@ export class User {
 
   @Column()
   jwtKey: string;
-
-  @OneToMany(type => Video, video => video.user)
-  videos: Video[];
-
-  @OneToMany(type => Course, course => course.author)
-  courses: Course[];
 
   @CreateDateColumn()
   createdAt: Date;

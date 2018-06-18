@@ -20,7 +20,7 @@ export class UserService {
   }
 
   updateById(id: string, user: User) {
-    return this.userRepository.update({ id }, user);
+    return this.userRepository.update(id, user);
   }
 
   register(user: User) {
