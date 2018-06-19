@@ -24,7 +24,11 @@ class coverUpload extends Component {
         {
           this.props.coverImg ? 
           <img src={this.props.coverImg} alt=""/>
-          : null
+          : 
+          <div className="cover-upload-label">
+            <Icon style={{fontSize: 32, color:'#999'}} type="plus" />
+            <span style={{color: '#999', textAlign: 'center'}}>上传封面</span>
+          </div>
         }
         <input id="cover-upload" type="file"/>
       </div>

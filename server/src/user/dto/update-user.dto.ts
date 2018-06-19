@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsEnum } from 'class-validator';
+import { IsString, IsEnum } from 'class-validator';
 import { User, Sex } from '../user.entity';
 
 export class UpdateUserDTO extends User {

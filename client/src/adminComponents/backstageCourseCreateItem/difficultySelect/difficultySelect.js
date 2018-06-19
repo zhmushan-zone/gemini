@@ -5,7 +5,7 @@ const Option = Select.Option
 
 class DifficultyInput extends Component {
   handleChange (v) {
-    this.props.difficultyChange('difficulty', v)
+    this.props.difficultyChange('difficulty', difficulty.indexOf(v))
   }
   render() {
     const difficultyOptions = difficulty.map(item => {

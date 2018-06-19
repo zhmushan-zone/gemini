@@ -6,20 +6,27 @@ const Option = Select.Option
 class TypeSelect extends Component {
 
   handleChange(value) {
-    this.props.typeChange('type', value)
+    console.log(value)
+    const types = value.map(item => {
+      return type2.indexOf(item)
+    })
+    this.props.typeChange('type', types)
   }
 
   render() {
+    const types = this.props.type.map(item => {
+      return type2[item]
+    })
     let children = []
-    if (this.props.direction) {
-      const childrenArr = [...type[direction.indexOf(this.props.direction)]]
+    if (this.props.direction || this.props.direction === 0) {
+      const childrenArr = [...type[this.props.direction]]
       children = childrenArr.map(item => {
         return <Option key={item}>{item}</Option>
       })
     }
     return <Select
       mode="multiple"
-      value={this.props.type}
+      value={types}
       style={{ width: '100%' }}
       placeholder="请选择课程分类"
       onChange={(v) => this.handleChange(v)}
@@ -28,8 +35,6 @@ class TypeSelect extends Component {
   </Select>
   }
 }
-
-const direction = ['前端开发', '后端开发', '移动开发', '数据库', '云计算&大数据', '运维&测试', 'UI设计']
 
 const type = [
   ['HTML5', 'CSS3', 'Javascript', 'Jquery', 'Node.js', 'Bootstrap', 'Sass/Less', 'Vue', 'React', 'Angular'],
@@ -40,5 +45,7 @@ const type = [
   ['测试', 'linux'],
   ['动效动画', 'APPUI设计', '设计工具', '设计基础']
 ]
+
+const type2 = type.join().split(',')
 
 export default TypeSelect

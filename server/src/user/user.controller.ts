@@ -8,24 +8,21 @@ import {
   UseGuards,
   Put,
   UseInterceptors,
-  FilesInterceptor,
-  UploadedFiles,
   UploadedFile,
   FileInterceptor,
-  UnsupportedMediaTypeException
+  UnsupportedMediaTypeException, UsePipes
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { LoginUserDTO, CreateUserDTO, CheckUserDTO } from './dto';
-import { success, response, ResponseCode } from '../common/utils/response.util';
-import { UserVO } from './vo/user.vo';
-import { generateCaptcha } from '../common/utils';
-import { config } from '../config';
+import {UserService} from './user.service';
+import {LoginUserDTO, CreateUserDTO, CheckUserDTO, UpdateUserDTO} from './dto';
+import {success, response, ResponseCode} from '../common/utils/response.util';
+import {UserVO} from './vo/user.vo';
+import {generateCaptcha} from '../common/utils';
+import {config} from '../config';
 import * as nodemailer from 'nodemailer';
-import { AuthService } from '../common/auth/auth.service';
-import { AuthGuard } from '@nestjs/passport';
-import { Usr } from './user.decorators';
-import { User } from './user.entity';
-import { UpdateUserDTO } from './dto/update-user.dto';
+import {AuthService} from '../common/auth/auth.service';
+import {AuthGuard} from '@nestjs/passport';
+import {Usr} from './user.decorators';
+import {User} from './user.entity';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -46,6 +43,7 @@ export class UserController {
   }
 
   @Post('/register')
+  @UsePipes()
   async register(
     @Body() createUserDTO: CreateUserDTO,
     @Headers('captcha') captcha,
@@ -64,6 +62,7 @@ export class UserController {
   }
 
   @Post('/login')
+  @UsePipes()
   async login(@Body() loginUserDTO: LoginUserDTO) {
     const user = await this.userService.login(loginUserDTO);
     if (user) {
@@ -108,8 +107,10 @@ export class UserController {
       return new UnsupportedMediaTypeException();
     }
     else {
-      this.userService.updateById(user.id, { avatar: avatar.filename } as User);
-      if (user.avatar) { fs.unlink(path.join(config.path.avatar, user.avatar), err => err); }
+      this.userService.updateById(user.id, {avatar: avatar.filename} as User);
+      if (user.avatar) {
+        fs.unlink(path.join(config.path.avatar, user.avatar), err => err);
+      }
     }
     return success(avatar.filename);
   }
@@ -119,9 +120,13 @@ export class UserController {
     const captchaInfo = this.userService.getCaptchaInfo().get(ip);
     if (!captchaInfo || !captchaInfo.ban) {
       const captcha = generateCaptcha();
-      this.userService.getCaptchaInfo().set(ip, { email, captcha, ban: true });
+      this.userService.getCaptchaInfo().set(ip, {email, captcha, ban: true});
       setTimeout(() => this.userService.getCaptchaInfo().delete(ip), config.email.expiresIn);
-      setTimeout(() => this.userService.getCaptchaInfo().set(ip, { email, captcha, ban: false }), config.email.resendTime);
+      setTimeout(() => this.userService.getCaptchaInfo().set(ip, {
+        email,
+        captcha,
+        ban: false
+      }), config.email.resendTime);
       return new Promise((resolve, reject) => {
         mailTransport.sendMail({
           from: config.email.from,
@@ -147,7 +152,8 @@ export class UserController {
   constructor(
     private readonly userService: UserService,
     private readonly authService: AuthService
-  ) { }
+  ) {
+  }
 }
 
 const mailTransport = nodemailer.createTransport({
