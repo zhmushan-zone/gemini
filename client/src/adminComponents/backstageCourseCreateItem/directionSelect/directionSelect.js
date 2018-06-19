@@ -5,7 +5,7 @@ const Option = Select.Option
 
 class DirectionSelect extends Component {
   handleChange (v) {
-    this.props.directionChange('direction', v)
+    this.props.directionChange('direction', direction.indexOf(v))
     this.props.directionChange('type', [])
   }
   render() {
