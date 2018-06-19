@@ -22,7 +22,7 @@ class Login extends React.Component {
       re_password:'',
       repet_password:'',
       forget_email:'',
-      captcha:" ",
+      captcha:"",
       show:false,
       registerUsername:''
     }
@@ -110,6 +110,7 @@ class Login extends React.Component {
 
   inputFocus =(e)=>{
     const inputNow =e.target
+    console.log('focus')
     const go =this.refs.go
     inputNow.parentNode.classList.add('focus')
     inputNow.parentNode.classList.remove('shake')
@@ -235,11 +236,7 @@ class Login extends React.Component {
             <form className="form">
               {this.state.show? 
             <div>
-            <div className="f_row">
-              <label>验证码</label>
-              <input type="text" className="input-field" value={this.state.captcha}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'captcha')}/>
-              <u></u>
-            </div>
+
             <div className="f_row">
               <label>密码</label>
               <input type="password" className="input-field" value={this.state.re_password}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'re_password')}/>
@@ -258,6 +255,7 @@ class Login extends React.Component {
             inputBlur={this.inputBlur} 
             handleChange={this.handleChange}
             registerSendEamil={this.registerSendEamil}
+            captcha={this.state.captcha}
           />
   }
             </form>

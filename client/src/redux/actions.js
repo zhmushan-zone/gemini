@@ -141,6 +141,10 @@ export function changePersonMsg(a) {
 }
 // 注册发送邮件
 export function LoginSendEamil(email) {
+  var regex = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
+  if (!regex.test(email)) {
+    return errorMsg("邮箱格式错误")
+  }
   if (!email ) {
     return errorMsg("请输入邮箱")
   }
