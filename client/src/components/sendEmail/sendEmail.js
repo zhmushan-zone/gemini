@@ -8,10 +8,10 @@ export default class SendEmail extends Component {
           <label>邮箱</label>
           <input type="text"
             className="input-field"
-            value={this.props.re_username}
+            value={this.props.email}
             onFocus={this.props.inputFocus}
             onBlur={this.props.inputBlur}
-            onChange={this.props.handleChange.bind(this, 're_username')}
+            onChange={this.props.handleChange.bind(this, 'email')}
           />
           <a onClick={this.props.registerSendEamil} className="sendEmail">发送邮件</a>
           <u></u>
@@ -21,7 +21,7 @@ export default class SendEmail extends Component {
           <input type="text" className="input-field" value={this.props.captcha} onFocus={this.props.inputFocus} onBlur={this.props.inputBlur} onChange={this.props.handleChange.bind(this, 'captcha')} />
           <u></u>
         </div>
-        <button type="button" className="btn-large">继续</button>
+        <button type="button" className="btn-large" onClick={this.props.goToNextRegister}>继续</button>
       </div>
     )
   }

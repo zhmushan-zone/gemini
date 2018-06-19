@@ -1,14 +1,14 @@
 import React from 'react'
 import "./login.scss"
-import { login,removeMsg,register,forgetPassword,LoginSendEamil } from '@/redux/actions.js'
+import { login,removeMsg,register,forgetPassword,RegisterSendEamil ,checkedCaptcha} from '@/redux/actions.js'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Alert } from 'antd'
 import SendEmail from '../../components/sendEmail/sendEmail'
-
+import Register from '../../components/register/register'
 @connect(
   state=>state,
-  {login,removeMsg,register,forgetPassword,LoginSendEamil}
+  {login,removeMsg,register,forgetPassword,RegisterSendEamil,checkedCaptcha}
 )
 
 class Login extends React.Component {
@@ -24,7 +24,7 @@ class Login extends React.Component {
       forget_email:'',
       captcha:"",
       show:false,
-      registerUsername:''
+      email:''
     }
     this.registerSendEamil=this.registerSendEamil.bind(this)
   }
@@ -34,7 +34,6 @@ class Login extends React.Component {
         this.login()
       }
     })
-    
   }
   
 
@@ -78,18 +77,17 @@ class Login extends React.Component {
   handleErrorClose=()=>{
     this.props.removeMsg()
   }
+
   registerSendEamil(){
-    this.props.LoginSendEamil(this.state.re_username)
+    this.props.RegisterSendEamil(this.state.email)
+  }
+  // 跳转到注册取完善信息
+  goToNextRegister=()=>{
+    this.props.checkedCaptcha(this.state.captcha)
     setTimeout(()=>{
       if(this.props.userstatus.code===1){
         this.setState({
           show:!this.state.show
-        },()=>{
-          setTimeout(()=>{
-            this.setState({
-              show:!this.state.show
-            })
-          },60000)
         })
       }
     },200)
@@ -214,12 +212,16 @@ class Login extends React.Component {
             </a>
             <h2>重置密码</h2>
             <form className="form">
-              <p>请在输入邮箱后打开邮件</p>
               <div className="f_row last">
                 <label>请输入邮箱</label>
                 <input type="text" className="input-field" value={this.state.forget_email} onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'forget_email')}/>
                 <u></u>
               </div>
+              <div className="f_row">
+               <label>验证码</label>
+               <input type="text" className="input-field" value={this.state.captcha} onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this, 'captcha')} />
+               <u></u>
+             </div>
               <button type="button" className="btn"　onClick={this.resetPass}><span>重置密码</span><u></u>
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" viewBox="0 0 415.582 415.582" >
                   <path d="M411.47,96.426l-46.319-46.32c-5.482-5.482-14.371-5.482-19.853,0L152.348,243.058l-82.066-82.064
@@ -235,27 +237,21 @@ class Login extends React.Component {
             <h2>注册</h2>
             <form className="form">
               {this.state.show? 
-            <div>
-
-            <div className="f_row">
-              <label>密码</label>
-              <input type="password" className="input-field" value={this.state.re_password}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'re_password')}/>
-              <u></u>
-            </div>
-            <div className="f_row last">
-              <label> 用户名</label>
-              <input type="text" className="input-field" value={this.state.registerUsername}  onFocus={this.inputFocus} onBlur={this.inputBlur} onChange={this.handleChange.bind(this,'registerUsername')}/>
-              <u></u>
-            </div>
-            <button type="button"  className="btn-large" onClick={this.register}> NEXT</button>
-            </div>: 
+              <Register
+                re_password={this.state.re_password}
+                inputFocus={this.inputFocus} 
+                inputBlur={this.inputBlur} 
+                handleChange={this.handleChange}
+              />: 
           <SendEmail 
-            re_username={this.state.re_username} 
+            email={this.state.email} 
             inputFocus={this.inputFocus} 
             inputBlur={this.inputBlur} 
             handleChange={this.handleChange}
             registerSendEamil={this.registerSendEamil}
             captcha={this.state.captcha}
+            re_username={this.state.re_username}
+            goToNextRegister={this.goToNextRegister}
           />
   }
             </form>
