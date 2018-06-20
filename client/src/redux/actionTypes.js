@@ -2,7 +2,7 @@
 export const LOGIN = 'LOGIN'
 // 注册
 export const REGISTER = 'REGISTER'
-// 注册
+// 忘记密码
 export const FORGET_PASS = 'FORGET_PASS'
 // 错误提示
 export const ERROR_MSG = 'ERROR_MSG'
@@ -18,7 +18,7 @@ export const LOGOUT = 'LOGOUT'
 export const UPDATE_PERSON_MSG = 'UPDATE_PERSON_MSG'
 // 修改头像
 export const CHANGE_AVATAR = 'CHANGE_AVATAR'
-// 创建课程
-export const CREATE_COURSE = 'CREATE_COURSE'
+// 创建课程成功
+export const CREATE_COURSE_SUCCESS = 'CREATE_COURSE_SUCCESS'
 // 发送邮箱
 export const SEND_EMAIL_SUCCESS = 'SEND_EMAIL_SUCCESS'

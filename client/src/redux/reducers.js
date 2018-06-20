@@ -20,6 +20,10 @@ const initState = {
   code:''
 }
 
+const courseInitState = {
+  courses: []
+}
+
 export function userstatus(state = initState, action) {
   switch (action.type) {
     // case ActionTypes.LOGIN:
@@ -40,13 +44,20 @@ export function userstatus(state = initState, action) {
       return { ...state, avatar: action.avatar }
     case ActionTypes.SEND_EMAIL_SUCCESS:
       return { ...state, code: action.code }
-
     case ActionTypes.LOGOUT:
       return { ...initState }
-
     default:
       return state
   }
 }
 
-export default combineReducers({ userstatus })
+export function course(state = courseInitState, action) {
+  switch (action.type) {
+    case ActionTypes.CREATE_COURSE_SUCCESS:
+      return {...state, courses: [...state.courses, action.payload]}
+    default:
+      return state
+  }
+}
+
+export default combineReducers({ userstatus, course })

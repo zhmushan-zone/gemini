@@ -6,6 +6,7 @@ class TitleInput extends Component {
     const { titleChange } = this.props
     return <Input 
             onChange={(e) => titleChange('title', e.target.value)}
+            placeholder="请输入课程标题"
           />
   }
 }

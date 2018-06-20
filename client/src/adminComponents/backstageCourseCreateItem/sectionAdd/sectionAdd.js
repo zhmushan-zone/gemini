@@ -14,7 +14,7 @@ class SectionAdd extends Component {
         title: ''
       })
     }
-    this.props.sectionChange('section', sections)
+    this.props.sectionChange('sections', sections)
   }
   render() {
     const sectionOptions = []
@@ -24,9 +24,9 @@ class SectionAdd extends Component {
       )
     }
     let sectionInputs
-    if (this.props.section) {
-      sectionInputs = this.props.section.map(item => {
-        const sections = [...this.props.section]
+    if (this.props.sections) {
+      sectionInputs = this.props.sections.map(item => {
+        const sections = [...this.props.sections]
         const key = Object.keys(item)[1]
         return <Input
           style={{marginTop: 10}}
@@ -34,7 +34,7 @@ class SectionAdd extends Component {
           placeholder={`请输入标题`}
           onChange={(e) => {
             sections[item.key - 1][key] = e.target.value
-            this.props.sectionChange('section', sections)
+            this.props.sectionChange('sections', sections)
           }}
           key={item.key}
         />

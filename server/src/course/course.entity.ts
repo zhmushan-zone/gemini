@@ -40,19 +40,55 @@ export class Node {
 }
 
 export enum CourseDirection {
+  FRONTEND,
   BACKEND,
-  FRONTEND
+  MOBILE,
+  DATABASE,
+  CLOUDCOMPUTING_BIGDATA,
+  YUNWEI_TEST,
+  UI
 }
 
 export enum CourseType {
-  HTML,
-  CSS,
-  JAVASCRIPT
+  HTML5,
+  CSS3,
+  JAVASCRIPT,
+  JQUERY,
+  NODEJS,
+  BOOTSTRAP,
+  SASS_LESS,
+  VUE,
+  REACT,
+  ANGULAR,
+  PHP,
+  JAVA,
+  SPRINGBOOT,
+  PYTHON,
+  C,
+  CPP,
+  GO,
+  CSHARP,
+  RUBY,
+  ANDROID,
+  IOS,
+  UNITY3D,
+  COCOS2DX,
+  MYSQL,
+  ORACLE,
+  MONGODB,
+  SQLSERVER,
+  BIGDATA,
+  CLOUDCOMPUTING,
+  TEST,
+  LINUX,
+  ANIMATION,
+  APPUIDESIGN,
+  DESIGNTOOLS,
+  DESIGNBASIS
 }
 
 export enum CourseDifficulty {
-  GETTING_STARTED,
-  BEGINNER,
-  INTERMEDIATE,
+  BASIS,
+  MIDDLE,
   ADVANCED
 }

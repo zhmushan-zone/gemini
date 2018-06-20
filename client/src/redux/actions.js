@@ -39,7 +39,10 @@ function sendEmailSuccess(){
   return {type:ActionTypes.SEND_EMAIL_SUCCESS,code:1}
 }
 
-
+// 创建课程成功
+function createCourseSuccess(course) {
+  return { type: ActionTypes.CREATE_COURSE_SUCCESS, payload: course }
+}
 
 export function register(username, password, repet_pass) {
   console.log(username)
@@ -168,4 +171,33 @@ export function logout() {
 // 修改头像
 export function changeAvatar(name) {
   return changeAvatarFunc(name)
+}
+
+//创建课程
+export function createCourse (data) {
+  const { title, coverImg, direction, type, difficulty, price, sections } = data
+  const _token = Cookies.get('_token')
+  return async dispatch => {
+    const res = await axios({
+      method: 'post',
+      url: '/api/courses',
+      headers: {
+        "token": _token
+      },
+      data: {
+        title,
+        coverImg,
+        direction,
+        type,
+        difficulty,
+        price,
+        sections
+      }
+    })
+    if (res.data.code === 1) {
+      dispatch(createCourseSuccess(res.data.data))
+    } else {
+      dispatch(errorMsg("课程创建失败"))
+    }
+  }
 }

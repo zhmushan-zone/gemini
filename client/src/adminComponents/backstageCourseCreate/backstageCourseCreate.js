@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Button } from 'antd'
+import { Form, Button, notification } from 'antd'
 import TitleInput from '../backstageCourseCreateItem/titleInput/titleInput'
 import DifficultySelect from '../backstageCourseCreateItem/difficultySelect/difficultySelect'
 import DirectionSelect from '../backstageCourseCreateItem/directionSelect/directionSelect'
@@ -8,11 +8,17 @@ import DescInput from '../backstageCourseCreateItem/descInput/descInput'
 import TypeSelect from '../backstageCourseCreateItem/typeSelect/typeSelect'
 import PriceInput from '../backstageCourseCreateItem/priceInput/priceInput'
 import SectionAdd from '../backstageCourseCreateItem/sectionAdd/sectionAdd'
+import { createCourse } from '@/redux/actions'
+import { connect } from 'react-redux'
 
 import './backstageCourseCreate.scss'
 
 const FormItem = Form.Item
 
+@connect(
+  state => state.course,
+  { createCourse }
+)
 class BackstageCourseCreate extends React.Component {
   constructor(props) {
     super(props)
@@ -23,12 +29,25 @@ class BackstageCourseCreate extends React.Component {
       direction: '',
       type: [],
       difficulty: '',
-      price: '',
-      section: []
+      price: 0,
+      sections: []
     }
     this.stateChange = this.stateChange.bind(this)
   }
-  
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    for (let item in this.state) {
+      if ((!this.state[item] && this.state[item] !== 0) || this.state[item].length === 0 ) {
+        return notification.open({
+          message: '提交失败',
+          description: '请完善您的课程信息,确认无误后再次提交'
+        })
+      }
+    }
+    return this.props.createCourse(this.state)
+  }
+
   stateChange (key, value) {
     this.setState({
       [key]: value
@@ -40,7 +59,6 @@ class BackstageCourseCreate extends React.Component {
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form
 
     const formItemLayout = {
       labelCol: {
@@ -71,120 +89,73 @@ class BackstageCourseCreate extends React.Component {
             {...formItemLayout}
             label="课程标题"
           >
-            {getFieldDecorator('title', {
-              rules: [{
-                required: true, message: '请输入课程标题'
-              }]
-            })(
               <TitleInput 
                 titleChange={this.stateChange}
+                setFieldsValue={this.state.title}
               />
-            )}
           </FormItem>
           <FormItem
             {...formItemLayout}
             label="课程难度"
           >
-            {getFieldDecorator('difficulty', {
-              rules: [{
-                required: true, message: '请选择课程难度'
-              }]
-            })(
-              <DifficultySelect 
-                difficultyChange={this.stateChange}
-              />
-            )}
+            <DifficultySelect 
+              difficultyChange={this.stateChange}
+            />
           </FormItem>
           <FormItem
             {...formItemLayout}
             label="课程方向"
           >
-            {getFieldDecorator('direction', {
-              rules: [{
-                required: true, message: '请选择课程方向'
-              }]
-            })(
-              <DirectionSelect 
-                directionChange={this.stateChange}
-              />
-            )}
+            <DirectionSelect 
+              directionChange={this.stateChange}
+            />
           </FormItem>
           <FormItem
             {...formItemLayout}
             label="课程分类"
           >
-            {getFieldDecorator('type', {
-              rules: [{
-                required: true, message: '请添加课程分类'
-              }]
-            })(
-              <TypeSelect
-                typeChange={this.stateChange}
-                direction={this.state.direction}
-                type={this.state.type}
-              />
-            )}
+            <TypeSelect
+              typeChange={this.stateChange}
+              direction={this.state.direction}
+              type={this.state.type}
+            />
           </FormItem>
           <FormItem
             {...formItemLayout}
             label="所需积分"
           >
-            {getFieldDecorator('price', {
-              rules: [{
-                required: true, message: '请设定课程所需积分'
-              }]
-            })(
-              <PriceInput
-                priceChange={this.stateChange}
-              />
-            )}
+            <PriceInput
+              priceChange={this.stateChange}
+            />
           </FormItem>
           <FormItem
             {...formItemLayout}
             label="课程封面"
           >
-            {getFieldDecorator('cover', {
-              rules: [{
-                required: true, message: '请输入课程标题'
-              }]
-            })(
-              <CoverUpload
-                coverChange={this.stateChange}
-                coverImg={this.state.coverImg}
-              />
-            )}
+            <CoverUpload
+              coverChange={this.stateChange}
+              coverImg={this.state.coverImg}
+            />
           </FormItem>
           <FormItem
             {...formItemLayout}
             label="课程章节数"
           >
-            {getFieldDecorator('section', {
-              rules: [{
-                required: true, message: '请添加课程章节'
-              }]
-            })(
-              <SectionAdd
-                sectionChange={this.stateChange}
-                section={this.state.section}
-              />
-            )}
+            <SectionAdd
+              sectionChange={this.stateChange}
+              sections={this.state.sections}
+            />
           </FormItem>
           <FormItem
             {...formItemLayout}
             label="课程介绍"
           >
-            {getFieldDecorator('desc', {
-              rules: [{
-                required: true, message: '请输入课程介绍'
-              }]
-            })(
-              <DescInput
-                descChange={this.stateChange}
-              />
-            )}
+            <DescInput
+              descChange={this.stateChange}
+            />
           </FormItem>
           <FormItem {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">提交</Button>
+            <Button type="primary" htmlType="submit" className="login-form-button">提交</Button>
           </FormItem>
         </Form>
       </div>
