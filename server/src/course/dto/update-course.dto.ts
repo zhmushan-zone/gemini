@@ -11,9 +11,11 @@ export class UpdateCourseDTO extends Course {
 
   @IsString() readonly title;
 
+  @IsNotEmpty() @IsString() readonly coverImg;
+
   @IsEnum(CourseDirection) readonly direction;
 
-  @IsEnum(CourseType, {each: true}) readonly type;
+  @ArrayNotEmpty() @IsEnum(CourseType, {each: true}) readonly type;
 
   @IsEnum(CourseDifficulty) readonly difficulty;
 
@@ -22,5 +24,5 @@ export class UpdateCourseDTO extends Course {
   @ArrayNotEmpty()
   @ValidateNested({each: true})
   @Type(() => UpdateSectionDTO)
-  readonly sections;
+  readonly sections: UpdateSectionDTO[];
 }
