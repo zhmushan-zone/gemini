@@ -18,6 +18,7 @@ export class CreateSectionDTO extends Section {
 
 export class CreateCourseDTO extends Course {
   @IsNotEmpty() @IsString() readonly title;
+  @IsNotEmpty() @IsString() readonly coverImg;
   @IsEnum(CourseDirection) readonly direction;
   @ArrayNotEmpty() @IsEnum(CourseType, {each: true}) readonly type;
   @IsEnum(CourseDifficulty) readonly difficulty;

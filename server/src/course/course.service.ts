@@ -21,6 +21,10 @@ export class CourseService {
     return this.courseRepository.findOne(id);
   }
 
+  findAll() {
+    return this.courseRepository.find();
+  }
+
   updateById(id: string, course: Course) {
     return this.courseRepository.update(id, course);
   }

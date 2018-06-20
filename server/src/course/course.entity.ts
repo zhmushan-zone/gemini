@@ -11,6 +11,9 @@ export class Course {
   title: string;
 
   @Column()
+  coverImg: string;
+
+  @Column()
   direction: CourseDirection;
 
   @Column()

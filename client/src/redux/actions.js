@@ -143,9 +143,13 @@ export function changePersonMsg(a) {
   }
 }
 // 注册发送邮件
-export function LoginSendEamil(email) {
-  if (!email ) {
+export function RegisterSendEamil(email) {
+  if (!email) {
     return errorMsg("请输入邮箱")
+  }
+  var regex = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
+  if (!regex.test(email)) {
+    return errorMsg("邮箱格式错误")
   }
   return async dispatch => {
     const res = await axios.post(`/api/users/email/send/${email}`)
@@ -159,6 +163,12 @@ export function LoginSendEamil(email) {
     } 
   }
 
+}
+// 检测是否验证码正确
+export function checkedCaptcha(captcha){
+  if(!captcha){
+    return errorMsg("验证码都不写吗？")
+  }
 }
 
 

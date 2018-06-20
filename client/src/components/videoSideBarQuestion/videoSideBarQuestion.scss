@@ -1,5 +1,21 @@
 .side-bar-question-container{
+  .top{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
   .delete{
     cursor: pointer;
   }
+  .question{
+    margin-bottom: 20px;
+  }
+
+}  .button-p{
+  margin-top: 15px;
+  text-align: right;
 }
+.button-p{
+  margin-top: 15px;
+  text-align: right;
+} 

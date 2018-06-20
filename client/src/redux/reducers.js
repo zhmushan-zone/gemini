@@ -6,6 +6,7 @@ const initState = {
   msg: '',
   username: '',
   password: '',
+  email:'',
   re_username: '',
   re_password: '',
   repet_password: '',

@@ -3,6 +3,7 @@ import {Course, CourseDifficulty, CourseDirection, CourseType, Section} from '..
 export class CourseVO extends Course {
   id: string;
   title: string;
+  coverImg: string;
   direction: CourseDirection;
   type: CourseType[];
   difficulty: CourseDifficulty;
@@ -13,6 +14,7 @@ export class CourseVO extends Course {
     super();
     this.id = course.id;
     this.title = course.title;
+    this.coverImg = course.coverImg;
     this.direction = course.direction;
     this.type = course.type;
     this.difficulty = course.difficulty;
