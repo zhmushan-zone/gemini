@@ -11,6 +11,11 @@
   &:hover {
     border-color: #1890ff;
   }
+  .cover-upload-label {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+  }
 
   img {
     width: 100%;
