@@ -30,6 +30,12 @@ export class CourseController {
     return success(course);
   }
 
+  @Get()
+  async findAll() {
+    const courses = await this.courseService.findAll();
+    return success(courses);
+  }
+
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   async updateOne(@Usr() user, @Body() updateCourseDTO: UpdateCourseDTO, @Param('id') id) {
