@@ -63,9 +63,9 @@ export class UserController {
 
   @Post('/email/validate/:email')
   validateEmail(
+    @Param('email') email,
     @Headers('captcha') captcha,
-    @Headers('x-forwarded-for') ip = '127.0.0.1',
-    @Param('email') email
+    @Headers('x-forwarded-for') ip = '127.0.0.1'
   ) {
     const captchaInfo = this.userService.getCaptchaInfo().get(ip);
     if (

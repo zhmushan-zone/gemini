@@ -77,6 +77,18 @@ describe('UserController', () => {
     });
   });
 
+  describe('validateEmail', () => {
+    it('success', async () => {
+      jest.spyOn(userService, 'getCaptchaInfo').mockImplementation(() => {
+        const map = new Map<string, { email: string, captcha: string, ban: boolean }>();
+        map.set('127.0.0.1', { email: 'email', captcha: 'captcha', ban: true });
+        return map;
+      });
+      expect(await userController.validateEmail('email', 'captcha'))
+        .toEqual(success());
+    });
+  });
+
   describe('login', () => {
     it('success', async () => {
       jest.spyOn(userService, 'login').mockImplementation(() => user);
