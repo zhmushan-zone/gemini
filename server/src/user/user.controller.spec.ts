@@ -23,8 +23,6 @@ const user: User = {
   role: UserRole.USER,
   salt: 'salt',
   jwtKey: 'jwtKey',
-  videos: [],
-  courses: [],
   createdAt: new Date(),
   updatedAt: new Date()
 };

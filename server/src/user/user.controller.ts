@@ -43,7 +43,6 @@ export class UserController {
   }
 
   @Post('/register')
-  @UsePipes()
   async register(
     @Body() createUserDTO: CreateUserDTO,
     @Headers('captcha') captcha,
@@ -55,14 +54,31 @@ export class UserController {
       captchaInfo.captcha === captcha &&
       captchaInfo.email === createUserDTO.email
     ) {
+      this.userService.getCaptchaInfo().delete(ip);
       const user = await this.userService.register(createUserDTO);
       return success(new UserVO(user, this.authService.generateToken(user.username, user.jwtKey)));
     }
     return response(ResponseCode.CAPTCHA_ERROR, ResponseCode[ResponseCode.CAPTCHA_ERROR]);
   }
 
+  @Post('/email/validate/:email')
+  validateEmail(
+    @Headers('captcha') captcha,
+    @Headers('x-forwarded-for') ip = '127.0.0.1',
+    @Param('email') email
+  ) {
+    const captchaInfo = this.userService.getCaptchaInfo().get(ip);
+    if (
+      captchaInfo &&
+      captchaInfo.captcha === captcha &&
+      captchaInfo.email === email
+    ) {
+      return success();
+    }
+    return response(ResponseCode.CAPTCHA_ERROR, ResponseCode[ResponseCode.CAPTCHA_ERROR]);
+  }
+
   @Post('/login')
-  @UsePipes()
   async login(@Body() loginUserDTO: LoginUserDTO) {
     const user = await this.userService.login(loginUserDTO);
     if (user) {
