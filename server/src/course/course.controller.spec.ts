@@ -11,12 +11,13 @@ import {success} from '../common/utils';
 const course: Course = {
   id: 'id',
   sections: [],
-  author: {} as User,
+  authorId: 'authorId',
   title: 'title',
   direction: CourseDirection.BACKEND,
-  type: [CourseType.CSS],
+  type: [CourseType.CSS3],
   difficulty: CourseDifficulty.ADVANCED,
-  price: 0
+  price: 0,
+  coverImg: 'coverImg'
 };
 
 describe('Course Controller', () => {
@@ -40,6 +41,6 @@ describe('Course Controller', () => {
   });
   it('create', async () => {
     jest.spyOn(service, 'create').mockImplementation(() => course);
-    expect(await controller.create({} as User, course)).toEqual(success(course));
+    expect(await controller.create({id: 'authorId'} as User, course)).toEqual(success(course));
   });
 });

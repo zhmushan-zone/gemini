@@ -12,9 +12,9 @@ export class CourseController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  async create(@Usr() user, @Body() createCourseDTO: CreateCourseDTO) {
+  async create(@Usr() user: User, @Body() createCourseDTO: CreateCourseDTO) {
     const course = await this.courseService.create(user.id, createCourseDTO);
-    return success(new CourseVO(course));
+    return success(course);
   }
 
   @Delete(':id')
