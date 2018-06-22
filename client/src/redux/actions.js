@@ -35,8 +35,8 @@ export function loadData(userinfo) {
 }
 
 // 发送邮箱成功
-function sendEmailSuccess(){
-  return {type:ActionTypes.SEND_EMAIL_SUCCESS,code:1}
+function sendEmailSuccess() {
+  return { type: ActionTypes.SEND_EMAIL_SUCCESS, code: 1 }
 }
 
 // 创建课程成功
@@ -49,9 +49,8 @@ export function register(username, password, repet_pass) {
   if (!username || !password || !repet_pass) {
     return errorMsg("请输入注册的账号的密码")
   }
-  var regex = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
-  if (!regex.test(username)) {
-    return errorMsg("邮箱格式错误")
+  if (username.length < 6) {
+    return errorMsg("用户名最少6位")
   }
   if (password.length < 6 || password.length >= 14) {
     return errorMsg("密码个数不能少于６位或者大于14位")
@@ -60,16 +59,29 @@ export function register(username, password, repet_pass) {
     return errorMsg("两次密码不一致")
   }
   return async dispatch => {
-    const res = await axios.post('/api/users/register', { username, password })
+    const email = Cookies.get('email')
+    const captcha = Cookies.get('captcha')
+    const res = await axios({
+      method: 'post',
+      url: '/api/users/register',
+      headers: {
+        "captcha": captcha,
+      },
+      data: {
+        username,
+        email,
+        password
+      }
+    })
     if (res.data.code === 1) {
       Cookies.set('_id', res.data.data.id)
       Cookies.set('_token', res.data.data.token)
-      dispatch(authSuccess({ username, password, data: res.data.data }))
+      dispatch(authSuccess({ username, password, email, data: res.data.data }))
     } else if (res.data.code === -1) {
       dispatch(errorMsg("未知错误"))
     } else if (res.data.code === 102) {
       dispatch(errorMsg("用户已存在"))
-    } else if(res.data.code===104){
+    } else if (res.data.code === 104) {
       dispatch(errorMsg("请输入正确的验证码"))
     }
   }
@@ -153,21 +165,35 @@ export function RegisterSendEamil(email) {
   }
   return async dispatch => {
     const res = await axios.post(`/api/users/email/send/${email}`)
+    Cookies.set("email", email)
     if (res.data.code === 1) {
       dispatch(sendEmailSuccess())
-    }else if(res.data.code===103){
+    } else if (res.data.code === 103) {
       dispatch(errorMsg("发送验证码太过频发"))
-    } 
-    else  {
+    }
+    else {
       dispatch(errorMsg("验证码错误"))
-    } 
+    }
   }
 
 }
 // 检测是否验证码正确
-export function checkedCaptcha(captcha){
-  if(!captcha){
+export function checkedCaptcha(captcha) {
+  if (!captcha) {
     return errorMsg("验证码都不写吗？")
+  }
+  const email = Cookies.get('email')
+  return async  dispatch => {
+    const res = await axios({
+      method: 'post',
+      url: `/api/users/email/validate/${email}`,
+      headers: {
+        "captcha": captcha
+      }
+    })
+    if (res.data.code === 1) {
+      Cookies.set("captcha", captcha)
+    }
   }
 }
 
@@ -184,7 +210,7 @@ export function changeAvatar(name) {
 }
 
 //创建课程
-export function createCourse (data) {
+export function createCourse(data) {
   const { title, coverImg, direction, type, difficulty, price, sections } = data
   const _token = Cookies.get('_token')
   return async dispatch => {

@@ -239,8 +239,10 @@ class Login extends React.Component {
               {this.state.show? 
               <Register
                 re_password={this.state.re_password}
+                repet_password={this.state.repet_password}
                 inputFocus={this.inputFocus} 
                 inputBlur={this.inputBlur} 
+                register={this.register}
                 handleChange={this.handleChange}
               />: 
           <SendEmail 
