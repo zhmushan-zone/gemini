@@ -1,8 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './user.entity';
-import { encrpty, generateSalt } from '../common/utils';
-import { MongoRepository } from 'typeorm';
+import {Injectable, UnauthorizedException} from '@nestjs/common';
+import {InjectRepository} from '@nestjs/typeorm';
+import {User} from './user.entity';
+import {encrpty, generateSalt} from '../common/utils';
+import {MongoRepository, Repository} from 'typeorm';
 
 @Injectable()
 export class UserService {
@@ -19,8 +19,8 @@ export class UserService {
     return this.userRepository.find(user);
   }
 
-  updateById(id: string, user: User) {
-    return this.userRepository.update(id, user);
+  async updateById(id: string, user: User) {
+    return this.userRepository.update({id}, user);
   }
 
   register(user: User) {
@@ -41,7 +41,7 @@ export class UserService {
 
   refreshToken(user: User) {
     const jwtKey = generateSalt();
-    this.updateById(user.id, { jwtKey } as User);
+    this.updateById(user.id, {jwtKey} as User);
     return jwtKey;
   }
 
@@ -52,7 +52,8 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: MongoRepository<User>
-  ) { }
+  ) {
+  }
 }
 
 const captchaInfo = new Map<string, { email: string, captcha: string, ban: boolean }>();
