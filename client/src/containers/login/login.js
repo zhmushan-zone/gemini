@@ -24,7 +24,8 @@ class Login extends React.Component {
       forget_email:'',
       captcha:"",
       show:false,
-      email:''
+      email:'',
+      isSec:''
     }
     this.registerSendEamil=this.registerSendEamil.bind(this)
   }
@@ -45,7 +46,7 @@ class Login extends React.Component {
               this.props.removeMsg()
             },2000)
           }
-        },10)
+        },100)
   }
 
   // 表单信息
@@ -77,9 +78,24 @@ class Login extends React.Component {
   handleErrorClose=()=>{
     this.props.removeMsg()
   }
-
-  registerSendEamil(){
+  
+  send(){
     this.props.RegisterSendEamil(this.state.email)
+  }
+
+  async registerSendEamil(){// 我是点击触发的
+    await this.send()
+    setTimeout(()=>{
+      if(this.props.userstatus.code===1){
+        this.setState({
+          isSec:true
+        })
+      }else{
+        this.setState({
+          isSec:false
+        })
+      }
+    },200)
   }
   // 跳转到注册取完善信息
   goToNextRegister=()=>{
@@ -254,6 +270,7 @@ class Login extends React.Component {
             captcha={this.state.captcha}
             re_username={this.state.re_username}
             goToNextRegister={this.goToNextRegister}
+            isSec={this.state.isSec}
           />
   }
             </form>

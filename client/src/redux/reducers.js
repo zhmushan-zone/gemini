@@ -34,7 +34,7 @@ export function userstatus(state = initState, action) {
     case ActionTypes.FORGET_PASS:
       return { ...state, email: action.email }
     case ActionTypes.ERROR_MSG:
-      return { ...state, msg: action.msg }
+      return { ...state, msg: action.msg,code:action.code }
     case ActionTypes.REMOVE_MSG:
       return { ...state, msg: action.msg }
     case ActionTypes.LOAD_DATA:

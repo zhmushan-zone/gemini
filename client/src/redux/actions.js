@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 import * as ActionTypes from './actionTypes'
 
 function errorMsg(msg) {
-  return { msg, type: ActionTypes.ERROR_MSG }
+  return { msg, code: 0, type: ActionTypes.ERROR_MSG }
 }
 
 function authSuccess(obj) {
@@ -36,7 +36,8 @@ export function loadData(userinfo) {
 
 // 发送邮箱成功
 function sendEmailSuccess() {
-  return { type: ActionTypes.SEND_EMAIL_SUCCESS, code: 1 }
+  let code = 1
+  return { type: ActionTypes.SEND_EMAIL_SUCCESS, code: code }
 }
 
 // 创建课程成功
@@ -169,10 +170,10 @@ export function RegisterSendEamil(email) {
     if (res.data.code === 1) {
       dispatch(sendEmailSuccess())
     } else if (res.data.code === 103) {
-      dispatch(errorMsg("发送验证码太过频发"))
+      dispatch(errorMsg("发送验证码太过频发", 0))
     }
     else {
-      dispatch(errorMsg("验证码错误"))
+      dispatch(errorMsg("验证码错误", 0))
     }
   }
 
