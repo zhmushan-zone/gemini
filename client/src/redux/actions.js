@@ -45,6 +45,11 @@ function createCourseSuccess(course) {
   return { type: ActionTypes.CREATE_COURSE_SUCCESS, payload: course }
 }
 
+// 课程列表
+function courseList(courses) {
+  return { type: ActionTypes.COURSE_LIST, payload: courses }
+}
+
 export function register(username, password, repet_pass) {
   console.log(username)
   if (!username || !password || !repet_pass) {
@@ -228,6 +233,18 @@ export function createCourse(course) {
       dispatch(createCourseSuccess(res.data.data))
     } else {
       dispatch(errorMsg("服务端错误"))
+    }
+  }
+}
+
+// 获取课程列表
+export function getCourseList() {
+  return async dispatch => {
+    const res = await axios.get('/api/courses')
+    if (res.data.code === 1) { 
+      dispatch(courseList(res.data.data))
+    } else {
+      dispatch(errorMsg("获取课程列表失败"))
     }
   }
 }

@@ -59,7 +59,9 @@ export function course(state = courseInitState, action) {
     case ActionTypes.ERROR_MSG:
       return { ...state, msg: action.msg,code:action.code }
     case ActionTypes.CREATE_COURSE_SUCCESS:
-      return {...state, courses: [...state.courses, action.payload], msg: '课程创建成功'}
+      return { ...state, courses: [...state.courses, action.payload], msg: '课程创建成功' }
+    case ActionTypes.COURSE_LIST:
+      return { ...state, courses: action.payload }
     default:
       return state
   }
