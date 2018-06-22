@@ -30,11 +30,11 @@ export function userstatus(state = initState, action) {
     // case ActionTypes.LOGIN:
     //   return { ...state, msg: action.msg }
     case ActionTypes.AUTH_SUCCESS:
-      return { ...state, data: action.payload, redirectTo: '/home', username: action.payload.username,avatar:action.avatar }
+      return { ...state, ...action.payload, redirectTo: '/home', username: action.payload.username,avatar:action.avatar,email:action.payload.email }
     case ActionTypes.FORGET_PASS:
       return { ...state, email: action.email }
     case ActionTypes.ERROR_MSG:
-      return { ...state, msg: action.msg }
+      return { ...state, msg: action.msg,code:action.code }
     case ActionTypes.REMOVE_MSG:
       return { ...state, msg: action.msg }
     case ActionTypes.LOAD_DATA:

@@ -11,7 +11,7 @@ export default class Register extends Component {
           onBlur={this.props.inputBlur} onChange={this.props.handleChange.bind(this, 're_username')} />
           <u></u>
         </div>
-        <div className="f_row last">
+        <div className="f_row">
           <label>密码</label>
           <input type="password" 
           className="input-field" 
@@ -19,6 +19,16 @@ export default class Register extends Component {
           onFocus={this.props.inputFocus} 
           onBlur={this.props.inputBlur} 
           onChange={this.props.handleChange.bind(this, 're_password')} />
+          <u></u>
+        </div>
+        <div className="f_row last">
+          <label>确认密码</label>
+          <input type="password" 
+          className="input-field" 
+          value={this.props.repet_password} 
+          onFocus={this.props.inputFocus} 
+          onBlur={this.props.inputBlur} 
+          onChange={this.props.handleChange.bind(this, 'repet_password')} />
           <u></u>
         </div>
         <button type="button" 
