@@ -211,8 +211,7 @@ export function changeAvatar(name) {
 }
 
 //创建课程
-export function createCourse(data) {
-  const { title, coverImg, direction, type, difficulty, price, sections } = data
+export function createCourse(course) {
   const _token = Cookies.get('_token')
   return async dispatch => {
     const res = await axios({
@@ -222,19 +221,13 @@ export function createCourse(data) {
         "token": _token
       },
       data: {
-        title,
-        coverImg,
-        direction,
-        type,
-        difficulty,
-        price,
-        sections
+        ...course
       }
     })
     if (res.data.code === 1) {
       dispatch(createCourseSuccess(res.data.data))
     } else {
-      dispatch(errorMsg("课程创建失败"))
+      dispatch(errorMsg("服务端错误"))
     }
   }
 }

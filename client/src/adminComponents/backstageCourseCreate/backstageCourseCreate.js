@@ -10,11 +10,13 @@ import PriceInput from '../backstageCourseCreateItem/priceInput/priceInput'
 import SectionAdd from '../backstageCourseCreateItem/sectionAdd/sectionAdd'
 import { createCourse } from '@/redux/actions'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import './backstageCourseCreate.scss'
 
 const FormItem = Form.Item
 
+@withRouter
 @connect(
   state => state.course,
   { createCourse }
@@ -35,7 +37,7 @@ class BackstageCourseCreate extends React.Component {
     this.stateChange = this.stateChange.bind(this)
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault()
     for (let item in this.state) {
       if ((!this.state[item] && this.state[item] !== 0) || this.state[item].length === 0 ) {
@@ -45,7 +47,16 @@ class BackstageCourseCreate extends React.Component {
         })
       }
     }
-    return this.props.createCourse(this.state)
+    await this.props.createCourse(this.state)
+    if (this.props.msg) {
+      notification[this.props.code === 0 ? 'error' : 'success']({
+        message: this.props.code === 0 ? '创建失败' : '创建成功',
+        description: this.props.msg
+      })
+      setTimeout(() => {
+        this.props.history.push('/admin/course')
+      }, 3000)
+    }
   }
 
   stateChange (key, value) {
