@@ -41,7 +41,7 @@ class BackstageCourseCreate extends React.Component {
     e.preventDefault()
     for (let item in this.state) {
       if ((!this.state[item] && this.state[item] !== 0) || this.state[item].length === 0 ) {
-        return notification.open({
+        return notification['error']({
           message: '提交失败',
           description: '请完善您的课程信息,确认无误后再次提交'
         })
