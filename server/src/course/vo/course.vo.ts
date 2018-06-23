@@ -9,6 +9,7 @@ export class CourseVO extends Course {
   difficulty: CourseDifficulty;
   price: number;
   sections: Section[];
+  authorId: string;
 
   constructor(course: Course) {
     super();
@@ -20,5 +21,6 @@ export class CourseVO extends Course {
     this.difficulty = course.difficulty;
     this.price = course.price;
     this.sections = course.sections;
+    this.authorId = course.authorId;
   }
 }

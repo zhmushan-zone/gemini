@@ -82,7 +82,15 @@ export class UserController {
   async login(@Body() loginUserDTO: LoginUserDTO) {
     const user = await this.userService.login(loginUserDTO);
     if (user) {
-      return success(new UserVO(user, this.authService.generateToken(user.username, user.jwtKey)));
+      return success(
+        new UserVO(
+          user,
+          this.authService.generateToken(
+            user.username,
+            this.userService.refreshToken(user)
+          )
+        )
+      );
     }
     return response(
       ResponseCode.LOGIN_FAILED,

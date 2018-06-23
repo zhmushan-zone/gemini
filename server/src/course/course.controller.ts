@@ -14,7 +14,7 @@ export class CourseController {
   @UseGuards(AuthGuard('jwt'))
   async create(@Usr() user: User, @Body() createCourseDTO: CreateCourseDTO) {
     const course = await this.courseService.create(user.id, createCourseDTO);
-    return success(course);
+    return success(new CourseVO(course));
   }
 
   @Delete(':id')
@@ -27,13 +27,13 @@ export class CourseController {
   @Get(':id')
   async findOne(@Param('id') id) {
     const course = await this.courseService.findById(id);
-    return success(course);
+    return success(new CourseVO(course));
   }
 
   @Get()
   async findAll() {
     const courses = await this.courseService.findAll();
-    return success(courses);
+    return success(courses.map(course => new CourseVO(course)));
   }
 
   @Put(':id')
