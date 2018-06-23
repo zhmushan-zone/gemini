@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Row, Col , Select, Button } from 'antd'
-
 class BackstageCourseQuery extends Component {
   directionHandleChange (v) {
     this.props.stateChange(v, 'direction')
     this.props.stateChange('全部', 'type')
   }
-
+  typeHandleChange (v) {
+    this.props.stateChange(v, 'type')
+  }
   reset() {
     this.props.stateChange('全部', 'direction')
     this.props.stateChange('全部', 'type')
@@ -37,7 +38,7 @@ class BackstageCourseQuery extends Component {
                 value={this.props.direction}
                 optionFilterProp="children"
                 style={{flex: 1}}
-                onChange={(v) => {this.directionHandleChange(v)}}
+                onChange={(v) => this.directionHandleChange(v)}
                 filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
               >
                 {directionOptions}
@@ -51,7 +52,7 @@ class BackstageCourseQuery extends Component {
                 value={this.props.type}
                 optionFilterProp="children"
                 style={{flex: 1}}
-                onChange={(v) => this.props.stateChange(v, 'type')}
+                onChange={(v) => this.typeHandleChange(v)}
                 filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
               >
                 <Option value="全部">全部</Option>
@@ -59,8 +60,7 @@ class BackstageCourseQuery extends Component {
               </Select>
             </Col>
             <Col  span={8}>
-              <Button style={{lineHeight: '32px', marginRight: 10}} type="primary">查询</Button>
-              <Button style={{lineHeight: '32px'}} onClick={() => this.reset()}>重置</Button>
+              <Button style={{lineHeight: '32px'}} type="primary" onClick={() => this.reset()}>显示全部</Button>
             </Col>
           </Row>
     )

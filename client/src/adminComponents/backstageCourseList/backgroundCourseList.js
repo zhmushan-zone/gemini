@@ -9,10 +9,6 @@ const confirm = Modal.confirm
   { getCourseList, deleteCourse }
 )
 class BackstageCourseList extends Component {
-  componentDidMount() {
-    this.props.getCourseList()
-  }
-  
   delete (id) {
     confirm({
       title: '删除课程',
@@ -75,41 +71,8 @@ class BackstageCourseList extends Component {
     ]
 
     const courses = this.props.courses
-    const data = courses.map((item, index) => {
-      return {
-        key: index,
-        id: index,
-        title: item.title,
-        difficulty: difficulty[item.difficulty],
-        direction: direction[item.direction],
-        type: item.type.map(i => {
-          return type1[i]
-        }).join(',')
-      }
-    })
-    return <Table dataSource={data} columns={columns} />
+    return <Table dataSource={this.props.data} columns={columns} />
   }
 }
-
-
-const direction = ['前端开发', '后端开发', '移动开发', '数据库', '云计算&大数据', '运维&测试', 'UI设计']
-
-const type = [
-  ['HTML5', 'CSS3', 'Javascript', 'Jquery', 'Node.js', 'Bootstrap', 'Sass/Less', 'Vue', 'React', 'Angular'],
-  ['PHP', 'Java', 'SpringBoot', 'Python', 'C', 'C++', 'Go', 'C#', 'Ruby'],
-  ['Android', 'IOS', 'Unity 3D', ' Cocos2d-x'],
-  ['MySQL', 'Oracle', 'MongoDB', 'SQL Server'],
-  ['大数据', '云计算'],
-  ['测试', 'linux'],
-  ['动效动画', 'APPUI设计', '设计工具', '设计基础']
-]
-
-const type1 = type.join().split(',')
-
-const difficulty = [
-  '基础',
-  '中级',
-  '进阶'
-]
 
 export default BackstageCourseList
