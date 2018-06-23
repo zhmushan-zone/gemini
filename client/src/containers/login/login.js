@@ -79,34 +79,33 @@ class Login extends React.Component {
     this.props.removeMsg()
   }
   
-  send(){
-    this.props.RegisterSendEamil(this.state.email)
-  }
 
-  async registerSendEamil(){// 我是点击触发的
-    await this.send()
-    setTimeout(()=>{
+  async registerSendEamil(){
+    await this.props.RegisterSendEamil(this.state.email)
       if(this.props.userstatus.code===1){
         this.setState({
           isSec:true
         })
+          setTimeout(()=>{
+            console.log('1')
+            this.setState({
+              isSec:false
+            })
+          },1000*60)
       }else{
         this.setState({
           isSec:false
         })
       }
-    },200)
   }
   // 跳转到注册取完善信息
-  goToNextRegister=()=>{
-    this.props.checkedCaptcha(this.state.captcha)
-    setTimeout(()=>{
+  goToNextRegister=async()=>{
+    await this.props.checkedCaptcha(this.state.captcha)
       if(this.props.userstatus.code===1){
         this.setState({
           show:!this.state.show
         })
       }
-    },200)
   }
 
   classCal=(dom,what,className)=>{
