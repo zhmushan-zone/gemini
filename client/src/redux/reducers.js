@@ -22,7 +22,9 @@ const initState = {
 }
 
 const courseInitState = {
-  courses: []
+  msg: '',
+  courses: [],
+  code: ''
 }
 
 export function userstatus(state = initState, action) {
@@ -54,8 +56,14 @@ export function userstatus(state = initState, action) {
 
 export function course(state = courseInitState, action) {
   switch (action.type) {
+    case ActionTypes.ERROR_MSG:
+      return { ...state, msg: action.msg,code:action.code }
     case ActionTypes.CREATE_COURSE_SUCCESS:
-      return {...state, courses: [...state.courses, action.payload]}
+      return { ...state, courses: [...state.courses, action.payload], msg: '课程创建成功',code: action.code }
+    case ActionTypes.COURSE_LIST:
+      return { ...state, courses: action.payload }
+    case ActionTypes.COURSE_DELETE_SUCCESS:
+      return { ...state, msg: '课程删除成功', code: action.code }
     default:
       return state
   }

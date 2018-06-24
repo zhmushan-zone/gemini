@@ -20,5 +20,9 @@ export const UPDATE_PERSON_MSG = 'UPDATE_PERSON_MSG'
 export const CHANGE_AVATAR = 'CHANGE_AVATAR'
 // 创建课程成功
 export const CREATE_COURSE_SUCCESS = 'CREATE_COURSE_SUCCESS'
+// 课程列表
+export const COURSE_LIST = 'COURSE_LIST'
+// 删除课程成功
+export const COURSE_DELETE_SUCCESS = 'COURSE_DELETE_SUCCESS'
 // 发送邮箱
 export const SEND_EMAIL_SUCCESS = 'SEND_EMAIL_SUCCESS'

@@ -42,9 +42,19 @@ function sendEmailSuccess() {
 
 // 创建课程成功
 function createCourseSuccess(course) {
-  return { type: ActionTypes.CREATE_COURSE_SUCCESS, payload: course }
+  let code = 1
+  return { type: ActionTypes.CREATE_COURSE_SUCCESS, payload: course, code: code }
 }
 
+// 课程列表
+function courseList(courses) {
+  return { type: ActionTypes.COURSE_LIST, payload: courses }
+}
+// 课程删除成功
+function courseDeleteSuccess() {
+  let code = 1
+  return { type: ActionTypes.COURSE_DELETE_SUCCESS, code: code }
+}
 export function register(username, password, repet_pass) {
   console.log(username)
   if (!username || !password || !repet_pass) {
@@ -211,8 +221,7 @@ export function changeAvatar(name) {
 }
 
 //创建课程
-export function createCourse(data) {
-  const { title, coverImg, direction, type, difficulty, price, sections } = data
+export function createCourse(course) {
   const _token = Cookies.get('_token')
   return async dispatch => {
     const res = await axios({
@@ -222,19 +231,44 @@ export function createCourse(data) {
         "token": _token
       },
       data: {
-        title,
-        coverImg,
-        direction,
-        type,
-        difficulty,
-        price,
-        sections
+        ...course
       }
     })
     if (res.data.code === 1) {
       dispatch(createCourseSuccess(res.data.data))
     } else {
-      dispatch(errorMsg("课程创建失败"))
+      dispatch(errorMsg("服务端错误"))
+    }
+  }
+}
+
+// 获取课程列表
+export function getCourseList() {
+  return async dispatch => {
+    const res = await axios.get('/api/courses')
+    if (res.data.code === 1) { 
+      dispatch(courseList(res.data.data))
+    } else {
+      dispatch(errorMsg("获取课程列表失败"))
+    }
+  }
+}
+
+// 删除课程
+export function deleteCourse(id) {
+  const _token = Cookies.get('_token')
+  return async dispatch => {
+    const res = await axios({
+      method: 'delete',
+      url: `/api/courses/${id}`,
+      headers: {
+        "token": _token
+      }
+    })
+    if (res.data.code === 1) {
+      dispatch(courseDeleteSuccess())
+    } else {
+      dispatch(errorMsg("课程删除失败"))
     }
   }
 }
