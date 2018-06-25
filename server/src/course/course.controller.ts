@@ -1,4 +1,16 @@
-import {Body, Controller, Delete, Get, Param, Post, Put, UseGuards, UsePipes, ValidationPipe} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete, FileInterceptor, FilesInterceptor,
+  Get,
+  Param,
+  Post,
+  Put,
+  UploadedFile,
+  UseGuards, UseInterceptors,
+  UsePipes,
+  ValidationPipe
+} from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
 import {Usr} from '../user/user.decorators';
 import {CreateCourseDTO, UpdateCourseDTO} from './dto';
@@ -6,6 +18,7 @@ import {CourseService} from './course.service';
 import {success} from '../common/utils';
 import {CourseVO} from './vo/course.vo';
 import {User} from '../user/user.entity';
+import {config} from '../config';
 
 @Controller('/api/courses')
 export class CourseController {
