@@ -31,7 +31,8 @@ export const config = {
   },
   path: {
     avatar: __dirname + '/../public/avatar',
-    video: __dirname + '/../public/video'
+    video: __dirname + '/../public/video',
+    coverImg: __dirname + '/../public/cover-img'
   }
 };
 
