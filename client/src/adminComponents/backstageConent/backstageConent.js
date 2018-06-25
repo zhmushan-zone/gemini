@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Route } from 'react-router-dom'
 import BackstageAnalyze from '../backstageAnalyze/backstageAnalyze'
 import BackstageUser from '../backstageUser/backstateUser'
 import BackstageArticle from '../backstageArticle/backstageArticle'
 import BackstageCourse from '../backstageCourse/backstageCourse'
 import BackstageCourseCreate from '../backstageCourseCreate/backstageCourseCreate'
+import BackstageCourseInfo from '../backstageCourseInfo/backstageCourseInfo'
 import AdminBreadcrumb from '../adminBreadcrumb/adminBreadcrumb'
 
 @withRouter
@@ -46,23 +47,37 @@ export default class BackstageConent extends Component {
         component: BackstageCourseCreate,
         path: '/admin/course/create',
         address: '课程列表-新建课程'
+      },
+      {
+        name: 'BackstageCourseInfo',
+        component: BackstageCourseInfo,
+        path: '/admin/course/:name',
+        address: '课程列表-课程详情'
       }
     ]
     return (
       <React.Fragment>
         {
           page.map(v => {
-            if (this.props.location.pathname === v.path) {
+            if (this.props.location.pathname === v.path && v.path.indexOf(':') === -1) {
               if (v.address) {
                 const addressArr = v.address.split('-')
                 return (
                   <React.Fragment key={v.name}>
                     <AdminBreadcrumb addressArr={addressArr} />
-                    <v.component />
+                    <Route path={v.path} component={v.component} key={v.name}></Route>
                   </React.Fragment>
                 )
               }
-              return <v.component key={v.component} />
+              return <Route path={v.path} component={v.component} key={v.name}></Route>
+            } else if (v.path.indexOf(':') !== -1) {
+              const addressArr = v.address.split('-')
+                return (
+                  <React.Fragment key={v.name}>
+                    <AdminBreadcrumb addressArr={addressArr} />
+                    <Route path={v.path} component={v.component} key={v.name}></Route>
+                  </React.Fragment>
+                )
             }
             return null
           })
