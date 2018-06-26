@@ -16,6 +16,9 @@ export class Article {
   type: ArticleType[];
 
   @Column()
+  content: string;
+
+  @Column()
   authorId: string;
 }
 
