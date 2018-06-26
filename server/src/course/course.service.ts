@@ -7,7 +7,7 @@ import {User} from '../user/user.entity';
 @Injectable()
 export class CourseService {
 
-  create(authorId: string, course: Course) {
+  save(authorId: string, course: Course) {
     course.authorId = authorId;
     return this.courseRepository.save(course);
   }

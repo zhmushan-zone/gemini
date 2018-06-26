@@ -11,14 +11,14 @@ import {
   UsePipes,
   ValidationPipe
 } from '@nestjs/common';
-import {AuthGuard} from '@nestjs/passport';
-import {Usr} from '../user/user.decorators';
-import {CreateCourseDTO, UpdateCourseDTO} from './dto';
-import {CourseService} from './course.service';
-import {success} from '../common/utils';
-import {CourseVO} from './vo/course.vo';
-import {User} from '../user/user.entity';
-import {config} from '../config';
+import { AuthGuard } from '@nestjs/passport';
+import { Usr } from '../user/user.decorators';
+import { CreateCourseDTO, UpdateCourseDTO } from './dto';
+import { CourseService } from './course.service';
+import { success } from '../common/utils';
+import { CourseVO } from './vo/course.vo';
+import { User } from '../user/user.entity';
+import { config } from '../config';
 
 @Controller('/api/courses')
 export class CourseController {
@@ -26,7 +26,7 @@ export class CourseController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   async create(@Usr() user: User, @Body() createCourseDTO: CreateCourseDTO) {
-    const course = await this.courseService.create(user.id, createCourseDTO);
+    const course = await this.courseService.save(user.id, createCourseDTO);
     return success(new CourseVO(course));
   }
 
