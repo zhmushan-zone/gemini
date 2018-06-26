@@ -1,9 +1,6 @@
 import {
   ArrayNotEmpty,
-  Contains,
   IsEnum,
-  IsInstance,
-  IsJSON,
   IsNotEmpty,
   IsNumber,
   IsString,

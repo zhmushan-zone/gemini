@@ -1,4 +1,4 @@
-import {Column, Entity, ObjectIdColumn} from 'typeorm';
+import {Column, Entity, Index, ObjectIdColumn} from 'typeorm';
 import {User} from '../user/user.entity';
 
 @Entity()
@@ -7,6 +7,7 @@ export class Course {
   @ObjectIdColumn()
   id: string;
 
+  @Index({unique: true})
   @Column()
   title: string;
 
