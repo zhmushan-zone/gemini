@@ -21,5 +21,5 @@ export class AuthService {
 
   constructor(
     private readonly userService: UserService
-  ) {}
+  ) { }
 }

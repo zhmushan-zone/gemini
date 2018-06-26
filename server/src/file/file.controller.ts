@@ -6,9 +6,9 @@ import {
   UseGuards,
   UseInterceptors
 } from '@nestjs/common';
-import {AuthGuard} from '@nestjs/passport';
-import {success} from '../common/utils/response.util';
-import {config} from '../config';
+import { AuthGuard } from '@nestjs/passport';
+import { success } from '../common/utils/response.util';
+import { config } from '../config';
 
 @Controller('/api/files')
 export class FileController {

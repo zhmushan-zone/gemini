@@ -1,4 +1,4 @@
-import {Course, CourseDifficulty, CourseDirection, CourseType, Section} from '../course.entity';
+import { Course, CourseDifficulty, CourseDirection, CourseType, Section } from '../course.entity';
 
 export class CourseVO extends Course {
   id: string;

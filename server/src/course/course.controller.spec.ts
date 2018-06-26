@@ -1,12 +1,12 @@
-import {Test, TestingModule} from '@nestjs/testing';
-import {CourseController} from './course.controller';
-import {CommonModule} from '../common/common.module';
-import {CourseService} from './course.service';
-import {TypeOrmModule} from '@nestjs/typeorm';
-import {Course, CourseDifficulty, CourseDirection, CourseType} from './course.entity';
-import {config} from '../config';
-import {User} from '../user/user.entity';
-import {success} from '../common/utils';
+import { Test, TestingModule } from '@nestjs/testing';
+import { CourseController } from './course.controller';
+import { CommonModule } from '../common/common.module';
+import { CourseService } from './course.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Course, CourseDifficulty, CourseDirection, CourseType } from './course.entity';
+import { config } from '../config';
+import { User } from '../user/user.entity';
+import { success } from '../common/utils';
 
 const course: Course = {
   id: 'id',
@@ -40,7 +40,7 @@ describe('Course Controller', () => {
     service = module.get<CourseService>(CourseService);
   });
   it('create', async () => {
-    jest.spyOn(service, 'create').mockImplementation(() => course);
-    expect(await controller.create({id: 'authorId'} as User, course)).toEqual(success(course));
+    jest.spyOn(service, 'save').mockImplementation(() => course);
+    expect(await controller.create({ id: 'authorId' } as User, course)).toEqual(success(course));
   });
 });

@@ -1,8 +1,7 @@
-import {Injectable} from '@nestjs/common';
-import {InjectRepository} from '@nestjs/typeorm';
-import {Course} from './course.entity';
-import {MongoRepository} from 'typeorm';
-import {User} from '../user/user.entity';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Course } from './course.entity';
+import { MongoRepository } from 'typeorm';
 
 @Injectable()
 export class CourseService {
@@ -13,7 +12,7 @@ export class CourseService {
   }
 
   async delete(authorId: string, courseId: string) {
-    const course = await this.courseRepository.findOne(courseId, {where: {authorId}});
+    const course = await this.courseRepository.findOne(courseId, { where: { authorId } });
     return this.courseRepository.delete(course);
   }
 
