@@ -10,13 +10,24 @@ export default class VideoSideBarQuestion extends Component {
     super(props)
     this.state = {
       textValue: "",
+      question:""
     }
-  }
-  handleChange() {
 
+  }
+  handleChange(key,e){
+    this.setState({
+      [key]:e.target.value
+    })
+  }
+  Change(value) {
+    this.setState({
+      textValue: value
+    })
+  }
+  handleSubmit=()=>{
+    console.log(this.state)
   }
   render() {
-
     return (
       <div className="side-bar-question-container">
         <div className="top">
@@ -25,13 +36,13 @@ export default class VideoSideBarQuestion extends Component {
             <CustomIcon type='x' color="black" size={24} className="delete" />
           </span>
         </div>
-        <Input size="large" placeholder="请输入您的问题" className="question" />
+        <Input size="large" placeholder="请输入您的问题" className="question" value={this.state.question} onChange={this.handleChange.bind(this,'question')}/>
         <SimpleMDE
-          onChange={this.handleChange.bind(this)}
+          onChange={this.Change.bind(this)}
           value={this.state.textValue}
         />
         <p className="button-p">
-          <Button type="primary">提交</Button>
+          <Button type="primary" onClick={this.handleSubmit}>提交</Button>
         </p>
       </div>
     )
