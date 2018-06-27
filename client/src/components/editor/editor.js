@@ -1,5 +1,7 @@
 import React from 'react'
 import SimpleMDE from 'react-simplemde-editor'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 import { Button } from 'antd'
 import EditorHeader from '../editorHeader/editorHeader'
 import CustomIcon from '@/common/customIcon/customIcon'
@@ -14,6 +16,7 @@ class Editor extends React.Component {
       textValue: '',
       tag: [],
       title: '',
+      imgurl: ''
     }
   }
   handleChange(value) {
@@ -21,15 +24,16 @@ class Editor extends React.Component {
       textValue: value
     })
   }
-  handleChecked(check, text) {
+  handleChecked(check, text, index) {
+    console.log(index)
     if (check) {
-      this.state.tag.push(text)
+      this.state.tag.push(index)
       this.setState({
         tag: this.state.tag
       })
     } else {
       this.state.tag.map((v, index) => {
-        if (v === text) {
+        if (v === index) {
           this.state.tag.splice(index, 1)
           this.setState({
             tag: this.state.tag
@@ -41,15 +45,52 @@ class Editor extends React.Component {
   }
   geteditorHeader = (title) => [
     this.setState({
-      title: title
+      title: title,
     })
   ]
+  // 选择封面
+  selectCover = () => {
+    let _this = this
+    let bodyFormData
+    document.getElementById("fengmian").addEventListener("change", () => {
+      var fengmian = document.getElementById("fengmian").files[0]
+      bodyFormData = new FormData()
+      bodyFormData.set('coverImg', fengmian)
+      var reader = new FileReader()
+      reader.readAsDataURL(fengmian)
+      reader.onload = function (e) {
+        var txt = e.target.result
+        _this.setState({
+          imgurl: txt
+        })
+      }
+      axios({
+        method: 'POST',
+        url: '/api/files/cover-img',
+        data: bodyFormData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          "token": Cookies.get('_token'),
+        },
+      })
+        .then(function (res) {
+          console.log(res)
+          if(res.data.code===1){
+            console.log('11111')
+          }
+        })
+        .catch(function (res) {
+          console.log(res)
+        })
+    })
+
+  }
   sendArticle = () => {
     console.log(this.state)
   }
 
   render() {
-    const category = ['JavaScript', 'Node.js', 'Vue', 'react', 'angular', 'html', 'css', 'jquery', 'bootstrap', '前端工具', 'sass/less', 'java', 'python', 'go', 'php', 'ruby', 'thinkphp', 'c', 'c++', 'c#', 'spring boot', 'Yli', '算法', '数据库', 'android', 'ios', '大数据', '人工智能', '机器学习', '产品', '设计']
+    const category = ['JavaScript', 'Node.js', 'Vue', 'react', 'angular', 'html', 'css', 'jquery', 'bootstrap', '前端工具', 'sass', 'less', 'java', 'python', 'go', 'php', 'ruby', 'thinkphp', 'c', 'c++', 'spring boot', 'Yli', '算法', '数据库', 'android', 'ios', '大数据', '人工智能', '机器学习', '产品', '设计']
     return (
       <div className="editorContainer">
         <EditorHeader editorHeader={(title) => this.geteditorHeader(title)} />
@@ -63,8 +104,8 @@ class Editor extends React.Component {
           <span className="err-tip"></span>
           <div className="face-upload-box">
             <input type="file" id="fengmian" className="cover" />
-            <label htmlFor="fengmian">
-              <CustomIcon type="camera-b" size={80}></CustomIcon>
+            <label htmlFor="fengmian" onClick={this.selectCover}>
+              {this.state.imgurl ? <img src={this.state.imgurl} style={{ width: 200, height: 200 }} alt="" /> : <CustomIcon type="camera-b" size={80}></CustomIcon>}
             </label>
             <span className="l pic-tip">封面图规格：<br />尺寸为200*200像素，格式为 PNG/JPG/GIF,小于等于80KB </span>
           </div>
@@ -72,9 +113,9 @@ class Editor extends React.Component {
         <div className="category">
           <span className="needed">文章分类</span>
           <div>
-            {category.map(v => {
+            {category.map((v, index) => {
               return (
-                <MyTag key={v} text={v} getChecked={(check, text) => this.handleChecked(check, text)}></MyTag>
+                <MyTag key={v} index={index} text={v} getChecked={(check, text, index) => this.handleChecked(check, text, index)}></MyTag>
               )
             })}
           </div>

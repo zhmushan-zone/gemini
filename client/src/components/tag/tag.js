@@ -10,10 +10,11 @@ export default class Tag extends Component {
   }
   handle(e) {
     const value = e.currentTarget.innerHTML
+    const index = this.props.index
     this.setState({
       checked: !this.state.checked
     })
-    this.props.getChecked(!this.state.checked, value)
+    this.props.getChecked(!this.state.checked, value,index)
   }
   render() {
     var TagClass = classNames({
