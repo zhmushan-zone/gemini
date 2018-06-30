@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Get, Param } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Usr } from '../user/user.decorators';
 import { success } from '../common/utils';
@@ -14,6 +14,12 @@ export class ArticleController {
   @UseGuards(AuthGuard('jwt'))
   async create(@Usr() user: User, @Body() createArticleDTO: CreateArticleDTO) {
     const article = await this.articleService.save(user.id, createArticleDTO);
+    return success(new ArticleVO(article));
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id) {
+    const article = await this.articleService.findById(id);
     return success(new ArticleVO(article));
   }
 
