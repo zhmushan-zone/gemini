@@ -168,7 +168,7 @@ class Login extends React.Component {
 				{this.props.userstatus.redirectTo && this.props.userstatus.redirectTo !== '/login' ? (
 					<Redirect to={this.props.userstatus.redirectTo} />
 				) : null}
-				<div className="login-alert">
+				<div className="error-msg">
 					{this.props.userstatus.msg ? (
 						<Alert
 							description={this.props.userstatus.msg}

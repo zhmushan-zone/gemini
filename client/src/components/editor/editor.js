@@ -2,52 +2,57 @@ import React from 'react'
 import SimpleMDE from 'react-simplemde-editor'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { Button } from 'antd'
+import { publishArticle, removeMsg } from '@/redux/actions.js'
+import { connect } from 'react-redux'
+import { Button, Alert } from 'antd'
 import EditorHeader from '../editorHeader/editorHeader'
 import CustomIcon from '@/common/customIcon/customIcon'
 import MyTag from '../tag/tag'
 import 'simplemde/dist/simplemde.min.css'
 import './editor.scss'
-
+@connect((state) => state, { publishArticle, removeMsg })
 class Editor extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			title: '',
-			textValue: '',
-			tag: [],
+			articleName: '',
+			articleContent: '',
 			// 后端返回的img
-			imageData: '',
+			articleImage: '',
+			articleTag: [],
 			imgurl: ''
 		}
 	}
 	handleChange(value) {
 		this.setState({
-			textValue: value
+			articleContent: value
 		})
 	}
 	handleChecked(check, text, index) {
-		console.log(index)
 		if (check) {
-			this.state.tag.push(index)
+			this.state.articleTag.push(index)
 			this.setState({
-				tag: this.state.tag
+				articleTag: this.state.articleTag
 			})
 		} else {
-			this.state.tag.map((v, index) => {
+			this.state.articleTag.map((v) => {
 				if (v === index) {
-					this.state.tag.splice(index, 1)
+					this.state.articleTag.splice(index, 1)
 					this.setState({
-						tag: this.state.tag
+						articleTag: this.state.articleTag
 					})
 				}
 				return null
 			})
 		}
 	}
-	geteditorHeader = (title) => [
+	// 关闭提示
+	handleErrorClose = () => {
+		this.props.removeMsg()
+	}
+	geteditorHeader = (articleName) => [
 		this.setState({
-			title: title
+			articleName: articleName
 		})
 	]
 	// 选择封面
@@ -80,7 +85,7 @@ class Editor extends React.Component {
 					if (res.data.code === 1) {
 						// 图片
 						this.setState({
-							imageData: res.data.data
+							articleImage: res.data.data
 						})
 					}
 				})
@@ -89,8 +94,8 @@ class Editor extends React.Component {
 				})
 		})
 	}
-	sendArticle = () => {
-		console.log(this.state)
+	sendArticle = async () => {
+		await this.props.publishArticle(this.state)
 	}
 
 	render() {
@@ -129,8 +134,22 @@ class Editor extends React.Component {
 		]
 		return (
 			<div className="editorContainer">
-				<EditorHeader editorHeader={(title) => this.geteditorHeader(title)} />
-				<SimpleMDE onChange={this.handleChange.bind(this)} value={this.state.textValue} />
+				{/* 提示 */}
+				<div className="error-msg">
+					{this.props.userstatus.msg ? (
+						<Alert
+							description={this.props.userstatus.msg}
+							type="error"
+							showIcon
+							className="errorMsg"
+							closable
+							afterClose={this.handleErrorClose}
+						/>
+					) : null}
+				</div>
+				<EditorHeader editorHeader={(articleName) => this.geteditorHeader(articleName)} />
+				<SimpleMDE onChange={this.handleChange.bind(this)} value={this.state.articleContent} />
+
 				{/* 上传封面 */}
 				<div className="upload-pic-box">
 					<span className="needed">文章封面</span>

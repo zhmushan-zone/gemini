@@ -158,9 +158,7 @@ export function changePersonMsg(a) {
 			}
 		})
 		if (res.data.code === 1) {
-			return dispatch(
-				updateSuccesss({ msg: res.data.msg, sex: sex === 1 ? '男' : '女', username, job, city, signature })
-			)
+			return dispatch(updateSuccesss({ msg: res.data.msg, sex: sex === 1 ? '男' : '女', username, job, city, signature }))
 		} else {
 			return dispatch(errorMsg('修改失败了'))
 		}
@@ -271,9 +269,36 @@ export function deleteCourse(id) {
 	}
 }
 /* ---------------------------------------------------- ARTICLE----------------------------------------------------------------------- */
-export function publishArticle({ state }) {
-  const { articleName, articleContent, articleTag, articleImage } = state
-  if(!articleName){
-    return errorMsg('验证码都不写吗？')
-  }
+export function publishArticle(state) {
+	const { articleName, articleContent, articleTag, articleImage } = state
+	if (!articleName) {
+		return errorMsg('文章没有名字吗？')
+	} else if (!articleContent) {
+		return errorMsg('文章没有内容吗？')
+	} else if (!articleImage) {
+		return errorMsg('文章没有图片吗？')
+	} else if (!articleTag) {
+		return errorMsg('文章没有标签吗？')
+	}
+	return async (dispatch) => {
+		const _token = Cookies.get('_token')
+		const res = await axios({
+			method: 'post',
+			url: '/api/articles',
+			headers: {
+				token: _token
+			},
+			data: {
+				title: articleName,
+				coverImg: articleImage,
+				type: articleTag,
+				content: articleContent
+			}
+		})
+		if (res.data.code === 1) {
+			console.log('success')
+		} else {
+			dispatch(errorMsg('服务端错误'))
+		}
+	}
 }
