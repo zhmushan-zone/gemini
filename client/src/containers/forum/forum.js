@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ForumLeft from '@/components/forumLeft/forumLeft'
-import ForumPersonal from '@/components/forumPersonal/forumPersonal'
+import ForumRight from '@/components/forumRight/forumRight'
 
 import './forum.scss'
 
@@ -9,7 +9,7 @@ class Forum extends Component {
     return (
       <div className="forum">
         <ForumLeft />
-        <ForumPersonal />
+        <ForumRight />
       </div>
     )
   }
