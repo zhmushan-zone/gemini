@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { FileController } from './file.controller';
-import {CommonModule} from '../common/common.module';
+import { CommonModule } from '../common/common.module';
 
 @Module({
   imports: [
@@ -8,4 +8,4 @@ import {CommonModule} from '../common/common.module';
   ],
   controllers: [FileController]
 })
-export class FileModule {}
+export class FileModule { }

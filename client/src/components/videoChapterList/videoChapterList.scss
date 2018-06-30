@@ -26,9 +26,9 @@
       margin-bottom: 8px;
     }
     .sec-li{
-      height: 30px;
       display: flex;
       justify-content: center;
+      flex-direction: column;
       a{
         padding: 6px 0 6px 28px;
         width: 100%;
@@ -45,6 +45,9 @@
       }
       .video-logo{
         padding-right: 10px;
+      }
+      .list{
+        display: block;
       }
     }
   }

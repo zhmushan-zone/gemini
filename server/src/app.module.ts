@@ -6,13 +6,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from './config';
 import { CourseModule } from './course/course.module';
 import { FileModule } from './file/file.module';
+import { ArticleModule } from './article/article.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(config.typeorm),
     UserModule,
     CourseModule,
-    FileModule
+    FileModule,
+    ArticleModule
   ],
   controllers: [AppController],
   providers: [AppService]

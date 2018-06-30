@@ -1,8 +1,8 @@
-import {Injectable} from '@nestjs/common';
-import {InjectRepository} from '@nestjs/typeorm';
-import {User} from './user.entity';
-import {encrpty, generateSalt} from '../common/utils';
-import {MongoRepository} from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './user.entity';
+import { encrpty, generateSalt } from '../common/utils';
+import { MongoRepository } from 'typeorm';
 
 @Injectable()
 export class UserService {
@@ -20,7 +20,7 @@ export class UserService {
   }
 
   async updateById(id: string, user: User) {
-    return this.userRepository.update({id}, user);
+    return this.userRepository.update({ id }, user);
   }
 
   register(user: User) {
@@ -31,7 +31,7 @@ export class UserService {
   }
 
   async login(user: User) {
-    const userFromDB = await this.userRepository.findOne({username: user.username});
+    const userFromDB = await this.userRepository.findOne({ username: user.username });
     if (userFromDB && encrpty(user.password, userFromDB.salt) === userFromDB.password) {
       return userFromDB;
     }
@@ -41,7 +41,7 @@ export class UserService {
 
   refreshToken(user: User) {
     const jwtKey = generateSalt();
-    this.updateById(user.id, {jwtKey} as User);
+    this.updateById(user.id, { jwtKey } as User);
     return jwtKey;
   }
 

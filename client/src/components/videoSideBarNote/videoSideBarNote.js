@@ -11,8 +11,13 @@ export default class VideoSideBarNote extends Component {
       textValue: "",
     }
   }
-  handleChange() {
-
+  Change(value) {
+    this.setState({
+      textValue:value
+    })
+  }
+  handleSubmit=()=>{
+    console.log(this.state)
   }
   render() {
     return (
@@ -24,11 +29,11 @@ export default class VideoSideBarNote extends Component {
           </span>
         </div>
         <SimpleMDE
-          onChange={this.handleChange.bind(this)}
+          onChange={this.Change.bind(this)}
           value={this.state.textValue}
         />
         <p className="button-p">
-          <Button type="primary">提问</Button>
+          <Button type="primary" onClick={this.handleSubmit}>提问</Button>
         </p>
       </div>
     )

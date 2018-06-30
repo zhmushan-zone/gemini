@@ -1,19 +1,18 @@
-import {Injectable} from '@nestjs/common';
-import {InjectRepository} from '@nestjs/typeorm';
-import {Course} from './course.entity';
-import {MongoRepository} from 'typeorm';
-import {User} from '../user/user.entity';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Course } from './course.entity';
+import { MongoRepository } from 'typeorm';
 
 @Injectable()
 export class CourseService {
 
-  create(authorId: string, course: Course) {
+  save(authorId: string, course: Course) {
     course.authorId = authorId;
     return this.courseRepository.save(course);
   }
 
   async delete(authorId: string, courseId: string) {
-    const course = await this.courseRepository.findOne(courseId, {where: {authorId}});
+    const course = await this.courseRepository.findOne(courseId, { where: { authorId } });
     return this.courseRepository.delete(course);
   }
 

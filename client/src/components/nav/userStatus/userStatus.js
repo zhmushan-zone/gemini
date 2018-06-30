@@ -59,9 +59,9 @@ class UserStatus extends React.Component {
                       </a>
                       <div className="user-info-data">
                         <div className="user-info-name">
-                          <a href="#javascript">
+                          <Link to="personCenter" >
                             {nickname}
-                          </a>
+                          </Link>
                         </div>
                         <div className="user-info-assets">
                           <a href="#javascript">
