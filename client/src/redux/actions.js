@@ -6,7 +6,6 @@ function errorMsg(msg) {
 	return { msg, code: 0, type: ActionTypes.ERROR_MSG }
 }
 
-
 export function removeMsg() {
 	return { msg: '', type: ActionTypes.REMOVE_MSG }
 }
@@ -278,8 +277,8 @@ export function deleteCourse(id) {
 
 /* ---------------------------------------------------- ARTICLE----------------------------------------------------------------------- */
 
-function createArticleSuccess() {
-
+function createArticleSuccess(data) {
+	return { type: ActionTypes.CREATE_ARTICLE_SUCCESS, data: data }
 }
 export function publishArticle(state) {
 	const { articleName, articleContent, articleTag, articleImage } = state
