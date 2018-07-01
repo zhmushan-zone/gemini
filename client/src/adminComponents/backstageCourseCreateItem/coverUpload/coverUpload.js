@@ -1,20 +1,43 @@
 import React, { Component } from 'react'
 import { Icon } from 'antd'
+import axios from 'axios'
+import Cookies from 'js-cookie'
+
 import './coverUpload.scss'
 
 class coverUpload extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      imgUrl: ''
+    }
+  }
+  
   componentDidMount() {
     const coverUploadInput = document.getElementById('cover-upload')
     coverUploadInput.addEventListener('change', () => {
-      const cover = coverUploadInput.files[0]
-      var bodyFormData = new FormData()
-      bodyFormData.set('cover', cover)
-      var reader = new FileReader()
-      reader.readAsDataURL(cover)
+      const coverImg = coverUploadInput.files[0]
+      this.props.coverChange('coverImg', coverImg)
+      const reader = new FileReader()
+      reader.readAsDataURL(coverImg)
       reader.onload = (e) => {
-        var txt = e.target.result
-        this.props.coverChange('coverImg', txt)
+        const txt = e.target.result
+        this.setState({
+          imgUrl: txt
+        })
       }
+      const bodyFormData = new FormData()
+      bodyFormData.set('coverImg', coverImg)
+      axios({
+        method: 'post',
+        url: '/api/files/cover-img',
+        data: bodyFormData,
+        headers: {
+          "token": Cookies.get('_token')
+        }
+      }).then(res => {
+        this.props.coverChange('coverImg', res.data.data)
+      })
     })
   }
   
@@ -22,8 +45,8 @@ class coverUpload extends Component {
     return (
       <div className="cover-upload-wrapper">
         {
-          this.props.coverImg ? 
-          <img src={this.props.coverImg} alt=""/>
+          this.state.imgUrl ? 
+          <img src={this.state.imgUrl} alt=""/>
           : 
           <div className="cover-upload-label">
             <Icon style={{fontSize: 32, color:'#999'}} type="plus" />
