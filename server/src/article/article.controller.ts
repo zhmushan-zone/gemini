@@ -17,6 +17,12 @@ export class ArticleController {
     return success(new ArticleVO(article));
   }
 
+  @Get()
+  async findAll() {
+    const articles = await this.articleService.findAll();
+    return success(articles.map(article => new ArticleVO(article)));
+  }
+
   @Get(':id')
   async findOne(@Param('id') id) {
     const article = await this.articleService.findById(id);
