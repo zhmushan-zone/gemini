@@ -28,6 +28,14 @@ class Editor extends React.Component {
 			articleContent: value
 		})
 	}
+	// 隔一段时间关闭消息提示
+	autoCloseMsg = () => {
+		if (this.props.userstatus.msg) {
+			setTimeout(() => {
+				this.props.removeMsg()
+			}, 2000)
+		}
+	}
 	handleChecked(check, text, index) {
 		if (check) {
 			this.state.articleTag.push(index)
@@ -96,6 +104,7 @@ class Editor extends React.Component {
 	}
 	sendArticle = async () => {
 		await this.props.publishArticle(this.state)
+    this.autoCloseMsg()
 	}
 
 	render() {

@@ -6,23 +6,6 @@ function errorMsg(msg) {
 	return { msg, code: 0, type: ActionTypes.ERROR_MSG }
 }
 
-function authSuccess(obj) {
-	const { data } = obj
-	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: { ...obj }, avatar: data.avatar }
-}
-
-function forgetPass(email) {
-	return { msg: '', type: ActionTypes.FORGET_PASS, email }
-}
-
-function changeAvatarFunc(now) {
-	return { type: ActionTypes.CHANGE_AVATAR, avatar: now }
-}
-
-// 修改成功
-function updateSuccesss(obj) {
-	return { payload: { ...obj }, type: ActionTypes.UPDATE_PERSON_MSG }
-}
 
 export function removeMsg() {
 	return { msg: '', type: ActionTypes.REMOVE_MSG }
@@ -33,27 +16,13 @@ export function loadData(userinfo) {
 	return { type: ActionTypes.LOAD_DATA, payload: userinfo }
 }
 
-// 发送邮箱成功
-function sendEmailSuccess() {
-	let code = 1
-	return { type: ActionTypes.SEND_EMAIL_SUCCESS, code: code }
+/* --------------------------------------------------注册-------------------------------------------------------------- */
+
+function authSuccess(obj) {
+	const { data } = obj
+	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: { ...obj }, avatar: data.avatar }
 }
 
-// 创建课程成功
-function createCourseSuccess(course) {
-	let code = 1
-	return { type: ActionTypes.CREATE_COURSE_SUCCESS, payload: course, code: code }
-}
-
-// 课程列表
-function courseList(courses) {
-	return { type: ActionTypes.COURSE_LIST, payload: courses }
-}
-// 课程删除成功
-function courseDeleteSuccess() {
-	let code = 1
-	return { type: ActionTypes.COURSE_DELETE_SUCCESS, code: code }
-}
 export function register(username, password, repet_pass) {
 	console.log(username)
 	if (!username || !password || !repet_pass) {
@@ -96,6 +65,11 @@ export function register(username, password, repet_pass) {
 		}
 	}
 }
+/* --------------------------------------------------忘记密码-------------------------------------------------------------- */
+
+function forgetPass(email) {
+	return { msg: '', type: ActionTypes.FORGET_PASS, email }
+}
 
 export function forgetPassword(forget_email) {
 	var regex = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
@@ -114,6 +88,7 @@ export function forgetPassword(forget_email) {
 		}
 	}
 }
+/* --------------------------------------------------登录-------------------------------------------------------------- */
 
 export function login(username, password) {
 	if (!username || !password) {
@@ -134,8 +109,13 @@ export function login(username, password) {
 		}
 	}
 }
+/* --------------------------------------------------修改个人信息-------------------------------------------------------------- */
 
-// 修改个人信息
+// 修改成功
+function updateSuccesss(obj) {
+	return { payload: { ...obj }, type: ActionTypes.UPDATE_PERSON_MSG }
+}
+
 export function changePersonMsg(a) {
 	const { sex, username, job, city, signature } = a
 	const _id = Cookies.get('_id')
@@ -164,7 +144,14 @@ export function changePersonMsg(a) {
 		}
 	}
 }
-// 注册发送邮件
+/* --------------------------------------------------注册发送邮件-------------------------------------------------------------- */
+
+// 发送邮箱成功
+function sendEmailSuccess() {
+	let code = 1
+	return { type: ActionTypes.SEND_EMAIL_SUCCESS, code: code }
+}
+
 export function RegisterSendEamil(email) {
 	if (!email) {
 		return errorMsg('请输入邮箱')
@@ -185,7 +172,8 @@ export function RegisterSendEamil(email) {
 		}
 	}
 }
-// 检测是否验证码正确
+/* --------------------------------------------------检测是否验证码正确-------------------------------------------------------------- */
+
 export function checkedCaptcha(captcha) {
 	if (!captcha) {
 		return errorMsg('验证码都不写吗？')
@@ -204,6 +192,7 @@ export function checkedCaptcha(captcha) {
 		}
 	}
 }
+/* --------------------------------------------------登出-------------------------------------------------------------- */
 
 export function logout() {
 	Cookies.remove('_id')
@@ -211,12 +200,22 @@ export function logout() {
 	return { type: ActionTypes.LOGOUT, username: '', id: '' }
 }
 
-// 修改头像
+/* --------------------------------------------------修改头像-------------------------------------------------------------- */
+function changeAvatarFunc(now) {
+	return { type: ActionTypes.CHANGE_AVATAR, avatar: now }
+}
+
 export function changeAvatar(name) {
 	return changeAvatarFunc(name)
 }
 
-//创建课程
+/* --------------------------------------------------创建课程-------------------------------------------------------------- */
+// 创建课程成功
+function createCourseSuccess(course) {
+	let code = 1
+	return { type: ActionTypes.CREATE_COURSE_SUCCESS, payload: course, code: code }
+}
+
 export function createCourse(course) {
 	const _token = Cookies.get('_token')
 	return async (dispatch) => {
@@ -237,8 +236,11 @@ export function createCourse(course) {
 		}
 	}
 }
-
-// 获取课程列表
+/* --------------------------------------------------获取课程列表-------------------------------------------------------------- */
+// 课程列表
+function courseList(courses) {
+	return { type: ActionTypes.COURSE_LIST, payload: courses }
+}
 export function getCourseList() {
 	return async (dispatch) => {
 		const res = await axios.get('/api/courses')
@@ -250,7 +252,12 @@ export function getCourseList() {
 	}
 }
 
-// 删除课程
+/* --------------------------------------------------删除课程-------------------------------------------------------------- */
+// 课程删除成功
+function courseDeleteSuccess() {
+	let code = 1
+	return { type: ActionTypes.COURSE_DELETE_SUCCESS, code: code }
+}
 export function deleteCourse(id) {
 	const _token = Cookies.get('_token')
 	return async (dispatch) => {
@@ -268,7 +275,12 @@ export function deleteCourse(id) {
 		}
 	}
 }
+
 /* ---------------------------------------------------- ARTICLE----------------------------------------------------------------------- */
+
+function createArticleSuccess() {
+
+}
 export function publishArticle(state) {
 	const { articleName, articleContent, articleTag, articleImage } = state
 	if (!articleName) {
@@ -296,7 +308,8 @@ export function publishArticle(state) {
 			}
 		})
 		if (res.data.code === 1) {
-			console.log('success')
+			dispatch(createArticleSuccess(res.data.data))
+			console.log(res)
 		} else {
 			dispatch(errorMsg('服务端错误'))
 		}
