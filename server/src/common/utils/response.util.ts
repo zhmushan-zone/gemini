@@ -5,7 +5,8 @@ export enum ResponseCode {
   TOKEN_EXPIRED = 101,
   USERNAME_EXISIT = 102,
   EMAIL_SEND_FAILED = 103,
-  CAPTCHA_ERROR = 104
+  CAPTCHA_ERROR = 104,
+  TAG_NOT_EXISIT
 }
 
 export const response = (code: number, msg: string, data?: any) => ({ code, msg, data });

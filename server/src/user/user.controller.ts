@@ -25,6 +25,7 @@ import { Usr } from './user.decorators';
 import { User } from './user.entity';
 import * as path from 'path';
 import * as fs from 'fs';
+import { TagService } from '../tag/tag.service';
 
 @Controller('/api/users')
 export class UserController {
@@ -112,6 +113,19 @@ export class UserController {
     );
   }
 
+  @Get('/watch/tag/:id')
+  @UseGuards(AuthGuard('jwt'))
+  async watchTag(@Usr() user: User, @Param('id') tagId) {
+    const tag = await this.tagService.findById(tagId);
+    if (tag) {
+      user.whatchTags.add(tag);
+      this.userService.updateById(user.id, user);
+      return success();
+    } else {
+      return response(ResponseCode.TAG_NOT_EXISIT, ResponseCode[ResponseCode.TAG_NOT_EXISIT]);
+    }
+  }
+
   @Post('/has')
   async has(@Body() checkUserDTO: CheckUserDTO) {
     const user = await this.userService.findOne(checkUserDTO);
@@ -175,7 +189,8 @@ export class UserController {
 
   constructor(
     private readonly userService: UserService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly tagService: TagService
   ) {
   }
 }

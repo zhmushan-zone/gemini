@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   Index
 } from 'typeorm';
+import { Tag } from '../tag/tag.entity';
 
 @Entity()
 export class User {
@@ -38,6 +39,9 @@ export class User {
 
   @Column()
   sex: Sex;
+
+  @Column()
+  whatchTags: Set<Tag>;
 
   @Column()
   signature: string;
