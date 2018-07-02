@@ -18,7 +18,6 @@ import { CourseService } from './course.service';
 import { success } from '../common/utils';
 import { CourseVO } from './vo/course.vo';
 import { User } from '../user/user.entity';
-import { config } from '../config';
 
 @Controller('/api/courses')
 export class CourseController {
