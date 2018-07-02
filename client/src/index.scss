@@ -1,0 +1,11 @@
+.error-msg {
+  position: fixed;
+  top: 10px;
+  z-index: 100;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 70px;
+	.errorMsg {
+		width: 400px;
+	}
+}

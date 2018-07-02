@@ -2,6 +2,7 @@ import React from 'react'
 import CustomIcon from '@/common/customIcon/customIcon'
 import './videoChapterList.scss'
 export default class VideoChapterList extends React.Component {
+
   render() {
     const tree = [
       {
@@ -51,6 +52,7 @@ export default class VideoChapterList extends React.Component {
     ]
     return (
       <div className={`${this.props.className}`}>
+
         {tree.map(v => (
           <div className="list-ul" key={v.title}>
             <ul>

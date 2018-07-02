@@ -1,0 +1,57 @@
+.forum-follow-class {
+
+  .follow-class-top {
+    border-bottom: 1px solid #d0d6d9;
+    position: relative;
+    line-height: 20px;
+
+    h3 {
+      color: #14191e;
+      font-size: 16px;
+      font-weight: 400;
+      margin: 0;
+      padding-bottom: 15px;
+    }
+
+    span.all-class {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      color: #999da1;
+      font-size: 20px;
+      cursor: pointer;
+
+      &:hover {
+        color: #f01414;
+      }
+    }
+  }
+
+  .my-follow-class-container {
+    padding-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+
+    a {
+      margin-right: 5px;
+      margin-bottom: 5px;
+      height: 28px;
+      padding: 0 10px;
+      border: 1px solid #d0d6d9;
+      font-size: 14px;
+      color: #787d82;
+      text-align: center;
+      line-height: 28px;
+      cursor: pointer;
+      transition: none;
+
+      &:hover {
+        background: #f01414;
+        color: #fff;
+        border-color: transparent;
+      }
+    }
+  }
+}
