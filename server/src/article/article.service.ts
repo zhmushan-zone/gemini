@@ -11,6 +11,11 @@ export class ArticleService {
     return this.articleRepository.save(article);
   }
 
+  async delete(authorId: string, articleId: string) {
+    const course = await this.articleRepository.findOne(articleId, { where: { authorId } });
+    return this.articleRepository.delete(course);
+  }
+
   findById(id: string) {
     return this.articleRepository.findOne(id);
   }
