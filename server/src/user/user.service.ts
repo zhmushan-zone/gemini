@@ -3,9 +3,22 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { encrpty, generateSalt } from '../common/utils';
 import { MongoRepository } from 'typeorm';
+import { Service } from '../common/interface';
 
 @Injectable()
-export class UserService {
+export class UserService implements Service<User> {
+
+  delete(id: string) {
+    this.userRepository.delete(id);
+  }
+
+  findById(id: string) {
+    return this.userRepository.findOne(id);
+  }
+
+  save(user: User) {
+    return this.userRepository.save(user);
+  }
 
   findOne(user: User) {
     return this.userRepository.findOne(user);
@@ -27,7 +40,7 @@ export class UserService {
     user.salt = generateSalt();
     user.password = encrpty(user.password, user.salt);
     user.jwtKey = generateSalt();
-    return this.userRepository.save(user);
+    return this.save(user);
   }
 
   async login(user: User) {

@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MongoRepository } from 'typeorm';
 import { Article } from './article.entity';
+import { Service } from '../common/interface';
 
 @Injectable()
-export class ArticleService {
+export class ArticleService implements Service<Article> {
 
   save(authorId: string, article: Article) {
     article.authorId = authorId;
@@ -13,7 +14,7 @@ export class ArticleService {
 
   async delete(authorId: string, articleId: string) {
     const course = await this.articleRepository.findOne(articleId, { where: { authorId } });
-    return this.articleRepository.delete(course);
+    this.articleRepository.delete(course);
   }
 
   findById(id: string) {
