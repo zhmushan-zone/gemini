@@ -5,7 +5,7 @@ import { success } from '../common/utils';
 import { User } from '../user/user.entity';
 import { CreateArticleDTO, UpdateArticleDTO } from './dto';
 import { ArticleService } from './article.service';
-import { ArticleVO } from './vo/article.vs';
+import { ArticleVO } from './vo/article.vo';
 
 @Controller('/api/articles')
 export class ArticleController {
