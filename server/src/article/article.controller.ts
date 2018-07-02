@@ -1,9 +1,9 @@
-import { Body, Controller, Post, UseGuards, Get, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, Get, Param, Delete, Put } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Usr } from '../user/user.decorators';
 import { success } from '../common/utils';
 import { User } from '../user/user.entity';
-import { CreateArticleDTO } from './dto';
+import { CreateArticleDTO, UpdateArticleDTO } from './dto';
 import { ArticleService } from './article.service';
 import { ArticleVO } from './vo/article.vs';
 
@@ -34,6 +34,13 @@ export class ArticleController {
   async findOne(@Param('id') id) {
     const article = await this.articleService.findById(id);
     return success(new ArticleVO(article));
+  }
+
+  @Put(':id')
+  @UseGuards(AuthGuard('jwt'))
+  async updateOne(@Usr() user, @Body() updateCourseDTO: UpdateArticleDTO, @Param('id') id) {
+    const res = await this.articleService.updateById(id, updateCourseDTO);
+    return success();
   }
 
   constructor(
