@@ -7,6 +7,7 @@ import { config } from './config';
 import { CourseModule } from './course/course.module';
 import { FileModule } from './file/file.module';
 import { ArticleModule } from './article/article.module';
+import { IssueModule } from './issue/issue.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { ArticleModule } from './article/article.module';
     UserModule,
     CourseModule,
     FileModule,
-    ArticleModule
+    ArticleModule,
+    IssueModule
   ],
   controllers: [AppController],
   providers: [AppService]
