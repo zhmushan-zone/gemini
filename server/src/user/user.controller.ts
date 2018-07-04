@@ -113,7 +113,7 @@ export class UserController {
     );
   }
 
-  @Get('/watch/tag/:id')
+  @Put('/watch/tag/:id')
   @UseGuards(AuthGuard('jwt'))
   async watchTag(@Usr() user: User, @Param('id') tagId) {
     const tag = await this.tagService.findById(tagId);
