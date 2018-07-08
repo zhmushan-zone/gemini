@@ -54,4 +54,19 @@
       }
     }
   }
+
+}
+.forum-type-save-btn {
+  width: 52px;
+  height: 32px;
+  background: #f01414;
+  outline: none;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background: #ff6464;
+  }
 }
