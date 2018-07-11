@@ -7,7 +7,7 @@ class ForumRight extends Component {
     return (
       <div className="forum-right">
         <ForumPerson />
-        <ForumFollowClass />
+        <ForumFollowClass follow={this.props.follow} followChange={this.props.stateChange} />
       </div>
     )
   }
