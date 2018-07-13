@@ -18,6 +18,7 @@ const initState = {
 	city: '未设置',
 	sex: '未设置',
 	signature: '未设置',
+	watchTags: [],
 	code: ''
 }
 
@@ -68,6 +69,8 @@ export function userstatus(state = initState, action) {
 			return { ...state, code: action.code }
 		case ActionTypes.LOGOUT:
 			return { ...initState }
+		case ActionTypes.UPDATE_FORUM_TAGS:
+			return { ...state, watchTags: action.tags }
 		default:
 			return state
 	}

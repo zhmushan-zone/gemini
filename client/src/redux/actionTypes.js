@@ -24,6 +24,8 @@ export const CREATE_COURSE_SUCCESS = 'CREATE_COURSE_SUCCESS'
 export const COURSE_LIST = 'COURSE_LIST'
 // 删除课程成功
 export const COURSE_DELETE_SUCCESS = 'COURSE_DELETE_SUCCESS'
+// 更新讨论区关注的标签
+export const UPDATE_FORUM_TAGS = 'UPDATE_FORUM_TAGS'
 // 发送邮箱
 export const SEND_EMAIL_SUCCESS = 'SEND_EMAIL_SUCCESS'
 // 发表文章

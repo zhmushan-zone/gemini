@@ -211,7 +211,7 @@ export function changeAvatar(name) {
 /* --------------------------------------------------创建课程-------------------------------------------------------------- */
 // 创建课程成功
 function createCourseSuccess(course) {
-	let code = 1
+	const code = 1
 	return { type: ActionTypes.CREATE_COURSE_SUCCESS, payload: course, code: code }
 }
 
@@ -259,7 +259,7 @@ function courseDeleteSuccess() {
 }
 export function deleteCourse(id) {
 	const _token = Cookies.get('_token')
-	return async (dispatch) => {
+	return async dispatch => {
 		const res = await axios({
 			method: 'delete',
 			url: `/api/courses/${id}`,
@@ -274,7 +274,31 @@ export function deleteCourse(id) {
 		}
 	}
 }
+/* ---------------------------------------------------- 更新讨论区标签----------------------------------------------------------------------- */
+function updateForumTagsSuccess(tags) {
+	return { type: ActionTypes.UPDATE_FORUM_TAGS, tags: tags }
+}
 
+export function updateForumTags(tags) {
+	const _token = Cookies.get('_token')
+	return async dispatch => {
+		const res = await axios({
+			method: 'put',
+			url: '/api/users/tags',
+			headers: {
+				token: _token
+			},
+			data: {
+				tags
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(updateForumTagsSuccess(tags))
+		} else {
+			dispatch(errorMsg('讨论区关注分类更新失败'))
+		}
+	}
+}
 /* ---------------------------------------------------- ARTICLE----------------------------------------------------------------------- */
 
 function createArticleSuccess(data) {

@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import { Modal } from 'antd'
+import { connect } from 'react-redux'
+import { updateForumTags } from '@/redux/actions'
 
 import './forumFollowClass.scss'
 
+@connect(
+  state => state.userStatus,
+  { updateForumTags }
+)
 class forumFollowClass extends Component {
   constructor(props) {
     super(props)
@@ -24,10 +30,10 @@ class forumFollowClass extends Component {
   }
 
   handleOk = (e) => {
-    console.log(e)
     this.setState({
       visible: false,
     })
+    this.props.updateForumTags(this.props.follow)
   }
   
   handleFollow (index) {
@@ -46,7 +52,7 @@ class forumFollowClass extends Component {
     })
     const allTags = myFollowClass.map((item, index) => {
       return (
-        <a className={this.props.follow.indexOf(index) === -1 ? "" : "my-follow-tag"} onClick={() => this.handleFollow(index)}>
+        <a className={this.props.follow.indexOf(index) === -1 ? "" : "my-follow-tag"} onClick={() => this.handleFollow(index)} key={index}>
           <img src={require(`@/assets/forumIcon/${index}.jpg`)} alt=""/>
           <span>{item}</span>
         </a>
