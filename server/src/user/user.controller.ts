@@ -113,17 +113,12 @@ export class UserController {
     );
   }
 
-  @Put('/watch/tag/:id')
+  @Put('/tags')
   @UseGuards(AuthGuard('jwt'))
-  async watchTag(@Usr() user: User, @Param('id') tagId) {
-    const tag = await this.tagService.findById(tagId);
-    if (tag) {
-      user.whatchTags.add(tag);
-      this.userService.updateById(user.id, user);
-      return success();
-    } else {
-      return response(ResponseCode.TAG_NOT_EXISIT, ResponseCode[ResponseCode.TAG_NOT_EXISIT]);
-    }
+  async watchTag(@Usr() user: User, @Body('tags') tags) {
+    user.watchTags = tags;
+    this.userService.updateById(user.id, user);
+    return success();
   }
 
   @Post('/has')

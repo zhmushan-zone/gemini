@@ -1,4 +1,4 @@
-import { User, Sex, UserRole } from '../user.entity';
+import { User, Sex, UserRole, WatchTag } from '../user.entity';
 
 export class UserVO extends User {
   id: string;
@@ -9,6 +9,7 @@ export class UserVO extends User {
   sex: Sex;
   signature: string;
   role: UserRole;
+  watchTags: WatchTag[];
   token: string;
 
   constructor(user: User, token?: string) {
@@ -21,6 +22,7 @@ export class UserVO extends User {
     this.sex = user.sex;
     this.signature = user.signature;
     this.role = user.role;
+    this.watchTags = user.watchTags;
     this.token = token;
   }
 }

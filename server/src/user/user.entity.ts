@@ -41,7 +41,7 @@ export class User {
   sex: Sex;
 
   @Column()
-  whatchTags: Set<Tag>;
+  watchTags: WatchTag[];
 
   @Column()
   signature: string;
@@ -72,3 +72,5 @@ export enum Sex {
   FEMALE,
   UNKNOW
 }
+
+export enum WatchTag {}
