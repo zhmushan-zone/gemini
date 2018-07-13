@@ -6,7 +6,6 @@ import {
   UpdateDateColumn,
   Index
 } from 'typeorm';
-import { Tag } from '../tag/tag.entity';
 
 @Entity()
 export class User {

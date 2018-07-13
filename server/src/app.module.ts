@@ -8,7 +8,6 @@ import { CourseModule } from './course/course.module';
 import { FileModule } from './file/file.module';
 import { ArticleModule } from './article/article.module';
 import { IssueModule } from './issue/issue.module';
-import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -17,8 +16,7 @@ import { TagModule } from './tag/tag.module';
     CourseModule,
     FileModule,
     ArticleModule,
-    IssueModule,
-    TagModule
+    IssueModule
   ],
   controllers: [AppController],
   providers: [AppService]

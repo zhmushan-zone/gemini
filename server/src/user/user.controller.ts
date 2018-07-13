@@ -25,7 +25,6 @@ import { Usr } from './user.decorators';
 import { User } from './user.entity';
 import * as path from 'path';
 import * as fs from 'fs';
-import { TagService } from '../tag/tag.service';
 
 @Controller('/api/users')
 export class UserController {
@@ -184,8 +183,7 @@ export class UserController {
 
   constructor(
     private readonly userService: UserService,
-    private readonly authService: AuthService,
-    private readonly tagService: TagService
+    private readonly authService: AuthService
   ) {
   }
 }
