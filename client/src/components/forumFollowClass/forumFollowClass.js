@@ -6,7 +6,7 @@ import { updateForumTags } from '@/redux/actions'
 import './forumFollowClass.scss'
 
 @connect(
-  state => state.userStatus,
+  state => state.userstatus,
   { updateForumTags }
 )
 class forumFollowClass extends Component {
@@ -16,6 +16,7 @@ class forumFollowClass extends Component {
       visibale: false
     }
   }
+  
   showModal = () => {
     this.setState({
       visible: true,
