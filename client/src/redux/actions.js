@@ -6,6 +6,7 @@ function errorMsg(msg) {
 	return { msg, code: 0, type: ActionTypes.ERROR_MSG }
 }
 
+
 export function removeMsg() {
 	return { msg: '', type: ActionTypes.REMOVE_MSG }
 }
@@ -300,20 +301,24 @@ export function updateForumTags(tags) {
 	}
 }
 /* ---------------------------------------------------- ARTICLE----------------------------------------------------------------------- */
+function createArticlError(msg) {
+	return { msg, code: 0, type: ActionTypes.CREATE_ARTICLE_ERROR }
+}
 
-function createArticleSuccess(data) {
-	return { type: ActionTypes.CREATE_ARTICLE_SUCCESS, data: data }
+function createArticleSuccess(article) {
+	let code=1
+	return { type: ActionTypes.CREATE_ARTICLE_SUCCESS, article: article,code }
 }
 export function publishArticle(state) {
 	const { articleName, articleContent, articleTag, articleImage } = state
 	if (!articleName) {
-		return errorMsg('文章没有名字吗？')
+		return createArticlError('文章没有名字吗？')
 	} else if (!articleContent) {
-		return errorMsg('文章没有内容吗？')
+		return createArticlError('文章没有内容吗？')
 	} else if (!articleImage) {
-		return errorMsg('文章没有图片吗？')
+		return createArticlError('文章没有图片吗？')
 	} else if (!articleTag) {
-		return errorMsg('文章没有标签吗？')
+		return createArticlError('文章没有标签吗？')
 	}
 	return async (dispatch) => {
 		const _token = Cookies.get('_token')
@@ -334,7 +339,7 @@ export function publishArticle(state) {
 			dispatch(createArticleSuccess(res.data.data))
 			console.log(res)
 		} else {
-			dispatch(errorMsg('服务端错误'))
+			dispatch(createArticlError('服务端错误'))
 		}
 	}
 }

@@ -4,7 +4,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { publishArticle, removeMsg } from '@/redux/actions.js'
 import { connect } from 'react-redux'
-import { Button, Alert } from 'antd'
+import { Button, Alert,message } from 'antd'
 import EditorHeader from '../editorHeader/editorHeader'
 import CustomIcon from '@/common/customIcon/customIcon'
 import MyTag from '../tag/tag'
@@ -53,6 +53,7 @@ class Editor extends React.Component {
 				return null
 			})
 		}
+		console.log(this.state.articleTag)
 	}
 	// 关闭提示
 	handleErrorClose = () => {
@@ -104,7 +105,15 @@ class Editor extends React.Component {
 	}
 	sendArticle = async () => {
 		await this.props.publishArticle(this.state)
-    this.autoCloseMsg()
+		this.autoCloseMsg()
+		if(this.props.article.code===1&&this.props.article.msg===""){
+			message.success('发表成功，自动跳转至文章页面')
+			let id = this.props.article.id
+			console.log(id)
+			setTimeout(() => {
+				this.props.history.push(`/article/${id}`)
+			}, 500)
+		}
 	}
 
 	render() {
@@ -145,9 +154,9 @@ class Editor extends React.Component {
 			<div className="editorContainer">
 				{/* 提示 */}
 				<div className="error-msg">
-					{this.props.userstatus.msg ? (
+					{this.props.article.msg ? (
 						<Alert
-							description={this.props.userstatus.msg}
+							description={this.props.article.msg}
 							type="error"
 							showIcon
 							className="errorMsg"
