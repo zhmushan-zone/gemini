@@ -5,7 +5,7 @@ export default class BackstageArticle extends Component {
   render() {
     return (
       <div className="back-article-container">
-        文章
+        这里是文章列表
       </div>
     )
   }

@@ -4,7 +4,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { publishArticle, removeMsg } from '@/redux/actions.js'
 import { connect } from 'react-redux'
-import { Button, Alert,message } from 'antd'
+import { Button, Alert, message } from 'antd'
 import EditorHeader from '../editorHeader/editorHeader'
 import CustomIcon from '@/common/customIcon/customIcon'
 import MyTag from '../tag/tag'
@@ -106,10 +106,10 @@ class Editor extends React.Component {
 	sendArticle = async () => {
 		await this.props.publishArticle(this.state)
 		this.autoCloseMsg()
-		if(this.props.article.code===1&&this.props.article.msg===""){
+		if (this.props.article.code === 1 && this.props.article.msg === '') {
 			message.success('发表成功，自动跳转至文章页面')
-			let id = this.props.article.id
-			console.log(id)
+			let articleArray = this.props.article.articles
+			let id = this.props.article.articles[articleArray.length - 1].id
 			setTimeout(() => {
 				this.props.history.push(`/article/${id}`)
 			}, 500)
@@ -151,15 +151,15 @@ class Editor extends React.Component {
 			'设计'
 		]
 		return (
-			<div className="editorContainer">
+			<div className='editorContainer'>
 				{/* 提示 */}
-				<div className="error-msg">
+				<div className='error-msg'>
 					{this.props.article.msg ? (
 						<Alert
 							description={this.props.article.msg}
-							type="error"
+							type='error'
 							showIcon
-							className="errorMsg"
+							className='errorMsg'
 							closable
 							afterClose={this.handleErrorClose}
 						/>
@@ -169,25 +169,25 @@ class Editor extends React.Component {
 				<SimpleMDE onChange={this.handleChange.bind(this)} value={this.state.articleContent} />
 
 				{/* 上传封面 */}
-				<div className="upload-pic-box">
-					<span className="needed">文章封面</span>
-					<span className="err-tip" />
-					<div className="face-upload-box">
-						<input type="file" id="fengmian" className="cover" />
-						<label htmlFor="fengmian" onClick={this.selectCover}>
+				<div className='upload-pic-box'>
+					<span className='needed'>文章封面</span>
+					<span className='err-tip' />
+					<div className='face-upload-box'>
+						<input type='file' id='fengmian' className='cover' />
+						<label htmlFor='fengmian' onClick={this.selectCover}>
 							{this.state.imgurl ? (
-								<img src={this.state.imgurl} style={{ width: 200, height: 200 }} alt="" />
+								<img src={this.state.imgurl} style={{ width: 200, height: 200 }} alt='' />
 							) : (
-								<CustomIcon type="camera-b" size={80} />
+								<CustomIcon type='camera-b' size={80} />
 							)}
 						</label>
-						<span className="l pic-tip">
+						<span className='l pic-tip'>
 							封面图规格：<br />尺寸为200*200像素，格式为 PNG/JPG/GIF,小于等于80KB{' '}
 						</span>
 					</div>
 				</div>
-				<div className="category">
-					<span className="needed">文章分类</span>
+				<div className='category'>
+					<span className='needed'>文章分类</span>
 					<div>
 						{category.map((v, index) => {
 							return (
@@ -201,7 +201,7 @@ class Editor extends React.Component {
 						})}
 					</div>
 					<p>
-						<Button type="danger" size={'large'} ghost onClick={this.sendArticle}>
+						<Button type='danger' size={'large'} ghost onClick={this.sendArticle}>
 							发表文章
 						</Button>
 					</p>
