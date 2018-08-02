@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Switch } from 'antd';
+import { Switch } from 'antd'
+
+import ForumProblemPreivew from '../forumProblemPreview/forumProblemPreview'
 
 import './forumLeft.scss'
 

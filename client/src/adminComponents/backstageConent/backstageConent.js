@@ -48,12 +48,12 @@ export default class BackstageConent extends Component {
         path: '/admin/course/create',
         address: '课程列表-新建课程'
       },
-      // {
-      //   name: 'BackstageCourseInfo',
-      //   component: BackstageCourseInfo,
-      //   path: '/admin/course/:name',
-      //   address: '课程列表-课程详情'
-      // }
+      {
+        name: 'BackstageCourseInfo',
+        component: BackstageCourseInfo,
+        path: '/admin/course/:name',
+        address: '课程列表-课程详情'
+      }
     ]
     return (
       <React.Fragment>
@@ -70,14 +70,15 @@ export default class BackstageConent extends Component {
                 )
               }
               return <Route path={v.path} component={v.component} key={v.name}></Route>
-            } else if (v.path.indexOf(':') !== -1) {
+            } else if (v.path.indexOf(':') !== -1 && this.props.location.pathname.indexOf(v.path.split(':')[0]) !== -1) {
               const addressArr = v.address.split('-')
-                return (
-                  <React.Fragment key={v.name}>
-                    <AdminBreadcrumb addressArr={addressArr} />
-                    <Route path={v.path} component={v.component} key={v.name}></Route>
-                  </React.Fragment>
-                )
+              console.log(v.path)
+              return (
+                <React.Fragment key={v.name}>
+                  <AdminBreadcrumb addressArr={addressArr} />
+                  <Route path={v.path} component={v.component} key={v.name}></Route>
+                </React.Fragment>
+              )
             }
             return null
           })

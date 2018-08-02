@@ -30,7 +30,6 @@ class Forum extends Component {
         id: _id
       }
     })
-    console.log(res.data.data[0].watchTags)
     this.setState({
       follow: res.data.data[0].watchTags
     })
