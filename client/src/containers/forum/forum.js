@@ -30,9 +30,11 @@ class Forum extends Component {
         id: _id
       }
     })
-    this.setState({
-      follow: res.data.data[0].watchTags
-    })
+    if(res.data.data[0].watchTags) {
+      this.setState({
+        follow: res.data.data[0].watchTags
+      })
+    }
   }
 
   stateChange(key, value) {
