@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-export default class ArticlePage extends Component {
+export default class opinionMain extends Component {
   render() {
     return (
       <div>
-        文章页面
+        主体 啊
       </div>
     )
   }

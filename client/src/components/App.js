@@ -13,7 +13,6 @@ import Footer from '../components/footer/footer'
 import Admin from '../adminComponents/admin/admin'
 import Article from '../components/article/Article'
 import VideoPage from '../components/video/videoPage'
-import ArticlePage from '../components/articlePage/ArticlePage'
 import UploadVideo from './uploadVideo/uploadVideo'
 import '@/assets/styles/normalize.scss'
 // icon图标
@@ -40,7 +39,6 @@ class App extends React.Component {
                 <Route path="/opinion" component={Opinion}></Route>
                 <Route path="/personCenter" component={PersonCenter}></Route>
                 <Route path="/uploadVideo" component={UploadVideo}></Route>
-                <Route path="/articlePage" component={ArticlePage}></Route>
                 <Redirect path="/" to={{ pathname: '/home' }} />       
               </Switch>
               <Footer />

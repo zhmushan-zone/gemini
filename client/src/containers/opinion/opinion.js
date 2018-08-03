@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-
+import OpinionNav from '@/components/opinionNav/opinionNav'
+import OpinionMain from '../../components/opinionMain/opinionMain'
+import './opinion.scss'
 class Opinion extends Component {
-  render() {
-    return (
-      <div>
-        Opinion
-      </div>
-    )
-  }
+	render() {
+		return (
+			<div className='opinion-container'>
+				<OpinionNav />
+				<OpinionMain />
+			</div>
+		)
+	}
 }
 
 export default Opinion
