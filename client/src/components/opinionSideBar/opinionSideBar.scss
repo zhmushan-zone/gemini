@@ -1,0 +1,38 @@
+.side-bar-container {
+	.left_menu {
+		width: 104px;
+		margin-right: 24px;
+		text-align: center;
+		background: #fff;
+		border-radius: 12px;
+		box-shadow: 0 4px 8px 0 rgba(28, 31, 33, .1);
+		.m_item {
+			width: 88px;
+			line-height: 20px;
+			border-radius: 6px;
+			margin: 0 auto 8px;
+			box-sizing: border-box;
+			padding: 8px 0;
+			font-size: 14px;
+			&:first-child {
+				margin-top: 8px;
+			}
+			&.active {
+				background: rgba(51, 119, 255, .1);
+				font-weight: 700;
+				a {
+					color: #37f;
+				}
+			}
+			a {
+				display: inline-block;
+				width: 74px;
+				line-height: 20px;
+				color: #1c1f21;
+				transition: all .3s;
+				-moz-transition: all .3s;
+				-webkit-transition: all .3s;
+			}
+		}
+	}
+}
