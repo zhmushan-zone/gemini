@@ -43,7 +43,7 @@ export default class opinionSideBar extends Component {
 				component: OpinionRecommend
 			},
 			{
-				name: '云计算、大数据',
+				name: '云计算/大数据',
 				to: '/opinion',
 				is: this.props.location.pathname === '/a',
 				component: OpinionRecommend
