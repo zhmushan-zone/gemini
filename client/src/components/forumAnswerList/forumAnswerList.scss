@@ -1,0 +1,91 @@
+.forum-answer-list {
+  position: relative;
+
+  .forum-answer-list-title {
+    position: absolute;
+    top: 18px;
+    font: 14px/1.5 "PingFang SC","微软雅黑","Microsoft YaHei",Helvetica,"Helvetica Neue",Tahoma,Arial,sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #14191e;
+  }
+
+  .ant-tabs-bar {
+    margin-bottom: 30px;
+  }
+
+  .ant-tabs-ink-bar {
+    background-color: #f01414;
+  }
+
+  .ant-tabs-tab-active {
+    color: #f01414;
+  }
+
+  .ant-tabs-tab {
+    padding: 20px 4px;
+
+    &:hover {
+      color: #f01414;
+    }
+  }
+  
+  .ant-tabs-nav {
+    right: 0;
+    position: absolute;
+  }
+
+  .ant-tabs-nav-scroll {
+    height: 61px;
+    position: relative;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 0;
+
+    li {
+      height: 40px;
+      display: flex;
+      margin-bottom: 30px;
+
+      .answer-list-item-left {
+        width: 90px;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px;
+
+        .answer-ranking {
+          font-size: 18px;
+          line-height: 40px;
+        }
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+      }
+      .answer-list-item-right {
+        flex: 1;
+        height: 100%;
+
+        .answer-name {
+          a {
+            font-size: 14px;
+            font-weight: 600;
+            color: #787d92;
+          }
+        }
+        
+        .answer-count {
+          text-align: right;
+          font-size: 12px;
+          color: #b5b9bc;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+}
