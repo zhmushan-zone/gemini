@@ -39,10 +39,52 @@
       font-weight: 600;
       color: #14191e;
     }
+    .latest-replyer-name {
+      margin-top: 24px;
+      font-size: 12px;
+      color: #b5b9bc;
+
+      a {
+        font-size: 14px;
+        font-weight: 600;
+        color: #14191e;
+        margin-right: 5px;
+      }
+    }
+
+    .latest-replyer-content {
+      color: #14191e;
+      line-height: 28px;
+      font-size: 14px;
+      margin-top: 2px;
+      word-break: break-all;
+      overflow: hidden;
+    }
 
     .problem-preview-operation {
       display: flex;
       padding-top: 20px;
+
+      .problem-preview-good-count {
+        height: 24px;
+        border: 1px solid #d0d6d9;
+        padding: 0 9px;
+        line-height: 24px;
+        font-size: 12px;
+        color: #787d82;
+        margin-right: 20px;
+        cursor: pointer;
+      }
+
+      .problem-preview-bad-count {
+        height: 24px;
+        padding: 0 9px;
+        line-height: 24px;
+        font-size: 12px;
+        color: #787d82;
+        margin-right: 20px;
+        cursor: pointer;
+      }
 
       .problem-preview-reply-btn {
         width: 72px;
