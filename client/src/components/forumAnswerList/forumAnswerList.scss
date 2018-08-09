@@ -1,5 +1,6 @@
 .forum-answer-list {
   position: relative;
+  padding-bottom: 30px;
 
   .forum-answer-list-title {
     position: absolute;
@@ -85,6 +86,26 @@
           color: #b5b9bc;
           line-height: 20px;
         }
+      }
+    }
+  }
+
+  .answer-show-more {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #edf1f2;
+
+    button {
+      width: 100%;
+      height: 30px;
+      border: 1px solid #fff;
+      outline: none;
+      line-height: 28px;
+      color: #b5b9bc;
+      cursor: pointer;
+
+      &:hover {
+        background: #f3f5f7;
+        border-color: #d9dde1;
       }
     }
   }

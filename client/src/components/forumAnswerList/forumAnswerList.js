@@ -6,13 +6,28 @@ import './forumAnswerList.scss'
 const TabPane = Tabs.TabPane
 
 class ForumAnswerList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      tabsShowAll: [false, false]
+    }
+  }
+
   callback(key) {
-    console.log(key)
+
+  }
+
+  showMore(index) {
+    let newTabsShowAll = [...this.state.tabsShowAll]
+    newTabsShowAll[index] = true
+    this.setState({
+      tabsShowAll: newTabsShowAll
+    })
   }
 
   render() {
     const answerItem = answer.map((item, index) => {
-      let rankingColor;
+      let rankingColor
       switch (index) {
         case 0:
           rankingColor = '#f8b551'
@@ -55,11 +70,35 @@ class ForumAnswerList extends Component {
         >
           <TabPane tab="本周" key="1">
             <ul>
-              {answerItem}
+              {
+                this.state.tabsShowAll[0] ? 
+                answerItem :
+                answerItem.slice(0, 5)
+              }
             </ul>
+            {
+              this.state.tabsShowAll[0] ? 
+              null :
+              <div className="answer-show-more">
+                <button onClick={() => this.showMore(0)}>显示另外5个雷锋</button>
+              </div>
+            }
           </TabPane>
           <TabPane tab="总榜" key="2">
-          
+          <ul>
+              {
+                this.state.tabsShowAll[1] ? 
+                answerItem :
+                answerItem.slice(0, 5)
+              }
+            </ul>
+            {
+              this.state.tabsShowAll[1] ? 
+              null :
+              <div className="answer-show-more">
+                <button onClick={() => this.showMore(1)}>显示另外5个雷锋</button>
+              </div>
+            }
           </TabPane>
         </Tabs>
       </div>
@@ -69,15 +108,15 @@ class ForumAnswerList extends Component {
 
 const answer = [
   { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
+  { username: '狗儿子', answerCount: '10', avatar: 'shou' },
   { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
+  { username: '狗儿子', answerCount: '10', avatar: 'shou' },
   { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
+  { username: '狗儿子', answerCount: '10', avatar: 'shou' },
   { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
+  { username: '狗儿子', answerCount: '10', avatar: 'shou' },
   { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
-  { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
-  { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
-  { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
-  { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
-  { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' }
+  { username: '狗儿子', answerCount: '10', avatar: 'shou' }
 ]
 
 export default ForumAnswerList
