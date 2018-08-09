@@ -18,7 +18,7 @@ export default class opinionNav extends Component {
 							</div>
 						</div>
 						<div className='operate-area'>
-							<Button type='primary'>写文章</Button>
+							<Button type='danger'>写文章</Button>
 							<Button type=''>动态圈</Button>
 						</div>
 					</div>
