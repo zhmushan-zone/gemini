@@ -49,7 +49,7 @@ class Nav extends React.Component {
     const personCenterNavBgColor=classnames({
       'personCenterNavBgColor':is
     })
-    const navList = ['首页', '在线学习', '讨论区', '看法']
+    const navList = ['首页', '在线学习', '答疑', '看法']
     const navRoute = ['/home', '/onlineStudying', '/forum', '/opinion']
     const navSections = navList.map((section, index) => {
         if (index === this.state.selected) {
