@@ -38,6 +38,15 @@ class ForumLeft extends Component {
             <Switch className="show-attention-switch" defaultChecked onChange={(v) => this.setState({isOnlyShowAttention: v})} />
           </div>
         </div>
+        <div className="fourm-problem-wrapper">
+          <ForumProblemPreivew />
+          <ForumProblemPreivew />
+          <ForumProblemPreivew />
+          <ForumProblemPreivew />
+          <ForumProblemPreivew />
+          <ForumProblemPreivew />
+          <ForumProblemPreivew />
+        </div>
       </div>
     )
   }
