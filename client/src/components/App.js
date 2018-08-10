@@ -5,6 +5,7 @@ import AutoRoute from './authRoute/authRoute'
 import Layout from './layout/layout'
 import PersonCenter from './personCenter/personCenter'
 import Editor from './editor/editor'
+import forumCreateProblem from './forumCreateProblem/forumCreateProblem'
 import Home from '../containers/home/home'
 import OnlineStudying from '../containers/onlineStudying/onlineStudying'
 import Forum from '../containers/forum/forum'
@@ -36,6 +37,7 @@ class App extends React.Component {
                 <Route path="/home" component={Home}></Route>
                 <Route path="/onlineStudying" component={OnlineStudying}></Route>
                 <Route path="/forum" component={Forum}></Route>
+                <Route path="/problemCreate" component={forumCreateProblem}></Route>
                 <Route path="/opinion" component={Opinion}></Route>
                 <Route path="/personCenter" component={PersonCenter}></Route>
                 <Route path="/uploadVideo" component={UploadVideo}></Route>

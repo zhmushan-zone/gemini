@@ -1,0 +1,32 @@
+.forum-create-problem-left {
+  h2 {
+    font-size: 18px;
+    height: 42px;
+    line-height: 42px;
+    font-weight: 400;
+    color: #1c1f21;
+  }
+
+  .create-problem-title {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    outline: none;
+    margin-bottom: 26px;
+    border: 1px solid #c9d8db;
+    padding-left: 16px;
+
+    &::-webkit-input-placeholder { /* WebKit browsers */
+      color:    #999;
+    }
+    &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color:    #999;
+    }
+    &::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color:    #999;
+    }
+    &:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color:    #999;
+    }
+  }
+}
