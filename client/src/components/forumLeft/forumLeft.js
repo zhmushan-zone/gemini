@@ -27,7 +27,7 @@ class ForumLeft extends Component {
       <div className="forum-wrapper">
         <div className="forum-wrapper-top">
           <span>程序员自己的问答社区</span>
-          <a href="">我要提问</a>
+          <a href="/problemCreate">我要提问</a>
         </div>
         <div className="forum-nav">
           <div className="forum-nav-wrapper">
