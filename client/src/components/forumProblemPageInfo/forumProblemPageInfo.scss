@@ -52,6 +52,7 @@
 
   .forum-problem-page-type-operation {
     display: flex;
+    justify-content: space-between;
     padding-top: 24px;
 
     .forum-problem-page-type {
@@ -64,6 +65,34 @@
 
         &:hover {
           background: #F3F5F7;
+        }
+      }
+    }
+    
+    .forum-problem-page-operation {
+      display: flex;
+      height: 24px;
+      line-height: 24px;
+      position: relative;
+      bottom: 2px;
+
+      .forum-problem-page-share {
+        a {
+          margin-right: 20px;
+        }
+      }
+
+      .forum-problem-page-follow {
+        font-size: 14px;
+        color: #B7BBBF;
+        margin-left: 4px;
+        border-left: 1px solid #D9DDE1;
+        padding-left: 24px;
+
+        span {
+          margin-left: 14px;
+          position: relative;
+          bottom: 2px;
         }
       }
     }

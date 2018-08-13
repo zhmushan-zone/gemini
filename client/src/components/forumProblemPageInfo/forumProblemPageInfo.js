@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import Icon from '@/common/customIcon/customIcon'
+import ForumProblemPageReply from '../forumProblemPageReply/forumProblemPageReply'
+
 import './forumProblemPageInfo.scss'
 
 class ForumProblemPageInfo extends Component {
@@ -26,7 +29,28 @@ class ForumProblemPageInfo extends Component {
             <a>HTML5</a>
             <a>CSS3</a>
           </div>
+          <div className="forum-problem-page-operation">
+            <div className="forum-problem-page-share">
+              <a>
+                <Icon type="weixin" color="#b6b9bc" size={26} />
+              </a>
+              <a>
+                <Icon type="qq" color="#b6b9bc" size={24} />
+              </a>
+              <a>
+                <Icon type="weibo" color="#b6b9bc" size={24} />
+              </a>
+            </div>
+            <div className="forum-problem-page-follow">
+              <a>
+                  {/* <Icon type="xin1" color="#dd3929" size={24} /> */}
+                  <Icon type="xin" color="#b6b9bc" size={24} />
+              </a>
+              <span>18</span>
+            </div>
+          </div>
         </div>
+        <ForumProblemPageReply />
       </div>
     )
   }
