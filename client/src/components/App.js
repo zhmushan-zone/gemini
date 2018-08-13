@@ -9,6 +9,7 @@ import forumCreateProblem from './forumCreateProblem/forumCreateProblem'
 import Home from '../containers/home/home'
 import OnlineStudying from '../containers/onlineStudying/onlineStudying'
 import Forum from '../containers/forum/forum'
+import ForumProblemPage from './forumProblemPage/forumProblemPage'
 import Opinion from '../containers/opinion/opinion'
 import Footer from '../components/footer/footer'
 import Admin from '../adminComponents/admin/admin'
@@ -36,7 +37,8 @@ class App extends React.Component {
               <Switch>
                 <Route path="/home" component={Home}></Route>
                 <Route path="/onlineStudying" component={OnlineStudying}></Route>
-                <Route path="/forum" component={Forum}></Route>
+                <Route path="/forum" component={Forum} exact></Route>
+                <Route path="/forum/:id" component={ForumProblemPage}></Route>
                 <Route path="/problemCreate" component={forumCreateProblem}></Route>
                 <Route path="/opinion" component={Opinion}></Route>
                 <Route path="/personCenter" component={PersonCenter}></Route>

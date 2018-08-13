@@ -1,0 +1,71 @@
+.forum-problem-page-info {
+  h1 {
+    overflow: hidden;
+    font-weight: bolder;
+    font-size: 24px;
+    color: #07111B;
+    line-height: 36px;
+    margin: 0;
+  }
+
+  .forum-problem-details {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+
+    img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+
+    span {
+      font-size: 14px;
+      line-height: 24px;
+      color: #93999f;
+    }
+  }
+
+  p.forum-problem-page-desc {
+    margin-top: 16px;
+    line-height: 36px;
+    font-size: 16px;
+    color: #1c1f21;
+  }
+
+  .forum-problem-details-data {
+    a {
+      margin-right: 24px;
+      line-height: 24px;
+      font-size: 12px;
+      color: #93999f;
+    }
+
+    span {
+      margin-right: 24px;
+      line-height: 24px;
+      font-size: 12px;
+      color: #93999f;
+    }
+  }
+
+  .forum-problem-page-type-operation {
+    display: flex;
+    padding-top: 24px;
+
+    .forum-problem-page-type {
+      a {
+        border: 1px solid #9CA0A3;
+        padding: 5px 8px;
+        margin-right: 10px;
+        color: #798281;
+        transition: none;
+
+        &:hover {
+          background: #F3F5F7;
+        }
+      }
+    }
+  }
+}

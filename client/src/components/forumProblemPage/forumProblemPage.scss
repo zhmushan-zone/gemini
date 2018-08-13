@@ -1,0 +1,19 @@
+.forum-problem-page {
+  display: flex;
+  padding-top: 40px;
+  justify-content: center;
+
+  .forum-problem-page-left {
+    width: 776px;
+    height: 1000px;
+    padding-right: 54px;
+    box-sizing: content-box;
+  }
+
+  .forum-problem-page-right {
+    width: 328px;
+    height: 1000x;
+    padding-left: 54px;
+    box-sizing: content-box;
+  }
+}

@@ -47,7 +47,7 @@ class ForumLeft extends Component {
                 isFollow={item.isFollow}
                 replyCount={item.replyCount}
                 latestReply={item.latestReply}
-                key={item}
+                key={item.problemTitle}
               />
             })
           }
