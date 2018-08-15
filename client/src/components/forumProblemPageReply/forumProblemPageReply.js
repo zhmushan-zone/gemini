@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import { Input } from 'antd'
 
 import './forumProblemPageReply.scss'
+
+const { TextArea } = Input
 
 class ForumProblemPageReply extends Component {
   constructor(props) {
@@ -19,7 +22,7 @@ class ForumProblemPageReply extends Component {
   render() {
     return (
       <div className="forum-problem-page-reply">
-        <textarea placeholder="请输入你的观点(不得少于15字)" onChange={(e) => this.contentChange(e)}></textarea>
+        <TextArea placeholder="请输入你的观点(不得少于15字)" onChange={(e) => this.contentChange(e)} autosize={{ minRows: 2, maxRows: 6 }} />
         <div className="forum-problem-reply-btn-wrapper">
           <button>回答</button>
         </div>
