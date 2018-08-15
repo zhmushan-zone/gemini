@@ -36,6 +36,12 @@
       line-height: 36px;
       font-size: 14px;
       color: #fff;
+      cursor: pointer;
+      border: none;
+
+      &:hover {
+        color: #ff6464;
+      }
     }
   }
 }
