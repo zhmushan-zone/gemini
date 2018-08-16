@@ -1,0 +1,74 @@
+.foru-problem-page-related-type {
+  padding-top: 30px;
+
+  .forum-problem-page-title {
+    height: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d0d6d9;
+    line-height: 20px;
+    text-align: left;
+    color: #14191e;
+    font-size: 16px;
+    box-sizing: content-box;
+  }
+
+  .related-type-item {
+    padding: 24px 0;
+    border-bottom: 1px solid #edf1f2;
+    display: flex;
+    justify-content: space-between;
+
+    .related-type-item-left {
+      display: flex;
+
+      .related-type-item-img {
+        padding-right: 14px;
+
+        img {
+          width: 36px;
+          height: 36px;
+        }
+      }
+
+      .related-type-item-details {
+        .related-type-item-name {
+          a {
+            line-height: 18px;
+            color: #14191e;
+            font-size: 16px;
+            text-align: left;
+            font-weight: 600;
+          }
+        }
+
+        p {
+          margin: 0;
+          height: 18px;
+          line-height: 18px;
+          color: #b5b9bc;
+          font-size: 12px;
+        }
+      }
+    }
+
+    .related-type-item-right {
+      display: flex;
+      justify-content: flex-end;
+
+      a {
+        position: relative;
+        top: 3px;
+        padding: 0 10px;
+        height: 28px;
+        line-height: 28px;
+        font-size: 14px;
+        color: #787d82;
+        text-align: center;
+        border: 1px solid #d0d6d9;
+        overflow: hidden;
+        cursor: pointer;
+        box-sizing: content-box;
+      }
+    }
+  }
+}

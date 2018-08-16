@@ -12,7 +12,7 @@ class ForumProblemPageCommentsItem extends Component {
     super(props)
     this.state = {
       isReplyFold: true,
-      isShowAllReply: false 
+      isShowAllReply: false
     }
   }
   

@@ -38,8 +38,8 @@ class App extends React.Component {
                 <Route path="/home" component={Home}></Route>
                 <Route path="/onlineStudying" component={OnlineStudying}></Route>
                 <Route path="/forum" component={Forum} exact></Route>
+                <Route path="/forum/create" component={forumCreateProblem} exact></Route>
                 <Route path="/forum/:id" component={ForumProblemPage}></Route>
-                <Route path="/problemCreate" component={forumCreateProblem}></Route>
                 <Route path="/opinion" component={Opinion}></Route>
                 <Route path="/personCenter" component={PersonCenter}></Route>
                 <Route path="/uploadVideo" component={UploadVideo}></Route>
