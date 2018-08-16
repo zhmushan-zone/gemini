@@ -13,8 +13,8 @@ export class ArticleService implements Service<Article> {
   }
 
   async delete(authorId: string, articleId: string) {
-    const course = await this.articleRepository.findOne(articleId, { where: { authorId } });
-    this.articleRepository.delete(course);
+    const article = await this.articleRepository.findOne(articleId, { where: { authorId } });
+    this.articleRepository.delete(article);
   }
 
   findById(id: string) {

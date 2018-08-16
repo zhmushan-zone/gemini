@@ -38,8 +38,8 @@ export class ArticleController {
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
-  async updateOne(@Usr() user, @Body() updateCourseDTO: UpdateArticleDTO, @Param('id') id) {
-    const res = await this.articleService.updateById(id, updateCourseDTO);
+  async updateOne(@Usr() user, @Body() updateArticleDTO: UpdateArticleDTO, @Param('id') id) {
+    const res = await this.articleService.updateById(id, updateArticleDTO);
     return success();
   }
 
