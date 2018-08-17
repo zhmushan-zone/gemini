@@ -5,11 +5,13 @@ import './problemTags.scss'
 class ProblemTags extends Component {
   handleTags (index) {
     const newType = [...this.props.type]
-    if (this.props.type.indexOf(index) === -1) {
-      this.props.tagsChange('type', [...newType, index])
+    if (this.props.type.indexOf(index) === -1 && this.props.type.length < 3) {
+      this.props.tagsChange('tags', [...newType, index])
     } else {
-      newType.splice(newType.indexOf(index), 1)
-      this.props.tagsChange('type', newType)
+      if (newType.indexOf(index) !== -1) {
+        newType.splice(newType.indexOf(index), 1)
+        this.props.tagsChange('tags', newType)
+      }
     }
   }
 

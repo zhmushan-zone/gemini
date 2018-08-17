@@ -8,7 +8,7 @@ class ProblemEditor extends Component {
     const editor = new E(elem)
     // 使用 onchange 函数监听内容的变化，并实时更新到 state 中
     editor.customConfig.onchange = html => {
-      this.props.descChange('desc', html)
+      this.props.descChange('content', html)
     }
     
     editor.customConfig.menus = [
@@ -32,7 +32,7 @@ class ProblemEditor extends Component {
       'undo',  // 撤销
       'redo'  // 重复
     ]
-    
+
     editor.customConfig.uploadImgShowBase64 = true
 
     editor.create()
@@ -43,6 +43,7 @@ class ProblemEditor extends Component {
     return (
       <div>
         <div ref="editorElem" style={{textAlign: 'left'}}>
+          <p style={{color: '#999'}}>请详细描述该问题</p>
         </div>
       </div>
     )

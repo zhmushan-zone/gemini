@@ -219,19 +219,21 @@ function createCourseSuccess(course) {
 export function createCourse(course) {
 	const _token = Cookies.get('_token')
 	return async (dispatch) => {
-		const res = await axios({
-			method: 'post',
-			url: '/api/courses',
-			headers: {
-				token: _token
-			},
-			data: {
-				...course
+		try {
+			const res = await axios({
+				method: 'post',
+				url: '/api/courses',
+				headers: {
+					token: _token
+				},
+				data: {
+					...course
+				}
+			})
+			if (res.data.code === 1) {
+				dispatch(createCourseSuccess(res.data.data))
 			}
-		})
-		if (res.data.code === 1) {
-			dispatch(createCourseSuccess(res.data.data))
-		} else {
+		} catch (error) {
 			dispatch(errorMsg('服务端错误'))
 		}
 	}
@@ -246,8 +248,6 @@ export function getCourseList() {
 		const res = await axios.get('/api/courses')
 		if (res.data.code === 1) {
 			dispatch(courseList(res.data.data))
-		} else {
-			dispatch(errorMsg('获取课程列表失败'))
 		}
 	}
 }
@@ -261,17 +261,61 @@ function courseDeleteSuccess() {
 export function deleteCourse(id) {
 	const _token = Cookies.get('_token')
 	return async dispatch => {
-		const res = await axios({
-			method: 'delete',
-			url: `/api/courses/${id}`,
-			headers: {
-				token: _token
+		try {
+			const res = await axios({
+				method: 'delete',
+				url: `/api/courses/${id}`,
+				headers: {
+					token: _token
+				}
+			})
+			if (res.data.code === 1) {
+				dispatch(courseDeleteSuccess())
 			}
-		})
+		} catch (error) {
+			dispatch(errorMsg('服务端错误'))
+		}
+	}
+}
+/* ---------------------------------------------------- 创建问题----------------------------------------------------------------------- */
+function createProblemSuccess(problem) {
+	const code = 1
+	return { type: ActionTypes.CREATE_PROBLEM_SUCCESS, payload: problem, code: code }
+}
+
+export function createProblem(problem) {
+	const _token = Cookies.get('_token')
+
+	return async (dispatch) => {
+		try {
+			const res = await axios({
+				method: 'post',
+				url: '/api/issues',
+				headers: {
+					token: _token
+				},
+				data: {
+					...problem
+				}
+			})
+			if (res.data.code === 1) {
+				dispatch(createProblemSuccess(res.data.data))
+			}
+		} catch (error) {
+			dispatch(errorMsg("服务端错误"))
+		}
+	}
+}
+/* ---------------------------------------------------- 获取问题列表----------------------------------------------------------------------- */
+function problemList (problem) {
+	return { type: ActionTypes.PROBLEM_LIST, payload: problem }
+}
+
+export function getProblemList () {
+	return async dispatch => {
+		const res = await axios.get('/api/issues')
 		if (res.data.code === 1) {
-			dispatch(courseDeleteSuccess())
-		} else {
-			dispatch(errorMsg('课程删除失败'))
+			dispatch(problemList(res.data.data))
 		}
 	}
 }
