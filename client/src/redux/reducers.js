@@ -132,13 +132,16 @@ export function article(state = articleInit, action) {
     case ActionTypes.CREATE_ARTICLE_SUCCESS:
       return {
         ...state,
-        articles: [...state.articles,action.article],
         code: action.code
       }
     case ActionTypes.CREATE_ARTICLE_ERROR:
       return {
         msg: action.msg,
         code: action.code
+      }
+      case ActionTypes.FETCH_ONE_ARTICLE:
+      return {
+        article:{...action.data}
       }
     default:
       return state

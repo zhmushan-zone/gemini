@@ -6,7 +6,6 @@ function errorMsg(msg) {
 	return { msg, code: 0, type: ActionTypes.ERROR_MSG }
 }
 
-
 export function removeMsg() {
 	return { msg: '', type: ActionTypes.REMOVE_MSG }
 }
@@ -260,7 +259,7 @@ function courseDeleteSuccess() {
 }
 export function deleteCourse(id) {
 	const _token = Cookies.get('_token')
-	return async dispatch => {
+	return async (dispatch) => {
 		const res = await axios({
 			method: 'delete',
 			url: `/api/courses/${id}`,
@@ -282,7 +281,7 @@ function updateForumTagsSuccess(tags) {
 
 export function updateForumTags(tags) {
 	const _token = Cookies.get('_token')
-	return async dispatch => {
+	return async (dispatch) => {
 		const res = await axios({
 			method: 'put',
 			url: '/api/users/tags',
@@ -306,8 +305,8 @@ function createArticlError(msg) {
 }
 
 function createArticleSuccess(article) {
-	let code=1
-	return { type: ActionTypes.CREATE_ARTICLE_SUCCESS, article: article,code }
+	let code = 1
+	return { type: ActionTypes.CREATE_ARTICLE_SUCCESS, article: article, code }
 }
 export function publishArticle(state) {
 	const { articleName, articleContent, articleTag, articleImage } = state
@@ -340,6 +339,24 @@ export function publishArticle(state) {
 			console.log(res)
 		} else {
 			dispatch(createArticlError('服务端错误'))
+		}
+	}
+}
+
+/* fetch one  */
+function fetchOneArticleSuccess(data) {
+	return { type: ActionTypes.FETCH_ONE_ARTICLE, data }
+}
+export function fetchArticleOne(id) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'get',
+			url: `/api/articles/${id}`
+		})
+		if (res.data.code === 1) {
+			dispatch(fetchOneArticleSuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
 		}
 	}
 }
