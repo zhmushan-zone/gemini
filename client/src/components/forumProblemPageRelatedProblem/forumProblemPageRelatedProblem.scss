@@ -1,0 +1,35 @@
+.forum-problem-page-related-problem {
+  padding-top: 30px;
+
+  .forum-problem-page-title {
+    height: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d0d6d9;
+    line-height: 20px;
+    text-align: left;
+    color: #14191e;
+    font-size: 16px;
+    box-sizing: content-box;
+  }
+
+  ul {
+    margin: 0;
+    padding: 15px 0 5px;
+
+    li {
+      padding: 9px 0 10px;
+      border: 0;
+      line-height: 21px;
+
+      a {
+        color: #14191e;
+      }
+
+      span {
+        color: #b5b9bc;
+        font-size: 12px;
+        margin-left: 6px;
+      }
+    }
+  }
+}

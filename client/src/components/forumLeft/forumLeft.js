@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { withRouter ,Link } from 'react-router-dom'
 import { Switch } from 'antd'
 
 import ForumProblemPreivew from '../forumProblemPreview/forumProblemPreview'
 
 import './forumLeft.scss'
 
+@withRouter
 class ForumLeft extends Component {
   constructor(props) {
     super(props)
@@ -27,7 +29,7 @@ class ForumLeft extends Component {
       <div className="forum-wrapper">
         <div className="forum-wrapper-top">
           <span>程序员自己的问答社区</span>
-          <a href="/problemCreate">我要提问</a>
+          <Link to={`${this.props.match.url}/create`}>我要提问</Link>
         </div>
         <div className="forum-nav">
           <div className="forum-nav-wrapper">

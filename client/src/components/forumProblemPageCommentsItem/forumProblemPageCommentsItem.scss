@@ -1,0 +1,226 @@
+.forum-comment-item {
+  padding: 24px 25px;
+  border-top: 1px solid #d9dde1;
+  display: flex;
+
+  .forum-comment-user-avatar {
+    width: 72px;
+    
+    img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
+  }
+  
+  .forum-comment-user-details {
+    flex: 1;
+
+    .forum-comment-user-name {
+      color: #93999f;
+      margin-bottom: 4px;
+    }
+
+    p {
+      margin: 0;
+      color: #14191e;
+    }
+
+    .forum-comment-operation {
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+
+
+      .forum-comment-operation-left {
+        display: flex;
+
+        .forum-comment-operation-agree, .forum-comment-operation-against {
+          height: 32px;
+          margin-right: 16px;
+          padding: 0 12px;
+          border: 1px solid #D9DDE1;
+          border-radius: 2px;
+          color: #93999F;
+          box-sizing: border-box;
+          line-height: 32px;
+          cursor: pointer;
+          transition: none;
+
+          &:hover {
+            color: #07111b;
+          }
+
+          span {
+            margin-left: 6px;
+          }
+        }
+
+        .forum-comment-reply {
+          font-size: 12px;
+          color: #93999F;
+          line-height: 32px;
+          margin-left: 8px;
+          margin-right: 24px;
+        }
+        
+        .forum-comment-report {
+          font-size: 12px;
+          color: #93999F;
+          line-height: 32px;
+        }
+      }
+      
+      .forum-comment-operation-right {
+        display: flex;
+        justify-content: flex-end;
+
+        span {
+          font-size: 12px;
+          color: #93999F;
+          line-height: 32px;
+        }
+      }
+    }
+    .forum-reply-wrapper {
+      
+      .forum-reply-item {
+        background-color: #F8FAFC;
+        border-radius: 4px;
+        margin-bottom: 2px;
+        padding: 24px;
+        display: flex;
+  
+        .forum-reply-user-avatar {
+          width: 72px;
+
+          img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+          }
+        }
+
+        .forum-reply-user-details {
+          flex: 1;
+
+          .forum-reply-user-name {
+            display: flex;
+            justify-content: space-between;
+
+            a {
+              font-size: 14px;
+              color: #93999F;
+              line-height: 24px;
+            }
+
+            span {
+              font-size: 12px;
+              color: #B7BBBF;
+              line-height: 24px;
+            }
+          }
+
+          .forum-reply-user-content {
+            font-size: 14px;
+            color: #07111B;
+            line-height: 28px;
+          }
+
+          .forum-reply-operation {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 14px;
+
+            .forum-reply-operation-left {
+              a {
+                margin-right: 24px;
+                width: auto;
+                font-size: 12px;
+                color: #93999F;
+                line-height: 24px;
+              }
+            }
+
+            .forum-reply-operation-right {
+              display: flex;
+              justify-content: flex-end;
+              
+              span {
+                font-size: 12px;
+                color: #93999F;
+                line-height: 24px;
+              }
+            }
+          }
+        }
+      }
+
+      .show-more-btn {
+        width: 100%;
+        height: 60px;
+        display: block;
+        line-height: 60px;
+        font-size: 14px;
+        color: #b5b9bc;
+        text-align: center;
+        cursor: pointer;
+        transition: none;
+        margin-bottom: -20px;
+
+        &:hover {
+          color: #07111b;
+        }
+      }
+
+      .my-reply-container {
+        padding: 24px;
+        background: #F8FAFC;
+        border-radius: 4px;
+        display: flex;
+        margin-top: 20px;
+
+        .my-reply-container-left {
+          width: 72px;
+
+          img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+          }
+        }
+
+        .my-reply-container-right {
+          flex: 1;
+
+          textarea {
+            resize: none;
+          }
+          
+          .my-reply-container-btn-wrapper {
+            display: flex;
+            justify-content: flex-end;
+          
+            button {
+              width: 60px;
+              height: 40px;
+              font-size: 14px;
+              color: #fff;
+              line-height: 40px;
+              text-align: center;
+              outline: none;
+              border: none;
+              cursor: pointer;
+              background-color: #f01400;
+              margin-top: 16px;
+
+              &:hover {
+                background: #ff6464;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

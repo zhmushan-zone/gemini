@@ -46,7 +46,7 @@ class ForumAnswerList extends Component {
         <li key={index}>
           <div className="answer-list-item-left">
             <span className="answer-ranking" style={{color: rankingColor}}>{index + 1}</span>
-            <img src={require(`@/assets/imgs/${item.avatar}.jpg`)} alt=""/>
+            <img src={require(`@/assets/superheroimgs/${item.avatar}.png`)} alt=""/>
           </div>
           <div className="answer-list-item-right">
             <div className="answer-name">
@@ -107,16 +107,16 @@ class ForumAnswerList extends Component {
 }
 
 const answer = [
-  { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
-  { username: '狗儿子', answerCount: '10', avatar: 'shou' },
-  { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
-  { username: '狗儿子', answerCount: '10', avatar: 'shou' },
-  { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
-  { username: '狗儿子', answerCount: '10', avatar: 'shou' },
-  { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
-  { username: '狗儿子', answerCount: '10', avatar: 'shou' },
-  { username: '该用户已成仙', answerCount: '10', avatar: 'user-avator' },
-  { username: '狗儿子', answerCount: '10', avatar: 'shou' }
+  { username: '美国队长', answerCount: '10', avatar: 'CaptainAmerica' },
+  { username: '超人', answerCount: '10', avatar: 'SuperMan' },
+  { username: '钢铁侠', answerCount: '10', avatar: 'IronMan' },
+  { username: '蝙蝠侠', answerCount: '10', avatar: 'BatMan' },
+  { username: '蜘蛛侠', answerCount: '10', avatar: 'SpiderMan' },
+  { username: '绿箭侠', answerCount: '10', avatar: 'Arrow' },
+  { username: '镭射眼', answerCount: '10', avatar: 'Cyclops' },
+  { username: '死侍', answerCount: '10', avatar: 'Deadpool' },
+  { username: '绿灯侠', answerCount: '10', avatar: 'GreenLantern' },
+  { username: '蚁人', answerCount: '10', avatar: 'AntMan' }
 ]
 
 export default ForumAnswerList
