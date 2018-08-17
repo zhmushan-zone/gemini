@@ -1,0 +1,64 @@
+.recommended_author {
+	margin: 24px auto 0;
+	overflow: hidden;
+	.personList {
+		margin-top: 16px;
+		.person {
+			display: flex;
+			width: 100%;
+			height: 60px;
+			margin-bottom: 16px;
+			justify-content: space-between;
+			.avatar img{
+				border-radius: 50%;
+			}
+			.left {
+				display: flex;
+			}
+			.right {
+				width: 80px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				.follow {
+					display: block;
+					margin-top: 0;
+					height: 24px;
+					line-height: 24px;
+					padding: 0 12px;
+					font-size: 12px;
+					cursor: pointer;
+					border-style: solid;
+					border-width: 1px;
+					color: #545c63;
+					background-color: rgba(84, 92, 99, 0.1);
+					border-color: rgba(84, 92, 99, 0.1);
+					opacity: 1;
+					position: relative;
+					display: inline-block;
+					margin-bottom: 0;
+					text-align: center;
+					touch-action: manipulation;
+					text-decoration: none;
+					box-sizing: border-box;
+					background-image: none;
+					white-space: nowrap;
+					outline: none;
+					user-select: none;
+					border-style: solid;
+					border-width: 1px;
+					transition: all .3s;
+					border-color: #9199a1;
+					font-size: 14px;
+					border-radius: 18px;
+					&:hover{
+						background-color: rgb(51,119,255);
+						transition:all .5s;
+						color: white;
+					}
+				}
+			}
+		}
+	}
+}
