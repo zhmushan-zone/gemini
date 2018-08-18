@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 import ForumLeft from '@/components/forumLeft/forumLeft'
 import ForumRight from '@/components/forumRight/forumRight'
 import { connect } from 'react-redux'
+import { getProblemList } from '@/redux/actions'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
 import './forum.scss'
 
 @connect(
-  state => state.userstatus
+  state => state,
+  { getProblemList }
 )
 class Forum extends Component {
   constructor(props) {
@@ -22,6 +24,10 @@ class Forum extends Component {
   async componentDidMount() {
     const _token = Cookies.get('_token')
     const _id = Cookies.get('_id')
+
+    this.props.getProblemList()
+    console.log(this.props)
+
     const res = await axios({
       method: 'get',
       url: '/api/users',

@@ -36,6 +36,12 @@ const articleInit = {
   code: ''
 }
 
+const problemInitState = {
+  msg: '',
+  problem: [],
+  code: ''
+}  
+
 export function userstatus(state = initState, action) {
   switch (action.type) {
     // case ActionTypes.LOGIN:
@@ -132,13 +138,38 @@ export function article(state = articleInit, action) {
     case ActionTypes.CREATE_ARTICLE_SUCCESS:
       return {
         ...state,
-        articles: [...state.articles,action.article],
         code: action.code
       }
     case ActionTypes.CREATE_ARTICLE_ERROR:
       return {
         msg: action.msg,
         code: action.code
+      }
+      case ActionTypes.FETCH_ONE_ARTICLE:
+      return {
+        article:{...action.data}
+      }
+    default:
+      return state
+  }
+}
+
+export function problem(state = problemInitState, action) {
+  switch (action.type) {
+    case ActionTypes.ERROR_MSG:
+      return { ...state,
+        msg: action.msg,
+        code: action.code
+      }
+    case ActionTypes.CREATE_PROBLEM_SUCCESS:
+      return { ...state,
+        problem: [...state.problem, action.payload],
+        msg: '提交成功，请等待审核',
+        code: action.code
+      }
+    case ActionTypes.PROBLEM_LIST:
+      return { ...state,
+        problem: action.payload
       }
     default:
       return state
@@ -148,5 +179,6 @@ export function article(state = articleInit, action) {
 export default combineReducers({
   userstatus,
   course,
-  article
+  article,
+  problem
 })

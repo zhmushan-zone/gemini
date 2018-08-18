@@ -1,48 +1,50 @@
 import React, { Component } from 'react'
-import Simditor from 'simditor'
-
-import 'simditor/styles/simditor.css'
+import E from 'wangeditor'
 
 class ProblemEditor extends Component {
+
   componentDidMount () {
-    const Editor = document.querySelector('#editor')
-    const editor = new Simditor({
-      textarea: Editor,
-      //optional options
-      placeholder: '详细说明（选填）',
-      toolbar:[
-        'title',
-        'bold',
-        'italic',
-        'underline',
-        'strikethrough',
-        'fontScale',
-        'color',
-        'ol',
-        'ul',
-        'blockquote',
-        'code',
-        'table',
-        'link',
-        'image'
-      ]
-    })
+    const elem = this.refs.editorElem
+    const editor = new E(elem)
+    // 使用 onchange 函数监听内容的变化，并实时更新到 state 中
+    editor.customConfig.onchange = html => {
+      this.props.descChange('content', html)
+    }
+    
+    editor.customConfig.menus = [
+      'head',  // 标题
+      'bold',  // 粗体
+      'fontSize',  // 字号
+      'fontName',  // 字体
+      'italic',  // 斜体
+      'underline',  // 下划线
+      'strikeThrough',  // 删除线
+      'foreColor',  // 文字颜色
+      'backColor',  // 背景颜色
+      'link',  // 插入链接
+      'list',  // 列表
+      'justify',  // 对齐方式
+      'quote',  // 引用
+      'emoticon',  // 表情
+      'image',  // 插入图片
+      'table',  // 表格
+      'code',  // 插入代码
+      'undo',  // 撤销
+      'redo'  // 重复
+    ]
 
-    editor.on('valuechanged', () => {
-      this.props.descChange('desc', this.getValue())
-    })
-  }
+    editor.customConfig.uploadImgShowBase64 = true
 
-  getValue() {
-    const body = document.querySelector('.simditor-body')
-    const content = body.innerHTML
-    return content
+    editor.create()
+    
   }
 
   render() {
     return (
       <div>
-        <textarea id="editor" placeholder="Balabala" autoFocus onChange={e => this.props.descChange('desc', e.target.value)}></textarea>
+        <div ref="editorElem" style={{textAlign: 'left'}}>
+          <p style={{color: '#999'}}>请详细描述该问题</p>
+        </div>
       </div>
     )
   }

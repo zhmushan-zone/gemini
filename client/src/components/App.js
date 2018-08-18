@@ -11,11 +11,11 @@ import OnlineStudying from '../containers/onlineStudying/onlineStudying'
 import Forum from '../containers/forum/forum'
 import ForumProblemPage from './forumProblemPage/forumProblemPage'
 import Opinion from '../containers/opinion/opinion'
-import Footer from '../components/footer/footer'
+import Footer from './footer/footer'
 import Admin from '../adminComponents/admin/admin'
-import Article from '../components/article/Article'
-import VideoPage from '../components/video/videoPage'
+import VideoPage from './video/videoPage'
 import UploadVideo from './uploadVideo/uploadVideo'
+import ArticleSample from '../components/articleSample/ArticleSample'
 import '@/assets/styles/normalize.scss'
 // icon图标
 import '@/assets/styles/font/icon.css'
@@ -29,7 +29,6 @@ class App extends React.Component {
         <Switch>
           <Route path="/login" component={Login}></Route>
           <Route path="/editor" component={Editor}></Route>
-          <Route path="/article/:id" component={Article}></Route>
           <Route path="/admin" component={Admin}></Route>
           <Route path="/video/:id" component={VideoPage}></Route>
           <Route path="/" render={(props) => (
@@ -43,6 +42,7 @@ class App extends React.Component {
                 <Route path="/opinion" component={Opinion}></Route>
                 <Route path="/personCenter" component={PersonCenter}></Route>
                 <Route path="/uploadVideo" component={UploadVideo}></Route>
+                <Route path="/article/:id" component={ArticleSample}></Route>
                 <Redirect path="/" to={{ pathname: '/home' }} />       
               </Switch>
               <Footer />

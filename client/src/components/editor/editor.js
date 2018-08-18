@@ -10,6 +10,7 @@ import CustomIcon from '@/common/customIcon/customIcon'
 import MyTag from '../tag/tag'
 import 'simplemde/dist/simplemde.min.css'
 import './editor.scss'
+import { category } from '../../const'
 @connect((state) => state, { publishArticle, removeMsg })
 class Editor extends React.Component {
 	constructor(props) {
@@ -117,39 +118,6 @@ class Editor extends React.Component {
 	}
 
 	render() {
-		const category = [
-			'JavaScript',
-			'Node.js',
-			'Vue',
-			'react',
-			'angular',
-			'html',
-			'css',
-			'jquery',
-			'bootstrap',
-			'前端工具',
-			'sass',
-			'less',
-			'java',
-			'python',
-			'go',
-			'php',
-			'ruby',
-			'thinkphp',
-			'c',
-			'c++',
-			'spring boot',
-			'Yli',
-			'算法',
-			'数据库',
-			'android',
-			'ios',
-			'大数据',
-			'人工智能',
-			'机器学习',
-			'产品',
-			'设计'
-		]
 		return (
 			<div className='editorContainer'>
 				{/* 提示 */}
