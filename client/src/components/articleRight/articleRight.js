@@ -3,6 +3,17 @@ import { Icon } from 'antd'
 import CoursePreview from '@/common/coursePreview/coursePreview'
 import './articleRight.scss'
 export default class articleLeft extends Component {
+	constructor(props){
+		super(props)
+		this.state={
+			follow:false
+		}
+	}
+	toFollow = () => {
+		this.setState({
+			follow:!this.state.follow
+		})
+	}
 	render() {
 		return (
 			<div className='right-article-container'>
@@ -11,7 +22,7 @@ export default class articleLeft extends Component {
 					<div className='text-info'>
 						<div className='name'>
 							<span>skl</span>
-							<span>关注</span>
+							<span onClick={this.toFollow}>{this.state.follow?"已关注":"关注"}</span>
 						</div>
 						<div className='job'>全站工程师</div>
 						<div className='contribution'>
@@ -32,10 +43,10 @@ export default class articleLeft extends Component {
 						<li className='article-item'>
 							<Icon type='file-text' />非常重要，小公司面试防坑指南！
 						</li>
-            <li className='article-item'>
+						<li className='article-item'>
 							<Icon type='file-text' />非常重要，小公司面试防坑指南！
 						</li>
-            <li className='article-item'>
+						<li className='article-item'>
 							<Icon type='file-text' />非常重要，小公司面试防坑指南！
 						</li>
 					</ul>
