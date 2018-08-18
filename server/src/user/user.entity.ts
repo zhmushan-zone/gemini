@@ -40,7 +40,7 @@ export class User extends BaseEntity {
   watchTags: WatchTag[];
 
   @Column()
-  watchIssues: string[];
+  watchIssuesId: string[];
 
   @Column()
   signature: string;
@@ -66,7 +66,7 @@ export class User extends BaseEntity {
     if (!this.city) this.city = '';
     if (!this.sex) this.sex = Sex.UNKNOW;
     if (!this.watchTags) this.watchTags = [];
-    if (!this.watchIssues) this.watchIssues = [];
+    if (!this.watchIssuesId) this.watchIssuesId = [];
     if (!this.signature) this.signature = '';
     if (!this.role) this.role = UserRole.USER;
     if (!this.salt) this.salt = '';
