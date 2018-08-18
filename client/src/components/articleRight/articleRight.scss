@@ -1,11 +1,14 @@
 .right-article-container {
 	width: 280px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 	.author_info {
 		height: 114px;
 		background: rgba(43, 51, 59, .06);
 		border-radius: 12px;
 		box-sizing: border-box;
-		padding: 20px 0 20px 20px;
+		padding: 16px;
 		display: flex;
 		img {
 			width: 48px;
@@ -16,15 +19,17 @@
 			width: 184px;
 			margin-left: 8px;
 			.name {
-        display:flex;
-        justify-content: space-between;
+				display: flex;
+				justify-content: space-between;
 				span:nth-child(1) {
 					font-size: 18px;
-        }
-        span:nth-child(2) {
-          cursor: pointer;
-          font-size: 14px;
-          color: blue;
+				}
+				span:nth-child(2) {
+					cursor: pointer;
+					font-size: 14px;
+					color: blue;
+					padding-right: 6px;
+
 				}
 			}
 		}
@@ -39,12 +44,47 @@
 			font-size: 12px;
 			span {
 				margin-right: 10px;
-        cursor: pointer;
-        &:hover{
-          color: black;
-          transition: all 0.4s;
-        }
+				cursor: pointer;
+				&:hover {
+					color: black;
+					transition: all 0.4s;
+				}
 			}
 		}
+	}
+	.other_article {
+		margin-top: 24px;
+		.head {
+			display: flex;
+			justify-content: space-between;
+		}
+		.title {
+			font-size: 16px;
+			color: #07111b;
+			line-height: 24px;
+			font-weight: 700;
+			margin-bottom: 12px;
+		}
+		ul li.article-item {
+			overflow: hidden;
+			padding: 12px 0;
+			border-bottom: 1px solid rgba(43, 51, 59, .1);
+			max-width: 254px;
+			transition: all .3s;
+			font-size: 14px;
+			color: #545c63;
+			line-height: 22px;
+			&:hover{
+				color: brown;
+				cursor: pointer;
+			}
+			i{
+				font-size: 14px;
+				padding-right: 10px;
+			}
+		}
+	}
+	.related-lessons {
+		margin-top: 12px;
 	}
 }
