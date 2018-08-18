@@ -35,16 +35,10 @@ export class UserController {
     return success(users.map(v => new UserVO(v)));
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const user = await this.userService.findById(id);
-    return success(new UserVO(user));
-  }
-
   @Put()
   @UseGuards(AuthGuard('jwt'))
   async updateOne(@Usr() user: User, @Body() updateUserDTO: UpdateUserDTO) {
-    const res = await this.userService.updateById(user.id, updateUserDTO);
+    const res = await this.userService.updateById(user.id.toHexString(), updateUserDTO);
     return success();
   }
 
@@ -118,11 +112,17 @@ export class UserController {
     );
   }
 
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const user = await this.userService.findById(id);
+    return success(new UserVO(user));
+  }
+
   @Put('/tags')
   @UseGuards(AuthGuard('jwt'))
   async watchTag(@Usr() user: User, @Body('tags') tags) {
     user.watchTags = tags;
-    this.userService.updateById(user.id, user);
+    this.userService.updateById(user.id.toHexString(), user);
     return success();
   }
 
@@ -145,7 +145,7 @@ export class UserController {
       return new UnsupportedMediaTypeException();
     }
     else {
-      this.userService.updateById(user.id, { avatar: avatar.filename } as User);
+      this.userService.updateById(user.id.toHexString(), { avatar: avatar.filename } as User);
       if (user.avatar) {
         fs.unlink(path.join(config.path.avatar, user.avatar), err => err);
       }
