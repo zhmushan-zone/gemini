@@ -109,8 +109,7 @@ class Editor extends React.Component {
 		this.autoCloseMsg()
 		if (this.props.article.code === 1 && this.props.article.msg === '') {
 			message.success('发表成功，自动跳转至文章页面')
-			let articleArray = this.props.article.articles
-			let id = this.props.article.articles[articleArray.length - 1].id
+			let id = this.props.article.article.id
 			setTimeout(() => {
 				this.props.history.push(`/article/${id}`)
 			}, 500)
