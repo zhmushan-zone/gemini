@@ -1,15 +1,6 @@
-import { User, Sex, UserRole, WatchTag } from '../user.entity';
+import { User } from '../user.entity';
 
 export class UserVO extends User {
-  id: string;
-  username: string;
-  email: string;
-  avatar: string;
-  city: string;
-  sex: Sex;
-  signature: string;
-  role: UserRole;
-  watchTags: WatchTag[];
   token: string;
 
   constructor(user: User, token?: string) {
