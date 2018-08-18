@@ -64,7 +64,7 @@ class BackstageCourseList extends Component {
         key: 'action',
         render: (text, record) => (
           <React.Fragment>
-            <a onClick={() => this.props.history.push(`/admin/course/${'asd'}`)}>详情</a>
+            <a onClick={() => this.props.history.push(`/admin/course/info/${'asd'}`)}>详情</a>
             <Divider type="vertical" />
             <a onClick={() => this.delete(courses[record.key].id)} style={{color: '#f01414'}}>删除</a>
           </React.Fragment>

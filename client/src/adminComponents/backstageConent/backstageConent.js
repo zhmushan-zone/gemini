@@ -51,7 +51,7 @@ export default class BackstageConent extends Component {
       {
         name: 'BackstageCourseInfo',
         component: BackstageCourseInfo,
-        path: '/admin/course/:name',
+        path: '/admin/course/info/:name',
         address: '课程列表-课程详情'
       }
     ]
@@ -65,7 +65,7 @@ export default class BackstageConent extends Component {
                 return (
                   <React.Fragment key={v.name}>
                     <AdminBreadcrumb addressArr={addressArr} />
-                    <Route path={v.path} component={v.component} key={v.name}></Route>
+                    <Route path={v.path} component={v.component} key={v.name} exact></Route>
                   </React.Fragment>
                 )
               }

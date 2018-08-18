@@ -259,8 +259,7 @@ function courseDeleteSuccess() {
 }
 export function deleteCourse(id) {
 	const _token = Cookies.get('_token')
-<<<<<<< HEAD
-	return async dispatch => {
+	return async (dispatch) => {
 		try {
 			const res = await axios({
 				method: 'delete',
@@ -269,16 +268,9 @@ export function deleteCourse(id) {
 					token: _token
 				}
 			})
+			
 			if (res.data.code === 1) {
 				dispatch(courseDeleteSuccess())
-=======
-	return async (dispatch) => {
-		const res = await axios({
-			method: 'delete',
-			url: `/api/courses/${id}`,
-			headers: {
-				token: _token
->>>>>>> f6dc6979a2ef794d899608d2872407eb8020a469
 			}
 		} catch (error) {
 			dispatch(errorMsg('服务端错误'))
