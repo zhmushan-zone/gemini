@@ -106,6 +106,18 @@ export class IssueController {
     return success(new SubReplyVO(subreply));
   }
 
+  @Post('reply/ids')
+  async findReplyGroup(@Body() ids: string[]) {
+    const replys = await this.issueService.findReplysById(ids.map(id => new ObjectId(id)));
+    return success(replys.map(r => new ReplyVO(r)));
+  }
+
+  @Post('reply/subreply/ids')
+  async findSubReplyGroup(@Body() ids: string[]) {
+    const subreplys = await this.issueService.findSubReplysById(ids.map(id => new ObjectId(id)));
+    return success(subreplys.map(s => new SubReplyVO(s)));
+  }
+
   @Put('reply/:id/up')
   @UseGuards(AuthGuard('jwt'))
   async replyUp(@Usr() user: User, @Param('id') id: string) {
