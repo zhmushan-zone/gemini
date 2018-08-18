@@ -1,0 +1,50 @@
+.right-article-container {
+	width: 280px;
+	.author_info {
+		height: 114px;
+		background: rgba(43, 51, 59, .06);
+		border-radius: 12px;
+		box-sizing: border-box;
+		padding: 20px 0 20px 20px;
+		display: flex;
+		img {
+			width: 48px;
+			height: 48px;
+			border-radius: 50%;
+		}
+		.text-info {
+			width: 184px;
+			margin-left: 8px;
+			.name {
+        display:flex;
+        justify-content: space-between;
+				span:nth-child(1) {
+					font-size: 18px;
+        }
+        span:nth-child(2) {
+          cursor: pointer;
+          font-size: 14px;
+          color: blue;
+				}
+			}
+		}
+		.job {
+			font-size: 12px;
+			color: #545c63;
+			line-height: 18px;
+			text-align: left;
+			margin-bottom: 12px;
+		}
+		.contribution {
+			font-size: 12px;
+			span {
+				margin-right: 10px;
+        cursor: pointer;
+        &:hover{
+          color: black;
+          transition: all 0.4s;
+        }
+			}
+		}
+	}
+}
