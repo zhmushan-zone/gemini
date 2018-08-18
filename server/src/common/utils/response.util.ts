@@ -6,7 +6,8 @@ export enum ResponseCode {
   USERNAME_EXISIT = 102,
   EMAIL_SEND_FAILED = 103,
   CAPTCHA_ERROR = 104,
-  NOT_EXISIT = 105
+  NOT_EXISIT = 105,
+  REPEAT_OPERATION = 106
 }
 
 export const response = (code: ResponseCode, data?: any) => ({ code, msg: ResponseCode[code], data });

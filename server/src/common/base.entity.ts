@@ -5,7 +5,13 @@ export class BaseEntity {
   @ObjectIdColumn()
   id: ObjectId;
   @UpdateDateColumn()
-  updateAt;
+  updateAt: string;
   @CreateDateColumn()
-  createAt;
+  createAt: string;
+  beforeInsert() {
+    this.createAt = this.updateAt = new Date().toLocaleString();
+  }
+  beforeUpdate() {
+    this.updateAt = new Date().toLocaleString();
+  }
 }
