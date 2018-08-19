@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
-import { encrpty, generateSalt } from '../common/utils';
+import { encrpty, generateSalt, ResponseCode } from '../common/utils';
 import { MongoRepository } from 'typeorm';
-import { Service } from '../common/interface';
+import { GeminiError } from '../common/error';
 
 @Injectable()
-export class UserService implements Service<User> {
+export class UserService {
 
   delete(id: string) {
     this.userRepository.delete(id);
@@ -17,7 +17,8 @@ export class UserService implements Service<User> {
   }
 
   save(user: User) {
-    return this.userRepository.save(user);
+    const obj = this.userRepository.create(user);
+    return this.userRepository.save(obj);
   }
 
   findOne(user: User) {
@@ -28,12 +29,15 @@ export class UserService implements Service<User> {
     return this.userRepository.find();
   }
 
-  find(user: User) {
-    return this.userRepository.find(user);
-  }
+  // find(user: User) {
+  //   return this.userRepository.find(user);
+  // }
 
   async updateById(id: string, user: User) {
-    return this.userRepository.update({ id }, user);
+    const doc = await this.findById(id);
+    if (!doc) return new GeminiError(ResponseCode.NOT_EXISIT);
+    for (const key in user) doc[key] = user[key];
+    return this.userRepository.save(doc);
   }
 
   register(user: User) {
@@ -54,7 +58,7 @@ export class UserService implements Service<User> {
 
   refreshToken(user: User) {
     const jwtKey = generateSalt();
-    this.updateById(user.id, { jwtKey } as User);
+    this.userRepository.update(user.id.toHexString(), { jwtKey });
     return jwtKey;
   }
 

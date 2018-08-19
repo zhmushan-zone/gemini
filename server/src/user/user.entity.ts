@@ -1,7 +1,9 @@
 import {
   Entity,
   Column,
-  Index
+  Index,
+  BeforeInsert,
+  BeforeUpdate
 } from 'typeorm';
 import { BaseEntity } from '../common/base.entity';
 
@@ -38,6 +40,9 @@ export class User extends BaseEntity {
   watchTags: WatchTag[];
 
   @Column()
+  watchIssuesId: string[];
+
+  @Column()
   signature: string;
 
   @Column()
@@ -48,6 +53,30 @@ export class User extends BaseEntity {
 
   @Column()
   jwtKey: string;
+
+  @BeforeInsert()
+  beforeInsert() {
+    super.beforeInsert();
+    if (!this.username) this.username = '';
+    if (!this.nickname) this.nickname = '';
+    if (!this.email) this.email = '';
+    if (!this.avatar) this.avatar = '';
+    if (!this.password) this.password = '';
+    if (!this.job) this.job = '';
+    if (!this.city) this.city = '';
+    if (!this.sex) this.sex = Sex.UNKNOW;
+    if (!this.watchTags) this.watchTags = [];
+    if (!this.watchIssuesId) this.watchIssuesId = [];
+    if (!this.signature) this.signature = '';
+    if (!this.role) this.role = UserRole.USER;
+    if (!this.salt) this.salt = '';
+    if (!this.jwtKey) this.jwtKey = '';
+  }
+
+  @BeforeUpdate()
+  beforeUpdate() {
+    super.beforeUpdate();
+  }
 }
 
 export const enum UserRole {
