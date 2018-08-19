@@ -40,7 +40,7 @@ class App extends React.Component {
                 <Route path="/forum/create" component={forumCreateProblem} exact></Route>
                 <Route path="/forum/:id" component={ForumProblemPage}></Route>
                 <Route path="/opinion" component={Opinion}></Route>
-                <Route path="/personCenter" component={PersonCenter}></Route>
+                <Route path="/personCenter/:id" component={PersonCenter}></Route>
                 <Route path="/uploadVideo" component={UploadVideo}></Route>
                 <Route path="/article/:id" component={ArticleSample}></Route>
                 <Redirect path="/" to={{ pathname: '/home' }} />       
