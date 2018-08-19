@@ -25,6 +25,7 @@ import { Usr } from './user.decorators';
 import { User } from './user.entity';
 import * as path from 'path';
 import * as fs from 'fs';
+import { GeminiError } from '../common/error';
 
 @Controller('/api/users')
 export class UserController {
@@ -39,7 +40,8 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   async updateOne(@Usr() user: User, @Body() updateUserDTO: UpdateUserDTO) {
     const res = await this.userService.updateById(user.id.toHexString(), updateUserDTO);
-    return success();
+    if (res instanceof GeminiError) return response(res.code);
+    return success(new UserVO(res));
   }
 
   @Post('/register')
@@ -58,7 +60,7 @@ export class UserController {
       const user = await this.userService.register(createUserDTO);
       return success(new UserVO(user, this.authService.generateToken(user.username, user.jwtKey)));
     }
-    return response(ResponseCode.CAPTCHA_ERROR, ResponseCode[ResponseCode.CAPTCHA_ERROR]);
+    return response(ResponseCode.CAPTCHA_ERROR);
   }
 
   @Post('/email/validate/:email')

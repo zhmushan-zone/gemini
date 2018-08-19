@@ -14,6 +14,7 @@ import { ReplyVO } from './vo/reply.vo';
 import { CreateSubReplyDTO } from './dto/create-sub-reply.dto';
 import { Issue, Reply } from './issue.entity';
 import { SubReplyVO } from './vo/sub-reply.vo';
+import { UserService } from '../user/user.service';
 
 @Controller('/api/issues')
 export class IssueController {
@@ -61,13 +62,17 @@ export class IssueController {
   async watch(@Usr() user: User, @Param('id') id: string) {
     const issue = await this.issueService.findById(id);
     if (!issue) return response(ResponseCode.NOT_EXISIT);
-    const index = issue.watchersId.findIndex(v => v === user.id.toHexString());
+    const index = user.watchIssuesId.findIndex(v => v === id);
     if (index === -1) {
+      user.watchIssuesId.push(id);
       issue.watchersId.push(user.id.toHexString());
     } else {
-      issue.watchersId.splice(index, 1);
+      user.watchIssuesId.splice(index, 1);
+      issue.watchersId.splice(issue.watchersId.findIndex(v => v === user.id.toHexString()), 1);
     }
-    const res = this.issueService.updateById(issue.authorId, id, { watchersId: issue.watchersId } as Issue);
+    let res: any = this.userService.updateById(user.id.toHexString(), { watchIssuesId: user.watchIssuesId } as User);
+    if (res instanceof GeminiError) return response(res.code);
+    res = this.issueService.updateById(issue.authorId, id, { watchersId: issue.watchersId } as Issue);
     if (res instanceof GeminiError) return response(res.code);
     return success();
   }
@@ -153,6 +158,7 @@ export class IssueController {
   }
 
   constructor(
-    private readonly issueService: IssueService
+    private readonly issueService: IssueService,
+    private readonly userService: UserService
   ) { }
 }
