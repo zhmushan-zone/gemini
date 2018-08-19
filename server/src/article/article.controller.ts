@@ -5,9 +5,8 @@ import { success, response, ResponseCode } from '../common/utils';
 import { User } from '../user/user.entity';
 import { CreateArticleDTO, UpdateArticleDTO, CreateCommentDTO } from './dto';
 import { ArticleService } from './article.service';
-import { ArticleVO } from './vo/article.vo';
 import { GeminiError } from '../common/error';
-import { CommentVO } from './vo';
+import { CommentVO, ArticleVO } from './vo';
 import { Article } from './article.entity';
 
 @Controller('/api/articles')

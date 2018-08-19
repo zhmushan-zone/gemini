@@ -6,4 +6,3 @@ export class UpdateIssueDTO extends Issue {
   @IsNotEmpty() @IsString() readonly content;
   @ArrayNotEmpty() @IsEnum(WatchTag, { each: true }) readonly tags;
 }
-

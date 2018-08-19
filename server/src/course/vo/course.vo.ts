@@ -1,15 +1,6 @@
-import { Course, CourseDifficulty, CourseDirection, CourseType, Section } from '../course.entity';
+import { Course } from '../course.entity';
 
 export class CourseVO extends Course {
-  id: string;
-  title: string;
-  coverImg: string;
-  direction: CourseDirection;
-  type: CourseType[];
-  difficulty: CourseDifficulty;
-  price: number;
-  sections: Section[];
-  authorId: string;
 
   constructor(course: Course) {
     super();

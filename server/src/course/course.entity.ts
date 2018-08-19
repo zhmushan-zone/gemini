@@ -1,10 +1,8 @@
-import { Column, Entity, Index, ObjectIdColumn } from 'typeorm';
+import { Column, Entity, Index, ObjectIdColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { BaseEntity } from '../common/base.entity';
 
 @Entity()
-export class Course {
-
-  @ObjectIdColumn()
-  id: string;
+export class Course extends BaseEntity {
 
   @Index({ unique: true })
   @Column()
@@ -30,6 +28,24 @@ export class Course {
 
   @Column()
   authorId: string;
+
+  @BeforeInsert()
+  beforeInsert() {
+    super.beforeInsert();
+    if (!this.title) this.title = '';
+    if (!this.coverImg) this.coverImg = '';
+    if (!this.direction) this.direction = 0;
+    if (!this.type) this.type = [];
+    if (!this.difficulty) this.difficulty = 0;
+    if (!this.price) this.price = 0;
+    if (!this.sections) this.sections = [];
+    if (!this.authorId) this.authorId = '';
+  }
+
+  @BeforeUpdate()
+  beforeUpdate() {
+    super.beforeUpdate();
+  }
 }
 
 export class Section {
