@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MongoRepository } from 'typeorm';
 import { Article, Comment } from './article.entity';
-import { Service } from '../common/interface';
 import { GeminiError } from '../common/error';
 import { ResponseCode } from '../common/utils';
 

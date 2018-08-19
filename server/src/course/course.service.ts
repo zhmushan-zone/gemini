@@ -2,14 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from './course.entity';
 import { MongoRepository } from 'typeorm';
-import { Service } from '../common/interface';
+import { GeminiError } from '../common/error';
+import { ResponseCode } from '../common/utils';
 
 @Injectable()
-export class CourseService implements Service<Course> {
+export class CourseService {
 
   save(authorId: string, course: Course) {
     course.authorId = authorId;
-    return this.courseRepository.save(course);
+    const obj = this.courseRepository.create(course);
+    return this.courseRepository.save(obj);
   }
 
   async delete(authorId: string, courseId: string) {
@@ -25,8 +27,11 @@ export class CourseService implements Service<Course> {
     return this.courseRepository.find();
   }
 
-  updateById(id: string, course: Course) {
-    return this.courseRepository.update(id, course);
+  async updateById(authorId: string, id: string, course: Course) {
+    const doc = await this.courseRepository.findOne(id, { where: { authorId } });
+    if (!doc) return new GeminiError(ResponseCode.NOT_EXISIT);
+    for (const key in course) doc[key] = course[key];
+    return this.courseRepository.save(doc);
   }
 
   constructor(

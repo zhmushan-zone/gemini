@@ -2,19 +2,14 @@ import { Controller, Post, UseGuards, Body, Put, Param, Get, Delete } from '@nes
 import { AuthGuard } from '@nestjs/passport';
 import { Usr } from '../user/user.decorators';
 import { User } from '../user/user.entity';
-import { CreateIssueDTO } from './dto/create-issue.dto';
 import { IssueService } from './issue.service';
-import { IssueVO } from './vo/issue.vo';
 import { success, response, ResponseCode } from '../common/utils/response.util';
-import { UpdateIssueDTO } from './dto/update-issue.dto';
 import { ObjectId } from 'mongodb';
-import { CreateReplyDTO } from './dto/create-reply.dto';
 import { GeminiError } from '../common/error';
-import { ReplyVO } from './vo/reply.vo';
-import { CreateSubReplyDTO } from './dto/create-sub-reply.dto';
 import { Issue, Reply } from './issue.entity';
-import { SubReplyVO } from './vo/sub-reply.vo';
 import { UserService } from '../user/user.service';
+import { CreateIssueDTO, UpdateIssueDTO, CreateReplyDTO, CreateSubReplyDTO } from './dto';
+import { IssueVO, ReplyVO, SubReplyVO } from './vo';
 
 @Controller('/api/issues')
 export class IssueController {
@@ -74,7 +69,7 @@ export class IssueController {
     if (res instanceof GeminiError) return response(res.code);
     res = this.issueService.updateById(issue.authorId, id, { watchersId: issue.watchersId } as Issue);
     if (res instanceof GeminiError) return response(res.code);
-    return success();
+    return success(user.watchIssuesId);
   }
 
   @Post(':id/reply')

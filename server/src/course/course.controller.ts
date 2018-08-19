@@ -15,9 +15,10 @@ import { AuthGuard } from '@nestjs/passport';
 import { Usr } from '../user/user.decorators';
 import { CreateCourseDTO, UpdateCourseDTO } from './dto';
 import { CourseService } from './course.service';
-import { success } from '../common/utils';
+import { success, response } from '../common/utils';
 import { CourseVO } from './vo/course.vo';
 import { User } from '../user/user.entity';
+import { GeminiError } from '../common/error';
 
 @Controller('/api/courses')
 export class CourseController {
@@ -25,19 +26,19 @@ export class CourseController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   async create(@Usr() user: User, @Body() createCourseDTO: CreateCourseDTO) {
-    const course = await this.courseService.save(user.id, createCourseDTO);
+    const course = await this.courseService.save(user.id.toHexString(), createCourseDTO);
     return success(new CourseVO(course));
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  delete(@Usr() user: User, @Param('id') id) {
-    this.courseService.delete(user.id, id);
+  delete(@Usr() user: User, @Param('id') id: string) {
+    this.courseService.delete(user.id.toHexString(), id);
     return success();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id) {
+  async findOne(@Param('id') id: string) {
     const course = await this.courseService.findById(id);
     return success(new CourseVO(course));
   }
@@ -50,9 +51,14 @@ export class CourseController {
 
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
-  async updateOne(@Usr() user, @Body() updateCourseDTO: UpdateCourseDTO, @Param('id') id) {
-    const res = await this.courseService.updateById(id, updateCourseDTO);
-    return success();
+  async updateOne(
+    @Usr() user: User,
+    @Body() updateCourseDTO: UpdateCourseDTO,
+    @Param('id') id
+  ) {
+    const res = await this.courseService.updateById(user.id.toHexString(), id, updateCourseDTO);
+    if (res instanceof GeminiError) return response(res.code);
+    return success(new CourseVO(res));
   }
 
   constructor(
