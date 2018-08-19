@@ -6,9 +6,10 @@ export enum ResponseCode {
   USERNAME_EXISIT = 102,
   EMAIL_SEND_FAILED = 103,
   CAPTCHA_ERROR = 104,
-  TAG_NOT_EXISIT
+  NOT_EXISIT = 105,
+  REPEAT_OPERATION = 106
 }
 
-export const response = (code: number, msg: string, data?: any) => ({ code, msg, data });
+export const response = (code: ResponseCode, data?: any) => ({ code, msg: ResponseCode[code], data });
 
-export const success = (data?: any) => response(ResponseCode.SUCCESS, ResponseCode[ResponseCode.SUCCESS], data);
+export const success = (data?: any) => response(ResponseCode.SUCCESS, data);

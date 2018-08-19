@@ -1,14 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { Service } from '../common/interface';
-import { Issue } from './issue.entity';
-import { MongoRepository } from 'typeorm';
+import { Issue, Reply, SubReply } from './issue.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ResponseCode } from '../common/utils';
+import { GeminiError } from '../common/error';
+import { MongoRepository } from 'typeorm';
+import { AuditMongoRepository } from '../common/audit-mongo.repository';
+import { ObjectId } from 'bson';
 
 @Injectable()
-export class IssueService implements Service<Issue> {
+export class IssueService {
   save(authorId: string, issue: Issue) {
     issue.authorId = authorId;
-    return this.issueRepository.save(issue);
+    const obj = this.issueRepository.create(issue);
+    return this.issueRepository.save(obj);
   }
 
   async delete(authorId: string, issueId: string) {
@@ -24,12 +28,50 @@ export class IssueService implements Service<Issue> {
     return this.issueRepository.find();
   }
 
-  updateById(id: string, issue: Issue) {
-    this.issueRepository.update(id, issue);
+  async updateById(authorId: string, id: string, issue: Issue) {
+    const doc = await this.issueRepository.findOne(id, { where: { authorId } });
+    if (!doc) return new GeminiError(ResponseCode.NOT_EXISIT);
+    for (const key in issue) doc[key] = issue[key];
+    return this.issueRepository.save(doc);
+  }
+
+  createReply(authorId: string, reply: Reply) {
+    reply.authorId = authorId;
+    const obj = this.replyRepository.create(reply);
+    return this.replyRepository.save(obj);
+  }
+
+  findReplyById(id: string) {
+    return this.replyRepository.findOne(id);
+  }
+
+  findReplysById(ids: ObjectId[]) {
+    return this.replyRepository.findByIds(ids);
+  }
+
+  findSubReplysById(ids: ObjectId[]) {
+    return this.subReplyRepository.findByIds(ids);
+  }
+
+  async updateReplyById(authorId: string, id: string, reply: Reply) {
+    const doc = await this.replyRepository.findOne(id, { where: { authorId } });
+    if (!doc) return new GeminiError(ResponseCode.NOT_EXISIT);
+    for (const key in reply) doc[key] = reply[key];
+    return this.replyRepository.save(doc);
+  }
+
+  createSubReply(from: string, subreply: SubReply) {
+    subreply.from = from;
+    const obj = this.subReplyRepository.create(subreply);
+    return this.subReplyRepository.save(obj);
   }
 
   constructor(
     @InjectRepository(Issue)
-    private readonly issueRepository: MongoRepository<Issue>
-  ) {}
+    private readonly issueRepository: MongoRepository<Issue>,
+    @InjectRepository(Reply)
+    private readonly replyRepository: MongoRepository<Reply>,
+    @InjectRepository(SubReply)
+    private readonly subReplyRepository: MongoRepository<SubReply>
+  ) { }
 }

@@ -1,17 +1,12 @@
 import {
   Entity,
-  ObjectIdColumn,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
   Index
 } from 'typeorm';
+import { BaseEntity } from '../common/base.entity';
 
 @Entity()
-export class User {
-
-  @ObjectIdColumn()
-  id: string;
+export class User extends BaseEntity {
 
   @Column()
   @Index({ unique: true })
@@ -53,12 +48,6 @@ export class User {
 
   @Column()
   jwtKey: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }
 
 export const enum UserRole {
