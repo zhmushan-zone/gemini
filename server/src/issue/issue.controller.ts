@@ -69,7 +69,7 @@ export class IssueController {
     if (res instanceof GeminiError) return response(res.code);
     res = this.issueService.updateById(issue.authorId, id, { watchersId: issue.watchersId } as Issue);
     if (res instanceof GeminiError) return response(res.code);
-    return success();
+    return success(user.watchIssuesId);
   }
 
   @Post(':id/reply')
