@@ -1,8 +1,57 @@
 .dynamic-container {
-  p.nodata {
-    color: #b5b9bc;
-    font-size: 18px;
-    line-height: 420px;
-    text-align: center;
-  }
+	p.nodata {
+		color: #b5b9bc;
+		font-size: 18px;
+		line-height: 420px;
+		text-align: center;
+	}
+	ul {
+		padding-top: 46px;
+	}
+	.item {
+    padding: 10px 6px;
+    border-bottom: 1px solid hsla(240, 2%, 90%, .5);
+		.activity {
+			position: relative;
+			box-sizing: border-box;
+			.link {
+				.meta-box {
+					font-size: 16px;
+					font-weight: 500;
+					color: #b2bac2;
+					display: flex;
+					width: 100%;
+					justify-content: space-between;
+					.action {
+						font-size: 16px;
+						font-weight: 500;
+						color: #b2bac2;
+					}
+					.data {
+						font-size: 16px;
+						font-weight: 500;
+						color: #b2bac2;
+					}
+				}
+				.content {
+					padding: 1.25rem;
+					background-color: #fdfdfd;
+					border: 1px solid #f2f2f2;
+					border-radius: 2px;
+					.title {
+						-webkit-box-flex: 1;
+						-ms-flex: 1 1 auto;
+						flex: 1 1 auto;
+						min-width: 0;
+						font-size: 18px;
+						font-weight: 600;
+						color: #2e3135;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+				}
+			}
+		}
+	}
 }

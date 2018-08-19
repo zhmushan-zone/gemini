@@ -209,7 +209,7 @@ class PersonCener extends React.Component {
               </div>
               <div className="item follows">
                 <div className="u-info-learn" title="学习时长335小时18分">
-                  <em>０</em>
+                  <em>0</em>
                   <span>粉丝</span>
                 </div>
               </div>
