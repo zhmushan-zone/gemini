@@ -1,10 +1,8 @@
-import { Entity, ObjectIdColumn, Column } from 'typeorm';
+import { Entity, Column, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { BaseEntity } from '../common/base.entity';
 
 @Entity()
-export class Article {
-
-  @ObjectIdColumn()
-  id: string;
+export class Article extends BaseEntity {
 
   @Column()
   title: string;
@@ -20,6 +18,51 @@ export class Article {
 
   @Column()
   authorId: string;
+
+  @Column()
+  commentsId: string[];
+
+  @BeforeInsert()
+  beforeInsert() {
+    super.beforeInsert();
+    if (!this.title) this.title = '';
+    if (!this.coverImg) this.coverImg = '';
+    if (!this.type) this.type = [];
+    if (!this.content) this.content = '';
+    if (!this.authorId) this.authorId = '';
+    if (!this.commentsId) this.commentsId = [];
+  }
+
+  @BeforeUpdate()
+  beforeUpdate() {
+    super.beforeUpdate();
+  }
+}
+
+@Entity()
+export class Comment extends BaseEntity {
+
+  @Column()
+  content: string;
+
+  @Column()
+  authorId: string;
+
+  @Column()
+  commentsId: string[];
+
+  @BeforeInsert()
+  beforeInsert() {
+    super.beforeInsert();
+    if (!this.content) this.content = '';
+    if (!this.authorId) this.authorId = '';
+    if (!this.commentsId) this.commentsId = [];
+  }
+
+  @BeforeUpdate()
+  beforeUpdate() {
+    super.beforeUpdate();
+  }
 }
 
 export enum ArticleType {
