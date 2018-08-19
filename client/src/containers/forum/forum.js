@@ -25,6 +25,7 @@ class Forum extends Component {
     const _token = Cookies.get('_token')
     const _id = Cookies.get('_id')
     this.props.getProblemList()
+    console.log(this.props)
 
     if (_token) {
       const res = await axios({

@@ -268,7 +268,7 @@ export function deleteCourse(id) {
 					token: _token
 				}
 			})
-			
+
 			if (res.data.code === 1) {
 				dispatch(courseDeleteSuccess())
 			}
@@ -316,6 +316,26 @@ export function getProblemList () {
 		const res = await axios.get('/api/issues')
 		if (res.data.code === 1) {
 			dispatch(problemList(res.data.data))
+		}
+	}
+}
+/* ---------------------------------------------------- 关注问题----------------------------------------------------------------------- */
+function followProblemSuccess (watchIssuesId) {
+	return { type: ActionTypes.FOLLOW_PROBLEM, payload: watchIssuesId }
+}
+
+export function followProblem (problemId) {
+	const _token = Cookies.get('_token')
+	
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'put',
+			headers: {
+				token: _token
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(followProblemSuccess(res.data.data.watchIssuesId))
 		}
 	}
 }

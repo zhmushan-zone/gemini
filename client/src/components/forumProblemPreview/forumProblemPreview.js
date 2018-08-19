@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import { followProblem } from '@/redux/actions'
 
 import './forumProblemPreview.scss'
 
+@connect(
+  state => state,
+  { followProblem }
+)
 class ForumProblemPreview extends Component {
   constructor(props) {
     super(props)
@@ -34,8 +40,7 @@ class ForumProblemPreview extends Component {
   
   render() {
     const { problemTitle, type, watchers, replys, problemId } = this.props
-    
-
+    console.log(this.props)
     return (
       <div className='forum-problem-preview'>
         <div className="problem-preview-left">
@@ -69,8 +74,8 @@ class ForumProblemPreview extends Component {
               </div>
             </React.Fragment>
             :
-            <div className="problem-preview-reply-btn">
-              <Link className="problem-preview-title" to={`/forum/details/${problemId}`}>
+            <div className="problem-preview-operation">
+              <Link className="problem-preview-reply-btn" to={`/forum/details/${problemId}`}>
                 我要回答
               </Link>
               <span>{replys.length}个回答</span>

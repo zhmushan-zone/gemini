@@ -21,6 +21,7 @@ const initState = {
   sex: '未设置',
   signature: '未设置',
   watchTags: [],
+  watchIssuesId:[],
   code: ''
 }
 
@@ -96,6 +97,10 @@ export function userstatus(state = initState, action) {
     case ActionTypes.UPDATE_FORUM_TAGS:
       return { ...state,
         watchTags: action.tags
+      }
+    case ActionTypes.FOLLOW_PROBLEM:
+      return { ...state,
+        watchIssuesId: action.payload
       }
     default:
       return state
