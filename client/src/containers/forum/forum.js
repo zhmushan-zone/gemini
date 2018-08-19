@@ -24,22 +24,22 @@ class Forum extends Component {
   async componentDidMount() {
     const _token = Cookies.get('_token')
     const _id = Cookies.get('_id')
-
     this.props.getProblemList()
-    console.log(this.props)
 
-    const res = await axios({
-      method: 'get',
-      url: '/api/users',
-      headers: {
-        token: _token,
-        id: _id
-      }
-    })
-    if(res.data.data[0].watchTags) {
-      this.setState({
-        follow: res.data.data[0].watchTags
+    if (_token) {
+      const res = await axios({
+        method: 'get',
+        url: '/api/users',
+        headers: {
+          token: _token,
+          id: _id
+        }
       })
+      if(res.data.data[0].watchTags) {
+        this.setState({
+          follow: res.data.data[0].watchTags
+        })
+      }
     }
   }
 
@@ -50,9 +50,10 @@ class Forum extends Component {
   }
 
   render() {
+    const problems = this.props.problem.problem
     return (
       <div className="forum">
-        <ForumLeft />
+        <ForumLeft problems={problems} />
         <ForumRight follow={this.state.follow} stateChange={this.stateChange}/>
       </div>
     )

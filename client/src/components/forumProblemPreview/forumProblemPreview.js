@@ -1,10 +1,41 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 import './forumProblemPreview.scss'
 
 class ForumProblemPreview extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      latestReply: null,
+      latestReplyAuthor: null
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.replys.length > 0) {
+      axios.post('/api/issues/reply/ids', [this.props.replys[this.props.replys.length - 1]]).then((res) => {
+        console.log(res.data.data[0])
+        this.setState({
+          latestReply: res.data.data[0]
+        })
+
+
+        axios.get(`/api/users/${res.data.data[0].authorId}`).then(response => {
+          this.setState({
+            latestReplyAuthor: response.data.data
+          })
+        })
+      })
+      
+    }
+  }
+  
   render() {
-    const { problemTitle, type, isFollow, replyCount, latestReply } = this.props
+    const { problemTitle, type, watchers, replys, problemId } = this.props
+    
+
     return (
       <div className='forum-problem-preview'>
         <div className="problem-preview-left">
@@ -19,33 +50,33 @@ class ForumProblemPreview extends Component {
               })
             }
           </div>
-          <a className="problem-preview-title">
+          <Link className="problem-preview-title" to={`/forum/details/${problemId}`}>
             {problemTitle}
-          </a>
+          </Link>
           {
-            latestReply ? 
+            this.state.latestReply && this.state.latestReplyAuthor ? 
             <React.Fragment>
               <div className="latest-replyer-name">
-                <a>{latestReply.replyerName}</a>
+                <a>{this.state.latestReplyAuthor.username}</a>
                 回答:
               </div>
               <div className="latest-replyer-content">
-                {latestReply.content}
+                {this.state.latestReply.content}
               </div>
               <div className="problem-preview-operation">
-                <a className="problem-preview-good-count">{latestReply.good}人赞同</a>
-                <a className="problem-preview-bad-count">{latestReply.bad}人反对</a>
+                <a className="problem-preview-good-count">{this.state.latestReply.upersId.length}人赞同</a>
+                <a className="problem-preview-bad-count">{this.state.latestReply.downersId.length}人反对</a>
               </div>
             </React.Fragment>
             :
-            <div className="problem-preview-operation">
-              <a className="problem-preview-reply-btn">我要回答</a>
-              <span>{replyCount}个回答</span>
+            <div className="problem-preview-reply-btn">
+              <Link className="problem-preview-title" to={`/forum/details/${problemId}`}>
+                我要回答
+              </Link>
+              <span>{replys.length}个回答</span>
               <a className="problem-preview-follow-btn">
                 {
-                  isFollow ? 
-                  "取消关注" :
-                  "关注"
+                  
                 }
               </a>
           </div>

@@ -6,8 +6,8 @@ class ForumProblemPageLeft extends Component {
   render() {
     return (
       <div className="forum-problem-page-left">
-        <ForumProblemPageInfo />
-        <ForumProblemPageComments />
+        <ForumProblemPageInfo problem={this.props.problem}/>
+        <ForumProblemPageComments problem={this.props.problem} />
       </div>
     )
   }

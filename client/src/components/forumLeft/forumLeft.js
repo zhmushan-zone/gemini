@@ -42,14 +42,14 @@ class ForumLeft extends Component {
         </div>
         <div className="fourm-problem-wrapper">
           {
-            testData.map(item => {
+            this.props.problems.map(item => {
               return <ForumProblemPreivew 
-                problemTitle={item.problemTitle}
-                type={item.type}
-                isFollow={item.isFollow}
-                replyCount={item.replyCount}
-                latestReply={item.latestReply}
-                key={item.problemTitle}
+                problemId={item.id}
+                problemTitle={item.title}
+                type={item.tags}
+                watchers={item.watchersId}
+                replys={item.replysId}
+                key={item.title}
               />
             })
           }
@@ -58,27 +58,5 @@ class ForumLeft extends Component {
     )
   }
 }
-
-const testData = [
-  {
-    problemTitle: '能分享一下JavaScript的学习方法吗?',
-    type: [0, 8],
-    isFollow: false,
-    replyCount: 10,
-    latestReply: {
-      replyerName: '该用户已成仙',
-      content: '你好,我认为JavaScript最好的学习方法是多做一些小玩意儿,来增加自己对这门语言的兴趣,当你每完成一个作品,就会增加一分成就感,慢慢的,你对JavaScript的掌握也会越来越熟练了',
-      good: 10,
-      bad: 0
-    }
-  },
-  {
-    problemTitle: 'css水平垂直居中的所有方法',
-    type: [5],
-    isFollow: true,
-    replyCount: 10,
-    latestReply: null
-  }
-]
 
 export default ForumLeft
