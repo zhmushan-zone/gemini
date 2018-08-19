@@ -35,6 +35,12 @@ export class UserController {
     return success(users.map(v => new UserVO(v)));
   }
 
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const user = await this.userService.findById(id);
+    return success(new UserVO(user));
+  }
+
   @Put()
   @UseGuards(AuthGuard('jwt'))
   async updateOne(@Usr() user: User, @Body() updateUserDTO: UpdateUserDTO) {
