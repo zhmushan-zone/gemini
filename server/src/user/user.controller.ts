@@ -60,7 +60,7 @@ export class UserController {
       const user = await this.userService.register(createUserDTO);
       return success(new UserVO(user, this.authService.generateToken(user.username, user.jwtKey)));
     }
-    return response(ResponseCode.CAPTCHA_ERROR, ResponseCode[ResponseCode.CAPTCHA_ERROR]);
+    return response(ResponseCode.CAPTCHA_ERROR);
   }
 
   @Post('/email/validate/:email')
