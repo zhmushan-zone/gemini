@@ -5,6 +5,7 @@ import { ResponseCode } from '../common/utils';
 import { GeminiError } from '../common/error';
 import { MongoRepository } from 'typeorm';
 import { AuditMongoRepository } from '../common/audit-mongo.repository';
+import { ObjectId } from 'bson';
 
 @Injectable()
 export class IssueService {
@@ -42,6 +43,14 @@ export class IssueService {
 
   findReplyById(id: string) {
     return this.replyRepository.findOne(id);
+  }
+
+  findReplysById(ids: ObjectId[]) {
+    return this.replyRepository.findByIds(ids);
+  }
+
+  findSubReplysById(ids: ObjectId[]) {
+    return this.subReplyRepository.findByIds(ids);
   }
 
   async updateReplyById(authorId: string, id: string, reply: Reply) {
