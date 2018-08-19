@@ -32,7 +32,7 @@ const courseInitState = {
 
 const articleInit = {
   msg: '',
-  articles:[],
+  article:[],
   code: ''
 }
 
@@ -138,7 +138,8 @@ export function article(state = articleInit, action) {
     case ActionTypes.CREATE_ARTICLE_SUCCESS:
       return {
         ...state,
-        code: action.code
+        code: action.code,
+        article:action.article
       }
     case ActionTypes.CREATE_ARTICLE_ERROR:
       return {

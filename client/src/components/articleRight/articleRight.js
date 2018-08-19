@@ -7,7 +7,7 @@ export default class articleLeft extends Component {
 		super(props)
 		this.state={
 			follow:false
-		}
+		}	
 	}
 	toFollow = () => {
 		this.setState({
