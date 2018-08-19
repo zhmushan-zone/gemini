@@ -40,6 +40,7 @@ class UserStatus extends React.Component {
   render() {
     const nickname = this.props.nickname ? this.props.nickname : this.props.username
     const linkStyle = this.state.isUserInfoShow ? { border: '2px solid #f01414' } : { border: 'none' }
+    const loginUser = this.props.id
     return (
       <div className="userStatus"
         onMouseEnter={() => this.toggleHover()}
@@ -59,7 +60,7 @@ class UserStatus extends React.Component {
                       </a>
                       <div className="user-info-data">
                         <div className="user-info-name">
-                          <Link to="personCenter" >
+                          <Link to={`personCenter/${loginUser}`} >
                             {nickname}
                           </Link>
                         </div>

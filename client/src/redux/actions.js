@@ -18,12 +18,10 @@ export function loadData(userinfo) {
 /* --------------------------------------------------注册-------------------------------------------------------------- */
 
 function authSuccess(obj) {
-	const { data } = obj
-	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: { ...obj }, avatar: data.avatar }
+	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: obj  }
 }
 
 export function register(username, password, repet_pass) {
-	console.log(username)
 	if (!username || !password || !repet_pass) {
 		return errorMsg('请输入注册的账号的密码')
 	}
@@ -52,9 +50,10 @@ export function register(username, password, repet_pass) {
 			}
 		})
 		if (res.data.code === 1) {
+			const data = res.data.data
 			Cookies.set('_id', res.data.data.id)
 			Cookies.set('_token', res.data.data.token)
-			dispatch(authSuccess({ username, password, email, data: res.data.data }))
+			dispatch(authSuccess( {username, password, email, ...data} ))
 		} else if (res.data.code === -1) {
 			dispatch(errorMsg('未知错误'))
 		} else if (res.data.code === 102) {
@@ -400,6 +399,25 @@ export function fetchArticleOne(id) {
 		})
 		if (res.data.code === 1) {
 			dispatch(fetchOneArticleSuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
+		}
+	}
+}
+
+/* -------------------------获取单个用户信息（个人中心）------------------------------------------- */
+function fetchOneUser(data){
+	var result = {...data[0]}
+	return { type: ActionTypes.FETCH_ONE_USER, result:result }
+}
+export function fetchUser(id){
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'get',
+			url: `/api/users/${id}`
+		})
+		if (res.data.code === 1) {
+			dispatch(fetchOneUser(res.data.data))
 		} else {
 			console.log('服务器出故障了')
 		}
