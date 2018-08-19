@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ResponseCode } from '../common/utils';
 import { GeminiError } from '../common/error';
 import { MongoRepository } from 'typeorm';
-import { AuditMongoRepository } from '../common/audit-mongo.repository';
 import { ObjectId } from 'bson';
 
 @Injectable()
