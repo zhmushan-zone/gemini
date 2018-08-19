@@ -40,3 +40,5 @@ export const PROBLEM_LIST = 'PROBLEM_LIST'
 export const FOLLOW_PROBLEM = 'FOLLOW_PROBLEM'
 // 获取单个文章
 export const FETCH_ONE_ARTICLE = 'FETCH_ONE_ARTICLE'
+// 获取单个用户
+export const FETCH_ONE_USER = 'FETCH_ONE_USER'

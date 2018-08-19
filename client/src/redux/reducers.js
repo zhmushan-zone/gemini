@@ -1,7 +1,5 @@
 //合并所有reducer 并返回
-import {
-  combineReducers
-} from 'redux'
+import { combineReducers } from 'redux'
 import * as ActionTypes from './actionTypes'
 
 const initState = {
@@ -26,22 +24,25 @@ const initState = {
 }
 
 const courseInitState = {
-  msg: '',
-  courses: [],
-  code: ''
+	msg: '',
+	courses: [],
+	code: ''
 }
 
 const articleInit = {
-  msg: '',
-  article:[],
-  code: ''
+	msg: '',
+	article: [],
+	code: ''
 }
 
 const problemInitState = {
-  msg: '',
-  problem: [],
-  code: ''
-}  
+	msg: '',
+	problem: [],
+	code: ''
+}
+const Userinit={
+
+}
 
 export function userstatus(state = initState, action) {
   switch (action.type) {
@@ -108,83 +109,108 @@ export function userstatus(state = initState, action) {
 }
 
 export function course(state = courseInitState, action) {
-  switch (action.type) {
-    case ActionTypes.ERROR_MSG:
-      return { ...state,
-        msg: action.msg,
-        code: action.code
-      }
-    case ActionTypes.CREATE_COURSE_SUCCESS:
-      return { ...state,
-        courses: [...state.courses, action.payload],
-        msg: '课程创建成功',
-        code: action.code
-      }
-    case ActionTypes.COURSE_LIST:
-      return { ...state,
-        courses: action.payload
-      }
-    case ActionTypes.COURSE_DELETE_SUCCESS:
-      return { ...state,
-        msg: '课程删除成功',
-        code: action.code
-      }
-    default:
-      return state
-  }
+	switch (action.type) {
+		case ActionTypes.ERROR_MSG:
+			return {
+				...state,
+				msg: action.msg,
+				code: action.code
+			}
+		case ActionTypes.CREATE_COURSE_SUCCESS:
+			return {
+				...state,
+				courses: [ ...state.courses, action.payload ],
+				msg: '课程创建成功',
+				code: action.code
+			}
+		case ActionTypes.COURSE_LIST:
+			return {
+				...state,
+				courses: action.payload
+			}
+		case ActionTypes.COURSE_DELETE_SUCCESS:
+			return {
+				...state,
+				msg: '课程删除成功',
+				code: action.code
+			}
+		default:
+			return state
+	}
 }
 
 export function article(state = articleInit, action) {
-  switch (action.type) {
-    case ActionTypes.REMOVE_MSG:
-      return { ...state,
-        msg: action.msg
-      }
-    case ActionTypes.CREATE_ARTICLE_SUCCESS:
-      return {
-        ...state,
-        code: action.code,
-        article:action.article
-      }
-    case ActionTypes.CREATE_ARTICLE_ERROR:
-      return {
-        msg: action.msg,
-        code: action.code
-      }
-      case ActionTypes.FETCH_ONE_ARTICLE:
-      return {
-        article:{...action.data}
-      }
-    default:
-      return state
-  }
+	switch (action.type) {
+		case ActionTypes.REMOVE_MSG:
+			return {
+				...state,
+				msg: action.msg
+			}
+		case ActionTypes.CREATE_ARTICLE_SUCCESS:
+			return {
+				...state,
+				code: action.code,
+				article: action.article
+			}
+		case ActionTypes.CREATE_ARTICLE_ERROR:
+			return {
+				msg: action.msg,
+				code: action.code
+			}
+		case ActionTypes.FETCH_ONE_ARTICLE:
+			return {
+				article: { ...action.data }
+			}
+		default:
+			return state
+	}
 }
 
 export function problem(state = problemInitState, action) {
-  switch (action.type) {
-    case ActionTypes.ERROR_MSG:
-      return { ...state,
-        msg: action.msg,
-        code: action.code
-      }
-    case ActionTypes.CREATE_PROBLEM_SUCCESS:
-      return { ...state,
-        problem: [...state.problem, action.payload],
-        msg: '提交成功，请等待审核',
-        code: action.code
-      }
-    case ActionTypes.PROBLEM_LIST:
-      return { ...state,
-        problem: action.payload
-      }
-    default:
-      return state
-  }
+	switch (action.type) {
+		case ActionTypes.ERROR_MSG:
+			return {
+				...state,
+				msg: action.msg,
+				code: action.code
+			}
+		case ActionTypes.CREATE_PROBLEM_SUCCESS:
+			return {
+				...state,
+				problem: [ ...state.problem, action.payload ],
+				msg: '提交成功，请等待审核',
+				code: action.code
+			}
+		case ActionTypes.PROBLEM_LIST:
+			return {
+				...state,
+				problem: action.payload
+			}
+		default:
+			return state
+	}
+}
+
+
+/* ------------------获取单个user------------------------- */
+		
+export function User(state = Userinit, action) {
+	switch (action.type) {
+		case ActionTypes.FETCH_ONE_USER:
+			return {
+				...state,
+				...action.result,
+			}
+		default:
+			return state
+	}
 }
 
 export default combineReducers({
-  userstatus,
-  course,
-  article,
-  problem
+	userstatus,
+	course,
+	article,
+  problem,
+  User
 })
+		
