@@ -15,11 +15,17 @@ class ForumProblemPreview extends Component {
     super(props)
     this.state = {
       latestReply: null,
-      latestReplyAuthor: null
+      latestReplyAuthor: null,
+      isFollow: false
     }
   }
 
   componentDidMount() {
+    if (this.props.watchers.indexOf(this.props.userstatus.id) !== -1) {
+      this.setState({
+        isFollow: true
+      })
+    }
     if (this.props.replys.length > 0) {
       axios.post('/api/issues/reply/ids', [this.props.replys[this.props.replys.length - 1]]).then((res) => {
         console.log(res.data.data[0])
@@ -38,9 +44,15 @@ class ForumProblemPreview extends Component {
     }
   }
   
+  follow (id) {
+    this.props.followProblem(id)
+    this.setState({
+      isFollow: !this.state.isFollow
+    })
+  }
+
   render() {
-    const { problemTitle, type, watchers, replys, problemId } = this.props
-    console.log(this.props)
+    const { problemTitle, type, replys, problemId } = this.props
     return (
       <div className='forum-problem-preview'>
         <div className="problem-preview-left">
@@ -79,9 +91,11 @@ class ForumProblemPreview extends Component {
                 我要回答
               </Link>
               <span>{replys.length}个回答</span>
-              <a className="problem-preview-follow-btn">
+              <a className="problem-preview-follow-btn" onClick={() => this.follow(problemId)}>
                 {
-                  
+                  this.state.isFollow ?
+                  "取消关注":
+                  "关注"
                 }
               </a>
           </div>

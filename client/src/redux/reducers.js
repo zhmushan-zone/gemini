@@ -40,6 +40,13 @@ const problemInitState = {
 	problem: [],
 	code: ''
 }
+
+const problemCommentInit = {
+  msg: '',
+  replys: [],
+  code: ''
+}
+
 const Userinit={
 
 }
@@ -185,13 +192,32 @@ export function problem(state = problemInitState, action) {
 			return {
 				...state,
 				problem: action.payload
-			}
+      }
 		default:
 			return state
 	}
 }
 
-
+export function problemComment (state = problemCommentInit, action) {
+  switch (action.type) {
+    case ActionTypes.ERROR_MSG:
+			return {
+				...state,
+				msg: action.msg,
+				code: action.code
+			}
+    case ActionTypes.COMMENT_PROBLEM:
+      return {
+        ...state,
+        replys: [
+          ...state.replys,
+          action.payload
+        ]
+      }
+    default:
+			return state  
+  }
+}
 /* ------------------获取单个user------------------------- */
 		
 export function User(state = Userinit, action) {
@@ -211,6 +237,7 @@ export default combineReducers({
 	course,
 	article,
   problem,
+  problemComment,
   User
 })
 		

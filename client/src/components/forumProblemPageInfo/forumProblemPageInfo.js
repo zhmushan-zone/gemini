@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
 import Icon from '@/common/customIcon/customIcon'
 import ForumProblemPageReply from '../forumProblemPageReply/forumProblemPageReply'
+import { connect } from 'react-redux'
+import { fetchUser, followProblem } from '@/redux/actions'
+import Cookies from 'js-cookie'
 
 import './forumProblemPageInfo.scss'
-import axios from 'axios'
 
+@connect(
+  state => state,
+  { fetchUser, followProblem }
+)
 class ForumProblemPageInfo extends Component {
   constructor(props) {
     super(props)
@@ -12,47 +18,65 @@ class ForumProblemPageInfo extends Component {
       authorInfo: {
         username: '',
         avatar: ''
-      }
+      },
+      isFollow: false,
+      followNum: 0
     }
   }
 
   async componentDidMount() {
-    if (this.props.problem) {
-      const res = await axios.get(`/api/users/${this.props.problem.authorId}`)
-      if (res.data.code === 1) {
-        console.log(res)
-        this.setState({
-          authorInfo: {
-            username: res.data.data.username,
-            avatar: res.data.data.avatar
-          }
-        })
-      }
+    const _id = Cookies.get('_id')
+    this.setState({
+      followNum: this.props.currentProblem.watchersId.length
+    })
+    if (this.props.currentProblem.watchersId.indexOf(_id) !== -1) {
+      this.setState({
+        isFollow: true
+      })
     }
+    await this.props.fetchUser(this.props.currentProblem.authorId)
+    this.setState({
+      authorInfo: {
+        username: this.props.User.username,
+        avatar: this.props.User.avatar
+      }
+    })
   }
+
+  follow() {
+    let newFollowNum = this.state.isFollow ?
+      this.state.followNum - 1 :
+      this.state.followNum + 1
+    this.props.followProblem(this.props.currentProblem.id)
+    this.setState({
+      isFollow: !this.state.isFollow,
+      followNum: newFollowNum
+    })
+  }
+
   render() {
-    const { problem } = this.props
+    const { currentProblem } = this.props
     const { authorInfo } = this.state
     return (
       <div className="forum-problem-page-info">
-        <h1>{problem.title}</h1>
+        <h1>{currentProblem.title}</h1>
         <div className="forum-problem-details">
           <a className="forum-problem-details-user">
-            <img src={require(`@/assets/imgs/user-avator.jpg`)} alt=""/>
+            <img src={`/avatar/${authorInfo.avatar}`} alt=""/>
             <span>{authorInfo.username}</span>
           </a>
           <div className="forum-problem-details-data">
             <a>举报</a>
-            <span>回答{problem.replysId.length}</span>
-            <span>浏览{problem.viewnum}</span>
+            <span>回答{currentProblem.replysId.length}</span>
+            <span>浏览{currentProblem.viewnum}</span>
           </div>
         </div>
-        <div className="forum-problem-page-desc" dangerouslySetInnerHTML = {{__html: problem.content}}>
+        <div className="forum-problem-page-desc" dangerouslySetInnerHTML = {{__html: currentProblem.content}}>
         </div>
         <div className="forum-problem-page-type-operation">
           <div className="forum-problem-page-type">
             {
-              problem.tags.map(item => {
+              currentProblem.tags.map(item => {
                 return <a key={item}>
                   {allTags[item]}
                 </a>
@@ -72,11 +96,14 @@ class ForumProblemPageInfo extends Component {
               </a>
             </div>
             <div className="forum-problem-page-follow">
-              <a>
-                  {/* <Icon type="xin1" color="#dd3929" size={24} /> */}
-                  <Icon type="xin" color="#b6b9bc" size={24} />
+              <a onClick={() => this.follow()}>
+                  {
+                    this.state.isFollow ?
+                    <Icon type="xin1" color="#dd3929" size={24} /> :
+                    <Icon type="xin" color="#b6b9bc" size={24} />
+                  }
               </a>
-              <span>{problem.watchersId.length}</span>
+              <span>{this.state.followNum}</span>
             </div>
           </div>
         </div>
