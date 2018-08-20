@@ -26,6 +26,7 @@ import { User } from './user.entity';
 import * as path from 'path';
 import * as fs from 'fs';
 import { GeminiError } from '../common/error';
+import { ObjectId } from 'mongodb';
 
 @Controller('/api/users')
 export class UserController {
@@ -118,6 +119,12 @@ export class UserController {
   async findOne(@Param('id') id: string) {
     const user = await this.userService.findById(id);
     return success(new UserVO(user));
+  }
+
+  @Post('ids')
+  async findGroup(@Body() ids: string[]) {
+    const users = await this.userService.findByIds(ids.map(id => new ObjectId(id)));
+    return success(users.map(u => new UserVO(u)));
   }
 
   @Put('/tags')

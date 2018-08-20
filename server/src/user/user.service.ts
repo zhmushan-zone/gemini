@@ -4,6 +4,7 @@ import { User } from './user.entity';
 import { encrpty, generateSalt, ResponseCode } from '../common/utils';
 import { MongoRepository } from 'typeorm';
 import { GeminiError } from '../common/error';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class UserService {
@@ -14,6 +15,10 @@ export class UserService {
 
   findById(id: string) {
     return this.userRepository.findOne(id);
+  }
+
+  findByIds(ids: ObjectId[]) {
+    return this.userRepository.findByIds(ids);
   }
 
   save(user: User) {
