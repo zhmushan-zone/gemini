@@ -18,14 +18,15 @@ export function loadData(userinfo) {
 /* --------------------------------------------------注册-------------------------------------------------------------- */
 
 function authSuccess(obj) {
-	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: obj  }
+	const {username,password,data} = obj
+	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: data,username,password  }
 }
 
 export function register(username, password, repet_pass) {
 	if (!username || !password || !repet_pass) {
 		return errorMsg('请输入注册的账号的密码')
 	}
-	if (username.length < 6) {
+	if (username.length < 2) {
 		return errorMsg('用户名最少6位')
 	}
 	if (password.length < 6 || password.length >= 14) {

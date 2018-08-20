@@ -3,11 +3,16 @@ import { Breadcrumb, Icon } from 'antd'
 import TagSample from '../tagSample/tagSample'
 import ArticleComments from '../articleComments/articleComments'
 import { Modal, Input } from 'antd'
+import { connect } from 'react-redux'
+import { fetchArticleOne } from '@/redux/actions'
+import { withRouter } from 'react-router-dom'
+import Marked from 'marked'
 
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import './articleLeft.scss'
 const { TextArea } = Input
-
+@withRouter
+@connect((state) => state.article, { fetchArticleOne })
 export default class articleLeft extends Component {
 	constructor(props) {
 		super(props)
@@ -17,6 +22,9 @@ export default class articleLeft extends Component {
 			visible: false,
 			confirmLoading: false
 		}
+	}
+	componentWillMount = () => {
+		this.props.fetchArticleOne(this.props.match.params.id)
 	}
 	handleLike = () => {
 		this.setState({
@@ -51,9 +59,19 @@ export default class articleLeft extends Component {
 			visible: false
 		})
 	}
+
 	render() {
+		console.log(this.props)
 		let test = [ 1, 2, 3, 4, 5, 6 ]
 		const { visible, confirmLoading, ModalText } = this.state
+		try {
+			var { title, coverImg, content, authorId, type } = this.props.article
+			var con = Marked(content)
+			var Tag =type.map((v,i)=>{
+				return <TagSample name={v} key={i} />
+			})
+		} catch (error) {}
+
 		return (
 			<div className='left-article-container'>
 				<Breadcrumb>
@@ -65,19 +83,24 @@ export default class articleLeft extends Component {
 					</Breadcrumb.Item>
 				</Breadcrumb>
 				<div className='title'>
-					<h2 className='detail-title'>IE，你滚！用LESS与Module来提升你的效率</h2>
+					<h2 className='detail-title'>{title}</h2>
 					<div className='dc-profile'>
 						<div className='l'>
 							<span style={{ marginRight: 10 }}>2018.08.16 17:38</span>
 							<span className=''>126浏览</span>
 						</div>
 					</div>
-					<div className='content'>内容</div>
+					<div
+						className='content'
+						dangerouslySetInnerHTML={{
+							__html: con
+						}}
+					/>
 					<hr />
 					{/* 标签 */}
 					<div className='cat-box'>
-						<TagSample name={0} />
-						<TagSample name={1} />
+		
+						{Tag}
 					</div>
 					{/* 推荐 */}
 					<div className='praise-box'>
@@ -119,7 +142,7 @@ export default class articleLeft extends Component {
 							<p className='line-text'>相关文章推荐</p>
 						</div>
 						{test.map((v) => {
-							return <OpinionMainCenterList key={v}/>
+							return <OpinionMainCenterList key={v} />
 						})}
 					</div>
 				</div>

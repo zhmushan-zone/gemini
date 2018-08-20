@@ -12,7 +12,6 @@ const initState = {
 	repet_password: '',
 	forget_email: '',
 	id: '',
-	data: '',
 	redirectTo: '',
 	job: '未设置',
 	city: '未设置',
@@ -52,9 +51,8 @@ export function userstatus(state = initState, action) {
 				...state,
 				...action.payload,
 				redirectTo: '/home',
-				// username: action.payload.username,
-				// avatar: action.avatar,
-				// email: action.payload.email
+				...action.username,
+				...action.password
 			}
 		case ActionTypes.FORGET_PASS:
 			return {
