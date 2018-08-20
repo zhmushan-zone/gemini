@@ -3,9 +3,7 @@ import { Breadcrumb, Icon } from 'antd'
 import TagSample from '../tagSample/tagSample'
 import ArticleComments from '../articleComments/articleComments'
 import { Modal, Input } from 'antd'
-import { connect } from 'react-redux'
-import { fetchArticleOne } from '@/redux/actions'
-import { withRouter } from 'react-router-dom'
+
 import Marked from 'marked'
 
 import {defaultAvatar} from  '@/const'
@@ -13,8 +11,7 @@ import {defaultAvatar} from  '@/const'
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import './articleLeft.scss'
 const { TextArea } = Input
-@withRouter
-@connect((state) => state.article, { fetchArticleOne })
+
 export default class articleLeft extends Component {
 	constructor(props) {
 		super(props)
@@ -25,9 +22,7 @@ export default class articleLeft extends Component {
 			confirmLoading: false
 		}
 	}
-	componentWillMount = () => {
-		this.props.fetchArticleOne(this.props.match.params.id)
-	}
+
 	handleLike = () => {
 		this.setState({
 			like: !this.state.like
@@ -63,11 +58,10 @@ export default class articleLeft extends Component {
 	}
 
 	render() {
-		console.log(this.props)
 		let test = [ 1, 2, 3, 4, 5, 6 ]
 		const { visible, confirmLoading, ModalText } = this.state
 		try {
-			var { title, coverImg, content, authorId, type } = this.props.article
+			var { title, coverImg, content, type } = this.props
 			var con = Marked(content)
 			var Tag =type.map((v,i)=>{
 				return <TagSample name={v} key={i} />
@@ -84,7 +78,7 @@ export default class articleLeft extends Component {
 						<span>前端开发</span>
 					</Breadcrumb.Item>
 				</Breadcrumb>
-				{/* <img src={`de`} alt=""/> */}
+				<img src={`/cover-img/7ff7c4f104c77555e3321be32250cfc6`}  className="cover-img"alt=""/>
 				<div className='title'>
 					<h2 className='detail-title'>{title}</h2>
 					<div className='dc-profile'>

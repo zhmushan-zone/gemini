@@ -406,10 +406,10 @@ export function fetchArticleOne(id) {
 	}
 }
 
-/* -------------------------获取单个用户信息（个人中心）------------------------------------------- */
+/* -------------------------获取单个用户信息------------------------------------------- */
 function fetchOneUser(data){
-	var result = {...data[0]}
-	return { type: ActionTypes.FETCH_ONE_USER, result:result }
+	console.log(data)
+	return { type: ActionTypes.FETCH_ONE_USER, data }
 }
 export function fetchUser(id){
 	return async (dispatch) => {
