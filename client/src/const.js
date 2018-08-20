@@ -31,3 +31,5 @@ export const category = [
   '产品',
   '设计'
 ]
+
+export const defaultAvatar="http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg"

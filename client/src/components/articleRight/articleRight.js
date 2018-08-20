@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Icon } from 'antd'
 import CoursePreview from '@/common/coursePreview/coursePreview'
 import './articleRight.scss'
+import {defaultAvatar} from  '@/const'
 export default class articleLeft extends Component {
 	constructor(props){
 		super(props)
@@ -18,7 +19,7 @@ export default class articleLeft extends Component {
 		return (
 			<div className='right-article-container'>
 				<div className='author_info'>
-					<img src='http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg' alt='' />
+					<img src={defaultAvatar} alt='' />
 					<div className='text-info'>
 						<div className='name'>
 							<span>skl</span>

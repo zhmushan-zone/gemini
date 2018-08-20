@@ -14,6 +14,7 @@ import personCenterFocus from '../personCenterFocus/personCenterFocus'
 import personCenterUpload from '../personCenterUpload/personCenterUpload'
 import personCenterYuanwen from '../personCenterYuanwen/personCenterYuanwen'
 import './personCenter.scss'
+import {defaultAvatar} from  '@/const'
 @connect((state) => state, { changeAvatar, cancelAvatar, fetchUser })
 class PersonCener extends React.Component {
 	constructor(props) {
@@ -21,7 +22,7 @@ class PersonCener extends React.Component {
 		this.state = {
 			visible: false,
 			confirmLoading: false,
-			imgurl: 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg',
+			imgurl: defaultAvatar,
 			UserId: ''
 		}
 	}
@@ -170,7 +171,7 @@ class PersonCener extends React.Component {
 										data.avatar ? (
 											`/avatar/${data.avatar}`
 										) : (
-											'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'
+											`${defaultAvatar}`
 										)
 									}
 									alt=''

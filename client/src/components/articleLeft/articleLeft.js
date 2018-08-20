@@ -8,6 +8,8 @@ import { fetchArticleOne } from '@/redux/actions'
 import { withRouter } from 'react-router-dom'
 import Marked from 'marked'
 
+import {defaultAvatar} from  '@/const'
+
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import './articleLeft.scss'
 const { TextArea } = Input
@@ -114,7 +116,7 @@ export default class articleLeft extends Component {
 					{/* 评论 */}
 					<div id='comment'>
 						<div className='author'>
-							<img src='http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg' alt='' />
+							<img src={defaultAvatar} alt='' />
 						</div>
 						<p className='fadeInput' onClick={this.showModal}>
 							共同学习，写下你的评论
