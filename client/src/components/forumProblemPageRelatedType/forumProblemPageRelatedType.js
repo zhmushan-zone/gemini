@@ -11,7 +11,7 @@ class ForumProblemPageRelatedPage extends Component {
         </div>
         {
           this.props.type.map(item => {
-            return <div className="related-type-item">
+            return <div className="related-type-item" key={item}>
               <div className="related-type-item-left">
                 <div className="related-type-item-img">
                   <img src={require(`@/assets/forumIcon/${item}.jpg`)} alt=""/>

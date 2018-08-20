@@ -6,7 +6,7 @@ import { Modal, Input } from 'antd'
 
 import Marked from 'marked'
 
-import {defaultAvatar} from  '@/const'
+import { defaultAvatar } from '@/const'
 
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import './articleLeft.scss'
@@ -63,7 +63,7 @@ export default class articleLeft extends Component {
 		try {
 			var { title, coverImg, content, type } = this.props
 			var con = Marked(content)
-			var Tag =type.map((v,i)=>{
+			var Tag = type.map((v, i) => {
 				return <TagSample name={v} key={i} />
 			})
 		} catch (error) {}
@@ -78,7 +78,7 @@ export default class articleLeft extends Component {
 						<span>前端开发</span>
 					</Breadcrumb.Item>
 				</Breadcrumb>
-				<img src={`/cover-img/7ff7c4f104c77555e3321be32250cfc6`}  className="cover-img"alt=""/>
+				<img src={`/cover-img/7ff7c4f104c77555e3321be32250cfc6`} className='cover-img' alt='' />
 				<div className='title'>
 					<h2 className='detail-title'>{title}</h2>
 					<div className='dc-profile'>
@@ -95,10 +95,7 @@ export default class articleLeft extends Component {
 					/>
 					<hr />
 					{/* 标签 */}
-					<div className='cat-box'>
-		
-						{Tag}
-					</div>
+					<div className='cat-box'>{Tag}</div>
 					{/* 推荐 */}
 					<div className='praise-box'>
 						<button className={`js-praise ${this.state.like ? 'like' : ''}`} onClick={this.handleLike}>
@@ -139,7 +136,17 @@ export default class articleLeft extends Component {
 							<p className='line-text'>相关文章推荐</p>
 						</div>
 						{test.map((v) => {
-							return <OpinionMainCenterList key={v} />
+							return (
+								<OpinionMainCenterList
+									key={v}
+									title={'我是推荐'}
+									direction={'前端开发'}
+									see={'188'}
+									author={'张士大夫'}
+									time={'8-12'}
+									tag={[ '前端', '后端' ]}
+								/>
+							)
 						})}
 					</div>
 				</div>

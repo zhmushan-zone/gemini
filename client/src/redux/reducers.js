@@ -18,7 +18,8 @@ const initState = {
 	sex: '未设置',
 	signature: '未设置',
 	watchTags: [],
-	code: ''
+	code: '',
+  watchIssuesId:[],
 }
 
 const courseInitState = {
@@ -37,6 +38,12 @@ const problemInitState = {
 	msg: '',
 	problem: [],
 	code: ''
+}
+
+const problemCommentInit = {
+  msg: '',
+  replys: [],
+  code: ''
 }
 
 const Userinit={
@@ -100,11 +107,14 @@ export function userstatus(state = initState, action) {
 			return {
 				...initState
 			}
-		case ActionTypes.UPDATE_FORUM_TAGS:
-			return {
-				...state,
-				watchTags: action.tags
-			}
+			case ActionTypes.UPDATE_FORUM_TAGS:
+      return { ...state,
+        watchTags: action.tags
+      }
+    case ActionTypes.FOLLOW_PROBLEM:
+      return { ...state,
+        watchIssuesId: action.payload
+      }
 		case ActionTypes.FETCH_ONE_USER:
 			return {
 				...state,
@@ -192,12 +202,32 @@ export function problem(state = problemInitState, action) {
 			return {
 				...state,
 				problem: action.payload
-			}
+      }
 		default:
 			return state
 	}
 }
 
+export function problemComment (state = problemCommentInit, action) {
+  switch (action.type) {
+    case ActionTypes.ERROR_MSG:
+			return {
+				...state,
+				msg: action.msg,
+				code: action.code
+			}
+    case ActionTypes.COMMENT_PROBLEM:
+      return {
+        ...state,
+        replys: [
+          ...state.replys,
+          action.payload
+        ]
+      }
+    default:
+			return state  
+  }
+}
 /* ------------------获取单个user------------------------- */
 		
 export function User(state = Userinit, action) {
@@ -218,5 +248,6 @@ export default combineReducers({
 	course,
 	article,
 	problem,
-	User
+	User,
+  problemComment,
 })
