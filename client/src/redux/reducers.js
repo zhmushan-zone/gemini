@@ -3,24 +3,23 @@ import { combineReducers } from 'redux'
 import * as ActionTypes from './actionTypes'
 
 const initState = {
-  msg: '',
-  username: '',
-  password: '',
-  email: '',
-  re_username: '',
-  re_password: '',
-  repet_password: '',
-  forget_email: '',
-  id: '',
-  data: '',
-  redirectTo: '',
-  job: '未设置',
-  city: '未设置',
-  sex: '未设置',
-  signature: '未设置',
-  watchTags: [],
+	msg: '',
+	username: '',
+	password: '',
+	email: '',
+	re_username: '',
+	re_password: '',
+	repet_password: '',
+	forget_email: '',
+	id: '',
+	redirectTo: '',
+	job: '未设置',
+	city: '未设置',
+	sex: '未设置',
+	signature: '未设置',
+	watchTags: [],
+	code: '',
   watchIssuesId:[],
-  code: ''
 }
 
 const courseInitState = {
@@ -52,57 +51,63 @@ const Userinit={
 }
 
 export function userstatus(state = initState, action) {
-  switch (action.type) {
-    // case ActionTypes.LOGIN:
-    //   return { ...state, msg: action.msg }
-    case ActionTypes.AUTH_SUCCESS:
-      return {
-        ...state,
-        ...action.payload,
-        redirectTo: '/home',
-        username: action.payload.username,
-        avatar: action.avatar,
-        email: action.payload.email
-      }
-    case ActionTypes.FORGET_PASS:
-      return { ...state,
-        email: action.email
-      }
-    case ActionTypes.ERROR_MSG:
-      return { ...state,
-        msg: action.msg,
-        code: action.code
-      }
-    case ActionTypes.REMOVE_MSG:
-      return { ...state,
-        msg: action.msg
-      }
-    case ActionTypes.LOAD_DATA:
-      return { ...state,
-        ...action.payload
-      }
-    case ActionTypes.UPDATE_PERSON_MSG:
-      return {
-        ...state,
-        job: action.payload.job,
-        nickname: action.payload.username,
-        msg: action.payload.msg,
-        city: action.payload.city,
-        signature: action.payload.signature,
-        sex: action.payload.sex
-      }
-    case ActionTypes.CHANGE_AVATAR:
-      return { ...state,
-        avatar: action.avatar
-      }
-    case ActionTypes.SEND_EMAIL_SUCCESS:
-      return { ...state,
-        code: action.code
-      }
-    case ActionTypes.LOGOUT:
-      return { ...initState
-      }
-    case ActionTypes.UPDATE_FORUM_TAGS:
+	switch (action.type) {
+		// case ActionTypes.LOGIN:
+		//   return { ...state, msg: action.msg }
+		case ActionTypes.AUTH_SUCCESS:
+			return {
+				...state,
+				...action.payload,
+				redirectTo: '/home',
+				...action.username,
+				...action.password
+			}
+		case ActionTypes.FORGET_PASS:
+			return {
+				...state,
+				email: action.email
+			}
+		case ActionTypes.ERROR_MSG:
+			return {
+				...state,
+				msg: action.msg,
+				code: action.code
+			}
+		case ActionTypes.REMOVE_MSG:
+			return {
+				...state,
+				msg: action.msg
+			}
+		case ActionTypes.LOAD_DATA:
+			return {
+				...state,
+				...action.payload
+			}
+		case ActionTypes.UPDATE_PERSON_MSG:
+			return {
+				...state,
+				job: action.payload.job,
+				nickname: action.payload.username,
+				msg: action.payload.msg,
+				city: action.payload.city,
+				signature: action.payload.signature,
+				sex: action.payload.sex
+			}
+		case ActionTypes.CHANGE_AVATAR:
+			return {
+				...state,
+				avatar: action.avatar
+			}
+		case ActionTypes.SEND_EMAIL_SUCCESS:
+			return {
+				...state,
+				code: action.code
+			}
+		case ActionTypes.LOGOUT:
+			return {
+				...initState
+			}
+			case ActionTypes.UPDATE_FORUM_TAGS:
       return { ...state,
         watchTags: action.tags
       }
@@ -110,9 +115,14 @@ export function userstatus(state = initState, action) {
       return { ...state,
         watchIssuesId: action.payload
       }
-    default:
-      return state
-  }
+		case ActionTypes.FETCH_ONE_USER:
+			return {
+				...state,
+				...action.result
+			}
+		default:
+			return state
+	}
 }
 
 export function course(state = courseInitState, action) {
@@ -232,19 +242,19 @@ export function User(state = Userinit, action) {
 		case ActionTypes.FETCH_ONE_USER:
 			return {
 				...state,
-				...action.result,
+				...action.data,
 			}
 		default:
 			return state
 	}
 }
 
+
 export default combineReducers({
 	userstatus,
 	course,
 	article,
-  problem,
+	problem,
+	User,
   problemComment,
-  User
 })
-		

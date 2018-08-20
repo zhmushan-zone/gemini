@@ -14,6 +14,7 @@ import personCenterFocus from '../personCenterFocus/personCenterFocus'
 import personCenterUpload from '../personCenterUpload/personCenterUpload'
 import personCenterYuanwen from '../personCenterYuanwen/personCenterYuanwen'
 import './personCenter.scss'
+import {defaultAvatar} from  '@/const'
 @connect((state) => state, { changeAvatar, cancelAvatar, fetchUser })
 class PersonCener extends React.Component {
 	constructor(props) {
@@ -21,7 +22,7 @@ class PersonCener extends React.Component {
 		this.state = {
 			visible: false,
 			confirmLoading: false,
-			imgurl: 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg',
+			imgurl: defaultAvatar,
 			UserId: ''
 		}
 	}
@@ -96,6 +97,7 @@ class PersonCener extends React.Component {
 	}
 	render() {
 		const { UserId } = this.state
+		const LoginId = Cookies.get('_id')
 		const nav = [
 			{
 				name: '动态',
@@ -115,7 +117,7 @@ class PersonCener extends React.Component {
 				name: '个人信息',
 				icon: 'gerenxinxi',
 				to: `/personCenter/${UserId}/set`,
-				is: this.props.location.pathname === `/personCenter/${UserId}/set`,
+				is: this.props.location.pathname === `/personCenter/${UserId}/set`&& UserId ===LoginId,
 				component: PersonCenterInformation
 			},
 			{
@@ -157,7 +159,7 @@ class PersonCener extends React.Component {
 				</li>
 			)
     })
-    const data = this.props.User
+    const data = this.props.userstatus
 		return (
 			<div className='personCenter-container'>
 				<div className='header'>
@@ -170,7 +172,7 @@ class PersonCener extends React.Component {
 										data.avatar ? (
 											`/avatar/${data.avatar}`
 										) : (
-											'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'
+											`${defaultAvatar}`
 										)
 									}
 									alt=''

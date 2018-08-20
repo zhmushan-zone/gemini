@@ -4,6 +4,10 @@ import TagSample from '../tagSample/tagSample'
 import ArticleComments from '../articleComments/articleComments'
 import { Modal, Input } from 'antd'
 
+import Marked from 'marked'
+
+import { defaultAvatar } from '@/const'
+
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import './articleLeft.scss'
 const { TextArea } = Input
@@ -18,6 +22,7 @@ export default class articleLeft extends Component {
 			confirmLoading: false
 		}
 	}
+
 	handleLike = () => {
 		this.setState({
 			like: !this.state.like
@@ -51,9 +56,18 @@ export default class articleLeft extends Component {
 			visible: false
 		})
 	}
+
 	render() {
 		let test = [ 1, 2, 3, 4, 5, 6 ]
 		const { visible, confirmLoading, ModalText } = this.state
+		try {
+			var { title, coverImg, content, type } = this.props
+			var con = Marked(content)
+			var Tag = type.map((v, i) => {
+				return <TagSample name={v} key={i} />
+			})
+		} catch (error) {}
+
 		return (
 			<div className='left-article-container'>
 				<Breadcrumb>
@@ -64,21 +78,24 @@ export default class articleLeft extends Component {
 						<span>前端开发</span>
 					</Breadcrumb.Item>
 				</Breadcrumb>
+				<img src={`/cover-img/7ff7c4f104c77555e3321be32250cfc6`} className='cover-img' alt='' />
 				<div className='title'>
-					<h2 className='detail-title'>IE，你滚！用LESS与Module来提升你的效率</h2>
+					<h2 className='detail-title'>{title}</h2>
 					<div className='dc-profile'>
 						<div className='l'>
 							<span style={{ marginRight: 10 }}>2018.08.16 17:38</span>
 							<span className=''>126浏览</span>
 						</div>
 					</div>
-					<div className='content'>内容</div>
+					<div
+						className='content'
+						dangerouslySetInnerHTML={{
+							__html: con
+						}}
+					/>
 					<hr />
 					{/* 标签 */}
-					<div className='cat-box'>
-						<TagSample name={0} />
-						<TagSample name={1} />
-					</div>
+					<div className='cat-box'>{Tag}</div>
 					{/* 推荐 */}
 					<div className='praise-box'>
 						<button className={`js-praise ${this.state.like ? 'like' : ''}`} onClick={this.handleLike}>
@@ -91,7 +108,7 @@ export default class articleLeft extends Component {
 					{/* 评论 */}
 					<div id='comment'>
 						<div className='author'>
-							<img src='http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg' alt='' />
+							<img src={defaultAvatar} alt='' />
 						</div>
 						<p className='fadeInput' onClick={this.showModal}>
 							共同学习，写下你的评论
@@ -119,7 +136,17 @@ export default class articleLeft extends Component {
 							<p className='line-text'>相关文章推荐</p>
 						</div>
 						{test.map((v) => {
-							return <OpinionMainCenterList key={v}/>
+							return (
+								<OpinionMainCenterList
+									key={v}
+									title={'我是推荐'}
+									direction={'前端开发'}
+									see={'188'}
+									author={'张士大夫'}
+									time={'8-12'}
+									tag={[ '前端', '后端' ]}
+								/>
+							)
 						})}
 					</div>
 				</div>

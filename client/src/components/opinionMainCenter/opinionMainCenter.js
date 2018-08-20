@@ -3,10 +3,15 @@ import './opinionMainCenter.scss'
 import opBanner1 from '@/assets/imgs/opinionBanner.jpg'
 import opBanner2 from '@/assets/imgs/opinionBanner2.jpg'
 import opBanner3 from '@/assets/imgs/opinionBanner3.jpg'
-import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
+import FetchArticleList from '../fetchArticleList/fetchArticleList'
 export default class opinionMainCenter extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {}
+	}
 	render() {
-		const virtual = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+		// 测试数据
+
 		return (
 			<div className='opinion-main-center-container'>
 				<div className='centerlist'>
@@ -27,9 +32,7 @@ export default class opinionMainCenter extends Component {
 						</div>
 					</div>
 				</div>
-				{virtual.map((v) => {
-					return <OpinionMainCenterList key={v}/>
-				})}
+				<FetchArticleList />
 			</div>
 		)
 	}

@@ -18,14 +18,15 @@ export function loadData(userinfo) {
 /* --------------------------------------------------注册-------------------------------------------------------------- */
 
 function authSuccess(obj) {
-	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: obj  }
+	const {username,password,data} = obj
+	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: data,username,password  }
 }
 
 export function register(username, password, repet_pass) {
 	if (!username || !password || !repet_pass) {
 		return errorMsg('请输入注册的账号的密码')
 	}
-	if (username.length < 6) {
+	if (username.length < 2) {
 		return errorMsg('用户名最少6位')
 	}
 	if (password.length < 6 || password.length >= 14) {
@@ -199,8 +200,8 @@ export function logout() {
 }
 
 /* --------------------------------------------------修改头像-------------------------------------------------------------- */
-function changeAvatarFunc(now) {
-	return { type: ActionTypes.CHANGE_AVATAR, avatar: now }
+function changeAvatarFunc(id) {
+	return { type: ActionTypes.CHANGE_AVATAR, avatar: id }
 }
 
 export function changeAvatar(name) {
@@ -473,10 +474,10 @@ export function fetchArticleOne(id) {
 	}
 }
 
-/* -------------------------获取单个用户信息（个人中心）------------------------------------------- */
+/* -------------------------获取单个用户信息------------------------------------------- */
 function fetchOneUser(data){
-	var result = data
-	return { type: ActionTypes.FETCH_ONE_USER, result:result }
+	console.log(data)
+	return { type: ActionTypes.FETCH_ONE_USER, data }
 }
 export function fetchUser(id){
 	return async (dispatch) => {
