@@ -211,9 +211,16 @@ export function problemComment (state = problemCommentInit, action) {
         ...state,
         replys: [
           ...state.replys,
-          action.payload
-        ]
-      }
+          action.payload,
+        ],
+				code: action.code,
+				msg: action.msg
+			}
+		case ActionTypes.FETCH_COMMENT:
+			return {
+				...state,
+				replys: action.payload
+			}
     default:
 			return state  
   }

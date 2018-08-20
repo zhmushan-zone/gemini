@@ -62,7 +62,7 @@ class ForumProblemPageInfo extends Component {
         <h1>{currentProblem.title}</h1>
         <div className="forum-problem-details">
           <a className="forum-problem-details-user">
-            <img src={`/avatar/${authorInfo.avatar}`} alt=""/>
+            <img src={authorInfo.avatar ? `/avatar/${authorInfo.avatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
             <span>{authorInfo.username}</span>
           </a>
           <div className="forum-problem-details-data">

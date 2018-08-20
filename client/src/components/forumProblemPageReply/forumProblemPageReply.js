@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input } from 'antd'
+import { Input, message } from 'antd'
 import { connect } from 'react-redux'
 import { commentProblem } from '@/redux/actions'
 import { withRouter } from 'react-router-dom'
@@ -27,9 +27,17 @@ class ForumProblemPageReply extends Component {
     })
   }
 
-  comment () {
+  async comment () {
     const problemId = this.props.match.params.id
-    this.props.commentProblem(problemId, this.state.replyContent)
+    if (this.state.replyContent.length < 15) {
+      return message.warning('请输入不少于15字的评论哦')
+    } 
+    await this.props.commentProblem(problemId, this.state.replyContent)
+    if (this.props.code === 1) {
+      return message.success(this.props.msg)
+    } else {
+      return message.error(this.props.msg)
+    }
   }
 
   render() {

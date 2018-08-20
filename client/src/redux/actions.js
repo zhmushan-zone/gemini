@@ -341,25 +341,48 @@ export function followProblem (problemId) {
 }
 /* ---------------------------------------------------- 评论问题----------------------------------------------------------------------- */
 function commentProblemSuccess (comment) {
-	return { type: ActionTypes.COMMENT_PROBLEM, payload: comment }
+	const code =  1
+	const msg = '评论成功'
+	return { type: ActionTypes.COMMENT_PROBLEM, payload: comment, code, msg }
 }
 
 export function commentProblem(problemId, content) {
 	const _token = Cookies.get('_token')
 
 	return async (dispatch) => {
+		try {
+			const res = await axios({
+				method: 'post',
+				url: `/api/issues/${problemId}/reply`,
+				headers: {
+					token: _token
+				},
+				data: {
+					content: content
+				}
+			})
+			if (res.data.code === 1) {
+				dispatch(commentProblemSuccess(res.data.data))
+			}
+		} catch (error) {
+			dispatch(errorMsg('服务端错误'))
+		}
+	}
+}
+/* ---------------------------------------------------- 获取评论----------------------------------------------------------------------- */
+function fetchCommentSuccess (comments) {
+	return { type: ActionTypes.FETCH_COMMENT, payload: comments }
+}
+
+export function fetchComment (problemIds) {
+	return async (dispatch) => {
 		const res = await axios({
 			method: 'post',
-			url: `/api/issues/${problemId}/reply`,
-			headers: {
-				token: _token
-			},
-			data: {
-				content: content
-			}
+			url: '/api/issues/reply/ids',
+			data: problemIds
 		})
 		if (res.data.code === 1) {
-			dispatch(commentProblemSuccess(res.data.data))
+			dispatch(fetchCommentSuccess(res.data.data))
 		}
 	}
 }
