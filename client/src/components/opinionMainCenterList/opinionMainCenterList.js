@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { Icon } from 'antd'
 import './opinionMainCenterList.scss'
 export default class opinionMainCenterList extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {}
+	}
 	render() {
 		return (
 			<div className='opinion-main-center-list-container'>
@@ -10,30 +14,33 @@ export default class opinionMainCenterList extends Component {
 						<img src='https://www.imooc.com/static/img/article/cover/pic23.jpg' alt='' />
 					</div>
 					<div className='list-content'>
-						<p>你对JavaScript的Array对象了解有多少？</p>
+						<p>{this.props.title}</p>
 						<div className='list-bottom'>
 							<div className='content'>
 								<div className='labels-area'>
-									<a href=''>前端开发</a>
+									<a href=''>{this.props.direction}</a>
 								</div>
 								<div className='browseNum'>
 									<Icon type='eye' />
-									<span>158</span>
+									<span>{this.props.see}</span>
 								</div>
 								<a href='' className='nickName'>
-									向建峰_Javan
+									{this.props.author}
 								</a>
 								<div className='skill'>
-									<a href=''>
-										<span >JavaScript</span>
-									</a>
-                  <a href=""> </a>
-                  <a href=''>
-										<span >前端工具</span>
-									</a>
+									{this.props.tag.map((v) => {
+										return (
+											<React.Fragment key={v}>
+												<a href=''>
+													<span>{v}</span>
+												</a>
+												<a href=''> </a>
+											</React.Fragment>
+										)
+									})}
 								</div>
 							</div>
-							<div className='createTime'>08.05</div>
+							<div className='createTime'>{this.props.time}</div>
 						</div>
 					</div>
 				</div>

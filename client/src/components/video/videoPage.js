@@ -10,6 +10,7 @@ import VideoSideBarNote from '../videoSideBarNote/videoSideBarNote'
 import Footer from '../footer/footer'
 import 'react-html5video/dist/styles.css'
 import './videoPage.scss'
+import {defaultAvatar} from  '@/const'
 const { TextArea } = Input
 export default class VideoPage extends Component {
   constructor(props) {
@@ -167,7 +168,7 @@ export default class VideoPage extends Component {
               </span>
               <div className="v-teachers">
                 <a href="" className="v-teachers-img">
-                  <img src="http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg" alt="" />
+                  <img src={defaultAvatar} alt="" />
                 </a>
                 <dl>
                   <dd className="v-t-nickname">LGD_Sunday</dd>

@@ -8,10 +8,9 @@ import './forumProblemPageRight.scss'
 @withRouter
 class ForumProblemPageRight extends Component {
   render() {
-    console.log(this.props)
     return (
       <div className="forum-problem-page-right">
-        <Link className="forum-problem-page-craete-btn" to={`${this.props.match.url}/create`}>我要提问</Link>
+        <Link className="forum-problem-page-craete-btn" to={`/forum/create`}>我要提问</Link>
         <ForumProblemPageRelatedProblem />
         <ForumProblemPageRelatedType 
           type={[0, 1, 2]}

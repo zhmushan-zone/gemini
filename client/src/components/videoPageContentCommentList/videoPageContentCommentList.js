@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Modal, Input } from 'antd'
 import CustomIcon from '@/common/customIcon/customIcon'
 import './videoPageContentCommentList.scss'
+import {defaultAvatar} from  '@/const'
 const { TextArea } = Input
 export default class VideoPageContentCommentList extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ export default class VideoPageContentCommentList extends Component {
       <div className="comment-list-container">
         <div className="headslider">
           <a href="">
-            <img src="http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg" alt="" />
+            <img src={defaultAvatar} alt="" />
           </a>
         </div>
         <div className="text">

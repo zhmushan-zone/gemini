@@ -1,33 +1,87 @@
 import React, { Component } from 'react'
 import Icon from '@/common/customIcon/customIcon'
 import ForumProblemPageReply from '../forumProblemPageReply/forumProblemPageReply'
+import { connect } from 'react-redux'
+import { fetchUser, followProblem } from '@/redux/actions'
+import Cookies from 'js-cookie'
 
 import './forumProblemPageInfo.scss'
 
+@connect(
+  state => state,
+  { fetchUser, followProblem }
+)
 class ForumProblemPageInfo extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      authorInfo: {
+        username: '',
+        avatar: ''
+      },
+      isFollow: false,
+      followNum: 0
+    }
+  }
+
+  async componentDidMount() {
+    const _id = Cookies.get('_id')
+    this.setState({
+      followNum: this.props.currentProblem.watchersId.length
+    })
+    if (this.props.currentProblem.watchersId.indexOf(_id) !== -1) {
+      this.setState({
+        isFollow: true
+      })
+    }
+    await this.props.fetchUser(this.props.currentProblem.authorId)
+    this.setState({
+      authorInfo: {
+        username: this.props.User.username,
+        avatar: this.props.User.avatar
+      }
+    })
+  }
+
+  follow() {
+    let newFollowNum = this.state.isFollow ?
+      this.state.followNum - 1 :
+      this.state.followNum + 1
+    this.props.followProblem(this.props.currentProblem.id)
+    this.setState({
+      isFollow: !this.state.isFollow,
+      followNum: newFollowNum
+    })
+  }
+
   render() {
+    const { currentProblem } = this.props
+    const { authorInfo } = this.state
     return (
       <div className="forum-problem-page-info">
-        <h1>能分享一下JavaScript的学习方法吗?</h1>
+        <h1>{currentProblem.title}</h1>
         <div className="forum-problem-details">
           <a className="forum-problem-details-user">
-            <img src={require(`@/assets/imgs/user-avator.jpg`)} alt=""/>
-            <span>该用户已成仙</span>
+            <img src={authorInfo.avatar ? `/avatar/${authorInfo.avatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
+            <span>{authorInfo.username}</span>
           </a>
           <div className="forum-problem-details-data">
             <a>举报</a>
-            <span>回答274</span>
-            <span>浏览52745</span>
+            <span>回答{currentProblem.replysId.length}</span>
+            <span>浏览{currentProblem.viewnum}</span>
           </div>
         </div>
-        <p className="forum-problem-page-desc">
-          最近刚入坑JavaScript，感觉学起来十分吃力，求大佬们推荐一下如何有效的学习JavaScript，以及学习的方向，感谢感谢！！！
-        </p>
+        <div className="forum-problem-page-desc" dangerouslySetInnerHTML = {{__html: currentProblem.content}}>
+        </div>
         <div className="forum-problem-page-type-operation">
           <div className="forum-problem-page-type">
-            <a>JavaScript</a>
-            <a>HTML5</a>
-            <a>CSS3</a>
+            {
+              currentProblem.tags.map(item => {
+                return <a key={item}>
+                  {allTags[item]}
+                </a>
+              })
+            }
           </div>
           <div className="forum-problem-page-operation">
             <div className="forum-problem-page-share">
@@ -42,11 +96,14 @@ class ForumProblemPageInfo extends Component {
               </a>
             </div>
             <div className="forum-problem-page-follow">
-              <a>
-                  {/* <Icon type="xin1" color="#dd3929" size={24} /> */}
-                  <Icon type="xin" color="#b6b9bc" size={24} />
+              <a onClick={() => this.follow()}>
+                  {
+                    this.state.isFollow ?
+                    <Icon type="xin1" color="#dd3929" size={24} /> :
+                    <Icon type="xin" color="#b6b9bc" size={24} />
+                  }
               </a>
-              <span>18</span>
+              <span>{this.state.followNum}</span>
             </div>
           </div>
         </div>
@@ -55,5 +112,7 @@ class ForumProblemPageInfo extends Component {
     )
   }
 }
+
+const allTags = ['JavaScript', 'Node.js', 'Vue', 'React','Html5', 'Html/CSS', 'Angular', 'WebApp', 'Jquery', 'Bootstrap', '前端工具', 'CSS3', 'Sass/Less', 'JAVA', 'Python', 'Go', 'PHP', 'C', 'C++', 'C#', 'MySQL', 'SQL Server', 'Oracle', 'MongoDB', 'Android', 'iOS', 'Unity 3D', 'Cocos2d-x', '大数据', '云计算', '深度学习', '机器学习', '测试', 'Linux', 'Photoshop', 'Maya', 'Premiere', 'ZBrush', '数据结构', 'Ruby']
 
 export default ForumProblemPageInfo

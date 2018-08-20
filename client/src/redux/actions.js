@@ -18,14 +18,15 @@ export function loadData(userinfo) {
 /* --------------------------------------------------注册-------------------------------------------------------------- */
 
 function authSuccess(obj) {
-	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: obj  }
+	const {username,password,data} = obj
+	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: data,username,password  }
 }
 
 export function register(username, password, repet_pass) {
 	if (!username || !password || !repet_pass) {
 		return errorMsg('请输入注册的账号的密码')
 	}
-	if (username.length < 6) {
+	if (username.length < 2) {
 		return errorMsg('用户名最少6位')
 	}
 	if (password.length < 6 || password.length >= 14) {
@@ -199,8 +200,8 @@ export function logout() {
 }
 
 /* --------------------------------------------------修改头像-------------------------------------------------------------- */
-function changeAvatarFunc(now) {
-	return { type: ActionTypes.CHANGE_AVATAR, avatar: now }
+function changeAvatarFunc(id) {
+	return { type: ActionTypes.CHANGE_AVATAR, avatar: id }
 }
 
 export function changeAvatar(name) {
@@ -267,7 +268,7 @@ export function deleteCourse(id) {
 					token: _token
 				}
 			})
-			
+
 			if (res.data.code === 1) {
 				dispatch(courseDeleteSuccess())
 			}
@@ -315,6 +316,74 @@ export function getProblemList () {
 		const res = await axios.get('/api/issues')
 		if (res.data.code === 1) {
 			dispatch(problemList(res.data.data))
+		}
+	}
+}
+/* ---------------------------------------------------- 关注问题----------------------------------------------------------------------- */
+function followProblemSuccess (watchIssuesId) {
+	return { type: ActionTypes.FOLLOW_PROBLEM, payload: watchIssuesId }
+}
+
+export function followProblem (problemId) {
+	const _token = Cookies.get('_token')
+	
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'put',
+			url: `/api/issues/${problemId}/watch`,
+			headers: {
+				token: _token
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(followProblemSuccess(res.data.data.watchIssuesId))
+		}
+	}
+}
+/* ---------------------------------------------------- 评论问题----------------------------------------------------------------------- */
+function commentProblemSuccess (comment) {
+	const code =  1
+	const msg = '评论成功'
+	return { type: ActionTypes.COMMENT_PROBLEM, payload: comment, code, msg }
+}
+
+export function commentProblem(problemId, content) {
+	const _token = Cookies.get('_token')
+
+	return async (dispatch) => {
+		try {
+			const res = await axios({
+				method: 'post',
+				url: `/api/issues/${problemId}/reply`,
+				headers: {
+					token: _token
+				},
+				data: {
+					content: content
+				}
+			})
+			if (res.data.code === 1) {
+				dispatch(commentProblemSuccess(res.data.data))
+			}
+		} catch (error) {
+			dispatch(errorMsg('服务端错误'))
+		}
+	}
+}
+/* ---------------------------------------------------- 获取评论----------------------------------------------------------------------- */
+function fetchCommentSuccess (comments) {
+	return { type: ActionTypes.FETCH_COMMENT, payload: comments }
+}
+
+export function fetchComment (problemIds) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'post',
+			url: '/api/issues/reply/ids',
+			data: problemIds
+		})
+		if (res.data.code === 1) {
+			dispatch(fetchCommentSuccess(res.data.data))
 		}
 	}
 }
@@ -405,10 +474,10 @@ export function fetchArticleOne(id) {
 	}
 }
 
-/* -------------------------获取单个用户信息（个人中心）------------------------------------------- */
+/* -------------------------获取单个用户信息------------------------------------------- */
 function fetchOneUser(data){
-	var result = {...data[0]}
-	return { type: ActionTypes.FETCH_ONE_USER, result:result }
+	console.log(data)
+	return { type: ActionTypes.FETCH_ONE_USER, data }
 }
 export function fetchUser(id){
 	return async (dispatch) => {

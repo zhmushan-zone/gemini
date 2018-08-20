@@ -12,14 +12,14 @@ const initState = {
 	repet_password: '',
 	forget_email: '',
 	id: '',
-	data: '',
 	redirectTo: '',
 	job: '未设置',
 	city: '未设置',
 	sex: '未设置',
 	signature: '未设置',
 	watchTags: [],
-	code: ''
+	code: '',
+  watchIssuesId:[],
 }
 
 const courseInitState = {
@@ -39,6 +39,13 @@ const problemInitState = {
 	problem: [],
 	code: ''
 }
+
+const problemCommentInit = {
+  msg: '',
+  replys: [],
+  code: ''
+}
+
 const Userinit={
 
 }
@@ -52,9 +59,8 @@ export function userstatus(state = initState, action) {
 				...state,
 				...action.payload,
 				redirectTo: '/home',
-				// username: action.payload.username,
-				// avatar: action.avatar,
-				// email: action.payload.email
+				...action.username,
+				...action.password
 			}
 		case ActionTypes.FORGET_PASS:
 			return {
@@ -101,10 +107,18 @@ export function userstatus(state = initState, action) {
 			return {
 				...initState
 			}
-		case ActionTypes.UPDATE_FORUM_TAGS:
+			case ActionTypes.UPDATE_FORUM_TAGS:
+      return { ...state,
+        watchTags: action.tags
+      }
+    case ActionTypes.FOLLOW_PROBLEM:
+      return { ...state,
+        watchIssuesId: action.payload
+      }
+		case ActionTypes.FETCH_ONE_USER:
 			return {
 				...state,
-				watchTags: action.tags
+				...action.result
 			}
 		default:
 			return state
@@ -188,13 +202,39 @@ export function problem(state = problemInitState, action) {
 			return {
 				...state,
 				problem: action.payload
-			}
+      }
 		default:
 			return state
 	}
 }
 
-
+export function problemComment (state = problemCommentInit, action) {
+  switch (action.type) {
+    case ActionTypes.ERROR_MSG:
+			return {
+				...state,
+				msg: action.msg,
+				code: action.code
+			}
+    case ActionTypes.COMMENT_PROBLEM:
+      return {
+        ...state,
+        replys: [
+          ...state.replys,
+          action.payload,
+        ],
+				code: action.code,
+				msg: action.msg
+			}
+		case ActionTypes.FETCH_COMMENT:
+			return {
+				...state,
+				replys: action.payload
+			}
+    default:
+			return state  
+  }
+}
 /* ------------------获取单个user------------------------- */
 		
 export function User(state = Userinit, action) {
@@ -202,18 +242,19 @@ export function User(state = Userinit, action) {
 		case ActionTypes.FETCH_ONE_USER:
 			return {
 				...state,
-				...action.result,
+				...action.data,
 			}
 		default:
 			return state
 	}
 }
 
+
 export default combineReducers({
 	userstatus,
 	course,
 	article,
-  problem,
-  User
+	problem,
+	User,
+  problemComment,
 })
-		

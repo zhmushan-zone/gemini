@@ -29,7 +29,7 @@ class ForumProblemPageCommentsItem extends Component {
   }
 
   render() {
-    const { userName, userAvatar, commentContent, agreeData, againstData, time } = this.props
+    const { authorId, commentContent, agreeData, againstData, time } = this.props
     let replys = []
     let showMoreBtn = null
     if (this.props.replys && this.props.replys.length) {
@@ -46,12 +46,12 @@ class ForumProblemPageCommentsItem extends Component {
       <div className="forum-comment-item">
         <div className="forum-comment-user-avatar">
           <a>
-            <img src={require(`@/assets/superheroimgs/${userAvatar}.png`)} alt=""/>
+            <img src={'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
           </a>
         </div>
         <div className="forum-comment-user-details">
           <a className="forum-comment-user-name">
-            {userName}
+            {authorId}
           </a>
           <p className="forum-comment-user-content">
             {commentContent}
@@ -60,11 +60,11 @@ class ForumProblemPageCommentsItem extends Component {
             <div className="forum-comment-operation-left">
               <a className="forum-comment-operation-agree">
                 <Icon type="dianzan" size={14} />
-                <span>{agreeData}</span>
+                <span>{agreeData.length}</span>
               </a>
               <a className="forum-comment-operation-against">
                 <Icon type="fandui" size={14} />
-                <span>{againstData}</span>
+                <span>{againstData.length}</span>
               </a>
               <a className="forum-comment-reply" onClick={() => this.foldReply()}>
                 { 

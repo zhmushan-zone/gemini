@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Icon } from 'antd'
 import CoursePreview from '@/common/coursePreview/coursePreview'
 import './articleRight.scss'
+import {defaultAvatar} from  '@/const'
+import { connect } from 'react-redux'
+@connect((state) => state)
 export default class articleLeft extends Component {
 	constructor(props){
 		super(props)
@@ -14,14 +17,20 @@ export default class articleLeft extends Component {
 			follow:!this.state.follow
 		})
 	}
+
 	render() {
+		try {
+			console.log(this.props)
+		} catch (error) {
+			
+		}
 		return (
 			<div className='right-article-container'>
 				<div className='author_info'>
-					<img src='http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg' alt='' />
+					<img src={defaultAvatar} alt='' />
 					<div className='text-info'>
 						<div className='name'>
-							<span>skl</span>
+							<span>{this.props.User.nickname}</span>
 							<span onClick={this.toFollow}>{this.state.follow?"已关注":"关注"}</span>
 						</div>
 						<div className='job'>全站工程师</div>
