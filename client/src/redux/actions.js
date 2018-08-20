@@ -200,8 +200,8 @@ export function logout() {
 }
 
 /* --------------------------------------------------修改头像-------------------------------------------------------------- */
-function changeAvatarFunc(now) {
-	return { type: ActionTypes.CHANGE_AVATAR, avatar: now }
+function changeAvatarFunc(id) {
+	return { type: ActionTypes.CHANGE_AVATAR, avatar: id }
 }
 
 export function changeAvatar(name) {

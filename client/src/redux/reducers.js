@@ -38,9 +38,6 @@ const problemInitState = {
 	problem: [],
 	code: ''
 }
-const Userinit={
-
-}
 
 export function userstatus(state = initState, action) {
 	switch (action.type) {
@@ -103,6 +100,11 @@ export function userstatus(state = initState, action) {
 			return {
 				...state,
 				watchTags: action.tags
+			}
+		case ActionTypes.FETCH_ONE_USER:
+			return {
+				...state,
+				...action.result
 			}
 		default:
 			return state
@@ -193,25 +195,9 @@ export function problem(state = problemInitState, action) {
 }
 
 
-/* ------------------获取单个user------------------------- */
-		
-export function User(state = Userinit, action) {
-	switch (action.type) {
-		case ActionTypes.FETCH_ONE_USER:
-			return {
-				...state,
-				...action.result,
-			}
-		default:
-			return state
-	}
-}
-
 export default combineReducers({
 	userstatus,
 	course,
 	article,
-  problem,
-  User
+	problem
 })
-		

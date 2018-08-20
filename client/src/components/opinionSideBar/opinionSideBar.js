@@ -76,9 +76,9 @@ export default class opinionSideBar extends Component {
 		return (
 			<div className="side-bar-container">
 				<ul className='left_menu'>
-					{catalogue.map((v) => {
+					{catalogue.map((v,i) => {
 						return (
-							<li className={`m_item ${v.is ? 'active' : ''}`}>
+							<li className={`m_item ${v.is ? 'active' : ''}`} key={i}>
 								<a href={v.to}>{v.name}</a>
 							</li>
 						)

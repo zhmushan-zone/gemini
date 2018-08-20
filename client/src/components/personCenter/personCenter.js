@@ -97,6 +97,7 @@ class PersonCener extends React.Component {
 	}
 	render() {
 		const { UserId } = this.state
+		const LoginId = Cookies.get('_id')
 		const nav = [
 			{
 				name: '动态',
@@ -116,7 +117,7 @@ class PersonCener extends React.Component {
 				name: '个人信息',
 				icon: 'gerenxinxi',
 				to: `/personCenter/${UserId}/set`,
-				is: this.props.location.pathname === `/personCenter/${UserId}/set`,
+				is: this.props.location.pathname === `/personCenter/${UserId}/set`&& UserId ===LoginId,
 				component: PersonCenterInformation
 			},
 			{
@@ -158,7 +159,7 @@ class PersonCener extends React.Component {
 				</li>
 			)
     })
-    const data = this.props.User
+    const data = this.props.userstatus
 		return (
 			<div className='personCenter-container'>
 				<div className='header'>

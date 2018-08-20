@@ -84,6 +84,7 @@ export default class articleLeft extends Component {
 						<span>前端开发</span>
 					</Breadcrumb.Item>
 				</Breadcrumb>
+				{/* <img src={`de`} alt=""/> */}
 				<div className='title'>
 					<h2 className='detail-title'>{title}</h2>
 					<div className='dc-profile'>
