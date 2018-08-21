@@ -12,6 +12,7 @@ class ForumProblemPageComments extends Component {
         {
           this.props.replys.map(item => {
             return <ForumProblemPageCommentsItem
+              replyId={item.id}
               authorId={item.authorId}
               commentContent={item.content}
               agreeData={item.upersId}

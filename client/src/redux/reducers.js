@@ -46,6 +46,12 @@ const problemCommentInit = {
   code: ''
 }
 
+const problemCommentReplyInit = {
+	msg: '',
+	subReplys: [],
+	code: ''
+}
+
 const Userinit={
 
 }
@@ -235,6 +241,35 @@ export function problemComment (state = problemCommentInit, action) {
 			return state  
   }
 }
+
+export function problemCommentReply (state = problemCommentReplyInit, action) {
+	switch (action.type) {
+    case ActionTypes.ERROR_MSG:
+			return {
+				...state,
+				msg: action.msg,
+				code: action.code
+			}
+		case ActionTypes.REPLY_COMMENT:
+			return {
+				...state,
+				subReplys: [
+					...state.subReplys,
+					action.payload
+				],
+				msg: action.msg,
+				code: action.code
+			}
+		case ActionTypes.FETCH_REPLY:
+			return {
+				...state,
+				subReplys: action.payload
+			}
+    default:
+			return state  
+  }
+}
+
 /* ------------------获取单个user------------------------- */
 		
 export function User(state = Userinit, action) {
@@ -256,5 +291,6 @@ export default combineReducers({
 	article,
 	problem,
 	User,
-  problemComment,
+	problemComment,
+	problemCommentReply
 })

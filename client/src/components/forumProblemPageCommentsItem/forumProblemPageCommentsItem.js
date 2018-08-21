@@ -1,24 +1,81 @@
 import React, { Component } from 'react'
 import Icon from '@/common/customIcon/customIcon'
-import { Input } from 'antd'
+import ForumProblemPageReplyItem from '../forumProblemPageReplyItem/forumProblemPageReplyItem'
+import { Input, message } from 'antd'
+import { withRouter } from 'react-router-dom'
+import Cookies from 'js-cookie'
+import axios from 'axios'
 
 import './forumProblemPageCommentsItem.scss'
 
-
 const { TextArea } = Input
 
+@withRouter
 class ForumProblemPageCommentsItem extends Component {
   constructor(props) {
     super(props)
     this.state = {
       isReplyFold: true,
-      isShowAllReply: false
+      isShowAllReply: false,
+      agreeClick: false,
+      againstClick: false,
+      content: '',
+      replys: []
     }
   }
   
-  foldReply () {
+  stateChange (key, value) {
     this.setState({
-      isReplyFold: !this.state.isReplyFold
+      [key]: value 
+    })
+  }
+
+  foldReply () {
+    if (!this.state.replys.length) {
+      axios({
+        method: 'post',
+        url: '/api/issues/reply/subreply/ids',
+        data: this.props.subReplysId
+      }).then(res => {
+        if(res.data.code === 1) {
+          this.setState({
+            replys: res.data.data,
+            isReplyFold: !this.state.isReplyFold
+          })
+        }
+      })
+    } else {
+      this.setState({
+        isReplyFold: !this.state.isReplyFold
+      })
+    }
+  }
+
+  async agree () {
+    const _token = Cookies.get('_token')
+    await axios({
+      method: 'put',
+      url: `/api/issues/reply/${this.props.replyId}/up`,
+      headers: {
+        token: _token
+      }
+    })
+    this.setState({
+      agreeClick: true
+    })
+  }
+
+  async against () {
+    const _token = Cookies.get('_token')
+    await axios({
+      method: 'put',
+      url: `/api/issues/reply/${this.props.replyId}/down`,
+      headers: {
+        token: _token
+      }
+    })
+    this.setState({
+      againstClick: true
     })
   }
 
@@ -28,20 +85,49 @@ class ForumProblemPageCommentsItem extends Component {
     })
   }
 
+  async reply() {
+    const _token = Cookies.get('_token')
+    const res = await axios({
+      method: 'post',
+      url: `/api/issues/reply/${this.props.replyId}/subreply`,
+      headers: {
+        token: _token
+      },
+      data: {
+        content: this.state.content,
+        to: this.props.authorId
+      }
+    })
+    if (res.data.code === 1) {
+      const oldReplys = [...this.state.replys]
+      this.setState({
+        replys: [
+          ...oldReplys,
+          res.data.data
+        ]
+      })
+      return message.success('评论成功')
+    } else {
+      return message.error('评论失败')
+    }
+  }
+
   render() {
-    const { authorId, commentContent, agreeData, againstData, time } = this.props
+    const { authorId, commentContent, agreeData, againstData, time, subReplysId } = this.props
     let replys = []
     let showMoreBtn = null
-    if (this.props.replys && this.props.replys.length) {
-      replys = (this.props.replys.length > 3 && !this.state.isShowAllReply) ?
-        this.props.replys.slice(0, 3) :
-        this.props.replys
-      showMoreBtn = (this.props.replys.length > 3 && !this.state.isShowAllReply && !this.state.isReplyFold) ?
+    if (this.state.replys && this.state.replys.length) {
+      replys = (this.state.replys.length > 3 && !this.state.isShowAllReply) ?
+        this.state.replys.slice(0, 3) :
+        this.state.replys
+      showMoreBtn = (this.state.replys.length > 3 && !this.state.isShowAllReply && !this.state.isReplyFold) ?
         <a className="show-more-btn" onClick={() => this.showMoreReply()}>
-          点击展开后面{this.props.replys.length - 3}条评论
+          点击展开后面{this.state.replys.length - 3}条评论
         </a>
         : null
     }
+    const agreeAndAgainst = [...agreeData, ...againstData]
+    const _id = Cookies.get('_id')
     return (
       <div className="forum-comment-item">
         <div className="forum-comment-user-avatar">
@@ -58,18 +144,62 @@ class ForumProblemPageCommentsItem extends Component {
           </p>
           <div className="forum-comment-operation">
             <div className="forum-comment-operation-left">
-              <a className="forum-comment-operation-agree">
-                <Icon type="dianzan" size={14} />
-                <span>{agreeData.length}</span>
-              </a>
-              <a className="forum-comment-operation-against">
-                <Icon type="fandui" size={14} />
-                <span>{againstData.length}</span>
-              </a>
+              {
+                agreeAndAgainst.indexOf(_id) === -1 && !this.state.againstClick ?
+                  (
+                    this.state.agreeClick ? 
+                      <a className="forum-comment-operation-agree">
+                        <Icon type="dianzan" color="#dd3929" size={14} />
+                        <span style={{color: "#dd3929"}}>{agreeData.length + 1}</span>
+                      </a> :
+                      <a className="forum-comment-operation-agree" onClick={() => this.agree()}>
+                        <Icon type="dianzan" size={14} />
+                        <span>{agreeData.length}</span>
+                      </a> 
+                  )
+                  :
+                  (
+                    agreeData.indexOf(_id) === -1?
+                      <a className="forum-comment-operation-agree">
+                        <Icon type="dianzan" size={14} />
+                        <span>{agreeData.length}</span>
+                      </a> :
+                      <a className="forum-comment-operation-agree">
+                        <Icon type="dianzan" color="#dd3929" size={14} />
+                        <span style={{color: "#dd3929"}}>{agreeData.length}</span>
+                      </a>
+                  )
+              }
+              {
+                agreeAndAgainst.indexOf(_id) === -1 && !this.state.agreeClick  ?
+                  (
+                    this.state.againstClick ? 
+                      <a className="forum-comment-operation-agree">
+                        <Icon type="fandui" color="#dd3929" size={14} />
+                        <span style={{color: "#dd3929"}}>{againstData.length + 1}</span>
+                      </a> :
+                      <a className="forum-comment-operation-against" onClick={() => this.against()}>
+                        <Icon type="fandui" size={14} />
+                        <span>{againstData.length}</span>
+                      </a>
+                  )
+                  :
+                  (
+                    againstData.indexOf(_id) === -1 ?
+                      <a className="forum-comment-operation-agree">
+                        <Icon type="fandui" size={14} />
+                        <span>{againstData.length}</span>
+                      </a> :
+                      <a className="forum-comment-operation-agree">
+                        <Icon type="fandui" color="#dd3929" size={14} />
+                        <span style={{color: "#dd3929"}}>{againstData.length}</span>
+                      </a>
+                  )
+              }
               <a className="forum-comment-reply" onClick={() => this.foldReply()}>
                 { 
                   this.state.isReplyFold ?
-                  `${this.props.replys ? this.props.replys.length :0}个回复` :
+                  `${subReplysId.length}个回复` :
                   '收起回复'
                 }
               </a>
@@ -87,40 +217,15 @@ class ForumProblemPageCommentsItem extends Component {
             {
               (replys.length && !this.state.isReplyFold) ? 
                 replys.map((item, index) => {
-                  return (
-                    <div className="forum-reply-item" key={index}>
-                      <div className="forum-reply-user-avatar">
-                        <a>
-                          <img src={require(`@/assets/superheroimgs/${item.replyerAvatar}.png`)} alt=""/>
-                        </a>
-                      </div>
-                      <div className="forum-reply-user-details">
-                        <div className="forum-reply-user-name">
-                          <a>{item.replyerName}</a>
-                          <span>#{index + 1}</span>
-                        </div>
-                        <div className="forum-reply-user-content">
-                          {item.replyContent}
-                        </div>
-                        <div className="forum-reply-operation">
-                          <div className="forum-reply-operation-left">
-                            <a className="forum-reply-btn">
-                              回复
-                            </a>
-                            <a className="forum-reply-report">
-                              举报
-                            </a>
-                          </div>
-                          <div className="forum-reply-operation-right">
-                            <span>
-                              {item.replyTime}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                  })
+                  return <ForumProblemPageReplyItem
+                    floor={index}
+                    content={item.content}
+                    from={item.from}
+                    to={item.to}
+                    time={item.createAt}
+                    key={index}
+                  />
+                })
               : null
             }
             {showMoreBtn}
@@ -131,9 +236,9 @@ class ForumProblemPageCommentsItem extends Component {
                     <img src={require(`@/assets/imgs/user-avator.jpg`)} alt=""/>
                   </div>
                   <div className="my-reply-container-right">
-                    <TextArea placeholder="写下你的回复" autosize={{ minRows: 2, maxRows: 6 }} />
+                    <TextArea placeholder="写下你的回复" onChange={(e) => this.stateChange('content', e.target.value) } autosize={{ minRows: 2, maxRows: 6 }} />
                     <div className="my-reply-container-btn-wrapper">
-                      <button className="my-reply-container-btn">回复</button>
+                      <button className="my-reply-container-btn" onClick={() => this.reply()}>回复</button>
                     </div>
                   </div>
                 </div>
