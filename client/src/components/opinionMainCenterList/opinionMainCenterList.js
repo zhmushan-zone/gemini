@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { Icon } from 'antd'
+import { Link } from 'react-router-dom'
 import './opinionMainCenterList.scss'
-export default class opinionMainCenterList extends Component {
+import PropTypes from 'prop-types'
+
+ class opinionMainCenterList extends Component {
+	static defaultProps={
+		coverImg:"https://www.imooc.com/static/img/article/cover/pic23.jpg"
+	}
 	constructor(props) {
 		super(props)
 		this.state = {}
@@ -11,10 +17,10 @@ export default class opinionMainCenterList extends Component {
 			<div className='opinion-main-center-list-container'>
 				<div className='article-lwrap'>
 					<div className='imgCon'>
-						<img src='https://www.imooc.com/static/img/article/cover/pic23.jpg' alt='' />
+						<img src={this.props.coverImg} alt='' />
 					</div>
 					<div className='list-content'>
-						<p>{this.props.title}</p>
+						<Link className="title" to={`article/${this.props.articleId}`}>{this.props.title}</Link>
 						<div className='list-bottom'>
 							<div className='content'>
 								<div className='labels-area'>
@@ -48,3 +54,7 @@ export default class opinionMainCenterList extends Component {
 		)
 	}
 }
+opinionMainCenterList.propTypes = {
+  title: PropTypes.string.isRequired,
+}
+export default opinionMainCenterList

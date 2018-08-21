@@ -28,7 +28,9 @@
 			width: 534px;
 			padding-top: 10px;
 			border-bottom: 1px solid rgba(28, 31, 33, .1);
-			p {
+			// cursor: pointer;
+			.title {
+				cursor: pointer;
 				font-weight: 700;
 				margin-bottom: 4px;
 				font-size: 16px;

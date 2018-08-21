@@ -3,15 +3,23 @@ import './opinionMainCenter.scss'
 import opBanner1 from '@/assets/imgs/opinionBanner.jpg'
 import opBanner2 from '@/assets/imgs/opinionBanner2.jpg'
 import opBanner3 from '@/assets/imgs/opinionBanner3.jpg'
+import { connect } from 'react-redux'
+import { fetchArticleAll } from '@/redux/actions'
 import FetchArticleList from '../fetchArticleList/fetchArticleList'
+@connect(
+  state => state,
+  { fetchArticleAll }
+)
 export default class opinionMainCenter extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {}
 	}
+	componentWillMount() {
+		this.props.fetchArticleAll()
+	}
 	render() {
-		// 测试数据
-
+		const articleData= this.props.article.articleArray
 		return (
 			<div className='opinion-main-center-container'>
 				<div className='centerlist'>
@@ -32,7 +40,7 @@ export default class opinionMainCenter extends Component {
 						</div>
 					</div>
 				</div>
-				<FetchArticleList />
+				<FetchArticleList articleData={articleData}/>
 			</div>
 		)
 	}
