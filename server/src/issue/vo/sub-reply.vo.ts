@@ -1,6 +1,12 @@
 import { SubReply } from '../issue.entity';
 
 export class SubReplyVO extends SubReply {
+
+  fromUsername: string;
+  fromAvatar: string;
+  toUsername: string;
+  toAvatar: string;
+
   constructor(s: SubReply) {
     super();
     this.id = s.id;

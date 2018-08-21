@@ -109,13 +109,34 @@ export class IssueController {
   @Post('reply/ids')
   async findReplyGroup(@Body() ids: string[]) {
     const replys = await this.issueService.findReplysById(ids.map(id => new ObjectId(id)));
-    return success(replys.map(r => new ReplyVO(r)));
+    const res: ReplyVO[] = [];
+    for (const r of replys) {
+      const author = await this.userService.findById(r.authorId);
+      res.push({
+        ...new ReplyVO(r),
+        authorUsername: author.username,
+        authorAvatar: author.avatar
+      } as ReplyVO);
+    }
+    return success(res);
   }
 
   @Post('reply/subreply/ids')
   async findSubReplyGroup(@Body() ids: string[]) {
     const subreplys = await this.issueService.findSubReplysById(ids.map(id => new ObjectId(id)));
-    return success(subreplys.map(s => new SubReplyVO(s)));
+    const res: SubReplyVO[] = [];
+    for (const s of subreplys) {
+      const from = await this.userService.findById(s.from);
+      const to = await this.userService.findById(s.to);
+      res.push({
+        ...new SubReplyVO(s),
+        fromUsername: from.username,
+        fromAvatar: from.avatar,
+        toUsername: to.username,
+        toAvatar: to.avatar
+      } as SubReplyVO);
+    }
+    return success(res);
   }
 
   @Put('reply/:id/up')

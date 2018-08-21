@@ -1,6 +1,10 @@
 import { Reply } from '../issue.entity';
 
 export class ReplyVO extends Reply {
+
+  authorUsername: string;
+  authorAvatar: string;
+
   constructor(r: Reply) {
     super();
     this.id = r.id;
