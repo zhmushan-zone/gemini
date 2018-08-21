@@ -387,36 +387,6 @@ export function fetchComment (problemIds) {
 		}
 	}
 }
-/* ---------------------------------------------------- 讨论区回答评论----------------------------------------------------------------------- */
-function replyCommentSuccess(reply) {
-	const code = 1
-	const msg = '回答成功'
-	return { type: ActionTypes.REPLY_COMMENT, payload: reply, code, msg }
-}
-
-export function replyComment (commentId , content, to) {
-	const _token = Cookies.get('_token')
-	return async (dispatch) => {
-		try {
-			const res =  await axios({
-				method: 'post',
-				url: `/api/issues/reply/${commentId}/subreply`,
-				headers: {
-					token: _token
-				},
-				data: {
-					content,
-					to
-				}
-			})
-			if (res.data.code === 1) {
-				dispatch(replyCommentSuccess(res.data.data))
-			}
-		} catch (error) {
-			dispatch(errorMsg('服务端错误'))
-		}
-	}
-}
 /* ---------------------------------------------------- 更新讨论区标签----------------------------------------------------------------------- */
 function updateForumTagsSuccess(tags) {
 	return { type: ActionTypes.UPDATE_FORUM_TAGS, tags: tags }
@@ -439,23 +409,6 @@ export function updateForumTags(tags) {
 			dispatch(updateForumTagsSuccess(tags))
 		} else {
 			dispatch(errorMsg('讨论区关注分类更新失败'))
-		}
-	}
-}
-/* ---------------------------------------------------- 讨论区获取回答----------------------------------------------------------------------- */
-function fetchReplySuccess(replys) {
-	return { type: ActionTypes.FETCH_REPLY, payload: replys }
-}
-
-export function fetchReply(replysId) {
-	return async (dispatch) => {
-		const res = await axios({
-			method: 'post',
-			url: '/api/issues/reply/subreply/ids',
-			data: replysId
-		})
-		if (res.data.code === 1) {
-			dispatch(fetchReplySuccess(res.data.data))
 		}
 	}
 }
