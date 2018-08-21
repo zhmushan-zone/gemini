@@ -40,6 +40,8 @@ export const PROBLEM_LIST = 'PROBLEM_LIST'
 export const FOLLOW_PROBLEM = 'FOLLOW_PROBLEM'
 // 获取单个文章
 export const FETCH_ONE_ARTICLE = 'FETCH_ONE_ARTICLE'
+// 获取单个文章
+export const FETCH_All_ARTICLE = 'FETCH_All_ARTICLE'
 // 评论问题
 export const COMMENT_PROBLEM = 'COMMENT_PROBLEM'
 // 获取评论
@@ -48,3 +50,4 @@ export const FETCH_COMMENT  = 'FETCH_COMMENT'
 export const FETCH_REPLY = 'FETCH_REPLY'
 // 获取单个用户
 export const FETCH_ONE_USER = 'FETCH_ONE_USER'
+

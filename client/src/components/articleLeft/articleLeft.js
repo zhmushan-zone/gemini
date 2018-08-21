@@ -23,6 +23,7 @@ export default class articleLeft extends Component {
 		}
 	}
 
+
 	handleLike = () => {
 		this.setState({
 			like: !this.state.like

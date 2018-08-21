@@ -474,6 +474,25 @@ export function fetchArticleOne(id) {
 	}
 }
 
+/* fetch all */
+function fetchOneArticleAllSuccess(data){
+	return { type: ActionTypes.FETCH_All_ARTICLE, data }
+}
+
+export function fetchArticleAll(){
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'get',
+			url: `/api/articles`
+		})
+		if (res.data.code === 1) {
+			dispatch(fetchOneArticleAllSuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
+		}
+	}
+}
+
 /* -------------------------获取单个用户信息------------------------------------------- */
 function fetchOneUser(data){
 	console.log(data)
