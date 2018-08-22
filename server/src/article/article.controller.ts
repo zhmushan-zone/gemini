@@ -8,6 +8,7 @@ import { ArticleService } from './article.service';
 import { GeminiError } from '../common/error';
 import { CommentVO, ArticleVO } from './vo';
 import { Article } from './article.entity';
+import { UserService } from '../user/user.service';
 
 @Controller('/api/articles')
 export class ArticleController {
@@ -29,13 +30,28 @@ export class ArticleController {
   @Get()
   async findAll() {
     const articles = await this.articleService.findAll();
-    return success(articles.map(article => new ArticleVO(article)));
+    const res: ArticleVO[] = [];
+    for (const a of articles) {
+      const author = await this.userService.findById(a.authorId);
+      res.push({
+        ...new ArticleVO(a),
+        authorUsername: author.username,
+        authorAvatar: author.avatar
+      } as ArticleVO);
+    }
+    return success(res);
   }
 
   @Get(':id')
   async findOne(@Param('id') id) {
     const article = await this.articleService.findById(id);
-    return success(new ArticleVO(article));
+    if (!article) return response(ResponseCode.NOT_EXISIT);
+    const author = await this.userService.findById(article.authorId);
+    return success({
+      ...new ArticleVO(article),
+      authorUsername: author.username,
+      authorAvatar: author.avatar
+    } as ArticleVO);
   }
 
   @Put(':id')
@@ -48,6 +64,22 @@ export class ArticleController {
     const res = await this.articleService.updateById(user.id.toHexString(), id, updateArticleDTO);
     if (res instanceof GeminiError) return response(res.code);
     return success(new ArticleVO(res));
+  }
+
+  @Put(':id/up')
+  @UseGuards(AuthGuard('jwt'))
+  async replyUp(@Usr() user: User, @Param('id') id: string) {
+    const article = await this.articleService.findById(id);
+    if (!article) return response(ResponseCode.NOT_EXISIT);
+    const index = article.upersId.findIndex(v => v === user.id.toHexString());
+    if (index === -1) {
+      article.upersId.push(user.id.toHexString());
+    } else {
+      article.upersId.splice(index, 1);
+    }
+    const res = await this.articleService.updateById(article.authorId, id, { upersId: article.upersId } as Article);
+    if (res instanceof GeminiError) return response(res.code);
+    return success();
   }
 
   @Post(':id/comment')
@@ -68,6 +100,7 @@ export class ArticleController {
   }
 
   constructor(
-    private readonly articleService: ArticleService
+    private readonly articleService: ArticleService,
+    private readonly userService: UserService
   ) { }
 }

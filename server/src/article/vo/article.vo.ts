@@ -2,6 +2,9 @@ import { Article } from '../article.entity';
 
 export class ArticleVO extends Article {
 
+  authorUsername: string;
+  authorAvatar: string;
+
   constructor(article: Article) {
     super();
     this.id = article.id;
@@ -10,6 +13,7 @@ export class ArticleVO extends Article {
     this.coverImg = article.coverImg;
     this.type = article.type;
     this.authorId = article.authorId;
+    this.upersId = this.upersId;
     this.commentsId = article.commentsId;
     this.createAt = article.createAt;
     this.updateAt = article.updateAt;
