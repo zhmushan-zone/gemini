@@ -10,6 +10,7 @@ import { Issue, Reply } from './issue.entity';
 import { UserService } from '../user/user.service';
 import { CreateIssueDTO, UpdateIssueDTO, CreateReplyDTO, CreateSubReplyDTO, FetchIssueByTagsDTO } from './dto';
 import { IssueVO, ReplyVO, SubReplyVO } from './vo';
+import { Common } from '../common/common.entity';
 
 @Controller('/api/issues')
 export class IssueController {
@@ -32,6 +33,18 @@ export class IssueController {
   async findAll() {
     const issues = await this.issueService.findAll();
     return success(issues.map(issue => new IssueVO(issue)));
+  }
+
+  @Get('reply-num-weekly')
+  async issueReplyNumWeekly() {
+    const commonData = await this.commonEntity.get();
+    return success(commonData.IssueReplyNumWeekly);
+  }
+
+  @Get('reply-num-totally')
+  async issueReplyNumTotally() {
+    const commonData = await this.commonEntity.get();
+    return success(commonData.IssueReplyNumTotally);
   }
 
   @Get(':id')
@@ -96,6 +109,9 @@ export class IssueController {
     issue.replysId.push(reply.id.toHexString());
     const res = await this.issueService.updateById(issue.authorId, id, { replysId: issue.replysId } as Issue);
     if (res instanceof GeminiError) return response(res.code);
+
+    this.commonEntity.increaseIssueReplyNum(user.id.toHexString());
+
     return success({
       ...new ReplyVO(reply),
       authorUsername: user.username,
@@ -196,6 +212,7 @@ export class IssueController {
 
   constructor(
     private readonly issueService: IssueService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly commonEntity: Common
   ) { }
 }
