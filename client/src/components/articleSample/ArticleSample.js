@@ -4,7 +4,7 @@ import OpinionNav from '../opinionNav/opinionNav'
 import ArticleLeft from '../articleLeft/articleLeft'
 import ArticleRight from '../articleRight/articleRight'
 import { connect } from 'react-redux'
-import { fetchArticleOne, fetchUser } from '@/redux/actions'
+import { fetchArticleOne, fetchUser} from '@/redux/actions'
 import { withRouter } from 'react-router-dom'
 import './articleSample.scss'
 @withRouter
@@ -14,8 +14,12 @@ export default class ArticleSample extends Component {
 		this.props.fetchArticleOne(this.props.match.params.id)
 	}
 	render() {
-		if(this.props.article.authorId){
-			this.props.fetchUser(this.props.article.authorId)
+		try {
+			if(this.props.article.authorId){
+				this.props.fetchUser(this.props.article.authorId)
+			}
+		} catch (error) {
+			
 		}
 		return (
 			<React.Fragment>
