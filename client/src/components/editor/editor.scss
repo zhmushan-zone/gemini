@@ -30,9 +30,19 @@
             display: inline-block;
             margin-bottom: 30px;
         }
+        .upload-and-category{
+            display: flex;
+        }
+        .select{
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+        }
         .face-upload-box {
             display: flex;
             justify-content: center;
+            width: 50%;
+            flex-direction: column;
             .cover {
                 visibility: hidden;
             }
@@ -54,7 +64,7 @@
             }
         }
     }
-    .category {
+    .tag {
         padding: 20px 30px;
         .ant-tag {
             background: rgba(7, 17, 27, .1);

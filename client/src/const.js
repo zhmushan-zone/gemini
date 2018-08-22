@@ -1,4 +1,4 @@
-export const category = [
+export const ArticleType = [
   'JavaScript',
   'Node.js',
   'Vue',
@@ -32,4 +32,19 @@ export const category = [
   '设计'
 ]
 
-export const defaultAvatar="http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg"
+export const ArticleCategory=[
+  '推荐',
+  '资讯',
+  '最新文章',
+  '区块链',
+  '人工智能',
+  '云计算/大数据',
+  '前端开发',
+  '后端开发',
+  '移动互联',
+  '工具资源',
+  '职场生活',
+  '幽默段子',
+  '其他',
+]
+export const defaultAvatar=require(`./assets/imgs/defaultAvatar.jpg`)

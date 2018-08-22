@@ -6,7 +6,7 @@ import { Modal, Input } from 'antd'
 import { connect } from 'react-redux'
 import Marked from 'marked'
 
-import { defaultAvatar,category } from '@/const'
+import { defaultAvatar,ArticleType } from '@/const'
 
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import './articleLeft.scss'
@@ -82,7 +82,7 @@ export default class articleLeft extends Component {
 						<span>前端开发</span>
 					</Breadcrumb.Item>
 				</Breadcrumb>
-				<img src={`/cover-img/7ff7c4f104c77555e3321be32250cfc6`} className='cover-img' alt='' />
+				<img src={`/cover-img/${this.props.coverImg}`} className='cover-img' alt='' />
 				<div className='title'>
 					<h2 className='detail-title'>{title}</h2>
 					<div className='dc-profile'>
@@ -143,7 +143,7 @@ export default class articleLeft extends Component {
 							articleData.map((v, i) => {
 								const type = []
 								v.type.map((v) => {
-									type.push(category[v])
+									type.push(ArticleType[v])
 								})
 								return (
 									<OpinionMainCenterList
@@ -151,7 +151,7 @@ export default class articleLeft extends Component {
 										title={v.title}
 										direction={type[0]}
 										see={'188'}
-										author={'张士大夫'}
+										author={v.authorUsername}
 										time={v.createAt}
 										tag={type}
 										coverImg={`/cover-img/${v.coverImg}`}

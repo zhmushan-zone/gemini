@@ -5,7 +5,7 @@ import './opinionSideBar.scss'
 @withRouter
 export default class opinionSideBar extends Component {
 	render() {
-		const catalogue = [
+		const category = [
 			{
 				name: '推荐',
 				to: '/opinion',
@@ -70,7 +70,7 @@ export default class opinionSideBar extends Component {
 		return (
 			<div className="side-bar-container">
 				<ul className='left_menu'>
-					{catalogue.map((v,i) => {
+					{category.map((v,i) => {
 						return (
 							<li className={`m_item ${v.is ? 'active' : ''}`} key={i}>
 								<a href={v.to}>{v.name}</a>

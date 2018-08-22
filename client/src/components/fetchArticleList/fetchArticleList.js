@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import { withRouter } from 'react-router-dom'
-import {category} from '@/const'
+import {ArticleType} from '@/const'
 
 import './FetchArticleList.scss'
 @withRouter
@@ -29,7 +29,7 @@ export default class FetchArticleList extends Component {
 				{articleData?articleData.map((v,i) => {
 					const type = []
 					v.type.map(v=>{
-						type.push(category[v])
+						type.push(ArticleType[v])
 					})
 					return (
 						<OpinionMainCenterList 
@@ -37,7 +37,7 @@ export default class FetchArticleList extends Component {
 							title={v.title}
 							direction={type[0]}
 							see={'188'}
-							author={'张士大夫'}
+							author={v.authorUsername}
 							time={v.createAt}
 							tag={type}
 							coverImg={`/cover-img/${v.coverImg}`}

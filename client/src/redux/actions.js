@@ -18,8 +18,8 @@ export function loadData(userinfo) {
 /* --------------------------------------------------注册-------------------------------------------------------------- */
 
 function authSuccess(obj) {
-	const {username,password,data} = obj
-	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: data,username,password  }
+	const { username, password, data } = obj
+	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: data, username, password }
 }
 
 export function register(username, password, repet_pass) {
@@ -54,7 +54,7 @@ export function register(username, password, repet_pass) {
 			const data = res.data.data
 			Cookies.set('_id', res.data.data.id)
 			Cookies.set('_token', res.data.data.token)
-			dispatch(authSuccess( {username, password, email, ...data} ))
+			dispatch(authSuccess({ username, password, email, ...data }))
 		} else if (res.data.code === -1) {
 			dispatch(errorMsg('未知错误'))
 		} else if (res.data.code === 102) {
@@ -302,17 +302,17 @@ export function createProblem(problem) {
 				dispatch(createProblemSuccess(res.data.data))
 			}
 		} catch (error) {
-			dispatch(errorMsg("服务端错误"))
+			dispatch(errorMsg('服务端错误'))
 		}
 	}
 }
 /* ---------------------------------------------------- 获取问题列表----------------------------------------------------------------------- */
-function problemList (problem) {
+function problemList(problem) {
 	return { type: ActionTypes.PROBLEM_LIST, payload: problem }
 }
 
-export function getProblemList () {
-	return async dispatch => {
+export function getProblemList() {
+	return async (dispatch) => {
 		const res = await axios.get('/api/issues')
 		if (res.data.code === 1) {
 			dispatch(problemList(res.data.data))
@@ -320,13 +320,13 @@ export function getProblemList () {
 	}
 }
 /* ---------------------------------------------------- 关注问题----------------------------------------------------------------------- */
-function followProblemSuccess (watchIssuesId) {
+function followProblemSuccess(watchIssuesId) {
 	return { type: ActionTypes.FOLLOW_PROBLEM, payload: watchIssuesId }
 }
 
-export function followProblem (problemId) {
+export function followProblem(problemId) {
 	const _token = Cookies.get('_token')
-	
+
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'put',
@@ -341,8 +341,8 @@ export function followProblem (problemId) {
 	}
 }
 /* ---------------------------------------------------- 评论问题----------------------------------------------------------------------- */
-function commentProblemSuccess (comment) {
-	const code =  1
+function commentProblemSuccess(comment) {
+	const code = 1
 	const msg = '评论成功'
 	return { type: ActionTypes.COMMENT_PROBLEM, payload: comment, code, msg }
 }
@@ -371,11 +371,11 @@ export function commentProblem(problemId, content) {
 	}
 }
 /* ---------------------------------------------------- 获取评论----------------------------------------------------------------------- */
-function fetchCommentSuccess (comments) {
+function fetchCommentSuccess(comments) {
 	return { type: ActionTypes.FETCH_COMMENT, payload: comments }
 }
 
-export function fetchComment (problemIds) {
+export function fetchComment(problemIds) {
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'post',
@@ -422,7 +422,7 @@ function createArticleSuccess(article) {
 	return { type: ActionTypes.CREATE_ARTICLE_SUCCESS, article: article, code }
 }
 export function publishArticle(state) {
-	const { articleName, articleContent, articleTag, articleImage } = state
+	const { articleName, articleContent, articleTag, articleImage, selectValue } = state
 	if (!articleName) {
 		return createArticlError('文章没有名字吗？')
 	} else if (!articleContent) {
@@ -431,6 +431,8 @@ export function publishArticle(state) {
 		return createArticlError('文章没有图片吗？')
 	} else if (!articleTag) {
 		return createArticlError('文章没有标签吗？')
+	} else if(!selectValue){
+		return createArticlError('文章没有类型吗？')
 	}
 	return async (dispatch) => {
 		const _token = Cookies.get('_token')
@@ -444,7 +446,8 @@ export function publishArticle(state) {
 				title: articleName,
 				coverImg: articleImage,
 				type: articleTag,
-				content: articleContent
+				content: articleContent,
+				category:selectValue
 			}
 		})
 		if (res.data.code === 1) {
@@ -475,11 +478,11 @@ export function fetchArticleOne(id) {
 }
 
 /* fetch all */
-function fetchOneArticleAllSuccess(data){
+function fetchOneArticleAllSuccess(data) {
 	return { type: ActionTypes.FETCH_All_ARTICLE, data }
 }
 
-export function fetchArticleAll(){
+export function fetchArticleAll() {
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'get',
@@ -494,10 +497,10 @@ export function fetchArticleAll(){
 }
 
 /* -------------------------获取单个用户信息------------------------------------------- */
-function fetchOneUser(data){
+function fetchOneUser(data) {
 	return { type: ActionTypes.FETCH_ONE_USER, data }
 }
-export function fetchUser(id){
+export function fetchUser(id) {
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'get',

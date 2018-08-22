@@ -19,13 +19,14 @@ export default class articleLeft extends Component {
 	}
 
 	render() {
+		const data = this.props.article.article
 		return (
 			<div className='right-article-container'>
 				<div className='author_info'>
-					<img src={defaultAvatar} alt='' />
+					<img src={data.authorAvatar?`/avatar/${data.authorAvatar}`:defaultAvatar} alt='' />
 					<div className='text-info'>
 						<div className='name'>
-							<span>{this.props.User.nickname||this.props.User.username}</span>
+							<span>{data.authorUsername}</span>
 							<span onClick={this.toFollow}>{this.state.follow?"已关注":"关注"}</span>
 						</div>
 						<div className='job'>全站工程师</div>

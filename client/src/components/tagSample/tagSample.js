@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { category } from '../../const'
+import { ArticleType } from '../../const'
 export default class tagSample extends Component {
 	render() {
 		const TagWrap = {
@@ -15,7 +15,7 @@ export default class tagSample extends Component {
 
 		return (
 			<div style={TagWrap}>
-				{category.map((v, i) => {
+				{ArticleType.map((v, i) => {
 					if (this.props.name === i) {
 						return v
 					}

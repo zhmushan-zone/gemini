@@ -8,9 +8,12 @@ import { Button, Alert, message } from 'antd'
 import EditorHeader from '../editorHeader/editorHeader'
 import CustomIcon from '@/common/customIcon/customIcon'
 import MyTag from '../tag/tag'
+import { Select } from 'antd'
 import 'simplemde/dist/simplemde.min.css'
 import './editor.scss'
-import { category } from '../../const'
+import { ArticleType, ArticleCategory } from '../../const'
+
+const Option = Select.Option
 @connect((state) => state, { publishArticle, removeMsg })
 class Editor extends React.Component {
 	constructor(props) {
@@ -21,12 +24,18 @@ class Editor extends React.Component {
 			// 后端返回的img
 			articleImage: '',
 			articleTag: [],
-			imgurl: ''
+			imgurl: '',
+			selectValue: ''
 		}
 	}
 	handleChange(value) {
 		this.setState({
 			articleContent: value
+		})
+	}
+	handleChangeSelect = (value) => {
+		this.setState({
+			selectValue:value
 		})
 	}
 	// 隔一段时间关闭消息提示
@@ -114,6 +123,7 @@ class Editor extends React.Component {
 				this.props.history.push(`/article/${id}`)
 			}, 500)
 		}
+		console.log(this.state)
 	}
 
 	render() {
@@ -137,26 +147,40 @@ class Editor extends React.Component {
 
 				{/* 上传封面 */}
 				<div className='upload-pic-box'>
-					<span className='needed'>文章封面</span>
 					<span className='err-tip' />
-					<div className='face-upload-box'>
-						<input type='file' id='fengmian' className='cover' />
-						<label htmlFor='fengmian' onClick={this.selectCover}>
-							{this.state.imgurl ? (
-								<img src={this.state.imgurl} style={{ width: 200, height: 200 }} alt='' />
-							) : (
-								<CustomIcon type='camera-b' size={80} />
-							)}
-						</label>
-						<span className='l pic-tip'>
-							封面图规格：<br />尺寸为200*200像素，格式为 PNG/JPG/GIF,小于等于80KB{' '}
-						</span>
+					<div className='upload-and-category'>
+						<div className='face-upload-box'>
+							<span className='needed'>文章封面</span>
+							<input type='file' id='fengmian' className='cover' />
+							<label htmlFor='fengmian' onClick={this.selectCover}>
+								{this.state.imgurl ? (
+									<img src={this.state.imgurl} style={{ width: 200, height: 200 }} alt='' />
+								) : (
+									<CustomIcon type='camera-b' size={80} />
+								)}
+							</label>
+							<span className='l pic-tip'>
+								封面图规格：<br />尺寸为200*200像素，格式为 PNG/JPG/GIF,小于等于80KB{' '}
+							</span>
+						</div>
+						<div className='select'>
+							<span className='needed'>文章类别</span>
+							<Select defaultValue='其他' style={{ width: 120 }} onChange={this.handleChangeSelect}>
+								{ArticleCategory.map((v,i) => {
+									return (
+										<Option key={v} value={i}>
+											{v}
+										</Option>
+									)
+								})}
+							</Select>
+						</div>
 					</div>
 				</div>
-				<div className='category'>
-					<span className='needed'>文章分类</span>
+				<div className='tag'>
+					<span className='needed'>文章标签</span>
 					<div>
-						{category.map((v, index) => {
+						{ArticleType.map((v, index) => {
 							return (
 								<MyTag
 									key={v}
