@@ -8,7 +8,7 @@ import { ObjectId } from 'mongodb';
 import { GeminiError } from '../common/error';
 import { Issue, Reply } from './issue.entity';
 import { UserService } from '../user/user.service';
-import { CreateIssueDTO, UpdateIssueDTO, CreateReplyDTO, CreateSubReplyDTO } from './dto';
+import { CreateIssueDTO, UpdateIssueDTO, CreateReplyDTO, CreateSubReplyDTO, FetchIssueByTagsDTO } from './dto';
 import { IssueVO, ReplyVO, SubReplyVO } from './vo';
 
 @Controller('/api/issues')
@@ -38,6 +38,16 @@ export class IssueController {
   async findOne(@Param('id') id: string) {
     const issue = await this.issueService.findById(id);
     return success(new IssueVO(issue));
+  }
+
+  @Post('fetch/by-tag/intersect')
+  async findByTag(@Body() fetchIssueByTagsDTO: FetchIssueByTagsDTO) {
+    const issues = await this.issueService.findAll();
+    return success(issues.filter(
+      issue =>
+        (issue.tags.length + fetchIssueByTagsDTO.tags.length) !==
+        new Set([...issue.tags, ...fetchIssueByTagsDTO.tags]).size
+    ).map(issue => new IssueVO(issue)));
   }
 
   @Put(':id')
