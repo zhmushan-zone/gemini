@@ -27,6 +27,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { GeminiError } from '../common/error';
 import { ObjectId } from 'mongodb';
+import { Common } from '../common/common.entity';
 
 @Controller('/api/users')
 export class UserController {
@@ -131,7 +132,8 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   async watchTag(@Usr() user: User, @Body('tags') tags) {
     user.watchTags = tags;
-    this.userService.updateById(user.id.toHexString(), user);
+    const res = await this.userService.updateById(user.id.toHexString(), user);
+    if (res instanceof GeminiError) return success(res.code);
     return success();
   }
 
@@ -198,7 +200,8 @@ export class UserController {
 
   constructor(
     private readonly userService: UserService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly commonEntity: Common
   ) {
   }
 }

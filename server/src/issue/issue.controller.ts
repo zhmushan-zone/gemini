@@ -96,7 +96,11 @@ export class IssueController {
     issue.replysId.push(reply.id.toHexString());
     const res = await this.issueService.updateById(issue.authorId, id, { replysId: issue.replysId } as Issue);
     if (res instanceof GeminiError) return response(res.code);
-    return success(new ReplyVO(reply));
+    return success({
+      ...new ReplyVO(reply),
+      authorUsername: user.username,
+      authorAvatar: user.avatar
+    } as ReplyVO);
   }
 
   @Post('reply/:id/subreply')
@@ -113,7 +117,14 @@ export class IssueController {
     reply.subReplysId.push(subreply.id.toHexString());
     const res = await this.issueService.updateReplyById(reply.authorId, id, { subReplysId: reply.subReplysId } as Reply);
     if (res instanceof GeminiError) return response(res.code);
-    return success(new SubReplyVO(subreply));
+    const to = await this.userService.findById(createSubReplyDTO.to);
+    return success({
+      ...new SubReplyVO(subreply),
+      fromUsername: user.username,
+      fromAvatar: user.avatar,
+      toUsername: to.username,
+      toAvatar: to.avatar
+    } as SubReplyVO);
   }
 
   @Post('reply/ids')
