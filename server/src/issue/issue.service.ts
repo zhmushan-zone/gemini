@@ -34,8 +34,9 @@ export class IssueService {
     return this.issueRepository.save(doc);
   }
 
-  createReply(authorId: string, reply: Reply) {
+  createReply(authorId: string, reply: Reply, issueId: string) {
     reply.authorId = authorId;
+    reply.issueId = issueId;
     const obj = this.replyRepository.create(reply);
     return this.replyRepository.save(obj);
   }

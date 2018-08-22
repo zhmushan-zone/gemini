@@ -47,6 +47,12 @@ export class IssueController {
     return success(commonData.issueReplyNumTotally);
   }
 
+  @Get('tags/:tag/user-approved-num')
+  async userApprovedNum(@Param('tag') tag) {
+    const commonData = await this.commonEntity.get();
+    return success(commonData.userApprovedNumByTags[tag] || {});
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const issue = await this.issueService.findById(id);
@@ -104,7 +110,7 @@ export class IssueController {
   ) {
     const issue = await this.issueService.findById(id);
     if (!issue) return response(ResponseCode.NOT_EXISIT);
-    const reply = await this.issueService.createReply(user.id.toHexString(), createReplyDTO);
+    const reply = await this.issueService.createReply(user.id.toHexString(), createReplyDTO, issue.id.toHexString());
     if (!reply) return response(ResponseCode.UNKNOWN);
     issue.replysId.push(reply.id.toHexString());
     const res = await this.issueService.updateById(issue.authorId, id, { replysId: issue.replysId } as Issue);
@@ -182,11 +188,15 @@ export class IssueController {
     const reply = await this.issueService.findReplyById(id);
     if (!reply) return response(ResponseCode.NOT_EXISIT);
     if (reply.downersId.findIndex(v => v === user.id.toHexString()) !== -1) return response(ResponseCode.REPEAT_OPERATION);
+    const issue = await this.issueService.findById(reply.issueId);
+    if (!issue) return response(ResponseCode.NOT_EXISIT);
     const index = reply.upersId.findIndex(v => v === user.id.toHexString());
     if (index === -1) {
       reply.upersId.push(user.id.toHexString());
+      this.commonEntity.increaseUserApprovedNumByTags(issue.tags, user.id.toHexString());
     } else {
       reply.upersId.splice(index, 1);
+      this.commonEntity.decreaseUserApprovedNumByTags(issue.tags, user.id.toHexString());
     }
     const res = await this.issueService.updateReplyById(reply.authorId, id, { upersId: reply.upersId } as Reply);
     if (res instanceof GeminiError) return response(res.code);
