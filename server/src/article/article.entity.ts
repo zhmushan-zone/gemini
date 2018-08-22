@@ -25,6 +25,9 @@ export class Article extends BaseEntity {
   @Column()
   commentsId: string[];
 
+  @Column()
+  category: ArticleCategory;
+
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();
@@ -35,6 +38,7 @@ export class Article extends BaseEntity {
     if (!this.authorId) this.authorId = '';
     if (!this.upersId) this.upersId = [];
     if (!this.commentsId) this.commentsId = [];
+    if (!this.category) this.category = 0;
   }
 
   @BeforeUpdate()
@@ -102,3 +106,5 @@ export enum ArticleType {
   产品,
   设计
 }
+
+export enum ArticleCategory {}
