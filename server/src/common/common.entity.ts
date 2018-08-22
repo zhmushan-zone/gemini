@@ -12,10 +12,10 @@ export class Common extends BaseEntity {
   tagsInfo: {};
 
   @Column()
-  IssueReplyNumWeekly: {};
+  issueReplyNumWeekly: {};
 
   @Column()
-  IssueReplyNumTotally: {};
+  issueReplyNumTotally: {};
 
   create(obj = {}) {
     return this.commonRepository.create(obj);
@@ -32,15 +32,15 @@ export class Common extends BaseEntity {
   async increaseIssueReplyNum(id: string) {
     let commonData = await this.get();
     if (!commonData) commonData = await this.save(this.create());
-    commonData.IssueReplyNumWeekly[id] = ++commonData.IssueReplyNumWeekly[id] || 1;
-    commonData.IssueReplyNumTotally[id] = ++commonData.IssueReplyNumTotally[id] || 1;
+    commonData.issueReplyNumWeekly[id] = ++commonData.issueReplyNumWeekly[id] || 1;
+    commonData.issueReplyNumTotally[id] = ++commonData.issueReplyNumTotally[id] || 1;
     this.save(commonData);
   }
 
   async emptyIssueReplyNumWeekly() {
     const commonData = await this.get();
     if (commonData) {
-      commonData.IssueReplyNumWeekly = {};
+      commonData.issueReplyNumWeekly = {};
       this.save(commonData);
     }
   }
@@ -53,8 +53,8 @@ export class Common extends BaseEntity {
   beforeInsert() {
     super.beforeInsert();
     if (!this.tagsInfo) this.tagsInfo = {};
-    if (!this.IssueReplyNumWeekly) this.IssueReplyNumWeekly = {};
-    if (!this.IssueReplyNumTotally) this.IssueReplyNumTotally = {};
+    if (!this.issueReplyNumWeekly) this.issueReplyNumWeekly = {};
+    if (!this.issueReplyNumTotally) this.issueReplyNumTotally = {};
   }
 
   @BeforeUpdate()

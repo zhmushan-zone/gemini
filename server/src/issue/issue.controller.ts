@@ -38,13 +38,13 @@ export class IssueController {
   @Get('reply-num-weekly')
   async issueReplyNumWeekly() {
     const commonData = await this.commonEntity.get();
-    return success(commonData.IssueReplyNumWeekly);
+    return success(commonData.issueReplyNumWeekly);
   }
 
   @Get('reply-num-totally')
   async issueReplyNumTotally() {
     const commonData = await this.commonEntity.get();
-    return success(commonData.IssueReplyNumTotally);
+    return success(commonData.issueReplyNumTotally);
   }
 
   @Get(':id')
