@@ -10,6 +10,7 @@ import { Issue, Reply } from './issue.entity';
 import { UserService } from '../user/user.service';
 import { CreateIssueDTO, UpdateIssueDTO, CreateReplyDTO, CreateSubReplyDTO, FetchIssueByTagsDTO } from './dto';
 import { IssueVO, ReplyVO, SubReplyVO } from './vo';
+import { Common } from '../common/common.entity';
 
 @Controller('/api/issues')
 export class IssueController {
@@ -32,6 +33,24 @@ export class IssueController {
   async findAll() {
     const issues = await this.issueService.findAll();
     return success(issues.map(issue => new IssueVO(issue)));
+  }
+
+  @Get('reply-num-weekly')
+  async issueReplyNumWeekly() {
+    const commonData = await this.commonEntity.get();
+    return success(commonData.issueReplyNumWeekly);
+  }
+
+  @Get('reply-num-totally')
+  async issueReplyNumTotally() {
+    const commonData = await this.commonEntity.get();
+    return success(commonData.issueReplyNumTotally);
+  }
+
+  @Get('tags/:tag/user-approved-num')
+  async userApprovedNum(@Param('tag') tag) {
+    const commonData = await this.commonEntity.get();
+    return success(commonData.userApprovedNumByTags[tag] || {});
   }
 
   @Get(':id')
@@ -91,12 +110,19 @@ export class IssueController {
   ) {
     const issue = await this.issueService.findById(id);
     if (!issue) return response(ResponseCode.NOT_EXISIT);
-    const reply = await this.issueService.createReply(user.id.toHexString(), createReplyDTO);
+    const reply = await this.issueService.createReply(user.id.toHexString(), createReplyDTO, issue.id.toHexString());
     if (!reply) return response(ResponseCode.UNKNOWN);
     issue.replysId.push(reply.id.toHexString());
     const res = await this.issueService.updateById(issue.authorId, id, { replysId: issue.replysId } as Issue);
     if (res instanceof GeminiError) return response(res.code);
-    return success(new ReplyVO(reply));
+
+    this.commonEntity.increaseIssueReplyNum(user.id.toHexString());
+
+    return success({
+      ...new ReplyVO(reply),
+      authorUsername: user.username,
+      authorAvatar: user.avatar
+    } as ReplyVO);
   }
 
   @Post('reply/:id/subreply')
@@ -113,7 +139,14 @@ export class IssueController {
     reply.subReplysId.push(subreply.id.toHexString());
     const res = await this.issueService.updateReplyById(reply.authorId, id, { subReplysId: reply.subReplysId } as Reply);
     if (res instanceof GeminiError) return response(res.code);
-    return success(new SubReplyVO(subreply));
+    const to = await this.userService.findById(createSubReplyDTO.to);
+    return success({
+      ...new SubReplyVO(subreply),
+      fromUsername: user.username,
+      fromAvatar: user.avatar,
+      toUsername: to.username,
+      toAvatar: to.avatar
+    } as SubReplyVO);
   }
 
   @Post('reply/ids')
@@ -155,11 +188,15 @@ export class IssueController {
     const reply = await this.issueService.findReplyById(id);
     if (!reply) return response(ResponseCode.NOT_EXISIT);
     if (reply.downersId.findIndex(v => v === user.id.toHexString()) !== -1) return response(ResponseCode.REPEAT_OPERATION);
+    const issue = await this.issueService.findById(reply.issueId);
+    if (!issue) return response(ResponseCode.NOT_EXISIT);
     const index = reply.upersId.findIndex(v => v === user.id.toHexString());
     if (index === -1) {
       reply.upersId.push(user.id.toHexString());
+      this.commonEntity.increaseUserApprovedNumByTags(issue.tags, user.id.toHexString());
     } else {
       reply.upersId.splice(index, 1);
+      this.commonEntity.decreaseUserApprovedNumByTags(issue.tags, user.id.toHexString());
     }
     const res = await this.issueService.updateReplyById(reply.authorId, id, { upersId: reply.upersId } as Reply);
     if (res instanceof GeminiError) return response(res.code);
@@ -185,6 +222,7 @@ export class IssueController {
 
   constructor(
     private readonly issueService: IssueService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly commonEntity: Common
   ) { }
 }

@@ -20,6 +20,9 @@ export class Article extends BaseEntity {
   authorId: string;
 
   @Column()
+  upersId: string[];
+
+  @Column()
   commentsId: string[];
 
   @BeforeInsert()
@@ -30,6 +33,7 @@ export class Article extends BaseEntity {
     if (!this.type) this.type = [];
     if (!this.content) this.content = '';
     if (!this.authorId) this.authorId = '';
+    if (!this.upersId) this.upersId = [];
     if (!this.commentsId) this.commentsId = [];
   }
 

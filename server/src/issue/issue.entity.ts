@@ -69,6 +69,9 @@ export class Reply extends BaseEntity {
   authorId: string;
 
   @Column()
+  issueId: string;
+
+  @Column()
   subReplysId: string[];
 
   @Column()
@@ -81,7 +84,8 @@ export class Reply extends BaseEntity {
   beforeInsert() {
     super.beforeInsert();
     if (!this.content) this.content = '';
-    if (!this.authorId) this.authorId = null;
+    if (!this.authorId) this.authorId = '';
+    if (!this.issueId) this.issueId = '';
     if (!this.subReplysId) this.subReplysId = [];
     if (!this.upersId) this.upersId = [];
     if (!this.downersId) this.downersId = [];
