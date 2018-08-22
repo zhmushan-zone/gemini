@@ -27,6 +27,10 @@ export class ArticleService {
     return this.articleRepository.find();
   }
 
+  findByAuthorId(authorId: string) {
+    return this.articleRepository.find({ authorId });
+  }
+
   async updateById(authorId: string, id: string, article: Article) {
     const doc = await this.articleRepository.findOne(id, { where: { authorId } });
     if (!doc) return new GeminiError(ResponseCode.NOT_EXISIT);

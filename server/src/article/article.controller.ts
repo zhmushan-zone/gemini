@@ -42,8 +42,21 @@ export class ArticleController {
     return success(res);
   }
 
+  @Get('author/:id')
+  async findByAuthorId(@Param('id') id: string) {
+    const articles = await this.articleService.findByAuthorId(id);
+    const author = await this.userService.findById(id);
+    return success(articles.map(a => {
+      return {
+        ...new ArticleVO(a),
+        authorUsername: author.username,
+        authorAvatar: author.avatar
+      } as ArticleVO;
+    }));
+  }
+
   @Get(':id')
-  async findOne(@Param('id') id) {
+  async findOne(@Param('id') id: string) {
     const article = await this.articleService.findById(id);
     if (!article) return response(ResponseCode.NOT_EXISIT);
     const author = await this.userService.findById(article.authorId);
