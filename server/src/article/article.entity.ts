@@ -107,4 +107,18 @@ export enum ArticleType {
   设计
 }
 
-export enum ArticleCategory {}
+export enum ArticleCategory {
+  '推荐',
+  '资讯',
+  '最新文章',
+  '区块链',
+  '人工智能',
+  '云计算/大数据',
+  '前端开发',
+  '后端开发',
+  '移动互联',
+  '工具资源',
+  '职场生活',
+  '幽默段子',
+  '其他'
+}
