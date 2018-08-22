@@ -186,6 +186,7 @@ export function article(state = articleInit, action) {
 			}
 		case ActionTypes.FETCH_All_ARTICLE:
 			return {
+				...state,
 				articleArray: [...action.data ]
 			}
 		default:

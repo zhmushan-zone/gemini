@@ -3,15 +3,15 @@ import { Breadcrumb, Icon } from 'antd'
 import TagSample from '../tagSample/tagSample'
 import ArticleComments from '../articleComments/articleComments'
 import { Modal, Input } from 'antd'
-
+import { connect } from 'react-redux'
 import Marked from 'marked'
 
-import { defaultAvatar } from '@/const'
+import { defaultAvatar,category } from '@/const'
 
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import './articleLeft.scss'
 const { TextArea } = Input
-
+@connect((state) => state, {})
 export default class articleLeft extends Component {
 	constructor(props) {
 		super(props)
@@ -22,7 +22,6 @@ export default class articleLeft extends Component {
 			confirmLoading: false
 		}
 	}
-
 
 	handleLike = () => {
 		this.setState({
@@ -68,6 +67,10 @@ export default class articleLeft extends Component {
 				return <TagSample name={v} key={i} />
 			})
 		} catch (error) {}
+		if(this.props.articleData){
+			var articleData = this.props.articleData
+			console.log(articleData)
+		}
 
 		return (
 			<div className='left-article-container'>
@@ -136,19 +139,29 @@ export default class articleLeft extends Component {
 							<p className='line' />
 							<p className='line-text'>相关文章推荐</p>
 						</div>
-						{test.map((v) => {
-							return (
-								<OpinionMainCenterList
-									key={v}
-									title={'我是推荐'}
-									direction={'前端开发'}
-									see={'188'}
-									author={'张士大夫'}
-									time={'8-12'}
-									tag={[ '前端', '后端' ]}
-								/>
-							)
-						})}
+						{articleData ? (
+							articleData.map((v, i) => {
+								const type = []
+								v.type.map((v) => {
+									type.push(category[v])
+								})
+								return (
+									<OpinionMainCenterList
+										key={v.createAt}
+										title={v.title}
+										direction={type[0]}
+										see={'188'}
+										author={'张士大夫'}
+										time={v.createAt}
+										tag={type}
+										coverImg={`/cover-img/${v.coverImg}`}
+										articleId={v.id}
+									/>
+								)
+							})
+						) : (
+							''
+						)}
 					</div>
 				</div>
 			</div>

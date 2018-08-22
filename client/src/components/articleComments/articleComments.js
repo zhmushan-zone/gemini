@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ForumProblemPageCommentsItem from '../forumProblemPageCommentsItem/forumProblemPageCommentsItem'
+import ArticleCommentsItem from '../articleCommentsItem/articleCommentsItem'
 
 import './articleComments.scss'
 
@@ -12,7 +12,7 @@ class ArticleComments extends Component {
         </div>
         {
           testData.map(item => {
-            return <ForumProblemPageCommentsItem
+            return <ArticleCommentsItem
               userName={item.userName}
               userAvatar={item.userAvatar}
               commentContent={item.commentContent}
