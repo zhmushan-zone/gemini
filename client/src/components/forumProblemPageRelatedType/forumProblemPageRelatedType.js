@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { updateForumTags } from '@/redux/actions'
 
 import './forumProblemPageRelatedType.scss'
 
-class ForumProblemPageRelatedPage extends Component {
+connect(
+  state => state.userstatus,
+  { updateForumTags }
+)
+class ForumProblemPageRelatedType extends Component {
   render() {
     return (
       <div className="foru-problem-page-related-type">
@@ -38,4 +44,4 @@ class ForumProblemPageRelatedPage extends Component {
 
 const allClass = ['JavaScript', 'Node.js', 'Vue', 'React','Html5', 'Html/CSS', 'Angular', 'WebApp', 'Jquery', 'Bootstrap', '前端工具', 'CSS3', 'Sass/Less', 'JAVA', 'Python', 'Go', 'PHP', 'C', 'C++', 'C#', 'MySQL', 'SQL Server', 'Oracle', 'MongoDB', 'Android', 'iOS', 'Unity 3D', 'Cocos2d-x', '大数据', '云计算', '深度学习', '机器学习', '测试', 'Linux', 'Photoshop', 'Maya', 'Premiere', 'ZBrush', '数据结构', 'Ruby']
 
-export default ForumProblemPageRelatedPage
+export default ForumProblemPageRelatedType

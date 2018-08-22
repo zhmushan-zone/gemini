@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import ForumProblemPageCommentsItem from '../forumProblemPageCommentsItem/forumProblemPageCommentsItem'
+import { connect } from 'react-redux'
+
 import './forumProblemPageComments.scss'
 
+@connect(
+  state => state.userstatus,
+  null
+)
 class ForumProblemPageComments extends Component {
   render() {
     return (
@@ -12,8 +18,11 @@ class ForumProblemPageComments extends Component {
         {
           this.props.replys.map(item => {
             return <ForumProblemPageCommentsItem
+              myAvatar={this.props.avatar}
               replyId={item.id}
               authorId={item.authorId}
+              authorName={item.authorUsername}
+              authorAvatar={item.authorAvatar}
               commentContent={item.content}
               agreeData={item.upersId}
               againstData={item.downersId}

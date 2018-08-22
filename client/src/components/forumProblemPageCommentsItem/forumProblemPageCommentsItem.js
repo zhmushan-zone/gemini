@@ -20,10 +20,19 @@ class ForumProblemPageCommentsItem extends Component {
       agreeClick: false,
       againstClick: false,
       content: '',
-      replys: []
+      replys: [],
+      to: ''
     }
+    this.stateChange = this.stateChange.bind(this)
   }
   
+  componentDidMount() {
+    this.setState({
+      to: this.props.authorId
+    })
+  }
+  
+
   stateChange (key, value) {
     this.setState({
       [key]: value 
@@ -86,6 +95,9 @@ class ForumProblemPageCommentsItem extends Component {
   }
 
   async reply() {
+    if(!this.state.content.length) {
+      return message.warning('输入不能为空')
+    }
     const _token = Cookies.get('_token')
     const res = await axios({
       method: 'post',
@@ -95,7 +107,7 @@ class ForumProblemPageCommentsItem extends Component {
       },
       data: {
         content: this.state.content,
-        to: this.props.authorId
+        to: this.state.to
       }
     })
     if (res.data.code === 1) {
@@ -104,16 +116,17 @@ class ForumProblemPageCommentsItem extends Component {
         replys: [
           ...oldReplys,
           res.data.data
-        ]
+        ],
+        content: ''
       })
-      return message.success('评论成功')
+      return message.success('回复成功')
     } else {
-      return message.error('评论失败')
+      return message.error('回复失败')
     }
   }
 
   render() {
-    const { authorId, commentContent, agreeData, againstData, time, subReplysId } = this.props
+    const { myAvatar, replyId, authorId, authorName, authorAvatar, commentContent, agreeData, againstData, time, subReplysId } = this.props
     let replys = []
     let showMoreBtn = null
     if (this.state.replys && this.state.replys.length) {
@@ -132,12 +145,12 @@ class ForumProblemPageCommentsItem extends Component {
       <div className="forum-comment-item">
         <div className="forum-comment-user-avatar">
           <a>
-            <img src={'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
+            <img src={authorAvatar ? `/avatar/${authorAvatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
           </a>
         </div>
         <div className="forum-comment-user-details">
           <a className="forum-comment-user-name">
-            {authorId}
+            {authorName}
           </a>
           <p className="forum-comment-user-content">
             {commentContent}
@@ -218,12 +231,18 @@ class ForumProblemPageCommentsItem extends Component {
               (replys.length && !this.state.isReplyFold) ? 
                 replys.map((item, index) => {
                   return <ForumProblemPageReplyItem
+                    replyAuthorId={authorId}
+                    authorName={item.fromUsername}
+                    authorAvatar={item.fromAvatar}
                     floor={index}
                     content={item.content}
                     from={item.from}
                     to={item.to}
+                    toUserName={item.toUsername}
                     time={item.createAt}
                     key={index}
+                    replyId={replyId}
+                    stateChange={this.stateChange}
                   />
                 })
               : null
@@ -233,10 +252,10 @@ class ForumProblemPageCommentsItem extends Component {
               !this.state.isReplyFold ?
                 <div className="my-reply-container">
                   <div className="my-reply-container-left">
-                    <img src={require(`@/assets/imgs/user-avator.jpg`)} alt=""/>
+                    <img src={myAvatar ? `/avatar/${myAvatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
                   </div>
                   <div className="my-reply-container-right">
-                    <TextArea placeholder="写下你的回复" onChange={(e) => this.stateChange('content', e.target.value) } autosize={{ minRows: 2, maxRows: 6 }} />
+                    <TextArea id={replyId} value={this.state.content} placeholder="写下你的回复" onChange={(e) => this.stateChange('content', e.target.value) } autosize={{ minRows: 2, maxRows: 6 }} />
                     <div className="my-reply-container-btn-wrapper">
                       <button className="my-reply-container-btn" onClick={() => this.reply()}>回复</button>
                     </div>
