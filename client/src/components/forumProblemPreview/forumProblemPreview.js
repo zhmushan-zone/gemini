@@ -28,7 +28,6 @@ class ForumProblemPreview extends Component {
     }
     if (this.props.replys.length > 0) {
       axios.post('/api/issues/reply/ids', [this.props.replys[this.props.replys.length - 1]]).then((res) => {
-        console.log(res.data.data[0])
         this.setState({
           latestReply: res.data.data[0]
         })

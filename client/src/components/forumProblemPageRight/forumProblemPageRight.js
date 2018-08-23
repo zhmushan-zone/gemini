@@ -13,7 +13,7 @@ class ForumProblemPageRight extends Component {
         <Link className="forum-problem-page-craete-btn" to={`/forum/create`}>我要提问</Link>
         <ForumProblemPageRelatedProblem />
         <ForumProblemPageRelatedType 
-          type={[0, 1, 2]}
+          type={this.props.tags}
         />
       </div>
     )

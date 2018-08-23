@@ -28,7 +28,7 @@ class ForumProblemPage extends Component {
           this.state.problem ? 
           <div className="forum-problem-page">
             <ForumProblemPageLeft problem={this.state.problem} />
-            <ForumProblemPageRight />
+            <ForumProblemPageRight tags={this.state.problem.tags} />
           </div> : null
         }
       </React.Fragment>
