@@ -9,6 +9,8 @@ import { GeminiError } from '../common/error';
 import { CommentVO, ArticleVO } from './vo';
 import { Article, ArticleCategory } from './article.entity';
 import { UserService } from '../user/user.service';
+import { ObjectId } from 'bson';
+import { UserVO } from '../user/vo/user.vo';
 
 @Controller('/api/articles')
 export class ArticleController {
@@ -68,6 +70,15 @@ export class ArticleController {
       } as ArticleVO);
     }
     return success(res);
+  }
+
+  @Get('category/:category/author')
+  async findAuthorByCategory(@Param('category') category: ArticleCategory) {
+    return (
+      await this.userService.findByIds(
+        (await this.articleService.findByCategory(category))
+          .map(a => new ObjectId(a.authorId)))
+    ).map(a => new UserVO(a));
   }
 
   @Get(':id')
