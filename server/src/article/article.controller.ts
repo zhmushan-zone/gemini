@@ -59,6 +59,7 @@ export class ArticleController {
 
   @Get('category/:category')
   async findByCategory(@Param('category') category: ArticleCategory) {
+    category = ArticleCategory[ArticleCategory[category]];
     const articles = await this.articleService.findByCategory(category);
     const res = [] as ArticleVO[];
     for (const a of articles) {
@@ -74,11 +75,11 @@ export class ArticleController {
 
   @Get('category/:category/author')
   async findAuthorByCategory(@Param('category') category: ArticleCategory) {
-    return (
+    return success((
       await this.userService.findByIds(
         (await this.articleService.findByCategory(category))
           .map(a => new ObjectId(a.authorId)))
-    ).map(a => new UserVO(a));
+    ).map(a => new UserVO(a)));
   }
 
   @Get(':id')
