@@ -148,7 +148,7 @@ export default class articleLeft extends Component {
 									<OpinionMainCenterList
 										key={v.createAt}
 										title={v.title}
-										direction={type[0]}
+										category={ArticleCategory[v.category]}
 										see={'188'}
 										author={v.authorUsername}
 										time={v.createAt}

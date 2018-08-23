@@ -109,7 +109,6 @@ export enum ArticleType {
 
 export enum ArticleCategory {
   '资讯',
-  '最新文章',
   '区块链',
   '人工智能',
   '云计算/大数据',

@@ -24,7 +24,7 @@ import PropTypes from 'prop-types'
 						<div className='list-bottom'>
 							<div className='content'>
 								<div className='labels-area'>
-									<a href=''>{this.props.direction}</a>
+									<a href=''>{this.props.category}</a>
 								</div>
 								<div className='browseNum'>
 									<Icon type='eye' />
