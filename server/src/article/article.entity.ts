@@ -108,7 +108,6 @@ export enum ArticleType {
 }
 
 export enum ArticleCategory {
-  '推荐',
   '资讯',
   '最新文章',
   '区块链',

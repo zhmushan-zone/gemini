@@ -6,7 +6,7 @@ import { Modal, Input } from 'antd'
 import { connect } from 'react-redux'
 import Marked from 'marked'
 
-import { defaultAvatar,ArticleType } from '@/const'
+import { defaultAvatar,ArticleType,ArticleCategory } from '@/const'
 
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import './articleLeft.scss'
@@ -69,7 +69,6 @@ export default class articleLeft extends Component {
 		} catch (error) {}
 		if(this.props.articleData){
 			var articleData = this.props.articleData
-			console.log(articleData)
 		}
 
 		return (
@@ -79,7 +78,7 @@ export default class articleLeft extends Component {
 						<span>手记</span>
 					</Breadcrumb.Item>
 					<Breadcrumb.Item>
-						<span>前端开发</span>
+						<span>{ArticleCategory[this.props.article.article.category]}</span>
 					</Breadcrumb.Item>
 				</Breadcrumb>
 				<img src={`/cover-img/${this.props.coverImg}`} className='cover-img' alt='' />
@@ -168,3 +167,5 @@ export default class articleLeft extends Component {
 		)
 	}
 }
+
+
