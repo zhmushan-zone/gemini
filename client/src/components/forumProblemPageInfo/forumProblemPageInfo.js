@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import Icon from '@/common/customIcon/customIcon'
 import ForumProblemPageReply from '../forumProblemPageReply/forumProblemPageReply'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchUser, followProblem } from '@/redux/actions'
 import Cookies from 'js-cookie'
+import axios from 'axios'
 
 import './forumProblemPageInfo.scss'
 
+@withRouter
 @connect(
   state => state,
   { fetchUser, followProblem }
@@ -41,6 +44,35 @@ class ForumProblemPageInfo extends Component {
         avatar: this.props.User.avatar
       }
     })
+  }
+
+  async componentWillReceiveProps(nextProps) {
+    if (nextProps.paramId !== this.props.paramId) {
+      const _id = Cookies.get('_id')
+      this.setState({
+        followNum: nextProps.currentProblem.watchersId.length
+      })
+      console.log(nextProps)
+      if (nextProps.currentProblem.watchersId.indexOf(_id) !== -1) {
+        this.setState({
+          isFollow: true
+        })
+      } else {
+        this.setState({
+          isFollow: false
+        })
+      }
+      const res = await axios({
+        method: 'get',
+        url: `/api/users/${nextProps.currentProblem.authorId}`
+      })
+      this.setState({
+        authorInfo: {
+          username: res.data.data.username,
+          avatar: res.data.data.avatar
+        }
+      })
+    }
   }
 
   follow() {

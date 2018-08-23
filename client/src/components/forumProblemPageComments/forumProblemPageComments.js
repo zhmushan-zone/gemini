@@ -13,7 +13,7 @@ class ForumProblemPageComments extends Component {
     return (
       <div className="forum-problem-page-comments">
         <div className="forum-problem-page-comments-num">
-          276回答
+          {this.props.replys.length}回答
         </div>
         {
           this.props.replys.map(item => {
