@@ -430,7 +430,7 @@ export function publishArticle(state) {
 		return createArticlError('文章没有内容吗？')
 	} else if (!articleImage) {
 		return createArticlError('文章没有图片吗？')
-	} else if (!selectValue ) {
+	} else if (!selectValue) {
 		return createArticlError('文章没有类型吗？')
 	} else if (!articleTag) {
 		return createArticlError('文章没有标签吗？')
@@ -500,7 +500,6 @@ export function fetchArticleAll() {
 /* 更具类别返回文章列表 */
 
 function fetchArticleByCategorySuccess(data) {
-	console.log(data)
 	return { type: ActionTypes.FETCH_ARTICLE_CATEGORY, data }
 }
 

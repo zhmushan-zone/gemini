@@ -192,7 +192,7 @@ export function article(state = articleInit, action) {
 		case ActionTypes.FETCH_ARTICLE_CATEGORY:
 			return {
 				...state,
-				articleArray: [ ...action.data ]
+				articleArray: [ ...action.data ],
 			}
 		default:
 			return state

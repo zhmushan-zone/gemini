@@ -11,11 +11,12 @@ import OpinionBanner from '../opinionBanner/opinionBanner'
 export default class opinionMainCenter extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {}
+		this.state = {
+		}
 	}
 	componentWillReceiveProps(nextProps) {
 		if (this.props.match.params.category !== nextProps.match.params.category) {
-			const category = this.props.match.params.category
+			const category = nextProps.match.params.category
 			this.props.fetchArticleByCategory(category)
 		}
 	}
