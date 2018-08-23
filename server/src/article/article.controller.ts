@@ -7,7 +7,7 @@ import { CreateArticleDTO, UpdateArticleDTO, CreateCommentDTO } from './dto';
 import { ArticleService } from './article.service';
 import { GeminiError } from '../common/error';
 import { CommentVO, ArticleVO } from './vo';
-import { Article } from './article.entity';
+import { Article, ArticleCategory } from './article.entity';
 import { UserService } from '../user/user.service';
 
 @Controller('/api/articles')
@@ -55,6 +55,21 @@ export class ArticleController {
     }));
   }
 
+  @Get('category/:category')
+  async findByCategory(@Param('category') category: ArticleCategory) {
+    const articles = await this.articleService.findByCategory(category);
+    const res = [] as ArticleVO[];
+    for (const a of articles) {
+      const author = await this.userService.findById(a.authorId);
+      res.push({
+        ...new ArticleVO(a),
+        authorUsername: author.username,
+        authorAvatar: author.avatar
+      } as ArticleVO);
+    }
+    return success(res);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const article = await this.articleService.findById(id);
@@ -92,7 +107,7 @@ export class ArticleController {
     }
     const res = await this.articleService.updateById(article.authorId, id, { upersId: article.upersId } as Article);
     if (res instanceof GeminiError) return response(res.code);
-    return success();
+    return success(res.upersId.length);
   }
 
   @Post(':id/comment')
