@@ -34,7 +34,7 @@ export default class FetchArticleList extends Component {
 						)
 					})
 				) : (
-					''
+					'暂无这个分类的文章'
 				)}
 			</React.Fragment>
 		)

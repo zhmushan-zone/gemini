@@ -31,7 +31,8 @@ const courseInitState = {
 const articleInit = {
 	msg: '',
 	article: [],
-	code: ''
+	code: '',
+	up: ''
 }
 
 const problemInitState = {
@@ -192,7 +193,12 @@ export function article(state = articleInit, action) {
 		case ActionTypes.FETCH_ARTICLE_CATEGORY:
 			return {
 				...state,
-				articleArray: [ ...action.data ],
+				articleArray: [ ...action.data ]
+			}
+		case ActionTypes.FETCH_ARTICLE_UP:
+			return {
+				...state,
+				up: action.data
 			}
 		default:
 			return state

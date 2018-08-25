@@ -518,6 +518,28 @@ export function fetchArticleByCategory(id) {
 	}
 }
 
+/* 文章点赞数 */
+function fetchArticleUpSuccess(data) {
+	return { type: ActionTypes.FETCH_ARTICLE_UP, data }
+}
+
+export function fetchArticleUp(categoryId) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'PUT',
+			url: `/api/articles/${categoryId}/up`,
+			headers: {
+				token: Cookies.get('_token')
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(fetchArticleUpSuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
+		}
+	}
+}
+
 /* -------------------------获取单个用户信息------------------------------------------- */
 function fetchOneUser(data) {
 	return { type: ActionTypes.FETCH_ONE_USER, data }
