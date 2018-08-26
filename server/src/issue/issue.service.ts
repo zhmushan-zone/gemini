@@ -34,6 +34,13 @@ export class IssueService {
     return this.issueRepository.save(doc);
   }
 
+  async updateByIdWithAdmin(id: string, issue: Issue) {
+    const doc = await this.issueRepository.findOne(id);
+    if (!doc) return new GeminiError(ResponseCode.NOT_EXISIT);
+    for (const key in issue) doc[key] = issue[key];
+    return this.issueRepository.save(doc);
+  }
+
   createReply(authorId: string, reply: Reply, issueId: string) {
     reply.authorId = authorId;
     reply.issueId = issueId;
