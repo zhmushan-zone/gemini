@@ -7,7 +7,7 @@ import { User } from '../user/user.entity';
 import { success } from '../common/utils';
 import { ReportVO } from './vo/report.vo';
 
-@Controller()
+@Controller('/api/reports')
 export class ReportController {
 
   @Post()
