@@ -423,16 +423,17 @@ function createArticleSuccess(article) {
 }
 export function publishArticle(state) {
 	const { articleName, articleContent, articleTag, articleImage, selectValue } = state
+	console.log(selectValue)
 	if (!articleName) {
 		return createArticlError('文章没有名字吗？')
 	} else if (!articleContent) {
 		return createArticlError('文章没有内容吗？')
 	} else if (!articleImage) {
 		return createArticlError('文章没有图片吗？')
+	} else if (!selectValue) {
+		return createArticlError('文章没有类型吗？')
 	} else if (!articleTag) {
 		return createArticlError('文章没有标签吗？')
-	} else if(!selectValue){
-		return createArticlError('文章没有类型吗？')
 	}
 	return async (dispatch) => {
 		const _token = Cookies.get('_token')
@@ -447,7 +448,7 @@ export function publishArticle(state) {
 				coverImg: articleImage,
 				type: articleTag,
 				content: articleContent,
-				category:selectValue
+				category: selectValue
 			}
 		})
 		if (res.data.code === 1) {
@@ -490,6 +491,49 @@ export function fetchArticleAll() {
 		})
 		if (res.data.code === 1) {
 			dispatch(fetchOneArticleAllSuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
+		}
+	}
+}
+
+/* 更具类别返回文章列表 */
+
+function fetchArticleByCategorySuccess(data) {
+	return { type: ActionTypes.FETCH_ARTICLE_CATEGORY, data }
+}
+
+export function fetchArticleByCategory(id) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'get',
+			url: `/api/articles/category/${id}`
+		})
+		console.log(res)
+		if (res.data.code === 1) {
+			dispatch(fetchArticleByCategorySuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
+		}
+	}
+}
+
+/* 文章点赞数 */
+function fetchArticleUpSuccess(data) {
+	return { type: ActionTypes.FETCH_ARTICLE_UP, data }
+}
+
+export function fetchArticleUp(categoryId) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'PUT',
+			url: `/api/articles/${categoryId}/up`,
+			headers: {
+				token: Cookies.get('_token')
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(fetchArticleUpSuccess(res.data.data))
 		} else {
 			console.log('服务器出故障了')
 		}

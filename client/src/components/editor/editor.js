@@ -165,7 +165,7 @@ class Editor extends React.Component {
 						</div>
 						<div className='select'>
 							<span className='needed'>文章类别</span>
-							<Select defaultValue='其他' style={{ width: 120 }} onChange={this.handleChangeSelect}>
+							<Select defaultValue="请选择" style={{ width: 120 }} onChange={this.handleChangeSelect}>
 								{ArticleCategory.map((v,i) => {
 									return (
 										<Option key={v} value={i}>

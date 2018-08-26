@@ -5,13 +5,14 @@ import ArticleComments from '../articleComments/articleComments'
 import { Modal, Input } from 'antd'
 import { connect } from 'react-redux'
 import Marked from 'marked'
-
-import { defaultAvatar,ArticleType } from '@/const'
-
+import { defaultAvatar, ArticleType, ArticleCategory } from '@/const'
+import { fetchArticleUp } from '@/redux/actions.js'
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import './articleLeft.scss'
+import { withRouter } from 'react-router'
 const { TextArea } = Input
-@connect((state) => state, {})
+@withRouter
+@connect((state) => state, { fetchArticleUp })
 export default class articleLeft extends Component {
 	constructor(props) {
 		super(props)
@@ -19,14 +20,27 @@ export default class articleLeft extends Component {
 			like: false,
 			ModalText: '您的内容。。',
 			visible: false,
-			confirmLoading: false
+			confirmLoading: false,
+			categoryId: this.props.match.params.id
+		}
+	}
+	async componentWillMount() {
+		await this.props.fetchArticleUp(this.state.categoryId)
+		if (this.props.article.up) {
+			this.setState({
+				like: true
+			})
 		}
 	}
 
-	handleLike = () => {
+	async fetchLikeNumber(categoryId) {
+		this.props.fetchArticleUp(categoryId)
+	}
+	async handleLike() {
 		this.setState({
 			like: !this.state.like
 		})
+		await this.fetchLikeNumber(this.state.categoryId)
 	}
 
 	/*  */
@@ -67,9 +81,8 @@ export default class articleLeft extends Component {
 				return <TagSample name={v} key={i} />
 			})
 		} catch (error) {}
-		if(this.props.articleData){
+		if (this.props.articleData) {
 			var articleData = this.props.articleData
-			console.log(articleData)
 		}
 
 		return (
@@ -79,7 +92,7 @@ export default class articleLeft extends Component {
 						<span>手记</span>
 					</Breadcrumb.Item>
 					<Breadcrumb.Item>
-						<span>前端开发</span>
+						<span>{ArticleCategory[this.props.article.article.category]}</span>
 					</Breadcrumb.Item>
 				</Breadcrumb>
 				<img src={`/cover-img/${this.props.coverImg}`} className='cover-img' alt='' />
@@ -102,11 +115,11 @@ export default class articleLeft extends Component {
 					<div className='cat-box'>{Tag}</div>
 					{/* 推荐 */}
 					<div className='praise-box'>
-						<button className={`js-praise ${this.state.like ? 'like' : ''}`} onClick={this.handleLike}>
+						<button className={`js-praise ${this.state.like ? 'like' : ''}`} onClick={this.handleLike.bind(this)}>
 							<Icon type='star' className={`${this.state.like ? 'like' : ''}`} />
 						</button>
 						<div className='num-person'>
-							<em className='num'>4</em>人推荐
+							<em className='num'>{this.props.article.up ? this.props.article.up : '0'}</em>人推荐
 						</div>
 					</div>
 					{/* 评论 */}
@@ -149,7 +162,7 @@ export default class articleLeft extends Component {
 									<OpinionMainCenterList
 										key={v.createAt}
 										title={v.title}
-										direction={type[0]}
+										category={ArticleCategory[v.category]}
 										see={'188'}
 										author={v.authorUsername}
 										time={v.createAt}

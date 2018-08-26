@@ -19,7 +19,7 @@ const initState = {
 	signature: '未设置',
 	watchTags: [],
 	code: '',
-  watchIssuesId:[],
+	watchIssuesId: []
 }
 
 const courseInitState = {
@@ -31,7 +31,8 @@ const courseInitState = {
 const articleInit = {
 	msg: '',
 	article: [],
-	code: ''
+	code: '',
+	up: ''
 }
 
 const problemInitState = {
@@ -41,9 +42,9 @@ const problemInitState = {
 }
 
 const problemCommentInit = {
-  msg: '',
-  replys: [],
-  code: ''
+	msg: '',
+	replys: [],
+	code: ''
 }
 
 const problemCommentReplyInit = {
@@ -52,9 +53,7 @@ const problemCommentReplyInit = {
 	code: ''
 }
 
-const Userinit={
-
-}
+const Userinit = {}
 
 export function userstatus(state = initState, action) {
 	switch (action.type) {
@@ -113,14 +112,16 @@ export function userstatus(state = initState, action) {
 			return {
 				...initState
 			}
-			case ActionTypes.UPDATE_FORUM_TAGS:
-      return { ...state,
-        watchTags: action.tags
-      }
-    case ActionTypes.FOLLOW_PROBLEM:
-      return { ...state,
-        watchIssuesId: action.payload
-      }
+		case ActionTypes.UPDATE_FORUM_TAGS:
+			return {
+				...state,
+				watchTags: action.tags
+			}
+		case ActionTypes.FOLLOW_PROBLEM:
+			return {
+				...state,
+				watchIssuesId: action.payload
+			}
 		case ActionTypes.FETCH_ONE_USER:
 			return {
 				...state,
@@ -187,7 +188,17 @@ export function article(state = articleInit, action) {
 		case ActionTypes.FETCH_All_ARTICLE:
 			return {
 				...state,
-				articleArray: [...action.data ]
+				articleArray: [ ...action.data ]
+			}
+		case ActionTypes.FETCH_ARTICLE_CATEGORY:
+			return {
+				...state,
+				articleArray: [ ...action.data ]
+			}
+		case ActionTypes.FETCH_ARTICLE_UP:
+			return {
+				...state,
+				up: action.data
 			}
 		default:
 			return state
@@ -213,27 +224,24 @@ export function problem(state = problemInitState, action) {
 			return {
 				...state,
 				problem: action.payload
-      }
+			}
 		default:
 			return state
 	}
 }
 
-export function problemComment (state = problemCommentInit, action) {
-  switch (action.type) {
-    case ActionTypes.ERROR_MSG:
+export function problemComment(state = problemCommentInit, action) {
+	switch (action.type) {
+		case ActionTypes.ERROR_MSG:
 			return {
 				...state,
 				msg: action.msg,
 				code: action.code
 			}
-    case ActionTypes.COMMENT_PROBLEM:
-      return {
-        ...state,
-        replys: [
-          ...state.replys,
-          action.payload,
-        ],
+		case ActionTypes.COMMENT_PROBLEM:
+			return {
+				...state,
+				replys: [ ...state.replys, action.payload ],
 				code: action.code,
 				msg: action.msg
 			}
@@ -242,24 +250,23 @@ export function problemComment (state = problemCommentInit, action) {
 				...state,
 				replys: action.payload
 			}
-    default:
-			return state  
-  }
+		default:
+			return state
+	}
 }
 /* ------------------获取单个user------------------------- */
-		
+
 export function User(state = Userinit, action) {
 	switch (action.type) {
 		case ActionTypes.FETCH_ONE_USER:
 			return {
 				...state,
-				...action.data,
+				...action.data
 			}
 		default:
 			return state
 	}
 }
-
 
 export default combineReducers({
 	userstatus,

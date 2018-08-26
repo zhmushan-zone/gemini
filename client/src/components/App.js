@@ -17,6 +17,7 @@ import Admin from '../adminComponents/admin/admin'
 import VideoPage from './video/videoPage'
 import UploadVideo from './uploadVideo/uploadVideo'
 import ArticleSample from '../components/articleSample/ArticleSample'
+// import OpinionCategorySample from './opinionCategorySample/opinionCategorySample'
 import '@/assets/styles/normalize.scss'
 // icon图标
 import '@/assets/styles/font/icon.css'
@@ -41,7 +42,8 @@ class App extends React.Component {
                 <Route path="/forum/create" component={forumCreateProblem} exact></Route>
                 <Route path="/forum/details/:id" component={ForumProblemPage}></Route>
                 <Route path="/forum/type/:type" component={ForumProblemTypePage}></Route>
-                <Route path="/opinion" component={Opinion}></Route>
+                <Route path="/opinion/:category" component={Opinion}></Route>
+                {/* <Route path="/opinion" component={OpinionCategorySample}></Route> */}
                 <Route path="/personCenter/:id" component={PersonCenter}></Route>
                 <Route path="/uploadVideo" component={UploadVideo}></Route>
                 <Route path="/article/:id" component={ArticleSample}></Route>

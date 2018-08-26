@@ -20,11 +20,11 @@ import PropTypes from 'prop-types'
 						<img src={this.props.coverImg} alt='' />
 					</div>
 					<div className='list-content'>
-						<Link className="title" to={`article/${this.props.articleId}`}>{this.props.title}</Link>
+						<Link className="title" to={`/article/${this.props.articleId}`}>{this.props.title}</Link>
 						<div className='list-bottom'>
 							<div className='content'>
 								<div className='labels-area'>
-									<a href=''>{this.props.direction}</a>
+									<a href=''>{this.props.category}</a>
 								</div>
 								<div className='browseNum'>
 									<Icon type='eye' />

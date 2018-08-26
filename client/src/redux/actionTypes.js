@@ -48,4 +48,8 @@ export const COMMENT_PROBLEM = 'COMMENT_PROBLEM'
 export const FETCH_COMMENT  = 'FETCH_COMMENT'
 // 获取单个用户
 export const FETCH_ONE_USER = 'FETCH_ONE_USER'
+// 根据category返回列表
+export const FETCH_ARTICLE_CATEGORY = 'FETCH_ARTICLE_CATEGORY'
+// 根据category返回列表
+export const FETCH_ARTICLE_UP = 'FETCH_ARTICLE_UP'
 
