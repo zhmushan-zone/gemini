@@ -47,12 +47,6 @@ const problemCommentInit = {
 	code: ''
 }
 
-const problemCommentReplyInit = {
-	msg: '',
-	subReplys: [],
-	code: ''
-}
-
 const Userinit = {}
 
 export function userstatus(state = initState, action) {
