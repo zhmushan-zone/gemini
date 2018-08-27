@@ -22,7 +22,6 @@ class ForumProblemPageRelatedType extends Component {
   }
   
   render() {
-    console.log(this.props)
     return (
       <div className="foru-problem-page-related-type">
         <div className="forum-problem-page-title">

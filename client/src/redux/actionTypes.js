@@ -36,6 +36,8 @@ export const CREATE_ARTICLE_ERROR = 'CREATE_ARTICLE_ERROR'
 export const CREATE_PROBLEM_SUCCESS = 'CREATE_PROBLEM_SUCCESS'
 // 问题列表
 export const PROBLEM_LIST = 'PROBLEM_LIST'
+// 某类问题列表
+export const PROBLEM_LIST_BY_TYPE = 'PROBNLEM_LIST_BY_TYPE'
 // 关注问题
 export const FOLLOW_PROBLEM = 'FOLLOW_PROBLEM'
 // 获取单个文章

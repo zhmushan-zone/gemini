@@ -219,6 +219,11 @@ export function problem(state = problemInitState, action) {
 				...state,
 				problem: action.payload
 			}
+		case ActionTypes.PROBLEM_LIST_BY_TYPE:
+			return {
+				...state,
+				problem: action.payload
+			}
 		default:
 			return state
 	}
