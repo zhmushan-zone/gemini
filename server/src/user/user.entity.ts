@@ -6,6 +6,7 @@ import {
   BeforeUpdate
 } from 'typeorm';
 import { BaseEntity } from '../common/base.entity';
+import { ArticleType } from '../article/article.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -54,6 +55,12 @@ export class User extends BaseEntity {
   @Column()
   jwtKey: string;
 
+  @Column()
+  watchArticleTypes: ArticleType[];
+
+  @Column()
+  watchUsersId: string[];
+
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();
@@ -71,6 +78,8 @@ export class User extends BaseEntity {
     if (!this.role) this.role = UserRole.USER;
     if (!this.salt) this.salt = '';
     if (!this.jwtKey) this.jwtKey = '';
+    if (!this.watchArticleTypes) this.watchArticleTypes = [];
+    if (!this.watchUsersId) this.watchUsersId = [];
   }
 
   @BeforeUpdate()
