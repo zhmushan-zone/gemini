@@ -136,8 +136,12 @@ class ForumAnswerList extends Component {
   render() {
     let answerItemWeekly,
       answerItemTotaly
-    this.state.weeklyData.length ? answerItemWeekly = this.getList(this.state.weeklyData) : null
-    this.state.totalyData.length ? answerItemTotaly = this.getList(this.state.totalyData) : null
+    const weeklyData = [...this.state.weeklyData]
+    const totalyData = [...this.state.totalyData]
+    weeklyData.length > 1 ? weeklyData.sort((a, b) => b.num - a.num) : null
+    totalyData.length > 1 ? totalyData.sort((a, b) => b.num - a.num) : null
+    weeklyData.length ? answerItemWeekly = this.getList(weeklyData) : null
+    totalyData.length ? answerItemTotaly = this.getList(totalyData) : null
     return (
       <div className="forum-answer-list">
         <span className="forum-answer-list-title">回答雷锋榜</span>
