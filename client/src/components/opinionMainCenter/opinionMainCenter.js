@@ -25,7 +25,7 @@ export default class opinionMainCenter extends Component {
 		const pathname = this.props.history.location.pathname
 		return (
 			<div className='opinion-main-center-container'>
-				{pathname === '/opinion/0' ? <OpinionBanner /> : null}
+				{pathname === '/opinion' ? <OpinionBanner /> : null}
 				<FetchArticleList articleData={articleData} />
 			</div>
 		)

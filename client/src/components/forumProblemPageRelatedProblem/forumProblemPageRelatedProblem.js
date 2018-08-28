@@ -46,17 +46,23 @@ class ForumProblemPageRelatedProblem extends Component {
   }
 
   render() {
+    const relatedProblem = this.state.relatedProblem
+    relatedProblem.forEach((item, index) => {
+      if (item.id === this.props.match.params.id) {
+        relatedProblem.splice(index, 1)
+      }
+    })
     return (
       <div className="forum-problem-page-related-problem">
         <div className="forum-problem-page-title">
           同类问题
         </div>
         <ul>
-          {this.state.relatedProblem.map(item => {
+          {relatedProblem.map(item => {
             return (
               <li key={item.id}>
                 <Link to={`/forum/details/${item.id}`}>{item.title}</Link>
-                <span>2回答</span>
+                <span>{item.replysId.length}回答</span>
               </li>
             )
           })}

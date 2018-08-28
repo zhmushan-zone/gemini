@@ -4,6 +4,7 @@ import ForumRight from '@/components/forumRight/forumRight'
 import { connect } from 'react-redux'
 import { getProblemList, fetchUser } from '@/redux/actions'
 import Cookies from 'js-cookie'
+import dateSort from '@/util/dateSort'
 
 import './forum.scss'
 
@@ -37,6 +38,7 @@ class Forum extends Component {
 
   render() {
     const problems = this.props.problem.problem
+    dateSort(problems)
     return (
       <div className="forum">
         <ForumLeft problems={problems} />

@@ -21,6 +21,7 @@ import ArticleSample from '../components/articleSample/ArticleSample'
 import '@/assets/styles/normalize.scss'
 // icon图标
 import '@/assets/styles/font/icon.css'
+import opinionRecommend from './opinionRecommend/opinionRecommend';
 class App extends React.Component {
   render() {
     return (
@@ -43,7 +44,7 @@ class App extends React.Component {
                 <Route path="/forum/details/:id" component={ForumProblemPage}></Route>
                 <Route path="/forum/type/:type" component={ForumProblemTypePage}></Route>
                 <Route path="/opinion/:category" component={Opinion}></Route>
-                {/* <Route path="/opinion" component={OpinionCategorySample}></Route> */}
+                <Route path="/opinion" component={opinionRecommend}></Route>
                 <Route path="/personCenter/:id" component={PersonCenter}></Route>
                 <Route path="/uploadVideo" component={UploadVideo}></Route>
                 <Route path="/article/:id" component={ArticleSample}></Route>

@@ -47,12 +47,6 @@ const problemCommentInit = {
 	code: ''
 }
 
-const problemCommentReplyInit = {
-	msg: '',
-	subReplys: [],
-	code: ''
-}
-
 const Userinit = {}
 
 export function userstatus(state = initState, action) {
@@ -221,6 +215,11 @@ export function problem(state = problemInitState, action) {
 				code: action.code
 			}
 		case ActionTypes.PROBLEM_LIST:
+			return {
+				...state,
+				problem: action.payload
+			}
+		case ActionTypes.PROBLEM_LIST_BY_TYPE:
 			return {
 				...state,
 				problem: action.payload

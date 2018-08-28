@@ -1,14 +1,26 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { updateForumTags } from '@/redux/actions'
 
 import './forumProblemPageRelatedType.scss'
 
-connect(
+@connect(
   state => state.userstatus,
   { updateForumTags }
 )
 class ForumProblemPageRelatedType extends Component {
+  updateTags (type) {
+    const newTags = [...this.props.watchTags]
+    const index = this.props.watchTags.indexOf(type)
+    if (index === -1) {
+      newTags.push(type)
+    } else {
+      newTags.splice(index, 1)
+    }
+    this.props.updateForumTags(newTags)
+  }
+  
   render() {
     return (
       <div className="foru-problem-page-related-type">
@@ -24,7 +36,9 @@ class ForumProblemPageRelatedType extends Component {
                 </div>
                 <div className="related-type-item-details">
                   <div className="related-type-item-name">
-                    <a>{allClass[item]}</a>
+                    <Link to={`/forum/type/${item}`}>
+                      {allClass[item]}
+                    </Link>
                   </div>
                   <p className="related-type-item-follow-num">
                     14827人关注
@@ -32,7 +46,13 @@ class ForumProblemPageRelatedType extends Component {
                 </div>
               </div>
               <div className="related-type-item-right">
-                <a>关注</a>
+                <a onClick={() => this.updateTags(item)}>
+                {
+                  this.props.watchTags.indexOf(item) === -1 ?
+                  "关注" :
+                  "取消关注"
+                }
+                </a>
               </div>
             </div>
           })

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Icon from '@/common/customIcon/customIcon'
 import ForumProblemPageReply from '../forumProblemPageReply/forumProblemPageReply'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchUser, followProblem } from '@/redux/actions'
 import Cookies from 'js-cookie'
@@ -109,9 +109,9 @@ class ForumProblemPageInfo extends Component {
           <div className="forum-problem-page-type">
             {
               currentProblem.tags.map(item => {
-                return <a key={item}>
+                return <Link to={`/forum/type/${item}`} key={item}>
                   {allTags[item]}
-                </a>
+                </Link>
               })
             }
           </div>

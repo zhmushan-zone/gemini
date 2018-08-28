@@ -33,7 +33,6 @@ export const ArticleType = [
 ]
 
 export const ArticleCategory=[
-  '推荐',
   '资讯',
   '区块链',
   '人工智能',

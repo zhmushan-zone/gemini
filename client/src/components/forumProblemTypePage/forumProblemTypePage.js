@@ -1,12 +1,34 @@
 import React, { Component } from 'react'
 import { type as Type } from './type'
+import { connect } from 'react-redux'
+import { getProblemListByType } from '@/redux/actions'
+import ForumTypePageLeft from '../forumTypePageLeft/forumTypePageLeft'
+import FourmTypePageRight from '../forumTypePageRight/forumTypePageRight'
 
 import './forumProblemTypePage.scss'
 
+@connect(
+  state => state.problem,
+  { getProblemListByType }
+)
 class ForumProblemTypePage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      problems: []
+    }
+  }
+  
+  async componentDidMount() {
+    await this.props.getProblemListByType([parseInt(this.props.match.params.type, 10)])
+    this.setState({
+      problems: this.props.problem
+    })
+  }
+  
+
   render() {
     const typeIndex = this.props.match.params.type
-
     return (
       <div className="forum-problem-type-page">
         <div className="forum-problem-type-page-top">
@@ -29,6 +51,14 @@ class ForumProblemTypePage extends Component {
               取消关注
             </a> */}
           </div>
+        </div>
+        <div className="forum-type-page-content">
+          {
+            this.state.problems ? 
+            <ForumTypePageLeft problems={this.state.problems} /> :
+            null
+          }
+          <FourmTypePageRight />
         </div>
       </div>
     )

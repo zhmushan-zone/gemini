@@ -319,6 +319,25 @@ export function getProblemList() {
 		}
 	}
 }
+/* ---------------------------------------------------- 通过类型获取问题列表----------------------------------------------------------------------- */
+function problemListById(problem) {
+	return { type: ActionTypes.PROBLEM_LIST_BY_TYPE, payload: problem }
+}
+
+export function getProblemListByType(type) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'post',
+			url: '/api/issues/fetch/by-tag/intersect',
+			data: {
+				'tags': type
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(problemListById(res.data.data))
+		}
+	}
+}
 /* ---------------------------------------------------- 关注问题----------------------------------------------------------------------- */
 function followProblemSuccess(watchIssuesId) {
 	return { type: ActionTypes.FOLLOW_PROBLEM, payload: watchIssuesId }
