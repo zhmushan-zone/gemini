@@ -17,7 +17,6 @@ export default class ArticleSample extends Component {
 	render() {
 		try {
 			if(this.props.articleArray){
-				console.log('object')
 				var articleData=this.props.articleArray
 			}
 		} catch (error) {

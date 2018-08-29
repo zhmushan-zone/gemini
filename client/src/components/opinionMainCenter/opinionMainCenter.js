@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import { fetchArticleByCategory } from '@/redux/actions'
 import FetchArticleList from '../fetchArticleList/fetchArticleList'
 import OpinionBanner from '../opinionBanner/opinionBanner'
+import OpinionFocusSelect from '../opinionFocusSelect/opinionFocusSelect'
 @withRouter
 @connect((state) => state, { fetchArticleByCategory })
 export default class opinionMainCenter extends Component {
@@ -25,6 +26,8 @@ export default class opinionMainCenter extends Component {
 		const pathname = this.props.history.location.pathname
 		return (
 			<div className='opinion-main-center-container'>
+				{/* 关注 */}
+				{pathname === '/opinion/focus' ? <OpinionFocusSelect /> : null}
 				{pathname === '/opinion' ? <OpinionBanner /> : null}
 				<FetchArticleList articleData={articleData} />
 			</div>
