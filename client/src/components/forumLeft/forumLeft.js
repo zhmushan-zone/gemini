@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter ,Link } from 'react-router-dom'
 import { Switch } from 'antd'
+import dateSort from '@/util/dateSort'
 
 import ForumProblemPreivew from '../forumProblemPreview/forumProblemPreview'
 
@@ -11,20 +12,39 @@ class ForumLeft extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showContent: '推荐',
+      showContent: 0,
       isOnlyShowAttention: true
     }
   }
   
+  problemFilter(type, problems) {
+    switch (type) {
+      case 0:
+        problems = dateSort(problems)
+        break
+      case 1:
+        problems = problems.sort((a, b) => b.replysId.length - a.replysId.length)
+        break
+      case 2:
+        problems = problems.filter(item => item.replysId.length === 0)
+        break
+      default:
+        break
+    }
+    return problems
+  }
+
   render() {
     const { showContent } = this.state
-    const forumNav = ['推荐', '最新', '等待回答', '高悬赏']
+    const forumNav = ['最新', '热门', '等待回答']
     const forumNavItems = forumNav.map((item, index) => {
-      if (item === showContent) {
+      if (index === showContent) {
         return <a className="active" key={index}>{item}</a>
       }
-      return <a onClick={() => this.setState({showContent: item})} key={index}>{item}</a>
+      return <a onClick={() => this.setState({showContent: index})} key={index}>{item}</a>
     })
+    let problems = [...this.props.problems]
+    problems = this.problemFilter(showContent, problems)
     return (
       <div className="forum-wrapper">
         <div className="forum-wrapper-top">
@@ -42,7 +62,7 @@ class ForumLeft extends Component {
         </div>
         <div className="fourm-problem-wrapper">
           {
-            this.props.problems.map(item => {
+            problems.map(item => {
               return <ForumProblemPreivew 
                 problemId={item.id}
                 problemTitle={item.title}

@@ -62,7 +62,7 @@ class ForumProblemPreview extends Component {
             来自
             {
               type.map(item => {
-                return <Link to={`/forum/type/${item}`}>{allType[item]}</Link>
+                return <Link to={`/forum/type/${item}`} key={item}>{allType[item]}</Link>
               })
             }
           </div>
