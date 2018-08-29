@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withRouter, NavLink } from 'react-router-dom'
 import './opinionSideBar.scss'
 import { ArticleCategory } from '@/const.js'
@@ -10,9 +10,14 @@ export default class opinionSideBar extends Component {
 			<div className='side-bar-container'>
 				<div className='left_menu'>
 					{
-						<a href='/opinion' className={`m_item ${pathname === '/opinion' ? 'active' : ''}`}>
-							推荐
-						</a>
+						<Fragment>
+							<a href='/opinion' className={`m_item ${pathname === '/opinion' ? 'active' : ''}`}>
+								推荐
+							</a>
+							<a href='/opinion/focus' className={`m_item ${pathname === '/opinion/focus' ? 'active' : ''}`}>
+								关注
+							</a>
+						</Fragment>
 					}
 					{ArticleCategory.map((v, i) => {
 						return (
