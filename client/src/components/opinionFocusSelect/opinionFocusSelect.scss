@@ -1,0 +1,51 @@
+.opinion-focus-select {
+	border-bottom: 1px solid rgba(28, 31, 33, .2);
+	padding: 16px 0;
+	margin: 0 20px 10px;
+	.see {
+		display: flex;
+		justify-content: space-between;
+	}
+	ul {
+		display: flex;
+		li {
+			padding: 4px 8px;
+			border-radius: 40%;
+			cursor: pointer;
+			&:first-child {
+				background: #ccc;
+				color: white;
+			}
+		}
+	}
+	.focus {
+		color: brown;
+		cursor: pointer;
+	}
+	.tags {
+		overflow: hidden;
+		padding-top: 10px;
+		display: flex;
+		&.zero {
+			height: 0;
+			transition: all 0.5;
+		}
+		.watch-tags {
+			margin-right: 5px;
+			margin-bottom: 5px;
+			height: 28px;
+			padding: 0 10px;
+			border: 1px solid #d0d6d9;
+			font-size: 14px;
+			color: #787d82;
+			text-align: center;
+			line-height: 28px;
+			cursor: pointer;
+			transition: none;
+			&:hover{
+				background: red;
+				color: white;
+			}
+		}
+	}
+}

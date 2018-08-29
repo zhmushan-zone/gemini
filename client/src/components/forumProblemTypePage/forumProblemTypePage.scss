@@ -1,5 +1,4 @@
 .forum-problem-type-page {
-  height: 1000px;
 
   .forum-problem-type-page-top {
     background-color: #edf1f2;
@@ -79,9 +78,11 @@
   }
   .forum-type-page-content {
     width: 1152px;
+    min-height: 600px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     padding-top: 40px;
+    padding-bottom: 120px;
   }
 }
