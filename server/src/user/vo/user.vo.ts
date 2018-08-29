@@ -14,6 +14,7 @@ export class UserVO extends User {
     this.sex = user.sex;
     this.signature = user.signature;
     this.watchTags = user.watchTags;
+    this.watchArticleTypes = user.watchArticleTypes;
     this.watchIssuesId = user.watchIssuesId;
     this.role = user.role;
     this.createAt = user.createAt;

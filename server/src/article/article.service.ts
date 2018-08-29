@@ -1,11 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Global } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MongoRepository } from 'typeorm';
-import { Article, Comment, ArticleCategory } from './article.entity';
+import { Article, Comment, ArticleCategory, ArticleType } from './article.entity';
 import { GeminiError } from '../common/error';
 import { ResponseCode } from '../common/utils';
 
 @Injectable()
+@Global()
 export class ArticleService {
 
   save(authorId: string, article: Article) {
@@ -33,6 +34,10 @@ export class ArticleService {
 
   findByCategory(category: ArticleCategory) {
     return this.articleRepository.find({ category });
+  }
+
+  async findByArticleTypes(articleTypes: ArticleType[]) {
+    return this.articleRepository.find({ where: { type: { $in: articleTypes } } });
   }
 
   async updateById(authorId: string, id: string, article: Article) {

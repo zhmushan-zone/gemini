@@ -82,6 +82,15 @@ export class ArticleController {
     ).map(a => new UserVO(a)));
   }
 
+  @Get('watch-article-type')
+  @UseGuards(AuthGuard('jwt'))
+  async findByWatchArticleType(@Usr() user: User) {
+    return success(
+      (await this.articleService.findByArticleTypes(user.watchArticleTypes))
+        .map(a => new ArticleVO(a))
+    );
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const article = await this.articleService.findById(id);

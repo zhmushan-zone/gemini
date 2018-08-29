@@ -29,6 +29,8 @@ import { GeminiError } from '../common/error';
 import { ObjectId } from 'mongodb';
 import { Common } from '../common/common.entity';
 import { ArticleType } from '../article/article.entity';
+import { ArticleService } from '../article/article.service';
+import { ArticleVO } from '../article/vo';
 
 @Controller('/api/users')
 export class UserController {
@@ -37,6 +39,26 @@ export class UserController {
   async findAll() {
     const users = await this.userService.findAll();
     return success(users.map(v => new UserVO(v)));
+  }
+
+  @Get('/auth')
+  @UseGuards(AuthGuard('jwt'))
+  auth(@Usr() user: User) {
+    return success(
+      new UserVO(
+        user,
+        this.authService.generateToken(
+          user.username,
+          this.userService.refreshToken(user)
+        )
+      )
+    );
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const user = await this.userService.findById(id);
+    return success(new UserVO(user));
   }
 
   @Put()
@@ -101,26 +123,6 @@ export class UserController {
       ResponseCode.LOGIN_FAILED,
       ResponseCode[ResponseCode.LOGIN_FAILED]
     );
-  }
-
-  @Get('/auth')
-  @UseGuards(AuthGuard('jwt'))
-  auth(@Usr() user: User) {
-    return success(
-      new UserVO(
-        user,
-        this.authService.generateToken(
-          user.username,
-          this.userService.refreshToken(user)
-        )
-      )
-    );
-  }
-
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const user = await this.userService.findById(id);
-    return success(new UserVO(user));
   }
 
   @Post('ids')
@@ -230,8 +232,7 @@ export class UserController {
 
   constructor(
     private readonly userService: UserService,
-    private readonly authService: AuthService,
-    private readonly commonEntity: Common
+    private readonly authService: AuthService
   ) {
   }
 }
