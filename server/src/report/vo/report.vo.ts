@@ -1,6 +1,7 @@
 import { Report } from '../report.entity';
 
 export class ReportVO extends Report {
+  reporterUsername: string;
 
   constructor(r: Report) {
     super();

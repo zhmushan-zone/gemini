@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MongoRepository } from 'typeorm';
-import { Report } from './report.entity';
+import { Report, ReportType } from './report.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
@@ -12,8 +12,12 @@ export class ReportService {
     return this.reportRepository.save(obj);
   }
 
+  async findByType(type: ReportType) {
+    return this.reportRepository.find({ type });
+  }
+
   constructor(
     @InjectRepository(Report)
     private readonly reportRepository: MongoRepository<Report>
-  ) {}
+  ) { }
 }
