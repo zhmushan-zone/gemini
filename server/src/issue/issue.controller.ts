@@ -202,10 +202,10 @@ export class IssueController {
     const index = reply.upersId.findIndex(v => v === user.id.toHexString());
     if (index === -1) {
       reply.upersId.push(user.id.toHexString());
-      this.commonEntity.increaseUserApprovedNumByTags(issue.tags, user.id.toHexString());
+      this.commonEntity.increaseUserApprovedNumByTags(issue.tags, reply.authorId);
     } else {
       reply.upersId.splice(index, 1);
-      this.commonEntity.decreaseUserApprovedNumByTags(issue.tags, user.id.toHexString());
+      this.commonEntity.decreaseUserApprovedNumByTags(issue.tags, reply.authorId);
     }
     const res = await this.issueService.updateReplyById(reply.authorId, id, { upersId: reply.upersId } as Reply);
     if (res instanceof GeminiError) return response(res.code);

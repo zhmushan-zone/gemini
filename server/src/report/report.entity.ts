@@ -38,5 +38,9 @@ export enum ReportType {
 }
 
 export enum ReportReason {
-  政治敏感
+  广告或垃圾信息,
+  辱骂,
+  涉政或违法,
+  抄袭,
+  不合适内容
 }

@@ -1,0 +1,81 @@
+.forum-type-page-rank {
+  .forum-type-page-rank-title {
+    height: 60px;
+    font: 14px/1.5 "PingFang SC","微软雅黑","Microsoft YaHei",Helvetica,"Helvetica Neue",Tahoma,Arial,sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #14191e;
+    border-bottom: 1px solid #e8e8e8;
+    line-height: 60px;
+    box-sizing: content-box;
+  }
+
+  .forum-type-page-rank-user-wrapper {
+    ul {
+      margin: 0;
+      padding-left: 0;
+      padding-top: 30px;
+
+      li {
+        display: flex;
+        padding-bottom: 30px;
+        
+        .type-rank-user-left {
+          width: 50px;
+
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+          }
+        }
+
+        .type-rank-user-right {
+          flex: 1;
+
+          .type-rank-user-name {
+            a {
+              font-size: 14px;
+              font-weight: 600;
+              color: #787d92;
+            }
+          }
+          .rank-desc-and-count {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #b5b9bc;
+            line-height: 20px;
+
+            .rank-desc {
+              max-width: 120px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+    }
+
+    .answer-show-more {
+      padding-bottom: 16px;
+      border-bottom: 1px solid #edf1f2;
+  
+      button {
+        width: 100%;
+        height: 30px;
+        border: 1px solid #fff;
+        outline: none;
+        line-height: 28px;
+        color: #b5b9bc;
+        cursor: pointer;
+  
+        &:hover {
+          background: #f3f5f7;
+          border-color: #d9dde1;
+        }
+      }
+    }
+  }
+}

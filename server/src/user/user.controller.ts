@@ -10,7 +10,7 @@ import {
   UseInterceptors,
   UploadedFile,
   FileInterceptor,
-  UnsupportedMediaTypeException, UsePipes
+  UnsupportedMediaTypeException
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { LoginUserDTO, CreateUserDTO, CheckUserDTO, UpdateUserDTO } from './dto';
@@ -22,12 +22,13 @@ import * as nodemailer from 'nodemailer';
 import { AuthService } from '../common/auth/auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Usr } from './user.decorators';
-import { User } from './user.entity';
+import { User, WatchTag } from './user.entity';
 import * as path from 'path';
 import * as fs from 'fs';
 import { GeminiError } from '../common/error';
 import { ObjectId } from 'mongodb';
 import { Common } from '../common/common.entity';
+import { ArticleType } from '../article/article.entity';
 
 @Controller('/api/users')
 export class UserController {
@@ -130,9 +131,38 @@ export class UserController {
 
   @Put('/tags')
   @UseGuards(AuthGuard('jwt'))
-  async watchTag(@Usr() user: User, @Body('tags') tags) {
+  async watchTag(@Usr() user: User, @Body('tags') tags: WatchTag[]) {
     user.watchTags = tags;
     const res = await this.userService.updateById(user.id.toHexString(), user);
+    if (res instanceof GeminiError) return success(res.code);
+    return success();
+  }
+
+  @Put('/watch/article-type/:articleType')
+  @UseGuards(AuthGuard('jwt'))
+  async watchArticleTypes(@Usr() user: User, @Param('articleType') articleType: ArticleType) {
+    articleType = ArticleType[ArticleType[articleType]];
+    const index = user.watchArticleTypes.findIndex(i => i === articleType);
+    if (index === -1) {
+      user.watchArticleTypes.push(articleType);
+    } else {
+      user.watchArticleTypes.splice(index, 1);
+    }
+    const res = await this.userService.updateById(user.id.toHexString(), { watchArticleTypes: user.watchArticleTypes } as User);
+    if (res instanceof GeminiError) return success(res.code);
+    return success();
+  }
+
+  @Put('/watch/user/:id')
+  @UseGuards(AuthGuard('jwt'))
+  async watchUser(@Usr() user: User, @Param('id') id: string) {
+    const index = user.watchUsersId.findIndex(i => i === id);
+    if (index === -1) {
+      user.watchUsersId.push(id);
+    } else {
+      user.watchUsersId.splice(index, 1);
+    }
+    const res = await this.userService.updateById(user.id.toHexString(), { watchUsersId: user.watchUsersId } as User);
     if (res instanceof GeminiError) return success(res.code);
     return success();
   }

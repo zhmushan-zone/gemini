@@ -13,7 +13,10 @@ import { CommonModule } from '../common/common.module';
   providers: [
     UserService
   ],
-  controllers: [UserController]
+  controllers: [UserController],
+  exports: [
+    UserService
+  ]
 })
 export class UserModule {
 }

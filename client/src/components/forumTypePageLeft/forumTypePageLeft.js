@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
-import { withRouter ,Link } from 'react-router-dom'
-import { Switch } from 'antd'
+import ForumProblemPreivew from '../forumProblemPreview/forumProblemPreview'
 import dateSort from '@/util/dateSort'
 
-import ForumProblemPreivew from '../forumProblemPreview/forumProblemPreview'
+import './forumTypePageLeft.scss'
 
-import './forumLeft.scss'
-
-@withRouter
-class ForumLeft extends Component {
+class ForumTypePageLeft extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -46,32 +42,25 @@ class ForumLeft extends Component {
     let problems = [...this.props.problems]
     problems = this.problemFilter(showContent, problems)
     return (
-      <div className="forum-wrapper">
-        <div className="forum-wrapper-top">
-          <span>程序员自己的问答社区</span>
-          <Link to={`${this.props.match.url}/create`}>我要提问</Link>
-        </div>
+      <div className="forum-type-page-left">
         <div className="forum-nav">
           <div className="forum-nav-wrapper">
             {forumNavItems}
           </div>
-          <div className="is-only-show-attention">
-            <span>只显示关注内容</span>
-            <Switch className="show-attention-switch" defaultChecked onChange={(v) => this.setState({isOnlyShowAttention: v})} />
-          </div>
         </div>
         <div className="fourm-problem-wrapper">
           {
-            problems.map(item => {
-              return <ForumProblemPreivew 
-                problemId={item.id}
-                problemTitle={item.title}
-                type={item.tags}
-                watchers={item.watchersId}
-                replys={item.replysId}
-                key={item.title}
-              />
-            })
+            problems.length ? 
+              problems.map(item => {
+                return <ForumProblemPreivew 
+                  problemId={item.id}
+                  problemTitle={item.title}
+                  type={item.tags}
+                  watchers={item.watchersId}
+                  replys={item.replysId}
+                  key={item.title}
+                />
+              }) : <p style={{color: '#999', textAlign: 'center', lineHeight: '100px', fontSize: '16px'}}>暂时没有人提问</p>
           }
         </div>
       </div>
@@ -79,4 +68,4 @@ class ForumLeft extends Component {
   }
 }
 
-export default ForumLeft
+export default ForumTypePageLeft
