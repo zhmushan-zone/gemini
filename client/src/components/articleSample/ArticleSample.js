@@ -10,7 +10,7 @@ import './articleSample.scss'
 @withRouter
 @connect((state) => state.article, { fetchArticleOne,fetchArticleAll })
 export default class ArticleSample extends Component {
-	componentWillMount = () => {
+	componentDidMount = () => {
 		this.props.fetchArticleOne(this.props.match.params.id)
 		this.props.fetchArticleAll()
 	}

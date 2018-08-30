@@ -330,7 +330,7 @@ export function getProblemListByType(type) {
 			method: 'post',
 			url: '/api/issues/fetch/by-tag/intersect',
 			data: {
-				'tags': type
+				tags: type
 			}
 		})
 		if (res.data.code === 1) {
@@ -425,7 +425,11 @@ export function updateForumTags(tags) {
 			}
 		})
 		if (res.data.code === 1) {
+		
 			dispatch(updateForumTagsSuccess(tags))
+			Cookies.set(
+				'tags', tags
+			)
 		} else {
 			dispatch(errorMsg('讨论区关注分类更新失败'))
 		}

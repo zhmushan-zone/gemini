@@ -24,7 +24,7 @@ export default class articleLeft extends Component {
 			categoryId: this.props.match.params.id
 		}
 	}
-	async componentWillMount() {
+	async componentDidMount() {
 		await this.props.fetchArticleUp(this.state.categoryId)
 		if (this.props.article.up) {
 			this.setState({

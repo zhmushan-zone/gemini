@@ -26,7 +26,7 @@ class PersonCener extends React.Component {
 			UserId: ''
 		}
 	}
-	componentWillMount = () => {
+	componentDidMount = () => {
 		this.setState({
 			UserId: this.props.match.params.id
 		})
