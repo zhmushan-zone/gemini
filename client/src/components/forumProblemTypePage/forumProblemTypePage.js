@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { type as Type } from './type'
 import { connect } from 'react-redux'
-import { getProblemListByType } from '@/redux/actions'
+import { getProblemListByType, updateForumTags } from '@/redux/actions'
 import ForumTypePageLeft from '../forumTypePageLeft/forumTypePageLeft'
 import FourmTypePageRight from '../forumTypePageRight/forumTypePageRight'
 
 import './forumProblemTypePage.scss'
 
 @connect(
-  state => state.problem,
-  { getProblemListByType }
+  state => state,
+  { getProblemListByType, updateForumTags }
 )
 class ForumProblemTypePage extends Component {
   constructor(props) {
@@ -21,11 +21,23 @@ class ForumProblemTypePage extends Component {
   
   async componentDidMount() {
     await this.props.getProblemListByType([parseInt(this.props.match.params.type, 10)])
+    
     this.setState({
-      problems: this.props.problem
+      problems: this.props.problem.problem
     })
   }
   
+  follow () {
+    const oldTags = this.props.userstatus.watchTags
+    const newTags = [...oldTags]
+    const newTag = parseInt(this.props.match.params.type, 10)
+    if (oldTags.indexOf(newTag) === -1) {
+      newTags.push(newTag)
+    } else {
+      newTags.splice(oldTags.indexOf(newTag), 1)
+    }
+    this.props.updateForumTags(newTags)
+  }
 
   render() {
     const typeIndex = this.props.match.params.type
@@ -44,12 +56,15 @@ class ForumProblemTypePage extends Component {
             </p>
           </div>
           <div className="type-page-follow-wrapper">
-            <a className="follow">
-              关注
-            </a>
-            {/* <a className="no-follow">
-              取消关注
-            </a> */}
+            {
+              this.props.userstatus.watchTags.indexOf(parseInt(this.props.match.params.type, 10)) === -1 ?
+              <a className="follow" onClick={() => this.follow()}>
+                关注
+              </a> :
+              <a className="no-follow" onClick={() => this.follow()}>
+                取消关注
+              </a>
+            }
           </div>
         </div>
         <div className="forum-type-page-content">
