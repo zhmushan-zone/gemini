@@ -177,10 +177,9 @@ export class IssueController {
       user.watchIssuesId.splice(index, 1);
       issue.watchersId.splice(issue.watchersId.findIndex(v => v === user.id.toHexString()), 1);
     }
-    let res: any = this.userService.updateById(user.id.toHexString(), { watchIssuesId: user.watchIssuesId } as User);
+    const res = this.userService.updateById(user.id.toHexString(), { watchIssuesId: user.watchIssuesId } as User);
     if (res instanceof GeminiError) return response(res.code);
-    res = this.issueService.updateById(issue.authorId, id, { watchersId: issue.watchersId } as Issue);
-    if (res instanceof GeminiError) return response(res.code);
+    this.issueService.updateByIdWithoutUpdateDate(id, { watchersId: issue.watchersId } as Issue);
     return success(user.watchIssuesId);
   }
 
