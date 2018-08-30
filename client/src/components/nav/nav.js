@@ -13,7 +13,7 @@ class Nav extends React.Component {
     }
   }
 
-  componentWillMount () {
+  componentDidMount () {
     const { pathname } = this.props.location
     if (pathname === '/onlineStudying') {
       this.setState({

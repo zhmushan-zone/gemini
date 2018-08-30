@@ -22,7 +22,7 @@ export default class opinionMainCenter extends Component {
 		}
 	}
 	render() {
-		const articleData = this.props.article.articleArray
+		const articleData = this.props.article.articleArray||this.props.articleArray
 		const pathname = this.props.history.location.pathname
 		return (
 			<div className='opinion-main-center-container'>
