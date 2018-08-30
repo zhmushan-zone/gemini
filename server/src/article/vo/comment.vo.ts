@@ -1,6 +1,8 @@
 import { Comment } from '../article.entity';
 
 export class CommentVO extends Comment {
+  authorUsername: string;
+  authorAvatar: string;
 
   constructor(c: Comment) {
     super();
