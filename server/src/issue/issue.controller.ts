@@ -148,7 +148,7 @@ export class IssueController {
   async findOne(@Param('id') id: string) {
     const issue = await this.issueService.findById(id);
     issue.viewnum++;
-    this.issueService.updateById(issue.authorId, id, { viewnum: issue.viewnum } as Issue);
+    this.issueService.updateByIdWithoutUpdateDate(id, { viewnum: issue.viewnum } as Issue);
     return success(new IssueVO(issue));
   }
 
