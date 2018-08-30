@@ -18,10 +18,10 @@ export default class articleLeft extends Component {
 		super(props)
 		this.state = {
 			like: false,
-			ModalText: '您的内容。。',
 			visible: false,
 			confirmLoading: false,
-			categoryId: this.props.match.params.id
+			categoryId: this.props.match.params.id,
+			commentValue: '您的内容。。'
 		}
 	}
 	async componentDidMount() {
@@ -53,7 +53,7 @@ export default class articleLeft extends Component {
 
 	handleOk = () => {
 		this.setState({
-			ModalText: 'The modal will be closed after two seconds',
+			commentValue: '',
 			confirmLoading: true
 		})
 		setTimeout(() => {
@@ -70,10 +70,16 @@ export default class articleLeft extends Component {
 			visible: false
 		})
 	}
+	handleChange=(e, key)=> {
+		this.setState({
+			[key]: e.target.value
+		})
+		console.log(e.target.value)
+	}
 
 	render() {
 		let test = [ 1, 2, 3, 4, 5, 6 ]
-		const { visible, confirmLoading, ModalText } = this.state
+		const { visible, confirmLoading, commentValue } = this.state
 		try {
 			var { title, coverImg, content, type } = this.props
 			var con = Marked(content)
@@ -125,7 +131,7 @@ export default class articleLeft extends Component {
 					{/* 评论 */}
 					<div id='comment'>
 						<div className='author'>
-							<img src={defaultAvatar} alt='' />
+							<img src={this.props.userstatus.avatar ? this.props.userstatus.avatar : defaultAvatar} alt='' />
 						</div>
 						<p className='fadeInput' onClick={this.showModal}>
 							共同学习，写下你的评论
@@ -141,7 +147,11 @@ export default class articleLeft extends Component {
 						okText='确认'
 						cancelText='取消'
 					>
-						<TextArea rows={6}>{ModalText}</TextArea>
+						<TextArea
+							rows={6}
+							value={commentValue}
+							onChange={this.handleChange.bind(this, 'commentValue')}
+						/>
 					</Modal>
 					{/* 评论 */}
 					{/* <div id='all-comments'>暂无评论</div> */}
