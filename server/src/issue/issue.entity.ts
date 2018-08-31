@@ -2,7 +2,9 @@ import {
   Entity,
   Column,
   BeforeInsert,
-  BeforeUpdate
+  BeforeUpdate,
+  BeforeRemove,
+  MongoRepository
 } from 'typeorm';
 import { WatchTag } from '../user/user.entity';
 import { BaseEntity } from '../common/base.entity';

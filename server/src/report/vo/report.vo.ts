@@ -11,6 +11,7 @@ export class ReportVO extends Report {
     this.msg = r.msg;
     this.reason = r.reason;
     this.reporterId = r.reporterId;
+    this.status = r.status;
     this.createAt = r.createAt;
     this.updateAt = r.updateAt;
   }

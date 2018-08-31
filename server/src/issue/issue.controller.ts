@@ -1,7 +1,7 @@
 import { Controller, Post, UseGuards, Body, Put, Param, Get, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Usr } from '../user/user.decorators';
-import { User } from '../user/user.entity';
+import { User, UserRole } from '../user/user.entity';
 import { IssueService } from './issue.service';
 import { success, response, ResponseCode } from '../common/utils/response.util';
 import { ObjectId } from 'mongodb';
@@ -82,7 +82,7 @@ export class IssueController {
 
   @Post('reply/ids')
   async findReplyGroup(@Body() ids: string[]) {
-    const replys = await this.issueService.findReplysById(ids.map(id => new ObjectId(id)));
+    const replys = await this.issueService.findReplyByIds(ids.map(id => new ObjectId(id)));
     const res: ReplyVO[] = [];
     for (const r of replys) {
       const author = await this.userService.findById(r.authorId);
@@ -97,7 +97,7 @@ export class IssueController {
 
   @Post('reply/subreply/ids')
   async findSubReplyGroup(@Body() ids: string[]) {
-    const subreplys = await this.issueService.findSubReplysById(ids.map(id => new ObjectId(id)));
+    const subreplys = await this.issueService.findSubReplyByIds(ids.map(id => new ObjectId(id)));
     const res: SubReplyVO[] = [];
     for (const s of subreplys) {
       const from = await this.userService.findById(s.from);
@@ -116,7 +116,33 @@ export class IssueController {
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
   delete(@Usr() user: User, @Param('id') id: string) {
-    this.issueService.delete(user.id.toHexString(), id);
+    if (user.role === UserRole.ADMIN) {
+      this.issueService.remove([id]);
+    } else {
+      this.issueService.delete(user.id.toHexString(), id);
+    }
+    return success();
+  }
+
+  @Delete('reply/:id')
+  @UseGuards(AuthGuard('jwt'))
+  async deleteReply(@Usr() user: User, @Param('id') id: string) {
+    if (user.role === UserRole.ADMIN) {
+      await this.issueService.removeReplys([id]);
+    } else {
+      await this.issueService.deleteReply(user.id.toHexString(), id);
+    }
+    return success();
+  }
+
+  @Delete('subreply/:id')
+  @UseGuards(AuthGuard('jwt'))
+  deleteSubReply(@Usr() user: User, @Param('id') id: string) {
+    if (user.role === UserRole.ADMIN) {
+      this.issueService.removeSubReplys([id]);
+    } else {
+      this.issueService.deleteSubReply(user.id.toHexString(), id);
+    }
     return success();
   }
 
