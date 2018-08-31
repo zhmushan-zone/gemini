@@ -48,6 +48,12 @@ const problemCommentInit = {
 	code: ''
 }
 
+const reportInit = {
+	msg: '',
+	reports: [],
+	code: ''
+}
+
 const Userinit = {}
 
 export function userstatus(state = initState, action) {
@@ -266,6 +272,18 @@ export function problemComment(state = problemCommentInit, action) {
 			return state
 	}
 }
+/* ------------------举报------------------------- */
+export function report(state = reportInit, action) {
+	switch (action.type) {
+		case ActionTypes.GET_REPORTS_LIST:
+			return {
+				...state,
+				reports: action.payload
+			}
+		default:
+			return state
+	}
+}
 /* ------------------获取单个user------------------------- */
 
 export function User(state = Userinit, action) {
@@ -286,5 +304,6 @@ export default combineReducers({
 	article,
 	problem,
 	User,
-	problemComment
+	problemComment,
+	report
 })

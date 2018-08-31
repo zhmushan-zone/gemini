@@ -604,7 +604,26 @@ export function getArticleComment(ids) {
 		}
 	}
 }
+/* -------------------------获取举报列表------------------------------------------- */
+function getReportsListSuccess(reports) {
+	return { type: ActionTypes.GET_REPORTS_LIST, payload: reports }
+}
 
+export function getReportsList () {
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'get',
+			url: '/api/reports',
+			headers: {
+				token: _token
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(getReportsListSuccess(res.data.data))
+		}
+	}
+}
 /* -------------------------获取单个用户信息------------------------------------------- */
 function fetchOneUser(data) {
 	return { type: ActionTypes.FETCH_ONE_USER, data }

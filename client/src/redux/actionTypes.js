@@ -59,3 +59,5 @@ export const SEND_ARTICLE_COMMENT = 'SEND_ARTICLE_COMMENT'
 // 获取文章评论
 
 export const GET_ARTICLE_COMMENT = 'GET_ARTICLE_COMMENT'
+// 获取举报列表
+export const GET_REPORTS_LIST = 'GET_REPORTS_LIST'
