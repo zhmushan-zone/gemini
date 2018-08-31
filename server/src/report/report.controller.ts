@@ -37,7 +37,10 @@ export class ReportController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const report = await this.reportService.findById(id);
-    return success(new ReportVO(report));
+    const reporter = await this.userService.findById(report.reporterId);
+    const res = new ReportVO(report);
+    res.reporterUsername = reporter.username;
+    return success(res);
   }
 
   constructor(
