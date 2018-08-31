@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ResponseCode } from '../common/utils';
 import { GeminiError } from '../common/error';
 import { MongoRepository } from 'typeorm';
-import { ObjectId } from 'bson';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class IssueService {
@@ -16,21 +16,46 @@ export class IssueService {
 
   async delete(authorId: string, issueId: string) {
     const issue = await this.issueRepository.findOne(issueId, { where: { authorId } });
-    this.issueRepository.delete(issue);
+    this.issueRepository.remove(issue);
   }
 
   async deleteReply(authorId: string, issueId: string) {
     const reply = await this.replyRepository.findOne(issueId, { where: { authorId } });
-    this.replyRepository.delete(reply);
+    this.replyRepository.remove(reply);
   }
 
   async deleteSubReply(authorId: string, issueId: string) {
     const subreply = await this.subReplyRepository.findOne(issueId, { where: { authorId } });
-    this.subReplyRepository.delete(subreply);
+    this.subReplyRepository.remove(subreply);
+  }
+
+  async remove(ids: string[]) {
+    const entitys = await this.findByIds(ids.map(id => new ObjectId(id)));
+    for (const e of entitys) {
+      await this.removeReplys(e.replysId);
+    }
+    this.issueRepository.remove(entitys);
+  }
+
+  async removeReplys(ids: string[]) {
+    const entitys = await this.findReplyByIds(ids.map(id => new ObjectId(id)));
+    for (const e of entitys) {
+      await this.removeSubReplys(e.subReplysId);
+    }
+    this.replyRepository.remove(entitys);
+  }
+
+  async removeSubReplys(ids: string[]) {
+    const entitys = await this.findSubReplyByIds(ids.map(id => new ObjectId(id)));
+    this.subReplyRepository.remove(entitys);
   }
 
   findById(id: string) {
     return this.issueRepository.findOne(id);
+  }
+
+  findByIds(ids: ObjectId[]) {
+    return this.issueRepository.findByIds(ids);
   }
 
   findAll() {
@@ -66,11 +91,11 @@ export class IssueService {
     return this.replyRepository.findOne(id);
   }
 
-  findReplysById(ids: ObjectId[]) {
+  findReplyByIds(ids: ObjectId[]) {
     return this.replyRepository.findByIds(ids);
   }
 
-  findSubReplysById(ids: ObjectId[]) {
+  findSubReplyByIds(ids: ObjectId[]) {
     return this.subReplyRepository.findByIds(ids);
   }
 
