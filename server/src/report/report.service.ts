@@ -18,6 +18,10 @@ export class ReportService {
     return this.reportRepository.findOne(id);
   }
 
+  findAll() {
+    return this.reportRepository.find();
+  }
+
   async findByType(type: ReportType) {
     return this.reportRepository.find({ type });
   }

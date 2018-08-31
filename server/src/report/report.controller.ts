@@ -20,6 +20,12 @@ export class ReportController {
     return success(new ReportVO(report));
   }
 
+  @Get()
+  async findAll() {
+    const reports = await this.reportService.findAll();
+    return success(reports.map(r => new ReportVO(r)));
+  }
+
   @Get('type/:type')
   @UseGuards(AuthGuard('jwt'))
   async findByType(@Param('type') type: ReportType) {
