@@ -14,6 +14,8 @@ export class Report extends BaseEntity {
   reason: ReportReason;
   @Column()
   reporterId: string;
+  @Column()
+  status: ReportStatus;
 
   @BeforeInsert()
   beforeInsert() {
@@ -43,4 +45,10 @@ export enum ReportReason {
   涉政或违法,
   抄袭,
   不合适内容
+}
+
+export enum ReportStatus {
+  Pending,
+  Accpet,
+  Reject
 }

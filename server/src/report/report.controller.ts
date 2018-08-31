@@ -1,13 +1,14 @@
-import { Controller, Post, UseGuards, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, UseGuards, Body, Get, Param, Put } from '@nestjs/common';
 import { ReportService } from './report.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateReportDTO } from './dto';
 import { Usr } from '../user/user.decorators';
 import { User } from '../user/user.entity';
-import { success } from '../common/utils';
+import { success, response } from '../common/utils';
 import { ReportVO } from './vo/report.vo';
-import { ReportType } from './report.entity';
+import { ReportType, ReportStatus, Report } from './report.entity';
 import { UserService } from '../user/user.service';
+import { GeminiError } from '../common/error';
 
 @Controller('/api/reports')
 export class ReportController {
@@ -41,6 +42,15 @@ export class ReportController {
     const res = new ReportVO(report);
     res.reporterUsername = reporter.username;
     return success(res);
+  }
+
+  @Put(':id/status/:status')
+  @UseGuards(AuthGuard('jwt'))
+  async changeStatus(@Param('id') id: string, @Param('status') status: ReportStatus) {
+    status = ReportStatus[ReportStatus[status]];
+    const res = this.reportService.updateByIdWithAdmin(id, { status } as Report);
+    if (res instanceof GeminiError) return response(res.code);
+    return success();
   }
 
   constructor(
