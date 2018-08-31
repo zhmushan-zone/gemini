@@ -19,7 +19,7 @@ export class ReportController {
     return success(new ReportVO(report));
   }
 
-  @Get(':type')
+  @Get('type/:type')
   @UseGuards(AuthGuard('jwt'))
   async findByType(@Param('type') type: ReportType) {
     type = ReportType[ReportType[type]];
@@ -32,6 +32,12 @@ export class ReportController {
       res.push(reportVO);
     }
     return success(res);
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const report = await this.reportService.findById(id);
+    return success(new ReportVO(report));
   }
 
   constructor(

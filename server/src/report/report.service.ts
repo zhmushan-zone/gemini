@@ -12,6 +12,10 @@ export class ReportService {
     return this.reportRepository.save(obj);
   }
 
+  findById(id: string) {
+    return this.reportRepository.findOne(id);
+  }
+
   async findByType(type: ReportType) {
     return this.reportRepository.find({ type });
   }
