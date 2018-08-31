@@ -6,6 +6,9 @@ import BackstageArticle from '../backstageArticle/backstageArticle'
 import BackstageCourse from '../backstageCourse/backstageCourse'
 import BackstageCourseCreate from '../backstageCourseCreate/backstageCourseCreate'
 import BackstageCourseInfo from '../backstageCourseInfo/backstageCourseInfo'
+import BackstageProblemList from '../backstageProblemList/backstageProblemList'
+import BackstageCheckCenter from '../backstageCheckCenter/backstageCheckCenter'
+import BackstageReportCenter from '../backstageReportCenter/backstageReportCenter'
 import AdminBreadcrumb from '../adminBreadcrumb/adminBreadcrumb'
 
 @withRouter
@@ -53,7 +56,26 @@ export default class BackstageConent extends Component {
         component: BackstageCourseInfo,
         path: '/admin/course/info/:name',
         address: '课程列表-课程详情'
-      }
+      },
+      {
+        name: 'BackstageProblemList',
+        component: BackstageProblemList,
+        path: '/admin/problem',
+        address: '问题列表'
+      },
+      {
+        name: 'BackstageCheckCenter',
+        component: BackstageCheckCenter,
+        path: '/admin/check',
+        address: '审核中心'
+      },
+      {
+        name: 'BackstageReportCenter',
+        component: BackstageReportCenter,
+        path: '/admin/report',
+        address: '举报中心'
+      },
+
     ]
     return (
       <React.Fragment>

@@ -59,12 +59,20 @@ export class Comment extends BaseEntity {
   @Column()
   commentsId: string[];
 
+  @Column()
+  upersId: string[];
+
+  @Column()
+  downersId: string[];
+
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();
     if (!this.content) this.content = '';
     if (!this.authorId) this.authorId = '';
     if (!this.commentsId) this.commentsId = [];
+    if (!this.upersId) this.upersId = [];
+    if (!this.downersId) this.downersId = [];
   }
 
   @BeforeUpdate()

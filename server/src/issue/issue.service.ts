@@ -41,6 +41,10 @@ export class IssueService {
     return this.issueRepository.save(doc);
   }
 
+  async updateByIdWithoutUpdateDate(id: string, issue: Issue) {
+    return this.issueRepository.update(id, issue);
+  }
+
   createReply(authorId: string, reply: Reply, issueId: string) {
     reply.authorId = authorId;
     reply.issueId = issueId;
