@@ -19,6 +19,16 @@ export class IssueService {
     this.issueRepository.delete(issue);
   }
 
+  async deleteReply(authorId: string, issueId: string) {
+    const reply = await this.replyRepository.findOne(issueId, { where: { authorId } });
+    this.replyRepository.delete(reply);
+  }
+
+  async deleteSubReply(authorId: string, issueId: string) {
+    const subreply = await this.subReplyRepository.findOne(issueId, { where: { authorId } });
+    this.subReplyRepository.delete(subreply);
+  }
+
   findById(id: string) {
     return this.issueRepository.findOne(id);
   }

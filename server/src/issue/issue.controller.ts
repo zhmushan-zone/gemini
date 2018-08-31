@@ -120,6 +120,20 @@ export class IssueController {
     return success();
   }
 
+  @Delete('reply/:id')
+  @UseGuards(AuthGuard('jwt'))
+  deleteReply(@Usr() user: User, @Param('id') id: string) {
+    this.issueService.deleteReply(user.id.toHexString(), id);
+    return success();
+  }
+
+  @Delete('subreply/:id')
+  @UseGuards(AuthGuard('jwt'))
+  deleteSubReply(@Usr() user: User, @Param('id') id: string) {
+    this.issueService.deleteSubReply(user.id.toHexString(), id);
+    return success();
+  }
+
   @Get()
   async findAll() {
     const issues = await this.issueService.findAll();
