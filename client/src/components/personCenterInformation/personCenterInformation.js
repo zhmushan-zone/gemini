@@ -60,7 +60,7 @@ class PersonCenterInformation extends React.Component {
   }
 
   render() {
-    const { visible, confirmLoading,username,job,city,sex,signature } = this.state
+    const { visible, confirmLoading } = this.state
     const userstatus = this.props.userstatus
     const { TextArea } = Input
     const RadioGroup = Radio.Group

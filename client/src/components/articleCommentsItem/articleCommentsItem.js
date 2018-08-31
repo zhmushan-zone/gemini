@@ -46,7 +46,7 @@ class ArticleCommentsItem extends Component {
       <div className="forum-comment-item">
         <div className="forum-comment-user-avatar">
           <a>
-            <img src={require(`@/assets/superheroimgs/${userAvatar}.png`)} alt=""/>
+            <img src={`/avatar/${userAvatar}`} alt=""/>
           </a>
         </div>
         <div className="forum-comment-user-details">

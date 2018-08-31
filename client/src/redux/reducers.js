@@ -32,7 +32,8 @@ const articleInit = {
 	msg: '',
 	article: [],
 	code: '',
-	up: ''
+	up: '',
+	comment: [],
 }
 
 const problemInitState = {
@@ -172,11 +173,13 @@ export function article(state = articleInit, action) {
 			}
 		case ActionTypes.CREATE_ARTICLE_ERROR:
 			return {
+				...state,
 				msg: action.msg,
 				code: action.code
 			}
 		case ActionTypes.FETCH_ONE_ARTICLE:
 			return {
+				...state,
 				article: { ...action.data }
 			}
 		case ActionTypes.FETCH_All_ARTICLE:
@@ -193,6 +196,16 @@ export function article(state = articleInit, action) {
 			return {
 				...state,
 				up: action.data
+			}
+		case ActionTypes.SEND_ARTICLE_COMMENT:
+			return {
+				...state,
+				comment: [ ...state.comment, action.comment ]
+			}
+		case ActionTypes.GET_ARTICLE_COMMENT:
+			return {
+				...state,
+				comment: action.commentList
 			}
 		default:
 			return state
