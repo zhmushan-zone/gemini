@@ -1,46 +1,49 @@
 import React, { Component } from 'react'
 import ArticleCommentsItem from '../articleCommentsItem/articleCommentsItem'
-import { getArticleComment } from '@/redux/actions.js'
+import { getArticleComment, setReplyComment, commentUp } from '@/redux/actions.js'
 import Cookies from 'js-cookie'
 import './articleComments.scss'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
+import dateSort from '@/util/dateSort.js'
 @withRouter
-@connect(
-  state=>state,
-  {getArticleComment}
-)
+@connect((state) => state, { getArticleComment, setReplyComment, commentUp })
 class ArticleComments extends Component {
-  async componentDidMount() {
-    const  commentsId = Cookies.get('commentsId')
-    setTimeout(()=>{
-      this.props.getArticleComment(JSON.parse(commentsId))
-    },100)
-  }
-  render() {
-    const articleComment = this.props.article.comment
-    return (
-      <div className="article-page-comments">
-        <div className="article-page-comments-num">
-          {this.props.article.comment.length}回答
-        </div>
-        {articleComment?
-          articleComment.map(item => {
-            return <ArticleCommentsItem
-              userName={item.authorUsername}
-              userAvatar={item.authorAvatar}
-              commentContent={item.content}
-              agreeData={item.upersId.length}
-              againstData={item.downersId.length}
-              time={item.updateAt}
-              replys={item.commentsId.length}
-              key={item.updateAt}
-            />
-          }):null
-        }
-      </div>
-    )
-  }
+	async componentDidMount() {
+		const commentsId = await JSON.parse(Cookies.get('commentsId'))
+		await this.props.getArticleComment(commentsId)
+	}
+	render() {
+		const articleComment = dateSort(this.props.article.comment)
+		const { userstatus } = this.props
+		return (
+			<div className='article-page-comments'>
+				<div className='article-page-comments-num'>{articleComment.length}回答</div>
+				{articleComment ? (
+					articleComment.map((item) => {
+						return (
+							<ArticleCommentsItem
+								id={item.id}
+								authorName={item.authorUsername}
+								authorAvatar={item.authorAvatar}
+								commentContent={item.content}
+								agreeData={item.upersId}
+								againstData={item.downersId}
+								time={item.updateAt}
+								replys={item.commentsId}
+								key={item.id}
+								// 回复的头像
+								myAvatar={userstatus.avatar}
+								// 子回复
+								setReplyComment={(content) => this.props.setReplyComment(this.props.match.params.id, content)}
+								
+							/>
+						)
+					})
+				) : null}
+			</div>
+		)
+	}
 }
 
 // const testData = [

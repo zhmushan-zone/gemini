@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import { defaultAvatar } from '@/const.js'
 class ArticleCommentsReplyItem extends Component {
   render() {
     const { floor, content, from, to, time } = this.props
@@ -7,7 +7,7 @@ class ArticleCommentsReplyItem extends Component {
       <div className="forum-reply-item">
         <div className="forum-reply-user-avatar">
           <a>
-            <img src={'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
+            <img src={defaultAvatar} alt=""/>
           </a>
         </div>
         <div className="forum-reply-user-details">

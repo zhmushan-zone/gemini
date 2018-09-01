@@ -599,11 +599,38 @@ export function getArticleComment(ids) {
 		})
 		if (res.data.code === 1) {
 			dispatch(getArticleCommentSuccess(res.data.data))
-		}else{
+		} else {
 			console.log('服务器出故障了')
 		}
 	}
 }
+/* 子回复 */
+
+function setReplyCommentSuccess(data) {
+	return { type: ActionTypes.SET_REPLY_COMMENT, commentReply: data }
+}
+/* 获取评论 */
+export function setReplyComment(id, content) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'post',
+			url: `/api/articles/${id}/comment`,
+			headers: {
+				token: Cookies.get('_token')
+			},
+			data: {
+				content: content
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(setReplyCommentSuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
+		}
+	}
+}
+
+
 
 /* -------------------------获取单个用户信息------------------------------------------- */
 function fetchOneUser(data) {

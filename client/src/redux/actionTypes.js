@@ -57,5 +57,7 @@ export const FETCH_ARTICLE_UP = 'FETCH_ARTICLE_UP'
 // 发表文章评论
 export const SEND_ARTICLE_COMMENT = 'SEND_ARTICLE_COMMENT'
 // 获取文章评论
-
 export const GET_ARTICLE_COMMENT = 'GET_ARTICLE_COMMENT'
+// 发表子回复
+export const SET_REPLY_COMMENT = 'SET_REPLY_COMMENT'
+
