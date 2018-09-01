@@ -31,12 +31,12 @@ class PersonCenterInformation extends React.Component {
     })
   }
   //点击确认
-  handleOk = () => {
+  async handleOk  ()  {
     this.setState({
       confirmLoading: true,
     })
-    this.props.changePersonMsg(this.state)
-    this.props.userstatus.data.msg === '成功' ? this.success() : null
+    await this.props.changePersonMsg(this.state)
+    this.props.userstatus.msg === '成功' ? this.success() : null
     setTimeout(() => {
       this.setState({
         visible: false,
@@ -58,32 +58,35 @@ class PersonCenterInformation extends React.Component {
       [key]: event.target.value
     })
   }
+
   render() {
     const { visible, confirmLoading } = this.state
+    const userstatus = this.props.userstatus
+    const { TextArea } = Input
+    const RadioGroup = Radio.Group
     const information = [
       {
         name: '昵称',
-        value: this.props.userstatus.nickname ? this.props.userstatus.nickname : this.props.userstatus.username
+        value: userstatus.username ? userstatus.username : userstatus.nickname
       },
       {
         name: '职位',
-        value: this.props.userstatus.job ? this.props.userstatus.job : '未设置'
+        value: userstatus.job ? userstatus.job : '未设置'
       },
       {
         name: '城市',
-        value: this.props.userstatus.city ? this.props.userstatus.city : '未设置'
+        value: userstatus.city ? userstatus.city : '未设置'
       },
       {
         name: '性别',
-        value: this.props.userstatus.sex ? this.props.userstatus.sex : '未设置'
+        value: userstatus.sex ? userstatus.sex : '未设置'
       },
       {
         name: '个性签名',
-        value: this.props.userstatus.signature ? this.props.userstatus.signature : "未设置"
+        value: userstatus.signature ? userstatus.signature : "未设置"
       }
     ]
-    const { TextArea } = Input
-    const RadioGroup = Radio.Group
+
     return (
       <div className="person-information-container">
         <div className="title">
@@ -95,20 +98,20 @@ class PersonCenterInformation extends React.Component {
         <div>
           <Modal title="编辑个人信息"
             visible={visible}
-            onOk={this.handleOk}
+            onOk={this.handleOk.bind(this)}
             cancelText="取消"
             okText="确定"
             confirmLoading={confirmLoading}
             onCancel={this.handleCancel}
           >
-            <Input placeholder="昵称" size="large" defaultValue="1" value={this.state.username} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'username')} />
-            <Input placeholder="职位" size="large" value={this.state.job} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'job')} />
-            <Input placeholder="城市" size="large" value={this.state.city} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'city')} />
-            <RadioGroup value={this.state.sex} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'sex')}>
+            <Input placeholder="昵称" size="large" defaultValue="1" value={userstatus.username} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'username')} />
+            <Input placeholder="职位" size="large" value={userstatus.job} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'job')} />
+            <Input placeholder="城市" size="large" value={userstatus.city} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'city')} />
+            <RadioGroup value={userstatus.sex} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'sex')}>
               <Radio value={1}>男</Radio>
               <Radio value={0}>女</Radio>
             </RadioGroup>
-            <TextArea rows={4} value={this.state.signature} placeholder="个性签名" onChange={this.handleChange.bind(this, 'signature')} />
+            <TextArea rows={4} value={userstatus.signature} placeholder="个性签名" onChange={this.handleChange.bind(this, 'signature')} />
           </Modal>
         </div>
         <div className="info-wapper">

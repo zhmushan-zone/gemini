@@ -54,4 +54,10 @@ export const FETCH_ONE_USER = 'FETCH_ONE_USER'
 export const FETCH_ARTICLE_CATEGORY = 'FETCH_ARTICLE_CATEGORY'
 // 根据category返回列表
 export const FETCH_ARTICLE_UP = 'FETCH_ARTICLE_UP'
+// 发表文章评论
+export const SEND_ARTICLE_COMMENT = 'SEND_ARTICLE_COMMENT'
+// 获取文章评论
 
+export const GET_ARTICLE_COMMENT = 'GET_ARTICLE_COMMENT'
+// 获取举报列表
+export const GET_REPORTS_LIST = 'GET_REPORTS_LIST'
