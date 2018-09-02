@@ -57,7 +57,7 @@ export class Comment extends BaseEntity {
   authorId: string;
 
   @Column()
-  commentsId: string[];
+  to: string;
 
   @Column()
   upersId: string[];
@@ -70,7 +70,7 @@ export class Comment extends BaseEntity {
     super.beforeInsert();
     if (!this.content) this.content = '';
     if (!this.authorId) this.authorId = '';
-    if (!this.commentsId) this.commentsId = [];
+    if (!this.to) this.to = '';
     if (!this.upersId) this.upersId = [];
     if (!this.downersId) this.downersId = [];
   }

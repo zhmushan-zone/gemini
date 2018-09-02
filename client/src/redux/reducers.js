@@ -47,6 +47,12 @@ const problemCommentInit = {
 	code: ''
 }
 
+const reportInit = {
+	msg: '',
+	reports: [],
+	code: ''
+}
+
 const Userinit = {}
 
 export function userstatus(state = initState, action) {
@@ -206,10 +212,10 @@ export function article(state = articleInit, action) {
 				...state,
 				comment: action.commentList
 			}
-		case ActionTypes.SET_REPLY_COMMENT:
+			case ActionTypes.SET_REPLY_COMMENT:
 			return {
 				...state,
-				commentReply: action.commentReply
+				comment: [ ...state.comment, action.commentReply ]
 			}
 		default:
 			return state
@@ -236,11 +242,7 @@ export function problem(state = problemInitState, action) {
 				...state,
 				problem: action.payload
 			}
-		case ActionTypes.PROBLEM_LIST_BY_TYPE:
-			return {
-				...state,
-				problem: action.payload
-			}
+
 		default:
 			return state
 	}
@@ -266,6 +268,19 @@ export function problemComment(state = problemCommentInit, action) {
 				...state,
 				replys: action.payload
 			}
+
+		default:
+			return state
+	}
+}
+/* ------------------举报------------------------- */
+export function report(state = reportInit, action) {
+	switch (action.type) {
+		case ActionTypes.GET_REPORTS_LIST:
+			return {
+				...state,
+				reports: action.payload
+			}
 		default:
 			return state
 	}
@@ -290,5 +305,6 @@ export default combineReducers({
 	article,
 	problem,
 	User,
-	problemComment
+	problemComment,
+	report
 })

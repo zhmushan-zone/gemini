@@ -20,7 +20,8 @@ export default class opinionFocus extends Component {
 	componentDidMount = () => {
 		// 关注tag
 		const watchTag = Cookies.get('tags')
-		if (watchTag.length!==0||watchTag!=='') {
+		console.log(watchTag)
+		if (watchTag&&watchTag.length!==0) {
 			axios({
 				method: 'put',
 				url: `/api/users/watch/article-type/${watchTag}`,

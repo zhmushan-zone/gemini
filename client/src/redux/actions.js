@@ -575,7 +575,8 @@ export function sendArticleComment(id, content) {
 				token: Cookies.get('_token')
 			},
 			data: {
-				content: content
+				content: content,
+				to: ""
 			}
 		})
 		if (res.data.code === 1) {
@@ -609,29 +610,48 @@ export function getArticleComment(ids) {
 function setReplyCommentSuccess(data) {
 	return { type: ActionTypes.SET_REPLY_COMMENT, commentReply: data }
 }
-/* 获取评论 */
-export function setReplyComment(id, content) {
+export function setReplyComment(articleId, content,to) {
+	console.log(articleId,content,to)
+	const _token = Cookies.get('_token')
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'post',
-			url: `/api/articles/${id}/comment`,
+			url: `/api/articles/${articleId}/comment`,
 			headers: {
-				token: Cookies.get('_token')
+				token: _token
 			},
 			data: {
-				content: content
+				content: content,
+				to:to
 			}
 		})
 		if (res.data.code === 1) {
 			dispatch(setReplyCommentSuccess(res.data.data))
-		} else {
-			console.log('服务器出故障了')
 		}
 	}
 }
 
 
+/* -------------------------获取举报列表------------------------------------------- */
+function getReportsListSuccess(reports) {
+	return { type: ActionTypes.GET_REPORTS_LIST, payload: reports }
+}
 
+export function getReportsList () {
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'get',
+			url: '/api/reports',
+			headers: {
+				token: _token
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(getReportsListSuccess(res.data.data))
+		}
+	}
+}
 /* -------------------------获取单个用户信息------------------------------------------- */
 function fetchOneUser(data) {
 	return { type: ActionTypes.FETCH_ONE_USER, data }

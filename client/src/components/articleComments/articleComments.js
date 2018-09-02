@@ -21,24 +21,28 @@ class ArticleComments extends Component {
 				<div className='article-page-comments-num'>{articleComment.length}回答</div>
 				{articleComment ? (
 					articleComment.map((item) => {
-						return (
-							<ArticleCommentsItem
-								id={item.id}
-								authorName={item.authorUsername}
-								authorAvatar={item.authorAvatar}
-								commentContent={item.content}
-								agreeData={item.upersId}
-								againstData={item.downersId}
-								time={item.updateAt}
-								replys={item.commentsId}
-								key={item.id}
-								// 回复的头像
-								myAvatar={userstatus.avatar}
-								// 子回复
-								setReplyComment={(content) => this.props.setReplyComment(this.props.match.params.id, content)}
-								
-							/>
-						)
+						if (item.to === '') {
+							return (
+								<ArticleCommentsItem
+									articleComment={articleComment}
+									articleId={this.props.articleId}
+									commentId={item.id}
+									authorName={item.authorUsername}
+									authorAvatar={item.authorAvatar}
+									commentContent={item.content}
+									agreeData={item.upersId}
+									againstData={item.downersId}
+									time={item.updateAt}
+									replys={item.commentsId}
+									key={item.id}
+									to={item.to}
+									// 回复的头像
+									myAvatar={userstatus.avatar}
+									// 子回复
+									setReplyComment={(id, content, to) => this.props.setReplyComment(id, content, to)}
+								/>
+							)
+						}
 					})
 				) : null}
 			</div>

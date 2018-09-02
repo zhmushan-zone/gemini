@@ -17,7 +17,6 @@ class BackstateUser extends React.Component {
     }
   }
   componentDidMount = () => {
-
     if (this.props.location.pathname === '/admin/user') {
       setTimeout(() => {
         Axios.get('/api/users', {
