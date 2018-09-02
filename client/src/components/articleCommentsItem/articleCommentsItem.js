@@ -48,8 +48,8 @@ class ArticleCommentsItem extends Component {
 				token: _token
 			},
 			data: {
-				srcId: this.props.replyId,
-				type: 3,
+				srcId: this.props.commentId,
+				type: 5,
 				msg: this.state.reportContent,
 				reason: this.state.reportType
 			}
@@ -132,29 +132,10 @@ class ArticleCommentsItem extends Component {
 		if (!this.state.content.length) {
 			return message.warning('输入不能为空')
 		}
-		this.props.setReplyComment(this.props.articleId, this.state.content, this.state.to)
-		// const _token = Cookies.get('_token')
-		// const res = await axios({
-		// 	method: 'post',
-		// 	url: `/api/articles/${this.props.articleId}/comment`,
-		// 	headers: {
-		// 		token: _token
-		// 	},
-		// 	data: {
-		// 		content: this.state.content,
-		// 		to: this.state.to
-		// 	}
-		// })
-		// if (res.data.code === 1) {
-		// 	const oldReplys = [ ...this.state.replys ]
-		// 	this.setState({
-		// 		replys: [ ...oldReplys, res.data.data ],
-		// 		content: ''
-		// 	})
-		// 	return message.success('回复成功')
-		// } else {
-		// 	return message.error('回复失败')
-		// }
+		await this.props.setReplyComment(this.props.articleId, this.state.content, this.state.to)
+		this.setState({
+			content: ''
+		})
 	}
 	replyLength = () => {
 		let array = []
@@ -166,21 +147,7 @@ class ArticleCommentsItem extends Component {
 		return array.length
 	}
 	render() {
-		const {
-			myAvatar,
-			to,
-			commentId,
-			replyId,
-			authorId,
-			authorName,
-			authorAvatar,
-			commentContent,
-			agreeData,
-			againstData,
-			time,
-			subReplysId,
-			articleComment
-		} = this.props
+		const { myAvatar, commentId, authorName, authorAvatar, commentContent, agreeData, againstData, time } = this.props
 		let replys = []
 		let showMoreBtn = null
 		if (this.state.replys && this.state.replys.length) {
@@ -270,6 +237,7 @@ class ArticleCommentsItem extends Component {
 								if (item.to === commentId) {
 									return (
 										<ArticleCommentsReplyItem
+											subCommentId={item.id}
 											authorName={item.authorUsername}
 											authorAvatar={item.authorAvatar}
 											content={item.content}
@@ -289,7 +257,6 @@ class ArticleCommentsItem extends Component {
 								</div>
 								<div className='my-reply-container-right'>
 									<TextArea
-										id={replyId}
 										value={this.state.content}
 										placeholder='写下你的回复'
 										onChange={(e) => this.stateChange('content', e.target.value)}

@@ -54,9 +54,14 @@
 	}
 	.other_article {
 		margin-top: 24px;
+		padding-right: 24px;
+		width: 100%;
 		.head {
 			display: flex;
 			justify-content: space-between;
+		}
+		.more{
+			cursor: pointer;
 		}
 		.title {
 			font-size: 16px;
@@ -72,15 +77,17 @@
 			max-width: 254px;
 			transition: all .3s;
 			font-size: 14px;
-			color: #545c63;
 			line-height: 22px;
-			&:hover{
-				color: brown;
-				cursor: pointer;
-			}
 			i{
 				font-size: 14px;
 				padding-right: 10px;
+			}
+			a{
+				color: #545c63;
+				&:hover{
+					color: brown;
+					cursor: pointer;
+				}
 			}
 		}
 	}

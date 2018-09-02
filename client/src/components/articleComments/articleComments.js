@@ -10,7 +10,8 @@ import dateSort from '@/util/dateSort.js'
 @connect((state) => state, { getArticleComment, setReplyComment, commentUp })
 class ArticleComments extends Component {
 	async componentDidMount() {
-		const commentsId = await JSON.parse(Cookies.get('commentsId'))
+		const _commentsId= await Cookies.get('commentsId')
+		const commentsId = await JSON.parse(_commentsId)
 		await this.props.getArticleComment(commentsId)
 	}
 	render() {
@@ -49,24 +50,4 @@ class ArticleComments extends Component {
 		)
 	}
 }
-
-// const testData = [
-//   {
-//     userName: '钢铁侠',
-//     userAvatar: 'IronMan',
-//     commentContent: '加油孩子，学好了来斯塔克工业，我罩着你',
-//     agreeData: '500',
-//     againstData: '110',
-//     time: '2018-08-15',
-//     replys: [
-//       {
-//         replyerName: '绿箭侠',
-//         replyerAvatar: 'Arrow',
-//         replyContent: '超人，偶像啊！！！你说的好有道理，我就按你说的做，一定能取得很大的进步的！！！',
-//         replyTime: '2018-08-15'
-//       }
-//     ]
-//   }
-// ]
-
 export default ArticleComments
