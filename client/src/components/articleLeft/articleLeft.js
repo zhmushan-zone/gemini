@@ -24,8 +24,6 @@ export default class articleLeft extends Component {
 			commentValue: '您的内容。。'
 		}
 	}
-	async componentDidMount() {}
-
 	async fetchLikeNumber(categoryId) {
 		this.props.fetchArticleUp(categoryId)
 	}
@@ -35,8 +33,6 @@ export default class articleLeft extends Component {
 		})
 		await this.fetchLikeNumber(this.state.categoryId)
 	}
-
-	/*  */
 
 	showModal = () => {
 		this.setState({
@@ -71,16 +67,14 @@ export default class articleLeft extends Component {
 
 	render() {
 		const { visible, confirmLoading, commentValue, like } = this.state
-		var { title, coverImg, content, type } = this.props
+		let { title, coverImg, content, type,userstatus } = this.props
+		let articleData = this.props.articleData
 		try {
 			var con = Marked(content)
 			var Tag = type.map((v, i) => {
 				return <TagSample name={v} key={i} />
 			})
 		} catch (error) {}
-		if (this.props.articleData) {
-			var articleData = this.props.articleData
-		}
 
 		return (
 			<div className='left-article-container'>
@@ -97,7 +91,7 @@ export default class articleLeft extends Component {
 					<h2 className='detail-title'>{title}</h2>
 					<div className='dc-profile'>
 						<div className='l'>
-							<span style={{ marginRight: 10 }}>2018.08.16 17:38</span>
+							<span style={{ marginRight: 10 }}>{this.props.article.article.createAt}</span>
 							<span className=''>126浏览</span>
 						</div>
 					</div>
@@ -108,6 +102,7 @@ export default class articleLeft extends Component {
 						}}
 					/>
 					<hr />
+
 					{/* 标签 */}
 					<div className='cat-box'>{Tag}</div>
 					{/* 推荐 */}
@@ -123,7 +118,7 @@ export default class articleLeft extends Component {
 					<div id='comment'>
 						<div className='author'>
 							<img
-								src={this.props.userstatus.avatar ? `/avatar/${this.props.userstatus.avatar}` : defaultAvatar}
+								src={userstatus.avatar ? `/avatar/${userstatus.avatar}` : defaultAvatar}
 								alt=''
 							/>
 						</div>
@@ -145,7 +140,7 @@ export default class articleLeft extends Component {
 					</Modal>
 					{/* 评论 */}
 					{/* <div id='all-comments'>暂无评论</div> */}
-					<ArticleComments />
+					<ArticleComments articleId={this.state.categoryId} />
 					{/* article- */}
 					<div className='article_wrap'>
 						<div className='line-con'>

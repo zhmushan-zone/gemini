@@ -36,7 +36,10 @@ export class Report extends BaseEntity {
 export enum ReportType {
   Issue,
   IssueReply,
-  IssueSubReply
+  IssueSubReply,
+  Article,
+  ArticleComment,
+  ArticleSubComment
 }
 
 export enum ReportReason {

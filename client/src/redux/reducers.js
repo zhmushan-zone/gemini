@@ -32,8 +32,7 @@ const articleInit = {
 	msg: '',
 	article: [],
 	code: '',
-	up: '',
-	comment: [],
+	comment: []
 }
 
 const problemInitState = {
@@ -213,6 +212,11 @@ export function article(state = articleInit, action) {
 				...state,
 				comment: action.commentList
 			}
+			case ActionTypes.SET_REPLY_COMMENT:
+			return {
+				...state,
+				comment: [ ...state.comment, action.commentReply ]
+			}
 		default:
 			return state
 	}
@@ -238,11 +242,7 @@ export function problem(state = problemInitState, action) {
 				...state,
 				problem: action.payload
 			}
-		case ActionTypes.PROBLEM_LIST_BY_TYPE:
-			return {
-				...state,
-				problem: action.payload
-			}
+
 		default:
 			return state
 	}
@@ -268,6 +268,7 @@ export function problemComment(state = problemCommentInit, action) {
 				...state,
 				replys: action.payload
 			}
+
 		default:
 			return state
 	}
