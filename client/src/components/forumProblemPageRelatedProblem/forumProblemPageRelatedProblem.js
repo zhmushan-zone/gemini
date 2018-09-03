@@ -1,45 +1,71 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+import { Link, withRouter } from 'react-router-dom'
 
 import './forumProblemPageRelatedProblem.scss'
 
+@withRouter
 class ForumProblemPageRelatedProblem extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      relatedProblem: []
+    }
+  }
+  
+  async componentDidMount() {
+    const res = await axios({
+      method: 'post',
+      url: '/api/issues/fetch/by-tag/intersect',
+      data: {
+        tags: this.props.type
+      }
+    })
+    if (res.data.code === 1) {
+      this.setState({
+        relatedProblem: res.data.data
+      })
+    }
+  }
+
+  async componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.id !== this.props.match.params.id) {
+      const res = await axios({
+        method: 'post',
+        url: '/api/issues/fetch/by-tag/intersect',
+        data: {
+          tags: nextProps.type
+        }
+      })
+      if (res.data.code === 1) {
+        this.setState({
+          relatedProblem: res.data.data
+        })
+      }
+    }
+  }
+
   render() {
+    const relatedProblem = this.state.relatedProblem
+    relatedProblem.forEach((item, index) => {
+      if (item.id === this.props.match.params.id) {
+        relatedProblem.splice(index, 1)
+      }
+    })
     return (
       <div className="forum-problem-page-related-problem">
         <div className="forum-problem-page-title">
           同类问题
         </div>
         <ul>
-          <li>
-            <a>
-              歌曲名字是中文怎么解决
-            </a>
-            <span>2回答</span>
-          </li>
-          <li>
-            <a>
-              长得帅又优秀的程序员，经常得到同事的关爱，请问怎么才能停止散发这该死的魅力？
-            </a>
-            <span>6回答</span>
-          </li>
-          <li>
-            <a>
-              什么程序最容易学呢
-            </a>
-            <span>11回答</span>
-          </li>
-          <li>
-            <a>
-              请问java在线编译网站或工具有哪些？
-            </a>
-            <span>3回答</span>
-          </li>
-          <li>
-            <a>
-              请问java关于开启事务？
-            </a>
-            <span>2回答</span>
-          </li>
+          {relatedProblem.map(item => {
+            return (
+              <li key={item.id}>
+                <Link to={`/forum/details/${item.id}`}>{item.title}</Link>
+                <span>{item.replysId.length}回答</span>
+              </li>
+            )
+          })}
         </ul>
       </div>
     )

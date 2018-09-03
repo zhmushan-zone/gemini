@@ -19,7 +19,7 @@ const initState = {
 	signature: '未设置',
 	watchTags: [],
 	code: '',
-  watchIssuesId:[],
+	watchIssuesId: []
 }
 
 const courseInitState = {
@@ -31,7 +31,8 @@ const courseInitState = {
 const articleInit = {
 	msg: '',
 	article: [],
-	code: ''
+	code: '',
+	comment: []
 }
 
 const problemInitState = {
@@ -41,20 +42,18 @@ const problemInitState = {
 }
 
 const problemCommentInit = {
-  msg: '',
-  replys: [],
-  code: ''
-}
-
-const problemCommentReplyInit = {
 	msg: '',
-	subReplys: [],
+	replys: [],
 	code: ''
 }
 
-const Userinit={
-
+const reportInit = {
+	msg: '',
+	reports: [],
+	code: ''
 }
+
+const Userinit = {}
 
 export function userstatus(state = initState, action) {
 	switch (action.type) {
@@ -113,14 +112,16 @@ export function userstatus(state = initState, action) {
 			return {
 				...initState
 			}
-			case ActionTypes.UPDATE_FORUM_TAGS:
-      return { ...state,
-        watchTags: action.tags
-      }
-    case ActionTypes.FOLLOW_PROBLEM:
-      return { ...state,
-        watchIssuesId: action.payload
-      }
+		case ActionTypes.UPDATE_FORUM_TAGS:
+			return {
+				...state,
+				watchTags: action.tags
+			}
+		case ActionTypes.FOLLOW_PROBLEM:
+			return {
+				...state,
+				watchIssuesId: action.payload
+			}
 		case ActionTypes.FETCH_ONE_USER:
 			return {
 				...state,
@@ -177,17 +178,44 @@ export function article(state = articleInit, action) {
 			}
 		case ActionTypes.CREATE_ARTICLE_ERROR:
 			return {
+				...state,
 				msg: action.msg,
 				code: action.code
 			}
 		case ActionTypes.FETCH_ONE_ARTICLE:
 			return {
+				...state,
 				article: { ...action.data }
 			}
 		case ActionTypes.FETCH_All_ARTICLE:
 			return {
 				...state,
-				articleArray: [...action.data ]
+				articleArray: [ ...action.data ]
+			}
+		case ActionTypes.FETCH_ARTICLE_CATEGORY:
+			return {
+				...state,
+				articleArray: [ ...action.data ]
+			}
+		case ActionTypes.FETCH_ARTICLE_UP:
+			return {
+				...state,
+				up: action.data
+			}
+		case ActionTypes.SEND_ARTICLE_COMMENT:
+			return {
+				...state,
+				comment: [ ...state.comment, action.comment ]
+			}
+		case ActionTypes.GET_ARTICLE_COMMENT:
+			return {
+				...state,
+				comment: action.commentList
+			}
+			case ActionTypes.SET_REPLY_COMMENT:
+			return {
+				...state,
+				comment: [ ...state.comment, action.commentReply ]
 			}
 		default:
 			return state
@@ -213,27 +241,25 @@ export function problem(state = problemInitState, action) {
 			return {
 				...state,
 				problem: action.payload
-      }
+			}
+
 		default:
 			return state
 	}
 }
 
-export function problemComment (state = problemCommentInit, action) {
-  switch (action.type) {
-    case ActionTypes.ERROR_MSG:
+export function problemComment(state = problemCommentInit, action) {
+	switch (action.type) {
+		case ActionTypes.ERROR_MSG:
 			return {
 				...state,
 				msg: action.msg,
 				code: action.code
 			}
-    case ActionTypes.COMMENT_PROBLEM:
-      return {
-        ...state,
-        replys: [
-          ...state.replys,
-          action.payload,
-        ],
+		case ActionTypes.COMMENT_PROBLEM:
+			return {
+				...state,
+				replys: [ ...state.replys, action.payload ],
 				code: action.code,
 				msg: action.msg
 			}
@@ -242,24 +268,36 @@ export function problemComment (state = problemCommentInit, action) {
 				...state,
 				replys: action.payload
 			}
-    default:
-			return state  
-  }
+
+		default:
+			return state
+	}
 }
-/* ------------------获取单个user------------------------- */
-		
-export function User(state = Userinit, action) {
+/* ------------------举报------------------------- */
+export function report(state = reportInit, action) {
 	switch (action.type) {
-		case ActionTypes.FETCH_ONE_USER:
+		case ActionTypes.GET_REPORTS_LIST:
 			return {
 				...state,
-				...action.data,
+				reports: action.payload
 			}
 		default:
 			return state
 	}
 }
+/* ------------------获取单个user------------------------- */
 
+export function User(state = Userinit, action) {
+	switch (action.type) {
+		case ActionTypes.FETCH_ONE_USER:
+			return {
+				...state,
+				...action.data
+			}
+		default:
+			return state
+	}
+}
 
 export default combineReducers({
 	userstatus,
@@ -267,5 +305,6 @@ export default combineReducers({
 	article,
 	problem,
 	User,
-	problemComment
+	problemComment,
+	report
 })

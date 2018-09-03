@@ -36,6 +36,8 @@ export const CREATE_ARTICLE_ERROR = 'CREATE_ARTICLE_ERROR'
 export const CREATE_PROBLEM_SUCCESS = 'CREATE_PROBLEM_SUCCESS'
 // 问题列表
 export const PROBLEM_LIST = 'PROBLEM_LIST'
+// 某类问题列表
+export const PROBLEM_LIST_BY_TYPE = 'PROBNLEM_LIST_BY_TYPE'
 // 关注问题
 export const FOLLOW_PROBLEM = 'FOLLOW_PROBLEM'
 // 获取单个文章
@@ -48,4 +50,15 @@ export const COMMENT_PROBLEM = 'COMMENT_PROBLEM'
 export const FETCH_COMMENT  = 'FETCH_COMMENT'
 // 获取单个用户
 export const FETCH_ONE_USER = 'FETCH_ONE_USER'
-
+// 根据category返回列表
+export const FETCH_ARTICLE_CATEGORY = 'FETCH_ARTICLE_CATEGORY'
+// 根据category返回列表
+export const FETCH_ARTICLE_UP = 'FETCH_ARTICLE_UP'
+// 发表文章评论
+export const SEND_ARTICLE_COMMENT = 'SEND_ARTICLE_COMMENT'
+// 获取文章评论
+export const GET_ARTICLE_COMMENT = 'GET_ARTICLE_COMMENT'
+// 发表子回复
+export const SET_REPLY_COMMENT = 'SET_REPLY_COMMENT'
+// 获取举报列表
+export const GET_REPORTS_LIST = 'GET_REPORTS_LIST'

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Modal } from 'antd'
 import { connect } from 'react-redux'
 import { updateForumTags } from '@/redux/actions'
@@ -49,7 +50,9 @@ class forumFollowClass extends Component {
 
   render() {
     const myTags = this.props.follow.map(item => {
-      return <a key={item}>{myFollowClass[item]}</a>
+      return <Link to={`/forum/type/${item}`} key={item}>
+        {myFollowClass[item]}
+      </Link>
     })
     const allTags = myFollowClass.map((item, index) => {
       return (

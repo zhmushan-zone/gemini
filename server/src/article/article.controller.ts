@@ -7,7 +7,7 @@ import { CreateArticleDTO, UpdateArticleDTO, CreateCommentDTO } from './dto';
 import { ArticleService } from './article.service';
 import { GeminiError } from '../common/error';
 import { CommentVO, ArticleVO } from './vo';
-import { Article, ArticleCategory } from './article.entity';
+import { Article, ArticleCategory, Comment } from './article.entity';
 import { UserService } from '../user/user.service';
 import { ObjectId } from 'bson';
 import { UserVO } from '../user/vo/user.vo';
@@ -20,6 +20,41 @@ export class ArticleController {
   async create(@Usr() user: User, @Body() createArticleDTO: CreateArticleDTO) {
     const article = await this.articleService.save(user.id.toHexString(), createArticleDTO);
     return success(new ArticleVO(article));
+  }
+
+  @Post(':id/comment')
+  @UseGuards(AuthGuard('jwt'))
+  async createComment(
+    @Usr() user: User,
+    @Body() createCommentDTO: CreateCommentDTO,
+    @Param('id') id: string
+  ) {
+    const article = await this.articleService.findById(id);
+    if (!article) return response(ResponseCode.NOT_EXISIT);
+    const comment = await this.articleService.createComment(user.id.toHexString(), createCommentDTO);
+    if (!comment) return response(ResponseCode.UNKNOWN);
+    article.commentsId.push(comment.id.toHexString());
+    const res = await this.articleService.updateById(article.authorId, id, { commentsId: article.commentsId } as Article);
+    if (res instanceof GeminiError) return response(res.code);
+    const commentVO = new CommentVO(comment);
+    commentVO.authorUsername = user.username;
+    commentVO.authorAvatar = user.avatar;
+    return success(commentVO);
+  }
+
+  @Post('comment/ids')
+  async findCommentGroup(@Body() ids: string[]) {
+    const comments = await this.articleService.findCommentByIds(ids.map(id => new ObjectId(id)));
+    const res: CommentVO[] = [];
+    for (const c of comments) {
+      const author = await this.userService.findById(c.authorId);
+      res.push({
+        ...new CommentVO(c),
+        authorUsername: author.username,
+        authorAvatar: author.avatar
+      } as CommentVO);
+    }
+    return success(res);
   }
 
   @Delete(':id')
@@ -82,6 +117,15 @@ export class ArticleController {
     ).map(a => new UserVO(a)));
   }
 
+  @Get('watch-article-type')
+  @UseGuards(AuthGuard('jwt'))
+  async findByWatchArticleType(@Usr() user: User) {
+    return success(
+      (await this.articleService.findByArticleTypes(user.watchArticleTypes))
+        .map(a => new ArticleVO(a))
+    );
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const article = await this.articleService.findById(id);
@@ -108,7 +152,7 @@ export class ArticleController {
 
   @Put(':id/up')
   @UseGuards(AuthGuard('jwt'))
-  async replyUp(@Usr() user: User, @Param('id') id: string) {
+  async up(@Usr() user: User, @Param('id') id: string) {
     const article = await this.articleService.findById(id);
     if (!article) return response(ResponseCode.NOT_EXISIT);
     const index = article.upersId.findIndex(v => v === user.id.toHexString());
@@ -122,21 +166,38 @@ export class ArticleController {
     return success(res.upersId.length);
   }
 
-  @Post(':id/comment')
+  @Put('comment/:id/up')
   @UseGuards(AuthGuard('jwt'))
-  async createComment(
-    @Usr() user: User,
-    @Body() createCommentDTO: CreateCommentDTO,
-    @Param('id') id: string
-  ) {
-    const article = await this.articleService.findById(id);
-    if (!article) return response(ResponseCode.NOT_EXISIT);
-    const comment = await this.articleService.createComment(user.id.toHexString(), createCommentDTO);
-    if (!comment) return response(ResponseCode.UNKNOWN);
-    article.commentsId.push(comment.id.toHexString());
-    const res = await this.articleService.updateById(article.authorId, id, { commentsId: article.commentsId } as Article);
+  async commentUp(@Usr() user: User, @Param('id') id: string) {
+    const comment = await this.articleService.findCommentById(id);
+    if (!comment) return response(ResponseCode.NOT_EXISIT);
+    if (comment.downersId.findIndex(v => v === user.id.toHexString()) !== -1) return response(ResponseCode.REPEAT_OPERATION);
+    const index = comment.upersId.findIndex(v => v === user.id.toHexString());
+    if (index === -1) {
+      comment.upersId.push(user.id.toHexString());
+    } else {
+      comment.upersId.splice(index, 1);
+    }
+    const res = await this.articleService.updateCommentById(comment.authorId, id, { upersId: comment.upersId } as Comment);
     if (res instanceof GeminiError) return response(res.code);
-    return success(new CommentVO(comment));
+    return success();
+  }
+
+  @Put('comment/:id/down')
+  @UseGuards(AuthGuard('jwt'))
+  async commentDown(@Usr() user: User, @Param('id') id: string) {
+    const comment = await this.articleService.findCommentById(id);
+    if (!comment) return response(ResponseCode.NOT_EXISIT);
+    if (comment.upersId.findIndex(v => v === user.id.toHexString()) !== -1) return response(ResponseCode.REPEAT_OPERATION);
+    const index = comment.downersId.findIndex(v => v === user.id.toHexString());
+    if (index === -1) {
+      comment.downersId.push(user.id.toHexString());
+    } else {
+      comment.downersId.splice(index, 1);
+    }
+    const res = await this.articleService.updateCommentById(comment.authorId, id, { downersId: comment.downersId } as Comment);
+    if (res instanceof GeminiError) return response(res.code);
+    return success();
   }
 
   constructor(

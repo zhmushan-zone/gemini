@@ -57,14 +57,22 @@ export class Comment extends BaseEntity {
   authorId: string;
 
   @Column()
-  commentsId: string[];
+  to: string;
+
+  @Column()
+  upersId: string[];
+
+  @Column()
+  downersId: string[];
 
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();
     if (!this.content) this.content = '';
     if (!this.authorId) this.authorId = '';
-    if (!this.commentsId) this.commentsId = [];
+    if (!this.to) this.to = '';
+    if (!this.upersId) this.upersId = [];
+    if (!this.downersId) this.downersId = [];
   }
 
   @BeforeUpdate()
@@ -74,43 +82,50 @@ export class Comment extends BaseEntity {
 }
 
 export enum ArticleType {
-  JAVASCRIPT,
-  NODEJS,
-  VUE,
-  REACT,
-  ANGULAR,
-  html,
-  css,
-  jquery,
-  bootstrap,
-  前端工具,
-  sass,
-  less,
-  java,
-  python,
-  go,
-  php,
-  ruby,
-  thinkphp,
-  c,
-  cpp,
-  spring,
-  Yli,
-  算法,
-  数据库,
-  android,
-  ios,
-  大数据,
-  人工智能,
-  机器学习,
-  产品,
-  设计
+	'JavaScript',
+	'Node.js',
+	'Vue',
+	'React',
+	'Html5',
+	'Html/CSS',
+	'Angular',
+	'WebApp',
+	'Jquery',
+	'Bootstrap',
+	'前端工具',
+	'CSS3',
+	'Sass/Less',
+	'JAVA',
+	'Python',
+	'Go',
+	'PHP',
+	'C',
+	'C++',
+	'C#',
+	'MySQL',
+	'SQL Server',
+	'Oracle',
+	'MongoDB',
+	'Android',
+	'iOS',
+	'Unity 3D',
+	'Cocos2d-x',
+	'大数据',
+	'云计算',
+	'深度学习',
+	'机器学习',
+	'测试',
+	'Linux',
+	'Photoshop',
+	'Maya',
+	'Premiere',
+	'ZBrush',
+	'数据结构',
+	'Ruby'
 }
 
 export enum ArticleCategory {
-  '推荐',
   '资讯',
-  '最新文章',
   '区块链',
   '人工智能',
   '云计算/大数据',

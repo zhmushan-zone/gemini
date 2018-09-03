@@ -2,36 +2,51 @@ import React, { Component } from 'react'
 import { Icon } from 'antd'
 import CoursePreview from '@/common/coursePreview/coursePreview'
 import './articleRight.scss'
-import {defaultAvatar} from  '@/const'
-import { connect } from 'react-redux'
-@connect((state) => state)
-export default class articleLeft extends Component {
-	constructor(props){
+import { defaultAvatar } from '@/const'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
+export default class articleRight extends Component {
+	constructor(props) {
 		super(props)
-		this.state={
-			follow:false
-		}	
+		this.state = {
+			follow: false,
+			thisAuthorArticle: []
+		}
 	}
 	toFollow = () => {
 		this.setState({
-			follow:!this.state.follow
+			follow: !this.state.follow
 		})
+	}
+	componentDidMount() {
+		if (this.props.authorId) {
+			axios({
+				method: 'get',
+				url: `/api/articles/author/${this.props.authorId}`
+			}).then((res) => {
+				this.setState({
+					thisAuthorArticle: res.data.data
+				})
+			})
+		}
 	}
 
 	render() {
-		const data = this.props.article.article
+		const { article } = this.props
+		const { thisAuthorArticle, follow } = this.state
 		return (
 			<div className='right-article-container'>
 				<div className='author_info'>
-					<img src={data.authorAvatar?`/avatar/${data.authorAvatar}`:defaultAvatar} alt='' />
+					<img src={article.authorAvatar ? `/avatar/${article.authorAvatar}` : defaultAvatar} alt='' />
+
 					<div className='text-info'>
 						<div className='name'>
-							<span>{data.authorUsername}</span>
-							<span onClick={this.toFollow}>{this.state.follow?"已关注":"关注"}</span>
+							<span>{article.authorUsername}</span>
+							<span onClick={this.toFollow}>{follow ? '已关注' : '关注'}</span>
 						</div>
 						<div className='job'>全站工程师</div>
 						<div className='contribution'>
-							<span>68片文章</span>
+							<span>{thisAuthorArticle.length}片文章</span>
 							<span>贡献55555字</span>
 						</div>
 					</div>
@@ -42,18 +57,16 @@ export default class articleLeft extends Component {
 						<span className='more'>更多</span>
 					</div>
 					<ul className='content'>
-						<li className='article-item'>
-							<Icon type='file-text' />非常重要，小公司面试防坑指南！
-						</li>
-						<li className='article-item'>
-							<Icon type='file-text' />非常重要，小公司面试防坑指南！
-						</li>
-						<li className='article-item'>
-							<Icon type='file-text' />非常重要，小公司面试防坑指南！
-						</li>
-						<li className='article-item'>
-							<Icon type='file-text' />非常重要，小公司面试防坑指南！
-						</li>
+						{this.state.thisAuthorArticle.map((v, i) => {
+							return (
+								<li className='article-item' key={i}>
+									<Link to={v.id}>
+										<Icon type='file-text' />
+										{v.content}
+									</Link>
+								</li>
+							)
+						})}
 					</ul>
 				</div>
 

@@ -1,0 +1,13 @@
+.backstage-problem-list {
+
+  .backstage-problem-list-top {
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    padding-bottom: 30px;
+    
+    .ant-input-search {
+      width: 522px;
+    }
+  }
+}

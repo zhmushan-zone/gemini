@@ -113,7 +113,6 @@ class Login extends React.Component {
 
 	inputFocus = (e) => {
 		const inputNow = e.target
-		console.log('focus')
 		const go = this.refs.go
 		inputNow.parentNode.classList.add('focus')
 		inputNow.parentNode.classList.remove('shake')

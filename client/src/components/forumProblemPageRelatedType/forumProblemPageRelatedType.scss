@@ -68,6 +68,10 @@
         overflow: hidden;
         cursor: pointer;
         box-sizing: content-box;
+
+        &:hover {
+          background: #EDF1F1;
+        }
       }
     }
   }

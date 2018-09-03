@@ -11,7 +11,9 @@ class ForumProblemPageRight extends Component {
     return (
       <div className="forum-problem-page-right">
         <Link className="forum-problem-page-craete-btn" to={`/forum/create`}>我要提问</Link>
-        <ForumProblemPageRelatedProblem />
+        <ForumProblemPageRelatedProblem
+          type={this.props.tags}
+        />
         <ForumProblemPageRelatedType 
           type={this.props.tags}
         />

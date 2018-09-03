@@ -319,6 +319,25 @@ export function getProblemList() {
 		}
 	}
 }
+/* ---------------------------------------------------- 通过类型获取问题列表----------------------------------------------------------------------- */
+function problemListById(problem) {
+	return { type: ActionTypes.PROBLEM_LIST_BY_TYPE, payload: problem }
+}
+
+export function getProblemListByType(type) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'post',
+			url: '/api/issues/fetch/by-tag/intersect',
+			data: {
+				tags: type
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(problemListById(res.data.data))
+		}
+	}
+}
 /* ---------------------------------------------------- 关注问题----------------------------------------------------------------------- */
 function followProblemSuccess(watchIssuesId) {
 	return { type: ActionTypes.FOLLOW_PROBLEM, payload: watchIssuesId }
@@ -384,6 +403,7 @@ export function fetchComment(problemIds) {
 		})
 		if (res.data.code === 1) {
 			dispatch(fetchCommentSuccess(res.data.data))
+			console.log(problemIds)
 		}
 	}
 }
@@ -407,6 +427,7 @@ export function updateForumTags(tags) {
 		})
 		if (res.data.code === 1) {
 			dispatch(updateForumTagsSuccess(tags))
+			Cookies.set('tags', tags)
 		} else {
 			dispatch(errorMsg('讨论区关注分类更新失败'))
 		}
@@ -423,16 +444,17 @@ function createArticleSuccess(article) {
 }
 export function publishArticle(state) {
 	const { articleName, articleContent, articleTag, articleImage, selectValue } = state
+	console.log(selectValue)
 	if (!articleName) {
 		return createArticlError('文章没有名字吗？')
 	} else if (!articleContent) {
 		return createArticlError('文章没有内容吗？')
 	} else if (!articleImage) {
 		return createArticlError('文章没有图片吗？')
+	} else if (!selectValue) {
+		return createArticlError('文章没有类型吗？')
 	} else if (!articleTag) {
 		return createArticlError('文章没有标签吗？')
-	} else if(!selectValue){
-		return createArticlError('文章没有类型吗？')
 	}
 	return async (dispatch) => {
 		const _token = Cookies.get('_token')
@@ -447,7 +469,7 @@ export function publishArticle(state) {
 				coverImg: articleImage,
 				type: articleTag,
 				content: articleContent,
-				category:selectValue
+				category: selectValue
 			}
 		})
 		if (res.data.code === 1) {
@@ -470,6 +492,7 @@ export function fetchArticleOne(id) {
 			url: `/api/articles/${id}`
 		})
 		if (res.data.code === 1) {
+			Cookies.set('commentsId', res.data.data.commentsId)
 			dispatch(fetchOneArticleSuccess(res.data.data))
 		} else {
 			console.log('服务器出故障了')
@@ -496,6 +519,139 @@ export function fetchArticleAll() {
 	}
 }
 
+/* 更具类别返回文章列表 */
+
+function fetchArticleByCategorySuccess(data) {
+	return { type: ActionTypes.FETCH_ARTICLE_CATEGORY, data }
+}
+
+export function fetchArticleByCategory(id) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'get',
+			url: `/api/articles/category/${id}`
+		})
+		console.log(res)
+		if (res.data.code === 1) {
+			dispatch(fetchArticleByCategorySuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
+		}
+	}
+}
+
+/* 文章点赞数 */
+function fetchArticleUpSuccess(data) {
+	return { type: ActionTypes.FETCH_ARTICLE_UP, data }
+}
+
+export function fetchArticleUp(categoryId) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'PUT',
+			url: `/api/articles/${categoryId}/up`,
+			headers: {
+				token: Cookies.get('_token')
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(fetchArticleUpSuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
+		}
+	}
+}
+
+/* 发表评论 */
+function sendArticleCommentSuccess(data) {
+	return { type: ActionTypes.SEND_ARTICLE_COMMENT, comment: data }
+}
+export function sendArticleComment(id, content) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'post',
+			url: `/api/articles/${id}/comment`,
+			headers: {
+				token: Cookies.get('_token')
+			},
+			data: {
+				content: content,
+				to: ""
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(sendArticleCommentSuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
+		}
+	}
+}
+
+function getArticleCommentSuccess(data) {
+	return { type: ActionTypes.GET_ARTICLE_COMMENT, commentList: data }
+}
+/* 获取评论 */
+export function getArticleComment(ids) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'post',
+			url: '/api/articles/comment/ids',
+			data: ids
+		})
+		if (res.data.code === 1) {
+			dispatch(getArticleCommentSuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
+		}
+	}
+}
+/* 子回复 */
+
+function setReplyCommentSuccess(data) {
+	return { type: ActionTypes.SET_REPLY_COMMENT, commentReply: data }
+}
+export function setReplyComment(articleId, content,to) {
+	console.log(articleId,content,to)
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'post',
+			url: `/api/articles/${articleId}/comment`,
+			headers: {
+				token: _token
+			},
+			data: {
+				content: content,
+				to:to
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(setReplyCommentSuccess(res.data.data))
+		}
+	}
+}
+
+
+/* -------------------------获取举报列表------------------------------------------- */
+function getReportsListSuccess(reports) {
+	return { type: ActionTypes.GET_REPORTS_LIST, payload: reports }
+}
+
+export function getReportsList () {
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'get',
+			url: '/api/reports',
+			headers: {
+				token: _token
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(getReportsListSuccess(res.data.data))
+		}
+	}
+}
 /* -------------------------获取单个用户信息------------------------------------------- */
 function fetchOneUser(data) {
 	return { type: ActionTypes.FETCH_ONE_USER, data }

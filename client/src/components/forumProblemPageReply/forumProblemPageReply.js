@@ -17,7 +17,7 @@ class ForumProblemPageReply extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      replyContent: ""
+      replyContent: ''
     }
   }
   
@@ -34,6 +34,9 @@ class ForumProblemPageReply extends Component {
     } 
     await this.props.commentProblem(problemId, this.state.replyContent)
     if (this.props.code === 1) {
+      this.setState({
+        replyContent: ''
+      })
       return message.success(this.props.msg)
     } else {
       return message.error(this.props.msg)
@@ -43,7 +46,7 @@ class ForumProblemPageReply extends Component {
   render() {
     return (
       <div className="forum-problem-page-reply">
-        <TextArea placeholder="请输入你的观点(不得少于15字)" onChange={(e) => this.contentChange(e)} autosize={{ minRows: 2, maxRows: 6 }} />
+        <TextArea placeholder="请输入你的观点(不得少于15字)" value={this.state.replyContent} onChange={(e) => this.contentChange(e)} autosize={{ minRows: 2, maxRows: 6 }} />
         <div className="forum-problem-reply-btn-wrapper">
           <button onClick={() => this.comment()}>回答</button>
         </div>
