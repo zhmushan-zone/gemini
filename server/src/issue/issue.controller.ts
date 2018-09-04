@@ -149,7 +149,15 @@ export class IssueController {
   @Get()
   async findAll() {
     const issues = await this.issueService.findAll();
-    return success(issues.map(issue => new IssueVO(issue)));
+    const res = [] as IssueVO[];
+    for (const i of issues) {
+      const author = await this.userService.findById(i.authorId);
+      const issueVO = new IssueVO(i);
+      issueVO.authorUsername = author.username;
+      issueVO.authorAvatar = author.avatar;
+      res.push(issueVO);
+    }
+    return success(res);
   }
 
   @Get('reply-num-weekly')
@@ -173,9 +181,13 @@ export class IssueController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const issue = await this.issueService.findById(id);
+    const author = await this.userService.findById(issue.authorId);
     issue.viewnum++;
     this.issueService.updateByIdWithoutUpdateDate(id, { viewnum: issue.viewnum } as Issue);
-    return success(new IssueVO(issue));
+    const issueVO = new IssueVO(issue);
+    issueVO.authorUsername = author.username;
+    issueVO.authorAvatar = author.avatar;
+    return success(issueVO);
   }
 
   @Put(':id')
