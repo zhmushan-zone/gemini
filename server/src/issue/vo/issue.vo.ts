@@ -1,17 +1,8 @@
 import { Issue, IssueStatus } from '../issue.entity';
 import { WatchTag } from '../../user/user.entity';
 export class IssueVO extends Issue {
-  id: string;
-  title: string;
-  content: string;
-  tags: WatchTag[];
-  authorId: string;
-  replysId: string[];
-  viewnum: number;
-  watchersId: string[];
-  status: IssueStatus;
-  updateAt;
-  createAt;
+  authorUsername: string;
+  authorAvatar: string;
 
   constructor(issue: Issue) {
     super();
