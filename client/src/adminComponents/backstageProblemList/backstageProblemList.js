@@ -17,17 +17,13 @@ class BackstageProblemList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showType: Array.from({length: allTags.length}, (v, i) => i),
-      problems: []
+      showType: Array.from({length: allTags.length}, (v, i) => i)
     }
     this.stateChange = this.stateChange.bind(this)
   }
   
   async componentDidMount() {
     await this.props.getProblemList()
-    this.setState({
-      problems: this.props.problem
-    })
   }
   
   
@@ -37,8 +33,12 @@ class BackstageProblemList extends Component {
     })
   }
 
+  isSimilar (arr1, arr2) {
+    arr1 = Array.from(arr1, x => x + 1)
+    return new Set([...arr1, ...arr2]).size < arr1.length + arr2.length
+  }
+  
   render() {
-    console.log(this.state.problems)
     const tagItems = allTags.map((item, index) => {
       return <BackstageTag
                 type={index}
@@ -50,6 +50,11 @@ class BackstageProblemList extends Component {
               {item}
             </BackstageTag>
     })
+    let problems = []
+    this.props.problem ?
+    problems = [...this.props.problem].filter(item => this.isSimilar(item.tags, this.state.showType))
+    : null
+    console.log(problems)
     return (
       <div className="backstage-problem-list">
         <div className="backstage-problem-list-top">
@@ -70,20 +75,21 @@ class BackstageProblemList extends Component {
         </div>
         <div className="backstage-problem-content">
           {
-            this.state.problems.length ? 
-            this.state.problems.map(item => {
+            problems.length ? 
+            problems.map(item => {
               return <BackstageProblemItem
-                        authorId={item.authorId}
+                        authorName={item.authorUsername}
+                        authorAvatar={item.authorAvatar}
                         title={item.title}
                         tags={item.tags}
                         content={item.content}
                         createTime={item.createAt}
-                        viewNum={item.viewNum}
+                        viewNum={item.viewnum}
                         followNum={item.watchersId.length}
                         replyNum={item.replysId.length}
                         key={item.id}
                       />
-            }) : null
+            }) : <p style={{color: 'rgba(0,0,0,.45)', textAlign: 'center'}}>暂无数据</p>
           }
         </div>
       </div>
