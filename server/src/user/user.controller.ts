@@ -10,7 +10,8 @@ import {
   UseInterceptors,
   UploadedFile,
   FileInterceptor,
-  UnsupportedMediaTypeException
+  UnsupportedMediaTypeException,
+  Delete
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { LoginUserDTO, CreateUserDTO, CheckUserDTO, UpdateUserDTO } from './dto';
@@ -22,15 +23,14 @@ import * as nodemailer from 'nodemailer';
 import { AuthService } from '../common/auth/auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Usr } from './user.decorators';
-import { User, WatchTag } from './user.entity';
+import { User, WatchTag, UserRole } from './user.entity';
 import * as path from 'path';
 import * as fs from 'fs';
 import { GeminiError } from '../common/error';
 import { ObjectId } from 'mongodb';
-import { Common } from '../common/common.entity';
 import { ArticleType } from '../article/article.entity';
-import { ArticleService } from '../article/article.service';
-import { ArticleVO } from '../article/vo';
+import { Allow } from './role.decorators';
+import { RolesGuard } from '../common/role.guard';
 
 @Controller('/api/users')
 export class UserController {
@@ -228,6 +228,14 @@ export class UserController {
       ResponseCode[ResponseCode.EMAIL_SEND_FAILED]
     );
 
+  }
+
+  @Delete(':id')
+  @Allow(UserRole.ADMIN)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  async delete(@Param('id') id: string) {
+    await this.userService.delete(id);
+    return success();
   }
 
   constructor(
