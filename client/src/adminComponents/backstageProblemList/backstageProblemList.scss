@@ -10,4 +10,27 @@
       width: 522px;
     }
   }
+
+  .backstage-problem-type-check {
+    margin: 24px;
+    padding: 24px;
+    border-radius: 3px;
+    background: #fff;
+    display: flex;
+
+    .backstage-problem-type-check-title {
+      width: 88px;
+    }
+
+    .backstage-problem-type-check-content {
+      flex: 1;
+    }
+  }
+
+  .backstage-problem-content {
+    margin: 24px;
+    padding: 24px;
+    border-radius: 3px;
+    background: #fff;
+  }
 }
