@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './user.entity';
+import { User, UserRole } from './user.entity';
 import { encrpty, generateSalt, ResponseCode } from '../common/utils';
 import { MongoRepository } from 'typeorm';
 import { GeminiError } from '../common/error';
@@ -10,7 +10,7 @@ import { ObjectId } from 'mongodb';
 export class UserService {
 
   delete(id: string) {
-    this.userRepository.delete(id);
+    this.userRepository.delete({ id: new ObjectId(id), role: UserRole.USER });
   }
 
   findById(id: string) {
