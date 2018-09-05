@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Tag, Icon } from 'antd'
 import BackstageProblemModal from '../backstageModal/backstageProblemModal/backstageProblemModal'
+import { defaultAvatar } from '@/const'
 
 import './backstagePronblemItem.scss'
 
@@ -42,7 +43,7 @@ class BackstageProblemItem extends Component {
         </div>
         <div className="backstage-problem-item-content" dangerouslySetInnerHTML = {{__html: content}}></div>
         <div className="backstage-problem-item-authorInfo">
-          <img src={authorAvatar ? `/avatar/${authorAvatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
+          <img src={authorAvatar ? `/avatar/${authorAvatar}` : defaultAvatar} alt=""/>
           <a style={{marginLeft: 10}}>{authorName}</a>
           <span>发布于</span>
           <span style={{color: 'rgba(0, 0, 0, .25)'}}>{createTime}</span>

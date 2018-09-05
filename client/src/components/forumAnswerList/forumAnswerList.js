@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Tabs } from 'antd'
+import { defaultAvatar } from '@/const'
 
 import './forumAnswerList.scss'
 import axios from 'axios'
@@ -115,7 +116,7 @@ class ForumAnswerList extends Component {
         <li key={index}>
           <div className="answer-list-item-left">
             <span className="answer-ranking" style={{color: rankingColor}}>{index + 1}</span>
-            <img src={item.avatar ? `/avatar/${item.avatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
+            <img src={item.avatar ? `/avatar/${item.avatar}` : defaultAvatar} alt=""/>
           </div>
           <div className="answer-list-item-right">
             <div className="answer-name">

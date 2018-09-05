@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Table, Divider, Tag } from 'antd'
+import { reportReason } from '@/const'
 
 class ReporCenterTable extends Component {
   render() {
@@ -64,6 +65,4 @@ const data = [{
 }]
 
 const alltype = [['答疑'], ['答疑', '评论'], ['答疑', '回复'], ['文章'], ['文章', '评论'], ['文章', '回复'], ['课程', '评论'], ['课程', '回复']]
-const allReason = ['广告或垃圾信息', '辱骂', '涉政或违法', '抄袭', '不合适内容']
-
 export default ReporCenterTable

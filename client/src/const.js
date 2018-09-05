@@ -44,3 +44,4 @@ export const ArticleType = [
 export const ArticleCategory = [ '资讯', '区块链', '人工智能', '云计算/大数据', '前端开发', '后端开发', '移动互联', '工具资源', '职场生活', '幽默段子', '其他' ]
 export const ArticleCategoryAll = [ '全部' ,...ArticleCategory]
 export const defaultAvatar = require(`./assets/imgs/defaultAvatar.jpg`)
+export const reportReason = ['广告或垃圾信息', '辱骂', '涉政或违法', '抄袭', '不合适内容']

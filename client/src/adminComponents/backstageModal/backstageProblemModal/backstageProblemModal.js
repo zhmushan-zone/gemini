@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'antd'
+import { defaultAvatar } from '@/const'
 
 import './backstageProblemModal.scss'
 
@@ -15,7 +16,7 @@ class BackstageProblemModal extends Component {
   >
     <div className="problem-modal-content">
       <div className="problem-modal-user-info">
-        <img src={this.props.authorAvatar ? `/avatar/${this.props.authorAvatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
+        <img src={this.props.userAvatar ? `/avatar/${this.props.userAvatar}` : defaultAvatar} alt=""/>
         <span>{this.props.userName}</span>
       </div>
       <div className="problem-modal-content" dangerouslySetInnerHTML = {{__html: this.props.content}}></div>
