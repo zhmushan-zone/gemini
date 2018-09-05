@@ -173,6 +173,7 @@ export class IssueController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const issue = await this.issueService.findById(id);
+    if (!issue) return response(ResponseCode.NOT_EXISIT);
     issue.viewnum++;
     this.issueService.updateByIdWithoutUpdateDate(id, { viewnum: issue.viewnum } as Issue);
     return success(new IssueVO(issue));
