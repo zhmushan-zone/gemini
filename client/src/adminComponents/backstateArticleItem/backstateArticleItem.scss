@@ -1,0 +1,89 @@
+.backstage-article-item {
+  padding: 16px 0;
+  border-bottom: 1px solid #e8e8e8;
+  &:last-child {
+    border: none;
+  }
+
+  h4 {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 12px;
+    font-weight: 500;
+
+    a {
+      color: rgba(0,0,0,.85);
+
+      &:hover {
+        color: #3f90f7;
+      }
+    }
+  }
+
+  .backstage-article-item-content {
+    margin-top: 16px;
+    height: 35px;
+    overflow: hidden;
+
+    p {
+      color: rgba(0,0,0,.65)!important;
+      font-weight: 400;
+      font-size: 14px;
+      width: 50%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .backstage-article-item-authorInfo {
+    margin-top: 4px;
+    display: flex;
+    font-weight: 400;
+    color: rgba(0, 0, 0, .45);
+
+    img {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+
+    a {
+      color: #3f90f7;
+    }
+
+    span {
+      margin-left: 4px;
+    }
+  }
+
+  .backstage-article-item-data {
+    margin-top: 16px;
+    color: rgba(0,0,0,.45);
+
+    ul {
+      margin: 0;
+      padding-left: 0;
+      display: flex;
+
+      li {
+        padding: 0 16px;
+        cursor: pointer;
+
+        &:first-child {
+          padding-left: 0;
+        }
+
+        i {
+          margin-right: 8px;
+        }
+      }
+
+      em {
+        background-color: #e8e8e8;
+        height: 14px;
+        width: 1px;
+      }
+    }
+  }
+}

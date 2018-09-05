@@ -15,19 +15,18 @@
 		padding: 24px;
 		border-radius: 3px;
 		background: #fff;
-		display: flex;
 		.backstage-article-type-check-content {
 			flex: 1;
+		}
+		.check{
+			display: flex;
+			padding-bottom: 20px;
 		}
   }
   .backstage-article-type-check-title {
     width: 88px;
   }
 	.backstage-article-select-user {
-		margin: 24px;
-		padding: 24px;
-		border-radius: 3px;
-    background: #fff;
     display: flex;
 	}
 

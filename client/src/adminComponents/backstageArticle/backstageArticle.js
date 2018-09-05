@@ -6,21 +6,25 @@ import { ArticleCategoryAll } from '@/const.js'
 import './backstageArticle.scss'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import BackstateArticleItem from '../backstateArticleItem/backstateArticleItem'
 const Search = Input.Search
 const Option = Select.Option
-@connect((state) => state.problem, {})
+@connect((state) => state.article, {})
 export default class BackstageArticle extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			// [0,1,3,4,...]
 			showType: Array.from({ length: ArticleCategoryAll.length }, (v, i) => i),
-			problems: [],
-			users: []
+			articles: [],
+			users: [],
+			selectUser: []
 		}
 		this.stateChange = this.stateChange.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 	}
 	async componentDidMount() {
+		// 获取全部用户
 		await axios({
 			method: 'GET',
 			url: '/api/users',
@@ -32,6 +36,15 @@ export default class BackstageArticle extends Component {
 				users: res.data.data
 			})
 		})
+		// 获取文章
+		await axios({
+			method: 'GET',
+			url: '/api/articles'
+		}).then((res) => {
+			this.setState({
+				articles: res.data.data
+			})
+		})
 	}
 
 	stateChange(key, value) {
@@ -40,11 +53,22 @@ export default class BackstageArticle extends Component {
 		})
 	}
 	handleChange(value) {
-		console.log(`selected ${value}`)
+		this.setState({
+			selectUser: value
+		})
+	}
+
+	isSimilar2(string, arr2) {
+		return arr2.includes(string)
+	}
+
+	isSimilar(arr1, num) {
+		arr1 = Array.from(arr1, (x) => x)
+		return arr1.includes(num + 1)
 	}
 
 	render() {
-		const { users } = this.state
+		const { users, articles } = this.state
 		const tagItems = ArticleCategoryAll.map((item, index) => {
 			return (
 				<BackstageTag
@@ -59,33 +83,64 @@ export default class BackstageArticle extends Component {
 			)
 		})
 		// 用户选择
-    const children = []
-    users.map((v,i)=>{
-      children.push(<Option key={i.toString(36) + i}>{v.username}</Option>)
-    })
-    
+		const children = []
+		users.map((v, i) => {
+			children.push(<Option key={v.username}>{v.username}</Option>)
+		})
+
+		const articleSimilar = articles.filter(
+			(item) =>
+				this.isSimilar(this.state.showType, item.category) &&
+				this.isSimilar2(item.authorUsername, this.state.selectUser)
+		)
+
+		console.log(articleSimilar)
+
 		return (
 			<div className='back-article-container'>
 				<div className='backstage-article-list-top'>
 					<Search placeholder='请输入' enterButton='搜索' size='large' onSearch={(value) => console.log(value)} />
 				</div>
 				<div className='backstage-article-type-check'>
-					<div className='backstage-article-type-check-title'>所属类目:</div>
-					<div className='backstage-article-type-check-content'>{tagItems}</div>
+					<div className='check'>
+						<div className='backstage-article-type-check-title'>所属类目:</div>
+						<div className='backstage-article-type-check-content'>{tagItems}</div>
+					</div>
+					<div className='backstage-article-select-user'>
+						<div className='backstage-article-type-check-title'>选择用户:</div>
+						<Select
+							mode='multiple'
+							style={{ width: '100%' }}
+							placeholder='请选择用户'
+							defaultValue={[ 'admin' ]}
+							onChange={this.handleChange}
+						>
+							{children}
+						</Select>
+					</div>
 				</div>
-				<div className='backstage-article-select-user'>
-					<div className='backstage-article-type-check-title'>选择用户:</div>
-					<Select
-						mode='multiple'
-						style={{ width: '100%' }}
-						placeholder='不选择则为全部用户'
-						defaultValue={["admin"]}
-						onChange={this.handleChange}
-					>
-						{children}
-					</Select>
+
+				<div className='backstage-article-content'>
+					{articleSimilar ? (
+						articleSimilar.map((item, i) => {
+							return (
+								<BackstateArticleItem
+									authorName={item.authorUsername}
+									authorAvatar={item.authorAvatar}
+									category={item.category}
+									title={item.title}
+									type={item.type}
+									content={item.content}
+									createTime={item.createAt}
+									viewNum={item.viewnum}
+									key={item.id}
+								/>
+							)
+						})
+					) : (
+						<p style={{ color: 'rgba(0,0,0,.45)', textAlign: 'center' }}>暂无数据</p>
+					)}
 				</div>
-				<div className='backstage-article-content' />
 			</div>
 		)
 	}
