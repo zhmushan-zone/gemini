@@ -22,11 +22,17 @@
 
   .backstage-problem-item-content {
     margin-top: 16px;
+    height: 35px;
+    overflow: hidden;
 
     p {
       color: rgba(0,0,0,.65)!important;
       font-weight: 400;
       font-size: 14px;
+      width: 50%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 

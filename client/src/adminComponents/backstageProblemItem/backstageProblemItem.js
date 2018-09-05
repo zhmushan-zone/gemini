@@ -1,15 +1,35 @@
 import React, { Component } from 'react'
 import { Tag, Icon } from 'antd'
+import BackstageProblemModal from '../backstageModal/backstageProblemModal/backstageProblemModal'
 
 import './backstagePronblemItem.scss'
 
 class BackstageProblemItem extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      visible: false
+    }
+  }
+  
+  showModal = () => {
+    this.setState({
+      visible: true,
+    })
+  }
+  
+  handleCancel = (e) => {
+    this.setState({
+      visible: false,
+    })
+  }
+  
   render() {
     const { authorName, authorAvatar, title, tags, content, createTime, viewNum, followNum, replyNum } = this.props
     return (
       <div className="backstage-problem-item">
         <h4>
-          <a>
+          <a onClick={this.showModal}>
             {title}
           </a>
         </h4>
@@ -45,6 +65,14 @@ class BackstageProblemItem extends Component {
             </li>
           </ul>
         </div>
+        <BackstageProblemModal 
+          visible={this.state.visible}
+          handleCancel={this.handleCancel}
+          userName={authorName}
+          userAvatar={authorAvatar}
+          title={title}
+          content={content}
+        />
       </div>
     )
   }
