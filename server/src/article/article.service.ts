@@ -56,6 +56,10 @@ export class ArticleService {
     return this.articleRepository.save(doc);
   }
 
+  async updateByIdWithoutUpdateDate(id: string, article: Article) {
+    const doc = await this.articleRepository.update(id, article);
+  }
+
   async updateCommentById(authorId: string, id: string, comment: Comment) {
     const doc = await this.commentRepository.findOne(id, { where: { authorId } });
     if (!doc) return new GeminiError(ResponseCode.NOT_EXISIT);

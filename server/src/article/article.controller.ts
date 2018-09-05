@@ -130,6 +130,8 @@ export class ArticleController {
   async findOne(@Param('id') id: string) {
     const article = await this.articleService.findById(id);
     if (!article) return response(ResponseCode.NOT_EXISIT);
+    article.viewnum++;
+    this.articleService.updateByIdWithoutUpdateDate(id, { viewnum: article.viewnum } as Article);
     const author = await this.userService.findById(article.authorId);
     return success({
       ...new ArticleVO(article),

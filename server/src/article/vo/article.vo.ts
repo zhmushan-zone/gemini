@@ -16,6 +16,7 @@ export class ArticleVO extends Article {
     this.upersId = article.upersId;
     this.commentsId = article.commentsId;
     this.category = article.category;
+    this.viewnum = article.viewnum;
     this.createAt = article.createAt;
     this.updateAt = article.updateAt;
   }
