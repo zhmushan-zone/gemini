@@ -28,6 +28,9 @@ export class Article extends BaseEntity {
   @Column()
   category: ArticleCategory;
 
+  @Column()
+  viewnum: number;
+
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();
@@ -39,6 +42,7 @@ export class Article extends BaseEntity {
     if (!this.upersId) this.upersId = [];
     if (!this.commentsId) this.commentsId = [];
     if (!this.category) this.category = 0;
+    if (!this.viewnum) this.viewnum = 0;
   }
 
   @BeforeUpdate()
