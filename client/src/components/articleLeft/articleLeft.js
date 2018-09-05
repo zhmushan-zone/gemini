@@ -10,28 +10,36 @@ import { sendArticleComment } from '@/redux/actions.js'
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import './articleLeft.scss'
 import { withRouter } from 'react-router'
+import Cookies from 'js-cookie'
+import axios from 'axios'
 const { TextArea } = Input
+
 @withRouter
 @connect((state) => state, { sendArticleComment })
 export default class articleLeft extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			like: false,
+			clickLike: false,
 			visible: false,
 			confirmLoading: false,
 			categoryId: this.props.match.params.id,
 			commentValue: '您的内容。。'
 		}
 	}
-	async fetchLikeNumber(categoryId) {
-		this.props.fetchArticleUp(categoryId)
-	}
+
 	async handleLike() {
-		this.setState({
-			like: !this.state.like
+		const _token = Cookies.get('_token')
+		await axios({
+			method: 'put',
+			url: ` /api/articles/${this.state.categoryId}/up`,
+			headers: {
+				token: _token
+			}
 		})
-		await this.fetchLikeNumber(this.state.categoryId)
+		this.setState({
+			clickLike: true
+		})
 	}
 
 	showModal = () => {
@@ -66,8 +74,8 @@ export default class articleLeft extends Component {
 	}
 
 	render() {
-		const { visible, confirmLoading, commentValue, like } = this.state
-		let { title, coverImg, content, type,userstatus } = this.props
+		const { visible, confirmLoading, commentValue, clickLike } = this.state
+		let { title, coverImg, content, type, userstatus } = this.props
 		let articleData = this.props.articleData
 		try {
 			var con = Marked(content)
@@ -75,7 +83,7 @@ export default class articleLeft extends Component {
 				return <TagSample name={v} key={i} />
 			})
 		} catch (error) {}
-
+		const _id = Cookies.get('_id')
 		return (
 			<div className='left-article-container'>
 				<Breadcrumb>
@@ -106,21 +114,31 @@ export default class articleLeft extends Component {
 					{/* 标签 */}
 					<div className='cat-box'>{Tag}</div>
 					{/* 推荐 */}
-					<div className='praise-box'>
-						<button className={`js-praise ${like ? 'like' : ''}`} onClick={this.handleLike.bind(this)}>
-							<Icon type='star' className={`${like ? 'like' : ''}`} />
-						</button>
-						<div className='num-person'>
-							<em className='num'>{this.props.article.up ? this.props.article.up : '0'}</em>人推荐
+
+					{this.props.article.article.upersId.indexOf(_id) === -1 && !this.state.clickLike ? (
+						<div className='praise-box'>
+							<button className={`js-praise`} onClick={this.handleLike.bind(this)}>
+								<Icon type='star' />
+							</button>
+							<div className='num-person'>
+								<em className='num'>{this.props.article.article.upersId.length}</em>人推荐
+							</div>
 						</div>
-					</div>
+					) : (
+						<div className='praise-box'>
+							<button className='js-praise like' onClick={this.handleLike.bind(this)}>
+								<Icon type='star' className='like' />
+							</button>
+							<div className='num-person'>
+								<em className='num'>{this.props.article.article.upersId.length + 1}</em>人推荐
+							</div>
+						</div>
+					)}
+
 					{/* 评论 */}
 					<div id='comment'>
 						<div className='author'>
-							<img
-								src={userstatus.avatar ? `/avatar/${userstatus.avatar}` : defaultAvatar}
-								alt=''
-							/>
+							<img src={userstatus.avatar ? `/avatar/${userstatus.avatar}` : defaultAvatar} alt='' />
 						</div>
 						<p className='fadeInput' onClick={this.showModal}>
 							共同学习，写下你的评论

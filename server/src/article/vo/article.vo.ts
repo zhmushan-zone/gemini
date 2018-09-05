@@ -13,7 +13,7 @@ export class ArticleVO extends Article {
     this.coverImg = article.coverImg;
     this.type = article.type;
     this.authorId = article.authorId;
-    this.upersId = this.upersId;
+    this.upersId = article.upersId;
     this.commentsId = article.commentsId;
     this.category = article.category;
     this.viewnum = article.viewnum;

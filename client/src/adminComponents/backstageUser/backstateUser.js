@@ -3,7 +3,7 @@ import { Table } from 'antd'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Axios from 'axios'
-import jsCookie from 'js-cookie'
+import Cookie from 'js-cookie'
 @withRouter
 @connect(
   state => state,
@@ -16,37 +16,38 @@ class BackstateUser extends React.Component {
       users: []
     }
   }
-  componentDidMount = () => {
+  
+  async componentDidMount () {
     if (this.props.location.pathname === '/admin/user') {
-      setTimeout(() => {
-        Axios.get('/api/users', {
-          headers: {
-            "id": jsCookie.get('_id'),
-            "token": jsCookie.get('_token'),
-          }
-        }).then(res => {
-          if (res.data.code === 1) {
-            res.data.data.map(v => {
-              if (v.role === 0) {
-                const data = {
-                  key: v.id,
-                  name: v.nickname ? v.nickname : v.username,
-                  city: v.city ? v.city : '该用户未未设置',
-                  sex: v.sex ? v.sex : '该用户未未设置',
-                  job: v.job ? v.job : '该用户未未设置',
-                  description: v.signature ? v.signature : '未设置签名'
-                }
-                this.state.users.push(data)
-                this.setState({
-                  users: this.state.users
-                })
+      const _id = Cookie.get('_id')
+      const _token = Cookie.get('_token')
+      await Axios.get('/api/users', {
+        headers: {
+          "id": _id,
+          "token": _token,
+        }
+      }).then(res => {
+        if (res.data.code === 1) {
+          res.data.data.map(v => {
+            if (v.role === 0) {
+              const data = {
+                key: v.id,
+                name: v.nickname ? v.nickname : v.username,
+                city: v.city ? v.city : '该用户未未设置',
+                sex: v.sex ? v.sex===0?'女':'男' : '该用户未未设置',
+                job: v.job ? v.job : '该用户未未设置',
+                description: v.signature ? v.signature : '未设置签名'
               }
-            })
-          } else {
-            console.log('出错了')
-          }
-        })
-      },100)
+              this.state.users.push(data)
+              this.setState({
+                users: this.state.users
+              })
+            }
+          })
+        } else {
+          console.log('出错了')
+        }
+      })
 
     }
   }
@@ -77,36 +78,9 @@ class BackstateUser extends React.Component {
         title: '操作',
         dataIndex: '',
         key: 'x',
-        render: () => <a href="">Delete</a>
+        render: () => <a href="">删除</a>
       },
     ]
-    // 这是假数据
-    // const data = [
-    //   {
-    //     key: 1,
-    //     name: '张三',
-    //     city: '深圳',
-    //     sex: '男',
-    //     job: '后端',
-    //     description: '啊哈哈哈'
-    //   },
-    //   {
-    //     key: 2,
-    //     name: '李四',
-    //     city: '北京',
-    //     sex: '男',
-    //     job: '前端',
-    //     description: '签名1'
-    //   },
-    //   {
-    //     key: 3,
-    //     name: '李二狗',
-    //     city: '杭州',
-    //     sex: '男',
-    //     job: '安卓开发',
-    //     description: '签名二'
-    //   },
-    // ]
     return (
       <React.Fragment>
         <Table

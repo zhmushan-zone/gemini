@@ -10,6 +10,7 @@ export class UserVO extends User {
     this.nickname = user.nickname;
     this.email = user.email;
     this.avatar = user.avatar;
+    this.job = user.job;
     this.city = user.city;
     this.sex = user.sex;
     this.signature = user.signature;
