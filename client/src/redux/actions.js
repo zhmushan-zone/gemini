@@ -444,7 +444,6 @@ function createArticleSuccess(article) {
 }
 export function publishArticle(state) {
 	const { articleName, articleContent, articleTag, articleImage, selectValue } = state
-	console.log(selectValue)
 	if (!articleName) {
 		return createArticlError('文章没有名字吗？')
 	} else if (!articleContent) {
@@ -453,7 +452,7 @@ export function publishArticle(state) {
 		return createArticlError('文章没有图片吗？')
 	} else if (!selectValue) {
 		return createArticlError('文章没有类型吗？')
-	} else if (!articleTag) {
+	} else if (!articleTag||articleTag.length===0) {
 		return createArticlError('文章没有标签吗？')
 	}
 	return async (dispatch) => {

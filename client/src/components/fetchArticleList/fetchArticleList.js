@@ -24,7 +24,7 @@ export default class FetchArticleList extends Component {
 								key={v.createAt}
 								title={v.title}
 								category={ArticleCategory[v.category]}
-								see={'188'}
+								see={v.viewnum}
 								author={v.authorUsername}
 								time={v.createAt}
 								tag={type}
