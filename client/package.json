@@ -5,7 +5,7 @@
   "dependencies": {
     "@antv/data-set": "^0.8.9",
     "@antv/g2": "^3.1.0",
-    "antd": "^3.4.1",
+    "antd": "^3.9.1",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
     "babel-core": "6.26.0",

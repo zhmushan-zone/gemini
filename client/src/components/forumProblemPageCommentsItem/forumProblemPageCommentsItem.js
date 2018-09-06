@@ -5,6 +5,7 @@ import { Input, message, Modal, Radio, Row, Col } from 'antd'
 import { withRouter } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import { defaultAvatar } from '@/const'
 
 import './forumProblemPageCommentsItem.scss'
 
@@ -194,7 +195,7 @@ class ForumProblemPageCommentsItem extends Component {
       <div className="forum-comment-item">
         <div className="forum-comment-user-avatar">
           <a>
-            <img src={authorAvatar ? `/avatar/${authorAvatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
+            <img src={authorAvatar ? `/avatar/${authorAvatar}` : defaultAvatar} alt=""/>
           </a>
         </div>
         <div className="forum-comment-user-details">
@@ -302,7 +303,7 @@ class ForumProblemPageCommentsItem extends Component {
               !this.state.isReplyFold ?
                 <div className="my-reply-container">
                   <div className="my-reply-container-left">
-                    <img src={myAvatar ? `/avatar/${myAvatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
+                    <img src={myAvatar ? `/avatar/${myAvatar}` : defaultAvatar} alt=""/>
                   </div>
                   <div className="my-reply-container-right">
                     <TextArea id={replyId} value={this.state.content} placeholder="写下你的回复" onChange={(e) => this.stateChange('content', e.target.value) } autosize={{ minRows: 2, maxRows: 6 }} />

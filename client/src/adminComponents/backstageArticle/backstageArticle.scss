@@ -1,3 +1,39 @@
-.back-article-container{
-  
+.back-article-container {
+	.backstage-article-list-top {
+		display: flex;
+		justify-content: center;
+		background: #fff;
+		padding-bottom: 30px;
+
+		.ant-input-search {
+			width: 522px;
+		}
+	}
+
+	.backstage-article-type-check {
+		margin: 24px;
+		padding: 24px;
+		border-radius: 3px;
+		background: #fff;
+		.backstage-article-type-check-content {
+			flex: 1;
+		}
+		.check{
+			display: flex;
+			padding-bottom: 20px;
+		}
+  }
+  .backstage-article-type-check-title {
+    width: 88px;
+  }
+	.backstage-article-select-user {
+    display: flex;
+	}
+
+	.backstage-article-content {
+		margin: 24px;
+		padding: 24px;
+		border-radius: 3px;
+		background: #fff;
+	}
 }

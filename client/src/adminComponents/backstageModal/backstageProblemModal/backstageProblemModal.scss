@@ -1,0 +1,21 @@
+.problem-modal-content {
+  max-height: 360px;
+  overflow: auto;
+  .problem-modal-user-info {
+    display: flex;
+    color: #555;
+    img {
+      width: 24;
+      height: 24px;
+      border-radius: 50%;
+    }
+
+    span {
+      margin-left: 10px;
+    }
+  }
+
+  .problem-modal-content {
+    padding-top: 20px;
+  }
+}

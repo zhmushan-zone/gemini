@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
+import { defaultAvatar } from '@/const'
 
 import './forumTypePageRank.scss'
 
@@ -53,7 +54,7 @@ class ForumTypePageRank extends Component {
       return (
         <li key={index}>
           <div className="type-rank-user-left">
-            <img src={item.avatar ? `/avatar/${item.avatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
+            <img src={item.avatar ? `/avatar/${item.avatar}` : defaultAvatar} alt=""/>
           </div>
           <div className="type-rank-user-right">
             <div className="type-rank-user-name">

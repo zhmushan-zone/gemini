@@ -5,12 +5,8 @@
 import React, { Component } from 'react'
 import OpinionNav from '@/components/opinionNav/opinionNav'
 import OpinionMain from '../../components/opinionMain/opinionMain'
-
 import './opinion.scss'
 class Opinion extends Component {
-	componentDidMount() {
-	
-	}
 	render() {
 		return (
 			<div className='opinion-container'>

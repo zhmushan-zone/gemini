@@ -1,4 +1,4 @@
-.backstage-problem-item {
+.backstage-article-item {
   padding: 16px 0;
   border-bottom: 1px solid #e8e8e8;
   &:last-child {
@@ -20,7 +20,7 @@
     }
   }
 
-  .backstage-problem-item-content {
+  .backstage-article-item-content {
     margin-top: 16px;
     height: 35px;
     overflow: hidden;
@@ -36,7 +36,7 @@
     }
   }
 
-  .backstage-problem-item-authorInfo {
+  .backstage-article-item-authorInfo {
     margin-top: 4px;
     display: flex;
     font-weight: 400;
@@ -57,7 +57,7 @@
     }
   }
 
-  .backstage-problem-item-data {
+  .backstage-article-item-data {
     margin-top: 16px;
     color: rgba(0,0,0,.45);
 

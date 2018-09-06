@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { message, Modal, Radio, Row, Col } from 'antd'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import { defaultAvatar } from '@/const'
 
 const RadioGroup = Radio.Group
 
@@ -74,7 +75,7 @@ class ForumProblemPageReplyItem extends Component {
       <div className="forum-reply-item">
         <div className="forum-reply-user-avatar">
           <a>
-            <img src={authorAvatar ? `/avatar/${authorAvatar}` : 'http://img5.duitang.com/uploads/item/201506/07/20150607110911_kY5cP.jpeg'} alt=""/>
+            <img src={authorAvatar ? `/avatar/${authorAvatar}` : defaultAvatar} alt=""/>
           </a>
         </div>
         <div className="forum-reply-user-details">

@@ -1,15 +1,36 @@
 import React, { Component } from 'react'
-import { Tag } from 'antd'
+import { Tag, Icon } from 'antd'
+import BackstageProblemModal from '../backstageModal/backstageProblemModal/backstageProblemModal'
+import { defaultAvatar } from '@/const'
 
 import './backstagePronblemItem.scss'
 
 class BackstageProblemItem extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      visible: false
+    }
+  }
+  
+  showModal = () => {
+    this.setState({
+      visible: true,
+    })
+  }
+  
+  handleCancel = (e) => {
+    this.setState({
+      visible: false,
+    })
+  }
+  
   render() {
-    const { authorId, title, tags, content, createTime, viewNum, followNum, replyNum } = this.props
+    const { authorName, authorAvatar, title, tags, content, createTime, viewNum, followNum, replyNum } = this.props
     return (
       <div className="backstage-problem-item">
         <h4>
-          <a>
+          <a onClick={this.showModal}>
             {title}
           </a>
         </h4>
@@ -21,6 +42,38 @@ class BackstageProblemItem extends Component {
           }
         </div>
         <div className="backstage-problem-item-content" dangerouslySetInnerHTML = {{__html: content}}></div>
+        <div className="backstage-problem-item-authorInfo">
+          <img src={authorAvatar ? `/avatar/${authorAvatar}` : defaultAvatar} alt=""/>
+          <a style={{marginLeft: 10}}>{authorName}</a>
+          <span>发布于</span>
+          <span style={{color: 'rgba(0, 0, 0, .25)'}}>{createTime}</span>
+        </div>
+        <div className="backstage-problem-item-data">
+          <ul>
+            <li>
+              <Icon type="eye" />
+              <span>{viewNum}</span>
+            </li>
+            <em></em>
+            <li>
+              <Icon type="heart" />
+              <span>{followNum}</span>
+            </li>
+            <em></em>
+            <li>
+              <Icon type="message" />
+              <span>{replyNum}</span>
+            </li>
+          </ul>
+        </div>
+        <BackstageProblemModal 
+          visible={this.state.visible}
+          handleCancel={this.handleCancel}
+          userName={authorName}
+          userAvatar={authorAvatar}
+          title={title}
+          content={content}
+        />
       </div>
     )
   }
