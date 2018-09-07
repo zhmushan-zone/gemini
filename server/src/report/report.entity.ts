@@ -25,6 +25,7 @@ export class Report extends BaseEntity {
     if (!this.msg) this.msg = '';
     if (!this.reason) this.reason = 0;
     if (!this.reporterId) this.reporterId = '';
+    if (!this.status) this.status = 0;
   }
 
   @BeforeUpdate()
