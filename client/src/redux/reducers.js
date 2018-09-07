@@ -242,7 +242,16 @@ export function problem(state = problemInitState, action) {
 				...state,
 				problem: action.payload
 			}
-
+		case ActionTypes.DELETE_PROBLEM_SUCCESS:
+			return {
+				...state,
+				problem: action.payload
+			}
+		case ActionTypes.CHECK_PROBLEM_ACCEPT:
+			return {
+				...state,
+				problem: action.payload
+			}
 		default:
 			return state
 	}

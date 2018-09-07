@@ -26,7 +26,7 @@ class BackstageCheckProblemTable extends Component {
     }
   }
   
-  componentDidMount() {
+  async componentDidMount() {
     this.props.getProblemList()
   }
 
@@ -112,7 +112,7 @@ class BackstageCheckProblemTable extends Component {
         <span>
           <a style={{color: '#5fcf9a'}} onClick={() => this.agree(record.id)}>批准</a>
           <Divider type="vertical" />
-          <a style={{color: 'rgba(240, 20, 20, 0.8)'}}>拒绝</a>
+          <a style={{color: 'rgba(240, 20, 20, 0.8)'}} onClick={() => this.disagree(record.id)}>拒绝</a>
         </span>
       ),
     }]

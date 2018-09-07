@@ -34,6 +34,8 @@ export const CREATE_ARTICLE_SUCCESS = 'CREATE_ARTICLE_SUCCESS'
 export const CREATE_ARTICLE_ERROR = 'CREATE_ARTICLE_ERROR'
 // 发表问题
 export const CREATE_PROBLEM_SUCCESS = 'CREATE_PROBLEM_SUCCESS'
+// 删除问题
+export const DELETE_PROBLEM_SUCCESS = 'DELETE_PROBLEM_SUCCESS'
 // 问题列表
 export const PROBLEM_LIST = 'PROBLEM_LIST'
 // 某类问题列表
@@ -48,6 +50,8 @@ export const FETCH_All_ARTICLE = 'FETCH_All_ARTICLE'
 export const COMMENT_PROBLEM = 'COMMENT_PROBLEM'
 // 讨论区获取评论
 export const FETCH_COMMENT  = 'FETCH_COMMENT'
+// 问题审核通过
+export const CHECK_PROBLEM_ACCEPT = 'CHECK_PROBLEM_ACCEPT'
 // 获取单个用户
 export const FETCH_ONE_USER = 'FETCH_ONE_USER'
 // 根据category返回列表
