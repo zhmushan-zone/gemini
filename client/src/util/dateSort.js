@@ -1,3 +1,2 @@
-const dateSort = (arr) => arr.sort((a, b) => new Date(b.updateAt) - new Date(a.updateAt))
-
-export default dateSort
+export const dateSortByUpdate = (arr) => arr.sort((a, b) => new Date(b.updateAt) - new Date(a.updateAt))
+export const dateSortByCreate = (arr) => arr.sort((a, b) => new Date(b.createAt) - new Date(a.createAt))

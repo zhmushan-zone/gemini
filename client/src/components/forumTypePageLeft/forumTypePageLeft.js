@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ForumProblemPreivew from '../forumProblemPreview/forumProblemPreview'
-import dateSort from '@/util/dateSort'
+import { dateSortByUpdate } from '@/util/dateSort'
 
 import './forumTypePageLeft.scss'
 
@@ -16,7 +16,7 @@ class ForumTypePageLeft extends Component {
   problemFilter(type, problems) {
     switch (type) {
       case 0:
-        problems = dateSort(problems)
+        problems = dateSortByUpdate(problems)
         break
       case 1:
         problems = problems.sort((a, b) => b.replysId.length - a.replysId.length)
