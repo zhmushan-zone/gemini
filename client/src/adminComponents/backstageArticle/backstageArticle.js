@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Input, Icon, Select } from 'antd'
+import { Input, Select } from 'antd'
 import BackstageTag from '../backstageTag/backstageTag'
 import { ArticleCategoryAll } from '@/const.js'
 import './backstageArticle.scss'

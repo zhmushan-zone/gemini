@@ -62,3 +62,5 @@ export const GET_ARTICLE_COMMENT = 'GET_ARTICLE_COMMENT'
 export const SET_REPLY_COMMENT = 'SET_REPLY_COMMENT'
 // 获取举报列表
 export const GET_REPORTS_LIST = 'GET_REPORTS_LIST'
+// 关注用户
+export const FOCUS_USER = 'FOCUS_USER'

@@ -35,7 +35,7 @@ class Editor extends React.Component {
 	}
 	handleChangeSelect = (value) => {
 		this.setState({
-			selectValue:value
+			selectValue: value
 		})
 	}
 	// 隔一段时间关闭消息提示
@@ -127,13 +127,15 @@ class Editor extends React.Component {
 	}
 
 	render() {
+		let { msg } = this.props.article
+		let { articleContent, imgurl } = this.state
 		return (
 			<div className='editorContainer'>
 				{/* 提示 */}
 				<div className='error-msg'>
-					{this.props.article.msg ? (
+					{msg ? (
 						<Alert
-							description={this.props.article.msg}
+							description={msg}
 							type='error'
 							showIcon
 							className='errorMsg'
@@ -143,7 +145,7 @@ class Editor extends React.Component {
 					) : null}
 				</div>
 				<EditorHeader editorHeader={(articleName) => this.geteditorHeader(articleName)} />
-				<SimpleMDE onChange={this.handleChange.bind(this)} value={this.state.articleContent} />
+				<SimpleMDE onChange={this.handleChange.bind(this)} value={articleContent} />
 
 				{/* 上传封面 */}
 				<div className='upload-pic-box'>
@@ -153,8 +155,8 @@ class Editor extends React.Component {
 							<span className='needed'>文章封面</span>
 							<input type='file' id='fengmian' className='cover' />
 							<label htmlFor='fengmian' onClick={this.selectCover}>
-								{this.state.imgurl ? (
-									<img src={this.state.imgurl} style={{ width: 200, height: 200 }} alt='' />
+								{imgurl ? (
+									<img src={imgurl} style={{ width: 200, height: 200 }} alt='' />
 								) : (
 									<CustomIcon type='camera-b' size={80} />
 								)}
@@ -165,8 +167,8 @@ class Editor extends React.Component {
 						</div>
 						<div className='select'>
 							<span className='needed'>文章类别</span>
-							<Select defaultValue="请选择" style={{ width: 120 }} onChange={this.handleChangeSelect}>
-								{ArticleCategory.map((v,i) => {
+							<Select defaultValue='请选择' style={{ width: 120 }} onChange={this.handleChangeSelect}>
+								{ArticleCategory.map((v, i) => {
 									return (
 										<Option key={v} value={i}>
 											{v}
