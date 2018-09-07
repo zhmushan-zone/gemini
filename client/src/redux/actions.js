@@ -630,6 +630,26 @@ export function setReplyComment(articleId, content,to) {
 	}
 }
 
+/* 关注用户 */
+function setWatchUser(data) {
+	return { type: ActionTypes.FOCUS_USER,  data }
+}
+export function focusUser(authorId) {
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'PUT',
+			url: `/api/users/watch/user/${authorId}`,
+			headers: {
+				token: _token
+			},
+		})
+		if (res.data.code === 1) {
+			dispatch(setWatchUser(authorId))
+		}
+	}
+}
+
 
 /* -------------------------获取举报列表------------------------------------------- */
 function getReportsListSuccess(reports) {

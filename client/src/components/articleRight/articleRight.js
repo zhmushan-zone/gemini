@@ -13,7 +13,9 @@ export default class articleRight extends Component {
 			thisAuthorArticle: []
 		}
 	}
-	toFollow = () => {
+	toFollow = async() => {
+		const authorId = await this.props.authorId
+		await this.props.focusUser(authorId)
 		this.setState({
 			follow: !this.state.follow
 		})
@@ -32,7 +34,7 @@ export default class articleRight extends Component {
 	}
 
 	render() {
-		const { article } = this.props
+		const { article,watchUsersId,authorId } = this.props
 		const { thisAuthorArticle, follow } = this.state
 		return (
 			<div className='right-article-container'>
@@ -42,7 +44,10 @@ export default class articleRight extends Component {
 					<div className='text-info'>
 						<div className='name'>
 							<span>{article.authorUsername}</span>
-							<span onClick={this.toFollow}>{follow ? '已关注' : '关注'}</span>
+							{/* follow ? '已关注' : '关注' */}
+							<span onClick={this.toFollow}>{watchUsersId.indexOf(authorId)===-1?"关注":"已关注"
+
+							}</span>
 						</div>
 						<div className='job'>全站工程师</div>
 						<div className='contribution'>

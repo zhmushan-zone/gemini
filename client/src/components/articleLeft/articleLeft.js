@@ -102,7 +102,7 @@ export default class articleLeft extends Component {
 					<div className='dc-profile'>
 						<div className='l'>
 							<span style={{ marginRight: 10 }}>{thisArticle.createAt}</span>
-							<span className=''>126浏览</span>
+							<span className=''>{thisArticle.viewnum}浏览</span>
 						</div>
 					</div>
 					<div
