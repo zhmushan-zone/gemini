@@ -14,7 +14,7 @@ import personCenterFocus from '../personCenterFocus/personCenterFocus'
 import personCenterUpload from '../personCenterUpload/personCenterUpload'
 import personCenterYuanwen from '../personCenterYuanwen/personCenterYuanwen'
 import './personCenter.scss'
-import {defaultAvatar} from  '@/const'
+import {defaultAvatar,notSetText} from  '@/const'
 @connect((state) => state, { changeAvatar, cancelAvatar, fetchUser })
 class PersonCener extends React.Component {
 	constructor(props) {
@@ -203,7 +203,7 @@ class PersonCener extends React.Component {
 							</h3>
 						</div>
 						<div className='user-sign'>
-							<p className='user-desc'>{data.signature ? data.signature : '未设置'}</p>
+							<p className='user-desc'>{data.signature ? data.signature : notSetText}</p>
 						</div>
 						<div className='study-info'>
 							<div className='item follows'>

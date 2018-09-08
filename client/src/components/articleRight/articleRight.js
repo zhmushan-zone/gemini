@@ -5,6 +5,7 @@ import './articleRight.scss'
 import { defaultAvatar } from '@/const'
 import axios from 'axios'
 import { withRouter, Link } from 'react-router-dom'
+import {notSetText} from '@/const.js'
 @withRouter
 export default class articleRight extends Component {
 	constructor(props) {
@@ -47,7 +48,7 @@ export default class articleRight extends Component {
 	}
 
 	render() {
-		const { article, watchUsersId, authorId } = this.props
+		const { article, watchUsersId, authorId,job } = this.props
 		const { thisAuthorArticle, id } = this.state
 		return (
 			<div className='right-article-container'>
@@ -56,11 +57,11 @@ export default class articleRight extends Component {
 
 					<div className='text-info'>
 						<div className='name'>
-							<span>{article.authorUsername}</span>
+							<Link to={`/personCenter/${authorId}`}>{article.authorUsername}</Link>
 							{/* follow ? '已关注' : '关注' */}
 							<span onClick={this.toFollow}>{watchUsersId.indexOf(authorId) === -1 ? '关注' : '已关注'}</span>
 						</div>
-						<div className='job'>全站工程师</div>
+						<div className='job'>{this.props.job?this.props.job:notSetText}</div>
 						<div className='contribution'>
 							<span>{thisAuthorArticle.length}片文章</span>
 							<span>贡献55555字</span>

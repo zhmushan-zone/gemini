@@ -527,7 +527,7 @@ export function fetchArticleOne(id) {
 			url: `/api/articles/${id}`
 		})
 		if (res.data.code === 1) {
-			Cookies.set('commentsId', res.data.data.commentsId)
+			Cookies.set('commentsId',res.data.data.commentsId)
 			dispatch(fetchOneArticleSuccess(res.data.data))
 		} else {
 			console.log('服务器出故障了')

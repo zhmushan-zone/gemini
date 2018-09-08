@@ -2,6 +2,7 @@ import React from 'react'
 import { Table } from 'antd'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import {notSetText} from '@/const.js'
 import Axios from 'axios'
 import Cookie from 'js-cookie'
 @withRouter
@@ -33,10 +34,10 @@ class BackstateUser extends React.Component {
               const data = {
                 key: v.id,
                 name: v.nickname ? v.nickname : v.username,
-                city: v.city ? v.city : '该用户未未设置',
-                sex: v.sex ? v.sex===0?'女':'男' : '该用户未未设置',
-                job: v.job ? v.job : '该用户未未设置',
-                description: v.signature ? v.signature : '未设置签名'
+                city: v.city ? v.city : notSetText,
+                sex: v.sex ? v.sex===0?'女':'男' : notSetText,
+                job: v.job ? v.job : notSetText,
+                description: v.signature ? v.signature : notSetText
               }
               this.state.users.push(data)
               this.setState({
