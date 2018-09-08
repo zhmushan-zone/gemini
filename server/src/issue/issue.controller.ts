@@ -227,7 +227,7 @@ export class IssueController {
   @UseGuards(AuthGuard('jwt'))
   async changeStatus(@Param('id') id: string, @Param('status') status: IssueStatus) {
     status = IssueStatus[IssueStatus[status]];
-    const res = this.issueService.updateByIdWithAdmin(id, { status } as Issue);
+    const res = await this.issueService.updateByIdWithAdmin(id, { status } as Issue);
     if (res instanceof GeminiError) return response(res.code);
     const issues = await this.issueService.findAll();
     return success(issues.map(i => new IssueVO(i)));
