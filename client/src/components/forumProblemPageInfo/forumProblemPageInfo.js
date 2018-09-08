@@ -171,13 +171,13 @@ class ForumProblemPageInfo extends Component {
           </div>
           <div className="forum-problem-page-operation">
             <div className="forum-problem-page-share">
-              <a onClick={() => Share.shareToQQZone("这是一本关于地图故事的集锦，以一本书的形式来展示地图故事，我们可以使用鼠标拖动来翻页，或者点击翻页按钮，点击 马上体验，可以体验故事，同时在触屏上也有很好的体验效果奥，地图故事，尽在书中，赶快体验吧，建议使用对 HTML5支持较好的浏览器","http://tm.arcgisonline.cn:8038/App101/MapstoryBook/Default.html","http://tm.arcgisonline.cn:8038/App101/MapstoryBook/css/Img/ShareBook.jpg")}>
+              <a onClick={() => Share.shareToQQZone(currentProblem.title, `/forum/details/${currentProblem.id}/`)}>
                 <Icon type="qq" color="#b6b9bc" size={26} />
               </a>
-              <a onClick={() => Share.shareToDouban("这是一本关于地图故事的集锦，以一本书的形式来展示地图故事，我们可以使用鼠标拖动来翻页，或者点击翻页按钮，点击 马上体验，可以体验故事，同时在触屏上也有很好的体验效果奥，地图故事，尽在书中，赶快体验吧，建议使用对 HTML5支持较好的浏览器","http://tm.arcgisonline.cn:8038/App101/MapstoryBook/Default.html","http://tm.arcgisonline.cn:8038/App101/MapstoryBook/css/Img/ShareBook.jpg")}>
+              <a onClick={() => Share.shareToDouban(currentProblem.title, `/forum/details/${currentProblem.id}/`)}>
                 <Icon type="douban_F" color="#b6b9bc" size={24} />
               </a>
-              <a onClick={() => Share.shareToWeibo("这是一本关于地图故事的集锦，以一本书的形式来展示地图故事，我们可以使用鼠标拖动来翻页，或者点击翻页按钮，点击 马上体验，可以体验故事，同时在触屏上也有很好的体验效果奥，地图故事，尽在书中，赶快体验吧，建议使用对 HTML5支持较好的浏览器","http://tm.arcgisonline.cn:8038/App101/MapstoryBook/Default.html","http://tm.arcgisonline.cn:8038/App101/MapstoryBook/css/Img/ShareBook.jpg")}>
+              <a onClick={() => Share.shareToWeibo(currentProblem.title, `/forum/details/${currentProblem.id}/`)}>
                 <Icon type="weibo" color="#b6b9bc" size={24} />
               </a>
             </div>
