@@ -4,38 +4,51 @@ import CoursePreview from '@/common/coursePreview/coursePreview'
 import './articleRight.scss'
 import { defaultAvatar } from '@/const'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
+@withRouter
 export default class articleRight extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			follow: false,
-			thisAuthorArticle: []
+			thisAuthorArticle: [],
+			id: '',
 		}
 	}
-	toFollow = async() => {
+	toFollow = async () => {
 		const authorId = await this.props.authorId
 		await this.props.focusUser(authorId)
 		this.setState({
-			follow: !this.state.follow
+			follow: !this.state.follow,
 		})
 	}
 	componentDidMount() {
 		if (this.props.authorId) {
 			axios({
 				method: 'get',
-				url: `/api/articles/author/${this.props.authorId}`
+				url: `/api/articles/author/${this.props.authorId}`,
 			}).then((res) => {
 				this.setState({
-					thisAuthorArticle: res.data.data
+					thisAuthorArticle: res.data.data,
 				})
 			})
 		}
+		let id = this.props.match.params.id
+		this.setState({
+			id,
+		})
+	}
+
+	componentWillReceiveProps(nextProps) {
+		let id = nextProps.match.params.id
+		this.setState({
+			id,
+		})
 	}
 
 	render() {
-		const { article,watchUsersId,authorId } = this.props
-		const { thisAuthorArticle } = this.state
+		const { article, watchUsersId, authorId } = this.props
+		const { thisAuthorArticle, id } = this.state
 		return (
 			<div className='right-article-container'>
 				<div className='author_info'>
@@ -45,7 +58,7 @@ export default class articleRight extends Component {
 						<div className='name'>
 							<span>{article.authorUsername}</span>
 							{/* follow ? '已关注' : '关注' */}
-							<span onClick={this.toFollow}>{watchUsersId.indexOf(authorId)===-1?"关注":"已关注"}</span>
+							<span onClick={this.toFollow}>{watchUsersId.indexOf(authorId) === -1 ? '关注' : '已关注'}</span>
 						</div>
 						<div className='job'>全站工程师</div>
 						<div className='contribution'>
@@ -62,11 +75,9 @@ export default class articleRight extends Component {
 					<ul className='content'>
 						{this.state.thisAuthorArticle.map((v, i) => {
 							return (
-								<li className='article-item' key={i}>
-									<Link to={v.id}>
-										<Icon type='file-text' />
-										{v.content}
-									</Link>
+								<li className='article-item' key={i} onClick={() => this.props.history.push(`/article/${v.id}`)}>
+									<Icon type='file-text' />
+									{v.content}
 								</li>
 							)
 						})}
@@ -100,7 +111,7 @@ const courses = [
 		viewerCount: 4236,
 		rate: 4.8,
 		price: 100,
-		img: 'https://img2.mukewang.com/szimg/5af2a67500016b9905400300.jpg'
+		img: 'https://img2.mukewang.com/szimg/5af2a67500016b9905400300.jpg',
 	},
 	{
 		name: 'Vue2.5开发去哪儿网App 从零基础入门到实战项目',
@@ -108,7 +119,7 @@ const courses = [
 		viewerCount: 4236,
 		rate: 3.0,
 		price: 100,
-		img: 'https://img1.mukewang.com/szimg/5ac2dfe100014a9005400300.jpg'
+		img: 'https://img1.mukewang.com/szimg/5ac2dfe100014a9005400300.jpg',
 	},
 	{
 		name: 'Java仿抖音短视频小程序开发 全栈式实战项目',
@@ -116,7 +127,7 @@ const courses = [
 		viewerCount: 4236,
 		rate: 3.4,
 		price: 100,
-		img: 'https://img1.mukewang.com/szimg/5afb8aa900014cc705400300.jpg'
+		img: 'https://img1.mukewang.com/szimg/5afb8aa900014cc705400300.jpg',
 	},
 	{
 		name: 'React Native技术精讲与高质量上线APP开发',
@@ -124,6 +135,6 @@ const courses = [
 		viewerCount: 4236,
 		rate: 4.1,
 		price: 100,
-		img: 'https://img4.mukewang.com/szimg/5adfe05e00012ecd05400300.jpg'
-	}
+		img: 'https://img4.mukewang.com/szimg/5adfe05e00012ecd05400300.jpg',
+	},
 ]
