@@ -8,6 +8,7 @@ import { fetchUser, followProblem } from '@/redux/actions'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import { defaultAvatar } from '@/const'
+import Share from '@/share'
 
 import './forumProblemPageInfo.scss'
 
@@ -170,13 +171,13 @@ class ForumProblemPageInfo extends Component {
           </div>
           <div className="forum-problem-page-operation">
             <div className="forum-problem-page-share">
-              <a>
-                <Icon type="weixin" color="#b6b9bc" size={26} />
+              <a onClick={() => Share.shareToQQZone("这是一本关于地图故事的集锦，以一本书的形式来展示地图故事，我们可以使用鼠标拖动来翻页，或者点击翻页按钮，点击 马上体验，可以体验故事，同时在触屏上也有很好的体验效果奥，地图故事，尽在书中，赶快体验吧，建议使用对 HTML5支持较好的浏览器","http://tm.arcgisonline.cn:8038/App101/MapstoryBook/Default.html","http://tm.arcgisonline.cn:8038/App101/MapstoryBook/css/Img/ShareBook.jpg")}>
+                <Icon type="qq" color="#b6b9bc" size={26} />
               </a>
-              <a>
-                <Icon type="qq" color="#b6b9bc" size={24} />
+              <a onClick={() => Share.shareToDouban("这是一本关于地图故事的集锦，以一本书的形式来展示地图故事，我们可以使用鼠标拖动来翻页，或者点击翻页按钮，点击 马上体验，可以体验故事，同时在触屏上也有很好的体验效果奥，地图故事，尽在书中，赶快体验吧，建议使用对 HTML5支持较好的浏览器","http://tm.arcgisonline.cn:8038/App101/MapstoryBook/Default.html","http://tm.arcgisonline.cn:8038/App101/MapstoryBook/css/Img/ShareBook.jpg")}>
+                <Icon type="douban_F" color="#b6b9bc" size={24} />
               </a>
-              <a>
+              <a onClick={() => Share.shareToWeibo("这是一本关于地图故事的集锦，以一本书的形式来展示地图故事，我们可以使用鼠标拖动来翻页，或者点击翻页按钮，点击 马上体验，可以体验故事，同时在触屏上也有很好的体验效果奥，地图故事，尽在书中，赶快体验吧，建议使用对 HTML5支持较好的浏览器","http://tm.arcgisonline.cn:8038/App101/MapstoryBook/Default.html","http://tm.arcgisonline.cn:8038/App101/MapstoryBook/css/Img/ShareBook.jpg")}>
                 <Icon type="weibo" color="#b6b9bc" size={24} />
               </a>
             </div>
