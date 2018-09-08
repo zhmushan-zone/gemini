@@ -35,7 +35,7 @@ export default class articleRight extends Component {
 
 	render() {
 		const { article,watchUsersId,authorId } = this.props
-		const { thisAuthorArticle, follow } = this.state
+		const { thisAuthorArticle } = this.state
 		return (
 			<div className='right-article-container'>
 				<div className='author_info'>
@@ -45,9 +45,7 @@ export default class articleRight extends Component {
 						<div className='name'>
 							<span>{article.authorUsername}</span>
 							{/* follow ? '已关注' : '关注' */}
-							<span onClick={this.toFollow}>{watchUsersId.indexOf(authorId)===-1?"关注":"已关注"
-
-							}</span>
+							<span onClick={this.toFollow}>{watchUsersId.indexOf(authorId)===-1?"关注":"已关注"}</span>
 						</div>
 						<div className='job'>全站工程师</div>
 						<div className='contribution'>
