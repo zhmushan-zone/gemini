@@ -307,6 +307,42 @@ export function createProblem(problem) {
 	}
 }
 /* ---------------------------------------------------- 获取问题列表----------------------------------------------------------------------- */
+function deleteProblemSuccess (problems) {
+	return { type: ActionTypes.DELETE_PROBLEM_SUCCESS, payload: problems}
+}
+
+export function deleteProblem (id) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'delete',
+			url: `/api/issues/${id}`
+		})
+		if (res.data.code === 1) {
+			dispatch(deleteProblemSuccess(res.data.data))
+		}
+	}
+}
+/* ---------------------------------------------------- 问题审核通过----------------------------------------------------------------------- */
+function problemAcceptSuccess(problems) {
+	return { type: ActionTypes.CHECK_PROBLEM_ACCEPT, payload: problems }
+}
+
+export function problemAccept(id) {
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'put',
+			url: `/api/issues/${id}/status/1`,
+			headers: {
+				token: _token
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(problemAcceptSuccess(res.data.data))
+		}
+	}
+}
+/* ---------------------------------------------------- 获取问题列表----------------------------------------------------------------------- */
 function problemList(problem) {
 	return { type: ActionTypes.PROBLEM_LIST, payload: problem }
 }

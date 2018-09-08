@@ -36,7 +36,7 @@ class Forum extends Component {
   }
 
   render() {
-    const problems = this.props.problem.problem
+    const problems = this.props.problem.problem.filter(item => item.status === 1)
     return (
       <div className="forum">
         <ForumLeft problems={problems} />

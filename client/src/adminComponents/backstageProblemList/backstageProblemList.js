@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getProblemList } from '@/redux/actions'
 import { Input } from 'antd'
+import { dateSortByCreate } from '@/util/dateSort'
 import BackstageTag from '../backstageTag/backstageTag'
 import BackstageProblemItem from '../backstageProblemItem/backstageProblemItem'
 
@@ -52,7 +53,7 @@ class BackstageProblemList extends Component {
     })
     let problems = []
     this.props.problem ?
-    problems = [...this.props.problem].filter(item => this.isSimilar(item.tags, this.state.showType))
+    problems = dateSortByCreate([...this.props.problem].filter(item => this.isSimilar(item.tags, this.state.showType)))
     : null
     console.log(problems)
     return (

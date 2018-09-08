@@ -22,7 +22,7 @@ class BackstageMenu extends React.Component {
           <Link to="/admin"></Link>
         </Menu.Item>
         <Menu.Item key="2">
-          <Icon type="desktop" />
+          <Icon type="user" />
           <span >用户列表</span>
           <Link to="/admin/user"></Link>
         </Menu.Item>
@@ -32,22 +32,22 @@ class BackstageMenu extends React.Component {
           <Link to="/admin/course"></Link>
         </Menu.Item>
         <Menu.Item key="4">
-          <Icon type="inbox" />
+          <Icon type="question-circle" />
           <span>问题列表</span>
           <Link to="/admin/problem"></Link>
         </Menu.Item>
         <Menu.Item key="5">
-          <Icon type="inbox" />
+          <Icon type="edit" />
           <span>文章列表</span>
           <Link to="/admin/article"></Link>
         </Menu.Item>
         <Menu.Item key="6">
-          <Icon type="inbox" />
+          <Icon type="calendar" />
           <span>审核中心</span>
           <Link to="/admin/check"></Link>
         </Menu.Item>
         <Menu.Item key="7">
-          <Icon type="inbox" />
+          <Icon type="safety" />
           <span>举报中心</span>
           <Link to="/admin/report"></Link>
         </Menu.Item>

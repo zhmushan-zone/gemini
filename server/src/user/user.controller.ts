@@ -159,13 +159,20 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   async watchUser(@Usr() user: User, @Param('id') id: string) {
     const index = user.watchUsersId.findIndex(i => i === id);
+    const targetUser = await this.userService.findById(id);
+    if (!targetUser) return response(ResponseCode.NOT_EXISIT);
     if (index === -1) {
       user.watchUsersId.push(id);
+      targetUser.watchedUsersId.push(user.id.toHexString());
     } else {
       user.watchUsersId.splice(index, 1);
+      targetUser.watchedUsersId.splice(
+        targetUser.watchedUsersId.findIndex(i => i === user.id.toHexString()), 1
+      );
     }
     const res = await this.userService.updateById(user.id.toHexString(), { watchUsersId: user.watchUsersId } as User);
     if (res instanceof GeminiError) return success(res.code);
+    await this.userService.updateById(id, { watchedUsersId: targetUser.watchedUsersId } as User);
     return success();
   }
 

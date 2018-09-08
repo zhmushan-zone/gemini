@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter ,Link } from 'react-router-dom'
 import { Switch } from 'antd'
-import dateSort from '@/util/dateSort'
+import { dateSortByUpdate } from '@/util/dateSort'
 
 import ForumProblemPreivew from '../forumProblemPreview/forumProblemPreview'
 
@@ -20,7 +20,7 @@ class ForumLeft extends Component {
   problemFilter(type, problems) {
     switch (type) {
       case 0:
-        problems = dateSort(problems)
+        problems = dateSortByUpdate(problems)
         break
       case 1:
         problems = problems.sort((a, b) => b.replysId.length - a.replysId.length)
