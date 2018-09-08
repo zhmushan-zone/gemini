@@ -9,6 +9,7 @@ import { FileModule } from './file/file.module';
 import { ArticleModule } from './article/article.module';
 import { IssueModule } from './issue/issue.module';
 import { ReportModule } from './report/report.module';
+import { VideoModule } from './video/video.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { ReportModule } from './report/report.module';
     FileModule,
     ArticleModule,
     IssueModule,
-    ReportModule
+    ReportModule,
+    VideoModule
   ],
   controllers: [AppController],
   providers: [AppService]

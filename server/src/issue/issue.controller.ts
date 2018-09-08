@@ -115,13 +115,14 @@ export class IssueController {
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  delete(@Usr() user: User, @Param('id') id: string) {
+  async delete(@Usr() user: User, @Param('id') id: string) {
     if (user.role === UserRole.ADMIN) {
       this.issueService.remove([id]);
     } else {
       this.issueService.delete(user.id.toHexString(), id);
     }
-    return success();
+    const issues = await this.issueService.findAll();
+    return success(issues.map(i => new IssueVO(i)));
   }
 
   @Delete('reply/:id')
@@ -228,7 +229,8 @@ export class IssueController {
     status = IssueStatus[IssueStatus[status]];
     const res = this.issueService.updateByIdWithAdmin(id, { status } as Issue);
     if (res instanceof GeminiError) return response(res.code);
-    return success();
+    const issues = await this.issueService.findAll();
+    return success(issues.map(i => new IssueVO(i)));
   }
 
   @Put('reply/:id/up')

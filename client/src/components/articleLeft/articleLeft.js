@@ -77,6 +77,8 @@ export default class articleLeft extends Component {
 		const { visible, confirmLoading, commentValue, clickLike } = this.state
 		let { title, coverImg, content, type, userstatus } = this.props
 		let articleData = this.props.articleData
+		let thisArticle = this.props.article.article
+		let { upersId } = thisArticle
 		try {
 			var con = Marked(content)
 			var Tag = type.map((v, i) => {
@@ -91,7 +93,7 @@ export default class articleLeft extends Component {
 						<span>手记</span>
 					</Breadcrumb.Item>
 					<Breadcrumb.Item>
-						<span>{ArticleCategory[this.props.article.article.category]}</span>
+						<span>{ArticleCategory[thisArticle.category]}</span>
 					</Breadcrumb.Item>
 				</Breadcrumb>
 				<img src={`/cover-img/${coverImg}`} className='cover-img' alt='' />
@@ -99,8 +101,8 @@ export default class articleLeft extends Component {
 					<h2 className='detail-title'>{title}</h2>
 					<div className='dc-profile'>
 						<div className='l'>
-							<span style={{ marginRight: 10 }}>{this.props.article.article.createAt}</span>
-							<span className=''>126浏览</span>
+							<span style={{ marginRight: 10 }}>{thisArticle.createAt}</span>
+							<span className=''>{thisArticle.viewnum}浏览</span>
 						</div>
 					</div>
 					<div
@@ -115,13 +117,13 @@ export default class articleLeft extends Component {
 					<div className='cat-box'>{Tag}</div>
 					{/* 推荐 */}
 
-					{this.props.article.article.upersId.indexOf(_id) === -1 && !this.state.clickLike ? (
+					{upersId?upersId.indexOf(_id) === -1 && !clickLike ? (
 						<div className='praise-box'>
 							<button className={`js-praise`} onClick={this.handleLike.bind(this)}>
 								<Icon type='star' />
 							</button>
 							<div className='num-person'>
-								<em className='num'>{this.props.article.article.upersId.length}</em>人推荐
+								<em className='num'>{upersId.length}</em>人推荐
 							</div>
 						</div>
 					) : (
@@ -130,10 +132,10 @@ export default class articleLeft extends Component {
 								<Icon type='star' className='like' />
 							</button>
 							<div className='num-person'>
-								<em className='num'>{this.props.article.article.upersId.length + 1}</em>人推荐
+								<em className='num'>{upersId.length + 1}</em>人推荐
 							</div>
 						</div>
-					)}
+					):null}
 
 					{/* 评论 */}
 					<div id='comment'>
@@ -176,7 +178,7 @@ export default class articleLeft extends Component {
 										key={v.createAt}
 										title={v.title}
 										category={ArticleCategory[v.category]}
-										see={'188'}
+										see={v.viewnum}
 										author={v.authorUsername}
 										time={v.createAt}
 										tag={type}

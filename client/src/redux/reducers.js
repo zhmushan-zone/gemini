@@ -19,7 +19,8 @@ const initState = {
 	signature: '未设置',
 	watchTags: [],
 	code: '',
-	watchIssuesId: []
+	watchIssuesId: [],
+	watchUsersId:[],
 }
 
 const courseInitState = {
@@ -65,7 +66,6 @@ export function userstatus(state = initState, action) {
 				...action.payload,
 				redirectTo: '/home',
 				...action.username,
-				...action.password
 			}
 		case ActionTypes.FORGET_PASS:
 			return {
@@ -126,6 +126,21 @@ export function userstatus(state = initState, action) {
 			return {
 				...state,
 				...action.result
+			}
+		case ActionTypes.FOCUS_USER:
+			const index = [...state.watchUsersId].indexOf(action.data)
+			let watch = [...state.watchUsersId]
+			if(index!==-1){
+				watch.splice(index,1)
+				return {
+					...state,
+					watchUsersId:watch
+				}
+			}else{
+				return {
+					...state,
+					watchUsersId:[...state.watchUsersId,action.data]
+				}
 			}
 		default:
 			return state

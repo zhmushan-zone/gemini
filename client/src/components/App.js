@@ -15,7 +15,6 @@ import Opinion from '../containers/opinion/opinion'
 import Footer from './footer/footer'
 import Admin from '../adminComponents/admin/admin'
 import VideoPage from './video/videoPage'
-import UploadVideo from './uploadVideo/uploadVideo'
 import ArticleSample from '../components/articleSample/ArticleSample'
 import OpinionFocus from './opinionFocus/opinionFocus'
 import '@/assets/styles/normalize.scss'
@@ -47,7 +46,6 @@ class App extends React.Component {
                 <Route path="/opinion/:category" component={Opinion}></Route>
                 <Route path="/opinion" component={opinionRecommend}></Route>
                 <Route path="/personCenter/:id" component={PersonCenter}></Route>
-                <Route path="/uploadVideo" component={UploadVideo}></Route>
                 <Route path="/article/:id" component={ArticleSample}></Route>
                 <Redirect path="/" to={{ pathname: '/home' }} />       
               </Switch>
