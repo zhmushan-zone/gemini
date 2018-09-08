@@ -117,9 +117,9 @@ export class IssueController {
   @UseGuards(AuthGuard('jwt'))
   async delete(@Usr() user: User, @Param('id') id: string) {
     if (user.role === UserRole.ADMIN) {
-      this.issueService.remove([id]);
+      await this.issueService.remove([id]);
     } else {
-      this.issueService.delete(user.id.toHexString(), id);
+      await this.issueService.delete(user.id.toHexString(), id);
     }
     const issues = await this.issueService.findAll();
     return success(issues.map(i => new IssueVO(i)));
