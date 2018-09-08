@@ -122,7 +122,17 @@ export class IssueController {
       await this.issueService.delete(user.id.toHexString(), id);
     }
     const issues = await this.issueService.findAll();
-    return success(issues.map(i => new IssueVO(i)));
+
+    /*  */
+    const res = [] as IssueVO[];
+    for (const i of issues) {
+      const author = await this.userService.findById(i.authorId);
+      const issueVO = new IssueVO(i);
+      issueVO.authorUsername = author.username;
+      issueVO.authorAvatar = author.avatar;
+      res.push(issueVO);
+    }
+    return success(res);
   }
 
   @Delete('reply/:id')
@@ -227,10 +237,20 @@ export class IssueController {
   @UseGuards(AuthGuard('jwt'))
   async changeStatus(@Param('id') id: string, @Param('status') status: IssueStatus) {
     status = IssueStatus[IssueStatus[status]];
-    const res = await this.issueService.updateByIdWithAdmin(id, { status } as Issue);
-    if (res instanceof GeminiError) return response(res.code);
+    const err = await this.issueService.updateByIdWithAdmin(id, { status } as Issue);
+    if (err instanceof GeminiError) return response(err.code);
     const issues = await this.issueService.findAll();
-    return success(issues.map(i => new IssueVO(i)));
+
+    /*  */
+    const res = [] as IssueVO[];
+    for (const i of issues) {
+      const author = await this.userService.findById(i.authorId);
+      const issueVO = new IssueVO(i);
+      issueVO.authorUsername = author.username;
+      issueVO.authorAvatar = author.avatar;
+      res.push(issueVO);
+    }
+    return success(res);
   }
 
   @Put('reply/:id/up')
