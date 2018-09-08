@@ -8,6 +8,7 @@ import { fetchUser, followProblem } from '@/redux/actions'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import { defaultAvatar } from '@/const'
+import Share from '@/share'
 
 import './forumProblemPageInfo.scss'
 
@@ -170,13 +171,13 @@ class ForumProblemPageInfo extends Component {
           </div>
           <div className="forum-problem-page-operation">
             <div className="forum-problem-page-share">
-              <a>
-                <Icon type="weixin" color="#b6b9bc" size={26} />
+              <a onClick={() => Share.shareToQQZone(currentProblem.title, `/forum/details/${currentProblem.id}/`)}>
+                <Icon type="qq" color="#b6b9bc" size={26} />
               </a>
-              <a>
-                <Icon type="qq" color="#b6b9bc" size={24} />
+              <a onClick={() => Share.shareToDouban(currentProblem.title, `/forum/details/${currentProblem.id}/`)}>
+                <Icon type="douban_F" color="#b6b9bc" size={24} />
               </a>
-              <a>
+              <a onClick={() => Share.shareToWeibo(currentProblem.title, `/forum/details/${currentProblem.id}/`)}>
                 <Icon type="weibo" color="#b6b9bc" size={24} />
               </a>
             </div>

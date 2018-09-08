@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 import './articleComments.scss'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import dateSort from '@/util/dateSort.js'
+import { dateSortByUpdate } from '@/util/dateSort.js'
 @withRouter
 @connect((state) => state, { getArticleComment, setReplyComment, commentUp })
 class ArticleComments extends Component {
@@ -17,7 +17,7 @@ class ArticleComments extends Component {
 		}, 100)
 	}
 	render() {
-		const articleComment = dateSort(this.props.article.comment)
+		const articleComment = dateSortByUpdate(this.props.article.comment)
 		const { userstatus } = this.props
 		return (
 			<div className='article-page-comments'>
