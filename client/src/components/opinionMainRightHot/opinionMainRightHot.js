@@ -14,7 +14,7 @@ export default class opinionMainRightHot extends Component {
 				<ul className='hot-article-list'>
 					{hotSort(this.props.artcileArray).map((v, i) => {
 						if (i < 10) {
-							return <OpinionMainRightHotArticleList key={v.id} title={v.title} to={v.id}/>
+							return <OpinionMainRightHotArticleList coverImg={v.coverImg} key={v.id} title={v.title} to={v.id}/>
 						}
 					})}
 				</ul>
