@@ -12,7 +12,12 @@
     font-weight: 500;
 
     a {
+      max-width: 500px;
+      display: block;
       color: rgba(0,0,0,.85);
+      overflow: hidden;
+      text-overflow:ellipsis;
+      white-space: nowrap;
 
       &:hover {
         color: #3f90f7;
