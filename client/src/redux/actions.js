@@ -376,6 +376,7 @@ export function getProblemListByType(type) {
 			}
 		})
 		if (res.data.code === 1) {
+			console.log(res.data.data)
 			dispatch(problemListById(res.data.data))
 		}
 	}
