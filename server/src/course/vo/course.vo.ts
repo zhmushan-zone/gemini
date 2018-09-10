@@ -8,6 +8,7 @@ export class CourseVO extends Course {
     super();
     this.id = course.id;
     this.title = course.title;
+    this.desc = course.desc;
     this.coverImg = course.coverImg;
     this.direction = course.direction;
     this.type = course.type;

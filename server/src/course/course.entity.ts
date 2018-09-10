@@ -9,6 +9,9 @@ export class Course extends BaseEntity {
   title: string;
 
   @Column()
+  desc: string;
+
+  @Column()
   coverImg: string;
 
   @Column()
@@ -33,6 +36,7 @@ export class Course extends BaseEntity {
   beforeInsert() {
     super.beforeInsert();
     if (!this.title) this.title = '';
+    if (!this.desc) this.desc = '';
     if (!this.coverImg) this.coverImg = '';
     if (!this.direction) this.direction = 0;
     if (!this.type) this.type = [];
