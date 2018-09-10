@@ -20,6 +20,7 @@ const initState = {
 	code: '',
 	watchIssuesId: [],
 	watchUsersId:[],
+	personCenterInfo:""
 }
 
 const courseInitState = {
@@ -124,7 +125,7 @@ export function userstatus(state = initState, action) {
 		case ActionTypes.FETCH_ONE_USER:
 			return {
 				...state,
-				...action.result
+				personCenterInfo:action.data
 			}
 		case ActionTypes.FOCUS_USER:
 			const index = [...state.watchUsersId].indexOf(action.data)

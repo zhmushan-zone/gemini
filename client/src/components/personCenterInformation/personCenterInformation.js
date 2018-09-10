@@ -4,6 +4,7 @@ import { Modal, Input, Radio, message } from 'antd'
 import './PersonCenterInformation.scss'
 import { changePersonMsg } from '@/redux/actions'
 import CustomIcon from '@/common/customIcon/customIcon'
+import {notSetText} from  '@/const'
 @connect((state) => state, { changePersonMsg })
 class PersonCenterInformation extends React.Component {
 	constructor(props) {
@@ -57,7 +58,7 @@ class PersonCenterInformation extends React.Component {
 
 	render() {
 		const { visible, confirmLoading, sex, username, job, signature, city } = this.state
-		const userstatus = this.props.userstatus
+		const {userstatus,isOwn} = this.props
 		const { TextArea } = Input
 		const RadioGroup = Radio.Group
 		const information = [
@@ -67,19 +68,19 @@ class PersonCenterInformation extends React.Component {
 			},
 			{
 				name: '职位',
-				value: userstatus.job ? userstatus.job : '未设置'
+				value: userstatus.job ? userstatus.job : notSetText
 			},
 			{
 				name: '城市',
-				value: userstatus.city ? userstatus.city : '未设置'
+				value: userstatus.city ? userstatus.city : notSetText
 			},
 			{
 				name: '性别',
-				value: userstatus.sex ? (userstatus.sex === 1 ? '男' : '女') : '未设置'
+				value: userstatus.sex ? (userstatus.sex === 1 ? '男' : '女') : notSetText
 			},
 			{
 				name: '个性签名',
-				value: userstatus.signature ? userstatus.signature : '未设置'
+				value: userstatus.signature ? userstatus.signature : notSetText
 			}
 		]
 
@@ -87,10 +88,15 @@ class PersonCenterInformation extends React.Component {
 			<div className='person-information-container'>
 				<div className='title'>
 					<span>个人信息</span>
-					<a className='edit-info' onClick={this.showModal}>
-						<CustomIcon type='pen' />
-						编辑
-					</a>
+					{
+						isOwn?(
+							<a className='edit-info' onClick={this.showModal}>
+								<CustomIcon type='pen' />
+								编辑
+							</a>
+						):null
+					}
+				
 				</div>
 				<div>
 					<Modal
