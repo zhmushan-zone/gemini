@@ -306,25 +306,31 @@ export function createProblem(problem) {
 		}
 	}
 }
-/* ---------------------------------------------------- 获取问题列表----------------------------------------------------------------------- */
+/* ---------------------------------------------------- 删除问题----------------------------------------------------------------------- */
 function deleteProblemSuccess (problems) {
 	return { type: ActionTypes.DELETE_PROBLEM_SUCCESS, payload: problems}
 }
 
 export function deleteProblem (id) {
+	const _token = Cookies.get('_token')
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'delete',
-			url: `/api/issues/${id}`
+			url: `/api/issues/${id}`,
+			headers: {
+				token: _token
+			}
 		})
 		if (res.data.code === 1) {
+			console.log(res)
 			dispatch(deleteProblemSuccess(res.data.data))
 		}
 	}
 }
 /* ---------------------------------------------------- 问题审核通过----------------------------------------------------------------------- */
 function problemAcceptSuccess(problems) {
-	return { type: ActionTypes.CHECK_PROBLEM_ACCEPT, payload: problems }
+	const code = 1
+	return { type: ActionTypes.CHECK_PROBLEM_ACCEPT, payload: problems, code }
 }
 
 export function problemAccept(id) {
@@ -370,6 +376,7 @@ export function getProblemListByType(type) {
 			}
 		})
 		if (res.data.code === 1) {
+			console.log(res.data.data)
 			dispatch(problemListById(res.data.data))
 		}
 	}
