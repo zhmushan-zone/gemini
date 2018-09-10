@@ -523,24 +523,6 @@ export function publishArticle(state) {
 	}
 }
 
-/* fetch one  */
-function fetchOneArticleSuccess(data) {
-	return { type: ActionTypes.FETCH_ONE_ARTICLE, data }
-}
-export function fetchArticleOne(id) {
-	return async (dispatch) => {
-		const res = await axios({
-			method: 'get',
-			url: `/api/articles/${id}`
-		})
-		if (res.data.code === 1) {
-			Cookies.set('commentsId',res.data.data.commentsId)
-			dispatch(fetchOneArticleSuccess(res.data.data))
-		} else {
-			console.log('服务器出故障了')
-		}
-	}
-}
 
 /* fetch all */
 function fetchOneArticleAllSuccess(data) {
@@ -582,27 +564,6 @@ export function fetchArticleByCategory(id) {
 	}
 }
 
-/* 文章点赞数 */
-function fetchArticleUpSuccess(data) {
-	return { type: ActionTypes.FETCH_ARTICLE_UP, data }
-}
-
-export function fetchArticleUp(categoryId) {
-	return async (dispatch) => {
-		const res = await axios({
-			method: 'PUT',
-			url: `/api/articles/${categoryId}/up`,
-			headers: {
-				token: Cookies.get('_token')
-			}
-		})
-		if (res.data.code === 1) {
-			dispatch(fetchArticleUpSuccess(res.data.data))
-		} else {
-			console.log('服务器出故障了')
-		}
-	}
-}
 
 /* 发表评论 */
 function sendArticleCommentSuccess(data) {

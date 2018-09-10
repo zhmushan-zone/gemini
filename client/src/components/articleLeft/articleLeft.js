@@ -6,7 +6,7 @@ import { Modal, Input } from 'antd'
 import { connect } from 'react-redux'
 import Marked from 'marked'
 import { defaultAvatar, ArticleType, ArticleCategory } from '@/const'
-import { sendArticleComment } from '@/redux/actions.js'
+import { sendArticleComment, fetchArticleUp } from '@/redux/actions.js'
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import './articleLeft.scss'
 import { withRouter } from 'react-router'
@@ -15,7 +15,7 @@ import axios from 'axios'
 const { TextArea } = Input
 
 @withRouter
-@connect((state) => state, { sendArticleComment })
+@connect((state) => state, { sendArticleComment, fetchArticleUp })
 export default class articleLeft extends Component {
 	constructor(props) {
 		super(props)
@@ -24,39 +24,61 @@ export default class articleLeft extends Component {
 			visible: false,
 			confirmLoading: false,
 			categoryId: this.props.match.params.id,
-			commentValue: '您的内容。。'
+			commentValue: '您的内容。。',
+			upersId: [],
 		}
+	}
+	componentDidMount() {
+		const { upersId } = this.props.thisArticle
+		console.log(this.props.thisArticle)
+		this.setState({
+			upersId: upersId,
+		})
 	}
 
 	async handleLike() {
-		const _token = Cookies.get('_token')
-		await axios({
-			method: 'put',
-			url: ` /api/articles/${this.state.categoryId}/up`,
+		const _id = await Cookies.get('_id')
+		const res = await axios({
+			method: 'PUT',
+			url: `/api/articles/${this.state.categoryId}/up`,
 			headers: {
-				token: _token
+				token: Cookies.get('_token'),
+			},
+		})
+		if (res.data.code === 1) {
+			const { upersId } = this.props.thisArticle
+			const index = upersId.indexOf(_id) 
+			if (index === -1) {
+				this.state.upersId.push(_id)
+				this.setState({
+					upersId,
+				})
+			}else{
+				upersId.splice(index,1)
+				this.setState({
+					upersId
+				})
 			}
-		})
-		this.setState({
-			clickLike: true
-		})
+		} else {
+			console.log('服务器出故障了')
+		}
 	}
 
 	showModal = () => {
 		this.setState({
-			visible: true
+			visible: true,
 		})
 	}
 
 	handleOk = () => {
 		this.setState({
 			commentValue: '',
-			confirmLoading: true
+			confirmLoading: true,
 		})
 		setTimeout(() => {
 			this.setState({
 				visible: false,
-				confirmLoading: false
+				confirmLoading: false,
 			})
 		}, 100)
 		this.props.sendArticleComment(this.state.categoryId, this.state.commentValue)
@@ -64,28 +86,28 @@ export default class articleLeft extends Component {
 
 	handleCancel = () => {
 		this.setState({
-			visible: false
+			visible: false,
 		})
 	}
 	handleChange = (key, e) => {
 		this.setState({
-			[key]: e.target.value
+			[key]: e.target.value,
 		})
 	}
 
 	render() {
-		const { visible, confirmLoading, commentValue, clickLike } = this.state
-		let { title, coverImg, content, type, userstatus } = this.props
+		const { visible, confirmLoading, commentValue, upersId } = this.state
+		let { userstatus } = this.props
 		let articleData = this.props.articleData
-		let thisArticle = this.props.article.article
-		let { upersId } = thisArticle
+		let thisArticle = this.props.thisArticle
+		let { content, title, type } = thisArticle
+		const _id = Cookies.get('_id')
 		try {
 			var con = Marked(content)
 			var Tag = type.map((v, i) => {
 				return <TagSample name={v} key={i} />
 			})
 		} catch (error) {}
-		const _id = Cookies.get('_id')
 		return (
 			<div className='left-article-container'>
 				<Breadcrumb>
@@ -96,7 +118,6 @@ export default class articleLeft extends Component {
 						<span>{ArticleCategory[thisArticle.category]}</span>
 					</Breadcrumb.Item>
 				</Breadcrumb>
-				<img src={`/cover-img/${coverImg}`} className='cover-img' alt='' />
 				<div className='title'>
 					<h2 className='detail-title'>{title}</h2>
 					<div className='dc-profile'>
@@ -108,7 +129,7 @@ export default class articleLeft extends Component {
 					<div
 						className='content'
 						dangerouslySetInnerHTML={{
-							__html: con
+							__html: con,
 						}}
 					/>
 					<hr />
@@ -116,26 +137,14 @@ export default class articleLeft extends Component {
 					{/* 标签 */}
 					<div className='cat-box'>{Tag}</div>
 					{/* 推荐 */}
-
-					{upersId?upersId.indexOf(_id) === -1 && !clickLike ? (
-						<div className='praise-box'>
-							<button className={`js-praise`} onClick={this.handleLike.bind(this)}>
-								<Icon type='star' />
-							</button>
-							<div className='num-person'>
-								<em className='num'>{upersId.length}</em>人推荐
-							</div>
+					<div className='praise-box'>
+						<button className={`js-praise`} onClick={this.handleLike.bind(this)}>
+							<Icon type='star' />
+						</button>
+						<div className='num-person'>
+							<em className='num'>{upersId.length}</em>人推荐
 						</div>
-					) : (
-						<div className='praise-box'>
-							<button className='js-praise like' onClick={this.handleLike.bind(this)}>
-								<Icon type='star' className='like' />
-							</button>
-							<div className='num-person'>
-								<em className='num'>{upersId.length + 1}</em>人推荐
-							</div>
-						</div>
-					):null}
+					</div>
 
 					{/* 评论 */}
 					<div id='comment'>

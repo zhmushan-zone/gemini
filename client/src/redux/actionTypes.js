@@ -42,9 +42,7 @@ export const PROBLEM_LIST = 'PROBLEM_LIST'
 export const PROBLEM_LIST_BY_TYPE = 'PROBNLEM_LIST_BY_TYPE'
 // 关注问题
 export const FOLLOW_PROBLEM = 'FOLLOW_PROBLEM'
-// 获取单个文章
-export const FETCH_ONE_ARTICLE = 'FETCH_ONE_ARTICLE'
-// 获取单个文章
+// 获取多个文章
 export const FETCH_All_ARTICLE = 'FETCH_All_ARTICLE'
 // 评论问题
 export const COMMENT_PROBLEM = 'COMMENT_PROBLEM'
@@ -56,8 +54,7 @@ export const CHECK_PROBLEM_ACCEPT = 'CHECK_PROBLEM_ACCEPT'
 export const FETCH_ONE_USER = 'FETCH_ONE_USER'
 // 根据category返回列表
 export const FETCH_ARTICLE_CATEGORY = 'FETCH_ARTICLE_CATEGORY'
-// 根据category返回列表
-export const FETCH_ARTICLE_UP = 'FETCH_ARTICLE_UP'
+
 // 发表文章评论
 export const SEND_ARTICLE_COMMENT = 'SEND_ARTICLE_COMMENT'
 // 获取文章评论
