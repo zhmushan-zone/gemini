@@ -78,16 +78,14 @@
 			transition: all .3s;
 			font-size: 14px;
 			line-height: 22px;
+			color: #545c63;
+			&:hover{
+				color: brown;
+				cursor: pointer;
+			}
 			i{
 				font-size: 14px;
 				padding-right: 10px;
-			}
-			a{
-				color: #545c63;
-				&:hover{
-					color: brown;
-					cursor: pointer;
-				}
 			}
 		}
 	}

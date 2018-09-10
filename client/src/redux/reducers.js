@@ -5,7 +5,6 @@ import * as ActionTypes from './actionTypes'
 const initState = {
 	msg: '',
 	username: '',
-	password: '',
 	email: '',
 	re_username: '',
 	re_password: '',

@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
 import './opinionMainRightHotArticleList.scss'
-import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router'
+@withRouter
 export default class opinionMainRightHotArticleList extends Component {
 	render() {
+		const {coverImg,to,title} = this.props
 		return (
 			<div className='hot-article-list-li'>
 				<li className='item'>
 					<div className='imgCon'>
-						<img src='https://img2.mukewang.com/5b696b9f00012c1a20002000-200-200.jpg' alt='' />
+					{
+						coverImg?<img src={`/cover-img/${coverImg}`} alt='' />:null
+					}
+						
 					</div>
-					<p className='text'>
-						<Link to={"/article/"+this.props.to}>{this.props.title}</Link>
+					<p className='text' onClick={()=>this.props.history.push(`/article/${to}`)}>
+						{title}
 					</p>
 				</li>
 			</div>

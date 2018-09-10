@@ -10,11 +10,10 @@ import { dateSortByUpdate } from '@/util/dateSort.js'
 @connect((state) => state, { getArticleComment, setReplyComment, commentUp })
 class ArticleComments extends Component {
 	async componentDidMount() {
-		const _commentsId =  Cookies.get('commentsId')
-		const commentsId =  JSON.parse(_commentsId)
-		setTimeout(() => {
+		const commentsId =  await JSON.parse(Cookies.get('commentsId'))
+		setTimeout(()=>{
 			this.props.getArticleComment(commentsId)
-		}, 100)
+		},200)
 	}
 	render() {
 		const articleComment = dateSortByUpdate(this.props.article.comment)

@@ -46,3 +46,4 @@ export const ArticleCategory = [ '资讯', '区块链', '人工智能', '云计�
 export const ArticleCategoryAll = [ '全部' ,...ArticleCategory]
 export const defaultAvatar = require(`./assets/imgs/defaultAvatar.jpg`)
 export const reportReason = ['广告或垃圾信息', '辱骂', '涉政或违法', '抄袭', '不合适内容']
+export const notSetText ="未设置"

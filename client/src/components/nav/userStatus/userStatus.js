@@ -60,7 +60,7 @@ class UserStatus extends React.Component {
                       </a>
                       <div className="user-info-data">
                         <div className="user-info-name">
-                          <Link to={`personCenter/${loginUser}`} >
+                          <Link to={`../personCenter/${loginUser}`} >
                             {nickname}
                           </Link>
                         </div>

@@ -15,6 +15,7 @@ export default class ArticleSample extends Component {
 
 	}
 	render() {
+		const {userstatus} = this.props
 		const { articleArray, article } = this.props.article
 		const { authorId } = this.props.article.article
 		return (
@@ -22,7 +23,7 @@ export default class ArticleSample extends Component {
 				<OpinionNav />
 				<div className='article-container'>
 					{articleArray ? <ArticleLeft {...article} articleData={articleArray}  /> : null}
-					{authorId&&article ? <ArticleRight authorId={article.authorId} article={article} focusUser={(authorId)=>this.props.focusUser(authorId)} watchUsersId={this.props.userstatus.watchUsersId} /> : null}
+					{authorId&&article ? <ArticleRight authorId={article.authorId} article={article} focusUser={(authorId)=>this.props.focusUser(authorId)} watchUsersId={userstatus.watchUsersId} job={userstatus.job}/> : null}
 				</div>
 			</React.Fragment>
 		)

@@ -18,8 +18,8 @@ export function loadData(userinfo) {
 /* --------------------------------------------------注册-------------------------------------------------------------- */
 
 function authSuccess(obj) {
-	const { username, password, data } = obj
-	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: data, username, password }
+	const { username, data } = obj
+	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: data, username }
 }
 
 export function register(username, password, repet_pass) {
@@ -98,7 +98,7 @@ export function login(username, password) {
 		if (res.data.code === 1) {
 			Cookies.set('_id', res.data.data.id)
 			Cookies.set('_token', res.data.data.token)
-			dispatch(authSuccess({ username, password, data: res.data.data }))
+			dispatch(authSuccess({ username , data: res.data.data }))
 		} else if (res.data.code === 100) {
 			dispatch(errorMsg('登录失败'))
 		} else if (res.data.code === -1) {
@@ -533,7 +533,7 @@ export function fetchArticleOne(id) {
 			url: `/api/articles/${id}`
 		})
 		if (res.data.code === 1) {
-			Cookies.set('commentsId', res.data.data.commentsId)
+			Cookies.set('commentsId',res.data.data.commentsId)
 			dispatch(fetchOneArticleSuccess(res.data.data))
 		} else {
 			console.log('服务器出故障了')
@@ -677,6 +677,7 @@ function setWatchUser(data) {
 	return { type: ActionTypes.FOCUS_USER,  data }
 }
 export function focusUser(authorId) {
+	console.log(authorId)
 	const _token = Cookies.get('_token')
 	return async (dispatch) => {
 		const res = await axios({
