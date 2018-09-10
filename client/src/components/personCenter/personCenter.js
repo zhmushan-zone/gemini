@@ -23,14 +23,11 @@ class PersonCener extends React.Component {
 			visible: false,
 			confirmLoading: false,
 			imgurl: defaultAvatar,
-			UserId: ''
+			UserId: this.props.match.params.id
 		}
 	}
-	componentDidMount = () => {
-		this.setState({
-			UserId: this.props.match.params.id
-		})
-		this.props.fetchUser(this.state.UserId)
+	componentDidMount = async () => {
+		await this.props.fetchUser(this.state.UserId)
 	}
 
 	showModal = () => {
@@ -97,7 +94,9 @@ class PersonCener extends React.Component {
 	}
 	render() {
 		const { UserId } = this.state
-		const LoginId = Cookies.get('_id')
+		const {userstatus} = this.props
+		const isOwn = 	UserId===Cookies.get("_id")
+		const data = isOwn?userstatus:userstatus.personCenterInfo
 		const nav = [
 			{
 				name: '动态',
@@ -117,7 +116,7 @@ class PersonCener extends React.Component {
 				name: '个人信息',
 				icon: 'gerenxinxi',
 				to: `/personCenter/${UserId}/set`,
-				is: this.props.location.pathname === `/personCenter/${UserId}/set`&& UserId ===LoginId,
+				is: this.props.location.pathname === `/personCenter/${UserId}/set`,
 				component: PersonCenterInformation
 			},
 			{
@@ -159,14 +158,16 @@ class PersonCener extends React.Component {
 				</li>
 			)
     })
-    const data = this.props.userstatus
 		return (
 			<div className='personCenter-container'>
 				<div className='header'>
 					<div className='user-info'>
 						<div className='user-pic'>
 							<div className='user-pic-bg'>
-								<label onClick={this.showModal}>更换</label>
+							{
+								isOwn?<label onClick={this.showModal}>更换</label>:null
+							}
+								
 								<img
 									src={
 										data.avatar ? (
@@ -245,7 +246,7 @@ class PersonCener extends React.Component {
 					</div>
 					<div className='u-container'>
 						{nav.map((v) => {
-							return v.is ? <v.component key={v.component} /> : null
+							return v.is ? <v.component key={v.component} isOwn={isOwn}/> : null
 						})}
 					</div>
 				</div>

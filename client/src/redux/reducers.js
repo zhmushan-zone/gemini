@@ -7,8 +7,6 @@ const initState = {
 	username: '',
 	email: '',
 	re_username: '',
-	re_password: '',
-	repet_password: '',
 	forget_email: '',
 	id: '',
 	redirectTo: '',
@@ -20,6 +18,8 @@ const initState = {
 	code: '',
 	watchIssuesId: [],
 	watchUsersId:[],
+	watchedUsersId:[],
+	personCenterInfo:""
 }
 
 const courseInitState = {
@@ -30,9 +30,9 @@ const courseInitState = {
 
 const articleInit = {
 	msg: '',
-	article: [],
 	code: '',
-	comment: []
+	comment: [],
+	upersId:[]
 }
 
 const problemInitState = {
@@ -124,22 +124,7 @@ export function userstatus(state = initState, action) {
 		case ActionTypes.FETCH_ONE_USER:
 			return {
 				...state,
-				...action.result
-			}
-		case ActionTypes.FOCUS_USER:
-			const index = [...state.watchUsersId].indexOf(action.data)
-			let watch = [...state.watchUsersId]
-			if(index!==-1){
-				watch.splice(index,1)
-				return {
-					...state,
-					watchUsersId:watch
-				}
-			}else{
-				return {
-					...state,
-					watchUsersId:[...state.watchUsersId,action.data]
-				}
+				personCenterInfo:action.data
 			}
 		default:
 			return state
@@ -196,11 +181,6 @@ export function article(state = articleInit, action) {
 				msg: action.msg,
 				code: action.code
 			}
-		case ActionTypes.FETCH_ONE_ARTICLE:
-			return {
-				...state,
-				article: { ...action.data }
-			}
 		case ActionTypes.FETCH_All_ARTICLE:
 			return {
 				...state,
@@ -212,9 +192,19 @@ export function article(state = articleInit, action) {
 				articleArray: [ ...action.data ]
 			}
 		case ActionTypes.FETCH_ARTICLE_UP:
-			return {
-				...state,
-				up: action.data
+			const index = [...state.article.upersId].indexOf(action.id)
+			let up = [...state.article.upersId]
+			if(index!==-1){
+				up.splice(index,1)
+				return {
+					...state,
+					article:{...state.article,upersId:up}
+				}
+			}else{
+				return {
+					...state,
+					article:{...state.article,upersId:up}
+				}
 			}
 		case ActionTypes.SEND_ARTICLE_COMMENT:
 			return {
