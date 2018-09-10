@@ -45,8 +45,12 @@ export class ArticleService {
     return this.commentRepository.findByIds(ids);
   }
 
-  async findByArticleTypes(articleTypes: ArticleType[]) {
+  findByArticleTypes(articleTypes: ArticleType[]) {
     return this.articleRepository.find({ where: { type: { $in: articleTypes } } });
+  }
+
+  findByUpersId(id: string) {
+    return this.articleRepository.find({ where: { upersId: id } });
   }
 
   async updateById(authorId: string, id: string, article: Article) {

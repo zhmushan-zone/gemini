@@ -2,10 +2,13 @@ import { Course } from '../course.entity';
 
 export class CourseVO extends Course {
 
+  authorUsername: string;
+
   constructor(course: Course) {
     super();
     this.id = course.id;
     this.title = course.title;
+    this.desc = course.desc;
     this.coverImg = course.coverImg;
     this.direction = course.direction;
     this.type = course.type;
@@ -13,5 +16,7 @@ export class CourseVO extends Course {
     this.price = course.price;
     this.sections = course.sections;
     this.authorId = course.authorId;
+    this.updateAt = course.updateAt;
+    this.createAt = course.createAt;
   }
 }

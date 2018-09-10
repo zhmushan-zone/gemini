@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Global } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User, UserRole } from './user.entity';
 import { encrpty, generateSalt, ResponseCode } from '../common/utils';
@@ -7,6 +7,7 @@ import { GeminiError } from '../common/error';
 import { ObjectId } from 'mongodb';
 
 @Injectable()
+@Global()
 export class UserService {
 
   delete(id: string) {

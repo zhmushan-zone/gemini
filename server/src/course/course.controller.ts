@@ -15,10 +15,11 @@ import { AuthGuard } from '@nestjs/passport';
 import { Usr } from '../user/user.decorators';
 import { CreateCourseDTO, UpdateCourseDTO } from './dto';
 import { CourseService } from './course.service';
-import { success, response } from '../common/utils';
+import { success, response, ResponseCode } from '../common/utils';
 import { CourseVO } from './vo/course.vo';
 import { User } from '../user/user.entity';
 import { GeminiError } from '../common/error';
+import { UserService } from '../user/user.service';
 
 @Controller('/api/courses')
 export class CourseController {
@@ -40,7 +41,12 @@ export class CourseController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const course = await this.courseService.findById(id);
-    return success(new CourseVO(course));
+    if (!course) return response(ResponseCode.NOT_EXISIT);
+    const author = await this.userService.findById(course.authorId);
+    if (!author) return response(ResponseCode.NOT_EXISIT);
+    const courseVO = new CourseVO(course);
+    courseVO.authorUsername = author.username;
+    return success(courseVO);
   }
 
   @Get()
@@ -62,7 +68,8 @@ export class CourseController {
   }
 
   constructor(
-    private readonly courseService: CourseService
+    private readonly courseService: CourseService,
+    private readonly userService: UserService
   ) {
   }
 }
