@@ -10,6 +10,8 @@ export class UpdateCourseDTO extends Course {
 
   @IsString() readonly title;
 
+  @IsNotEmpty() @IsString() readonly desc;
+
   @IsNotEmpty() @IsString() readonly coverImg;
 
   @IsEnum(CourseDirection) readonly direction;
