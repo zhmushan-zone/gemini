@@ -2,6 +2,8 @@ import { Course } from '../course.entity';
 
 export class CourseVO extends Course {
 
+  authorUsername: string;
+
   constructor(course: Course) {
     super();
     this.id = course.id;
