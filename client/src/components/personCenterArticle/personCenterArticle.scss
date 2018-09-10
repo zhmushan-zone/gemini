@@ -9,4 +9,15 @@
       color: #f01400;
     }
   }
+  .my-article{
+    display: flex;
+    img{
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .content{
+      flex: 1;
+    }
+  }
 }

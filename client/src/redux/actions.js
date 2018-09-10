@@ -493,9 +493,9 @@ export function publishArticle(state) {
 		return createArticlError('文章没有内容吗？')
 	} else if (!articleImage) {
 		return createArticlError('文章没有图片吗？')
-	} else if (!selectValue) {
+	} else if (typeof selectValue!=='number') {
 		return createArticlError('文章没有类型吗？')
-	} else if (!articleTag||articleTag.length===0) {
+	} else if (articleTag.length===0) {
 		return createArticlError('文章没有标签吗？')
 	}
 	return async (dispatch) => {
