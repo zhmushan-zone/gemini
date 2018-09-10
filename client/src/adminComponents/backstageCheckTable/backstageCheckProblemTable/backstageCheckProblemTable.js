@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import BackstageProblemModal from '../../backstageModal/backstageProblemModal/backstageProblemModal'
-import { Table, Divider, Tag, Modal, message } from 'antd'
+import { Table, Divider, Tag, Modal, message, Input } from 'antd'
 import { connect } from 'react-redux'
-import { getProblemList } from '@/redux/actions'
+import { getProblemList, problemAccept, deleteProblem } from '@/redux/actions'
 import { ArticleType as Type } from '@/const'
 import { dateSortByCreate } from '@/util/dateSort'
-import axios from 'axios'
-import Cookies from 'js-cookie'
 
 const confirm = Modal.confirm
+const { TextArea } = Input
 
 @connect(
   state => state.problem,
-  { getProblemList }
+  { getProblemList, problemAccept, deleteProblem }
 )
 class BackstageCheckProblemTable extends Component {
   constructor(props) {
@@ -22,7 +21,8 @@ class BackstageCheckProblemTable extends Component {
       userName: '',
       userAvatar: '',
       title: '',
-      content: ''
+      content: '',
+      disagreeReason: ''
     }
   }
   
@@ -47,29 +47,36 @@ class BackstageCheckProblemTable extends Component {
   }
 
   agree (id) {
-    const _token = Cookies.get('_token')
     confirm({
       title: '请确认您的操作',
       content: '您是否要批准该条请求，请您确认',
-      onOk() {
-        return axios({
-          method: 'put',
-          url: `/api/issues/${id}/status/1`,
-          headers: {
-            token: _token
-          }
-        }).then(function(res) {
-          if (res.data.code === 1) {
-            message.success('请求已批准')
-          }
+      onOk: () => {
+        return new Promise(async (resolve, reject) => {
+          console.log(this.props)
+          await this.props.problemAccept(id)
+          resolve(1)
+        }).then(res => {
+          message.success('该请求已通过')
         })
       },
       onCancel() {},
     })
   }
 
-  disagree() {
-
+  disagree(id) {
+    confirm({
+      title: '您确定要拒绝该请求吗',
+      content: <TextArea placeholder="请输入拒绝的原因" autosize onChange={(e) => this.setState({disagreeReason: e.target.value})} />,
+      onOk: () => {
+        return new Promise(async (resolve, reject) => {
+          await this.props.deleteProblem(id)
+          resolve(1)
+        }).then(res => {
+          message.success('该请求已被拒绝')
+        })
+      },
+      onCancel() {},
+    })
   }
   
   render() {
@@ -118,7 +125,6 @@ class BackstageCheckProblemTable extends Component {
     }]
     
     const data = []
-    console.log(this.props.problem)
     if (this.props.problem) {
       const problems = this.props.problem.filter(item => item.status === 0)
       dateSortByCreate(problems)
