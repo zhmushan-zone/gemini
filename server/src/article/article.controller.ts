@@ -126,6 +126,13 @@ export class ArticleController {
     );
   }
 
+  @Get('upped')
+  @UseGuards(AuthGuard('jwt'))
+  async findByUpped(@Usr() user: User) {
+    const articles = await this.articleService.findByUpersId(user.id.toHexString());
+    return success(articles.map(a => new ArticleVO(a)));
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const article = await this.articleService.findById(id);
