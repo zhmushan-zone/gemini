@@ -581,7 +581,7 @@ export function deleteArticle (id) {
 			}
 		})
 		if (res.data.code === 1) {
-			const articleArray = store.getState().article.articleArray
+			const articleArray = [...store.getState().article.articleArray]
 			articleArray.map((v,i)=>{
 				if(v.id===id){
 					articleArray.splice(i,1)

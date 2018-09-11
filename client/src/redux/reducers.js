@@ -33,6 +33,7 @@ const articleInit = {
 	code: '',
 	comment: [],
 	upersId: [],
+	articleArray:[]
 }
 
 const problemInitState = {
