@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import BackstageCourseInfoTop from '../backstageCourseInfoItem/backstageCourseInfoTop/backstageCourseInfoTop'
 import Cookies from 'js-cookie'
 import axios from 'axios'
-import './backstageCourseInfo.scss'
 
-@withRouter
 class BackstageCourseInfo extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      course: null
+    }
+  }
+  
   uploadVideo() {
     document.getElementById("upload-video").addEventListener("change", function (e) {
       let video = document.getElementById("upload-video").files
@@ -32,15 +37,26 @@ class BackstageCourseInfo extends Component {
 
     })
   }
+
+  async componentDidMount() {
+    const res = await axios({
+      method: 'get',
+      url: `/api/courses/${this.props.match.params.id}`
+    })
+    if (res.data.code === 1) {
+      this.setState({
+        course: res.data.data
+      })
+    }
+  }
+  
   render() {
     return (
       <div className="backstage-course-info">
-       <div className="uploadVideo-container">
-          <h2>uploadVideo</h2>
-          <video src={''}></video>
-          <label htmlFor="upload-video" onClick={this.uploadVideo.bind(this)}>上传</label>
-          <input type="file" name="" id="upload-video" multiple />
-      </div>
+        {
+          this.state.course ? 
+          <BackstageCourseInfoTop course={this.state.course} /> : null
+        }
       </div>
     )
   }

@@ -1,0 +1,58 @@
+.backstage-course-info-top {
+  padding: 16px 32px;
+  background: #fff;
+  display: flex;
+
+  .backstage-course-info-top-left {
+    width: 44px;
+
+    img {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+    }
+  }
+
+  .backstage-course-info-top-right {
+    flex: 1;
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      color: rgba(0,0,0,.85);
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .backstage-course-info-data {
+      display: flex;
+
+      .backstage-course-info-data-left {
+        width: 66%;
+
+        .ant-col-12, .ant-col-24 {
+          color: rgba(0,0,0,.85);
+          font-family: Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+          font-size: 14px;
+          font-variant: tabular-nums;
+          -webkit-font-smoothing: antialiased;
+          text-rendering: optimizeLegibility;
+          padding-bottom: 8px;
+
+          span {
+            color: rgba(0,0,0,.65);
+            font-family: Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+            font-size: 14px;
+            font-variant: tabular-nums;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            padding-left: 2px;
+          }
+        }
+      }
+      .backstage-course-info-data-right {
+        width: 34%;
+      }
+    }
+  }
+}

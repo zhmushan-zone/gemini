@@ -49,6 +49,7 @@ class BackstageCourse extends Component {
   getData (courses) {
     const data = courses.map((item, index) => {
       return {
+        courseId: item.id,
         key: index,
         id: index,
         title: item.title,
@@ -74,7 +75,7 @@ class BackstageCourse extends Component {
             <span>新建</span>
           </Link>
         </Button>
-        <BackstageCourseList data={data}/>
+        {data.length ? <BackstageCourseList data={data}/> : null}
       </div>
     )
   }
