@@ -70,7 +70,6 @@ class PersonCener extends React.Component {
 			}
 		})
 			.then(function(res) {
-				console.log(res)
 				if (res.data.code === 1) {
 					_this.props.changeAvatar(res.data.data)
 				}

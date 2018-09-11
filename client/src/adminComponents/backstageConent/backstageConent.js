@@ -54,7 +54,7 @@ export default class BackstageConent extends Component {
       {
         name: 'BackstageCourseInfo',
         component: BackstageCourseInfo,
-        path: '/admin/course/info/:name',
+        path: '/admin/course/info/:id',
         address: '课程列表-课程详情'
       },
       {

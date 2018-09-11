@@ -10,6 +10,7 @@ class PersonCenterArticle extends React.Component {
 		super(props)
 		this.state = {
 			myArticle: [],
+			myLove: [],
 		}
 	}
 	callback = (key) => {
@@ -17,7 +18,7 @@ class PersonCenterArticle extends React.Component {
 	}
 	async componentDidMount() {
 		const _id = Cookies.get('_id')
-		// 获取全部用户
+		// 获取我的全部文章
 		await axios({
 			method: 'GET',
 			url: `/api/articles/author/${_id}`,
@@ -26,38 +27,80 @@ class PersonCenterArticle extends React.Component {
 				myArticle: res.data.data,
 			})
 		})
+		// 获取我喜欢的文章
+		await axios({
+			method: 'GET',
+			url: `/api/articles/upped`,
+			headers: {
+				token: Cookies.get('_token'),
+			},
+		}).then((res) => {
+			this.setState({
+				myLove: res.data.data,
+			})
+		})
 	}
 	render() {
 		const { isOwn } = this.props
-		const { myArticle } = this.state
-		console.log(myArticle)
+		const { myArticle, myLove } = this.state
+		console.log(myLove)
 		return (
 			<div className='person-center-article'>
 				<Tabs defaultActiveKey='1' onChange={this.callback} size='large' tabBarExtraContent={operations}>
 					<TabPane tab={isOwn ? '我的文章' : '他的文章'} key='1'>
-						<ul>
-							{myArticle ? (
-								myArticle.map((v) => {
-									return (
-										<li className='my-article' key={v.id}>
+						{myArticle ? (
+							myArticle.map((v) => {
+								return (
+									<div className='article-item' key={v.id}>
+										<div className='item-title'>
+											<a href={`/article/${v.id}`}>{v.title}</a>
+										</div>
+										<div className='content'>{v.content}</div>
+										<div className='bottom'>
+											<div className='right-info'>
+												<span>浏览{v.viewnum}</span>
+												<span>喜欢{v.upersId.length}</span>
+												<span>评论{v.commentsId.length}</span>
+											</div>
+										</div>
+									</div>
+								)
+							})
+						) : (
+							<p className='notattend'>
+								你还没有任何原创文章，快去<a>发表文章</a>吧
+							</p>
+						)}
+					</TabPane>
+					<TabPane tab={isOwn ? '我的喜欢' : '他的喜欢'} key='3'>
+						{myLove ? (
+							myLove.map((v) => {
+								return (
+									<div className='article-item' key={v.id}>
+										<div className='item-title'>
+											<a href={`/article/${v.id}`}>{v.title}</a>
+										</div>
+										<div className='content'>
 											<div>
 												<img src={`/cover-img/${v.coverImg}`} alt='' />
 											</div>
-											<div className='content'>{v.content}</div>
-										</li>
-									)
-								})
-							) : (
-								<p className='notattend'>
-									你还没有任何原创文章，快去<a>发表文章</a>吧
-								</p>
-							)}
-						</ul>
-					</TabPane>
-					<TabPane tab={isOwn ? '我的喜欢' : '他的喜欢'} key='3'>
-						<p className='notattend'>
-							你还没有任何推荐，可以先去<a>看看文章</a>
-						</p>
+											{v.content}
+										</div>
+										<div className='bottom'>
+											<div className='right-info'>
+												<span>浏览{v.viewnum}</span>
+												<span>喜欢{v.upersId.length}</span>
+												<span>评论{v.commentsId.length}</span>
+											</div>
+										</div>
+									</div>
+								)
+							})
+						) : (
+							<p className='notattend'>
+								你还没有喜欢任何文章，快去<a>看看文章</a>吧
+							</p>
+						)}
 					</TabPane>
 				</Tabs>
 			</div>

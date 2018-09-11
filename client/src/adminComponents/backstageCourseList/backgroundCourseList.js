@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import { Table, Divider, Modal, notification } from 'antd'
 import { connect } from 'react-redux'
 import { getCourseList, deleteCourse } from '@/redux/actions'
-import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 const confirm = Modal.confirm
 
-@withRouter
 @connect(
   state => state.course,
   { getCourseList, deleteCourse }
@@ -64,7 +63,7 @@ class BackstageCourseList extends Component {
         key: 'action',
         render: (text, record) => (
           <React.Fragment>
-            <a onClick={() => this.props.history.push(`/admin/course/info/${'asd'}`)}>详情</a>
+            <Link to={`/admin/course/info/${record.courseId}`}>详情</Link>
             <Divider type="vertical" />
             <a onClick={() => this.delete(courses[record.key].id)} style={{color: '#f01414'}}>删除</a>
           </React.Fragment>

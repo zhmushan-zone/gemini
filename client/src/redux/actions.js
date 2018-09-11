@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import * as ActionTypes from './actionTypes'
+import store from './stores';
 
 function errorMsg(msg) {
 	return { msg, code: 0, type: ActionTypes.ERROR_MSG }
@@ -477,6 +478,7 @@ export function updateForumTags(tags) {
 	}
 }
 /* ---------------------------------------------------- ARTICLE----------------------------------------------------------------------- */
+/* 创建 */
 function createArticlError(msg) {
 	return { msg, code: 0, type: ActionTypes.CREATE_ARTICLE_ERROR }
 }
@@ -555,11 +557,60 @@ export function fetchArticleByCategory(id) {
 			method: 'get',
 			url: `/api/articles/category/${id}`
 		})
-		console.log(res)
 		if (res.data.code === 1) {
 			dispatch(fetchArticleByCategorySuccess(res.data.data))
 		} else {
 			console.log('服务器出故障了')
+		}
+	}
+}
+
+/* ---------------------------------------------------- 删除文章(审核没通过)---------------------------------------------------------------------- */
+function deleteArticleSuccess (article) {
+	return { type: ActionTypes.DELETE_ARTICLE_SUCCESS, articleArray: article}
+}
+
+export function deleteArticle (id) {
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'delete',
+			url: `/api/articles/${id}`,
+			headers: {
+				token: _token
+			}
+		})
+		if (res.data.code === 1) {
+			const articleArray = [...store.getState().article.articleArray]
+			articleArray.map((v,i)=>{
+				if(v.id===id){
+					articleArray.splice(i,1)
+				}
+			})
+			dispatch(deleteArticleSuccess(articleArray))
+		}else{
+			console.log("后端出错了")
+		}
+	}
+}
+/* ---------------------------------------------------- 文章审核通过----------------------------------------------------------------------- */
+function articleAcceptSuccess(article) {
+	const code = 1
+	return { type: ActionTypes.CHECK_ARTICLE_ACCEPT, payload: article, code }
+}
+
+export function articleAccept(id) {
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'put',
+			url: `/api/article/${id}/status/1`,
+			headers: {
+				token: _token
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(articleAcceptSuccess(res.data.data))
 		}
 	}
 }
