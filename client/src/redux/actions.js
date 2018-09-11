@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import * as ActionTypes from './actionTypes'
+import store from './stores'
 
 function errorMsg(msg) {
 	return { msg, code: 0, type: ActionTypes.ERROR_MSG }
@@ -322,8 +323,8 @@ export function deleteProblem (id) {
 			}
 		})
 		if (res.data.code === 1) {
-			console.log(res)
-			dispatch(deleteProblemSuccess(res.data.data))
+			const problemData = store.getState().problem.problem.filter((item) => item.id !== id)
+			dispatch(deleteProblemSuccess(problemData))
 		}
 	}
 }

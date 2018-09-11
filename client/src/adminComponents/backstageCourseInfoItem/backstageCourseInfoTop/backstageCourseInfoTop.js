@@ -5,7 +5,7 @@ import './backstageCourseInfoTop.scss'
 
 class BackstageCourseInfoTop extends Component {
   render() {
-    const { coverImg, title, authorUsername, createAt, sections, desc, direction, difficulty, type } = this.props.course
+    const { coverImg, title, authorUsername, createAt, sections, desc, direction, difficulty, type, price } = this.props.course
     return (
       <div className="backstage-course-info-top">
         <div className="backstage-course-info-top-left">
@@ -41,14 +41,18 @@ class BackstageCourseInfoTop extends Component {
                   课程分类: <span>{Array.from(type, x => types2[x]).join(",")}</span>
                 </Col>
               </Row>
-              <Row>
-                <Col span={24}>
-                  课程介绍: <span>{desc}</span>
-                </Col>
-              </Row>
             </div>
             <div className="backstage-course-info-data-right">
-            
+              <Row>
+                <Col span={12}>
+                  <div className="backstage-course-info-data-right-title">状态</div>
+                  <div className="backstage-course-info-data-right-state" style={{color: 'rgb(95, 207, 154)'}}>已上线</div>
+                </Col>
+                <Col span={12}>
+                  <div className="backstage-course-info-data-right-title">所需积分</div>
+                  <div className="backstage-course-info-data-right-state">{price}</div>
+                </Col>
+              </Row>
             </div>
           </div>
         </div>

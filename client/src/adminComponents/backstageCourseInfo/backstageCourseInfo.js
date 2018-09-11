@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import BackstageCourseInfoTop from '../backstageCourseInfoItem/backstageCourseInfoTop/backstageCourseInfoTop'
+import BackstageCourseInfoSection from '../backstageCourseInfoItem/backstageCourseInfoSection/backstageCourseInfoSection'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import './backstageCourseInfo.scss'
 
 class BackstageCourseInfo extends Component {
   constructor(props) {
@@ -55,7 +57,27 @@ class BackstageCourseInfo extends Component {
       <div className="backstage-course-info">
         {
           this.state.course ? 
-          <BackstageCourseInfoTop course={this.state.course} /> : null
+          <React.Fragment>
+            <BackstageCourseInfoTop course={this.state.course} />
+            <div className="backstage-course-info-desc">
+              <div className="backstage-course-info-desc-title">
+                课程介绍
+              </div>
+              <div className="backstage-course-info-desc-content">
+                {this.state.course.desc}
+              </div>
+            </div>
+            {
+              this.state.course.sections.map((item, index) => {
+                return <BackstageCourseInfoSection 
+                        section={item}
+                        sectionNum={index + 1} 
+                        key={index}
+                      />
+              })
+            }
+          </React.Fragment>
+          : null
         }
       </div>
     )
