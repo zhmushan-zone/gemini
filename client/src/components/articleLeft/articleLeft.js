@@ -32,7 +32,6 @@ export default class articleLeft extends Component {
 	}
 	componentDidMount() {
 		const { upersId } = this.props.thisArticle
-		console.log(this.props.thisArticle)
 		this.setState({
 			upersId: upersId,
 		})
