@@ -596,7 +596,7 @@ export function deleteArticle (id) {
 /* ---------------------------------------------------- 文章审核通过----------------------------------------------------------------------- */
 function articleAcceptSuccess(article) {
 	const code = 1
-	return { type: ActionTypes.CHECK_ARTICLE_ACCEPT, payload: article, code }
+	return { type: ActionTypes.CHECK_ARTICLE_ACCEPT, articleArray:article, code }
 }
 
 export function articleAccept(id) {
@@ -604,13 +604,19 @@ export function articleAccept(id) {
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'put',
-			url: `/api/article/${id}/status/1`,
+			url: `/api/articles/${id}/status/1`,
 			headers: {
 				token: _token
 			}
 		})
 		if (res.data.code === 1) {
-			dispatch(articleAcceptSuccess(res.data.data))
+			const articleArray = [...store.getState().article.articleArray]
+			articleArray.map(v=>{
+				if(v.id===id){
+					v.status =1
+				}
+			})
+			dispatch(articleAcceptSuccess(articleArray))
 		}
 	}
 }
@@ -690,7 +696,6 @@ function setWatchUser(data) {
 	return { type: ActionTypes.FOCUS_USER,  data }
 }
 export function focusUser(authorId) {
-	console.log(authorId)
 	const _token = Cookies.get('_token')
 	return async (dispatch) => {
 		const res = await axios({

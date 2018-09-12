@@ -13,6 +13,7 @@ import { withRouter } from 'react-router'
 import Cookies from 'js-cookie'
 import Share from '@/share'
 import axios from 'axios'
+import { dateSortByCreate } from '@/util/dateSort'
 const { TextArea } = Input
 
 @withRouter
@@ -99,9 +100,9 @@ export default class articleLeft extends Component {
 	render() {
 		const { visible, confirmLoading, commentValue, upersId } = this.state
 		let { userstatus } = this.props
-		let articleData = this.props.articleData
+		let articleData = dateSortByCreate(this.props.articleData)
 		let thisArticle = this.props.thisArticle
-		let { content, title, type,id } = thisArticle
+		let { content, title, type, id } = thisArticle
 		try {
 			var con = Marked(content)
 			var Tag = type.map((v, i) => {
