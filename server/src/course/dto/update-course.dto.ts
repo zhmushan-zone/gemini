@@ -1,9 +1,18 @@
-import { Course, CourseDifficulty, CourseDirection, CourseType, Section } from '../course.entity';
+import { Course, CourseDifficulty, CourseDirection, CourseType, Section, Node } from '../course.entity';
 import { ArrayNotEmpty, IsEnum, IsNotEmpty, IsNumber, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
+export class UpdateNodeDTO extends Node {
+  @IsNotEmpty() @IsString() readonly title;
+  @IsNotEmpty() @IsString() readonly video;
+}
+
 export class UpdateSectionDTO extends Section {
   @IsNotEmpty() @IsString() title;
+
+  @ValidateNested({ each: true })
+  @Type(() => UpdateNodeDTO)
+  readonly nodes: UpdateNodeDTO[];
 }
 
 export class UpdateCourseDTO extends Course {
