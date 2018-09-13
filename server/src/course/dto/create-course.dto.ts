@@ -17,7 +17,6 @@ export class CreateNodeDTO extends Node {
 export class CreateSectionDTO extends Section {
   @IsNotEmpty() @IsString() readonly title;
 
-  @ArrayNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => CreateNodeDTO)
   readonly nodes: CreateNodeDTO[];

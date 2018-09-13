@@ -132,8 +132,7 @@ class BackstageCheckArticleTable extends Component {
 
 		const data = []
 		if (this.props.articleArray) {
-			// const article = this.props.articleArray.filter(item => item.status === 0)
-			const article = this.props.articleArray
+			const article = this.props.articleArray.filter(item => item.status === 0)
 			article.map((item, index) => {
 				const articlemData = {}
 				articlemData.key = `${index + 1}`

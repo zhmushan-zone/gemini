@@ -13,7 +13,6 @@ export default class articleRight extends Component {
 		this.state = {
 			follow: false,
 			thisAuthorArticle: [],
-			id: '',
 		}
 	}
 	toFollow = async () => {
@@ -34,22 +33,20 @@ export default class articleRight extends Component {
 				})
 			})
 		}
-		let id = this.props.match.params.id
-		this.setState({
-			id,
-		})
+	}
+	seeOtherArticle(id){
+		this.props.history.push(`/article/${id}`)
 	}
 
-	componentWillReceiveProps(nextProps) {
-		let id = nextProps.match.params.id
-		this.setState({
-			id,
-		})
+	async componentWillReceiveProps(nextProps) {
+		if (nextProps.match.params.id !== this.props.match.params.id) {
+			this.props.changeDate()
+		}
 	}
 
 	render() {
 		const { article, watchUsersId, authorId,job } = this.props
-		const { thisAuthorArticle, id } = this.state
+		const { thisAuthorArticle } = this.state
 		return (
 			<div className='right-article-container'>
 				<div className='author_info'>
@@ -61,7 +58,7 @@ export default class articleRight extends Component {
 							{/* follow ? '已关注' : '关注' */}
 							<span onClick={this.toFollow}>{watchUsersId.indexOf(authorId) === -1 ? '关注' : '已关注'}</span>
 						</div>
-						<div className='job'>{this.props.job?this.props.job:notSetText}</div>
+						<div className='job'>{job?job:notSetText}</div>
 						<div className='contribution'>
 							<span>{thisAuthorArticle.length}片文章</span>
 							<span>贡献55555字</span>
@@ -76,7 +73,7 @@ export default class articleRight extends Component {
 					<ul className='content'>
 						{this.state.thisAuthorArticle.map((v, i) => {
 							return (
-								<li className='article-item' key={i} onClick={() => this.props.history.push(`/article/${v.id}`)}>
+								<li className='article-item' key={i} onClick={()=>this.seeOtherArticle(v.id)}>
 									<Icon type='file-text' />
 									{v.content}
 								</li>

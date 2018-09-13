@@ -17,6 +17,8 @@ import Admin from '../adminComponents/admin/admin'
 import VideoPage from './video/videoPage'
 import ArticleSample from '../components/articleSample/ArticleSample'
 import OpinionFocus from './opinionFocus/opinionFocus'
+import ArticleExcellentSeven from './articleExcellentSeven/articleExcellentSeven'
+import ArticleExcellentThirty from './ArticleExcellentThirty/ArticleExcellentThirty'
 import '@/assets/styles/normalize.scss'
 // icon图标
 import '@/assets/styles/font/icon.css'
@@ -47,6 +49,8 @@ class App extends React.Component {
                 <Route path="/opinion" component={opinionRecommend}></Route>
                 <Route path="/personCenter/:id" component={PersonCenter}></Route>
                 <Route path="/article/:id" component={ArticleSample}></Route>
+                <Route path="/excellentSeven" component={ArticleExcellentSeven}></Route>
+                <Route path="/excellentThirty" component={ArticleExcellentThirty}></Route>
                 <Redirect path="/" to={{ pathname: '/home' }} />       
               </Switch>
               <Footer />

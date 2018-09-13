@@ -33,7 +33,7 @@ const articleInit = {
 	code: '',
 	comment: [],
 	upersId: [],
-	articleArray:[]
+	articleArray: [],
 }
 
 const problemInitState = {
@@ -208,6 +208,11 @@ export function article(state = articleInit, action) {
 				comment: [ ...state.comment, action.commentReply ],
 			}
 		case ActionTypes.DELETE_ARTICLE_SUCCESS:
+			return {
+				...state,
+				articleArray: action.articleArray,
+			}
+		case ActionTypes.CHECK_ARTICLE_ACCEPT:
 			return {
 				...state,
 				articleArray: action.articleArray,

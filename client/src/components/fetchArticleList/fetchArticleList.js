@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
 import { ArticleType ,ArticleCategory} from '@/const'
 import './FetchArticleList.scss'
+import { dateSortByCreate } from '@/util/dateSort'
 import { withRouter } from 'react-router'
 @withRouter
 export default class FetchArticleList extends Component {
@@ -10,7 +11,7 @@ export default class FetchArticleList extends Component {
 		this.state = {}
 	}
 	render() {
-		var articleData = this.props.articleData
+		var articleData = dateSortByCreate(this.props.articleData)
 		return (
 			<React.Fragment>
 				{articleData ? (
