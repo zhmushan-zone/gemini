@@ -11,7 +11,8 @@ class SectionAdd extends Component {
     for (let i = 1; i <= v; i++) {
       sections.push({
         key: i,
-        title: ''
+        title: '',
+        node: []
       })
     }
     this.props.sectionChange('sections', sections)

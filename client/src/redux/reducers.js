@@ -28,6 +28,12 @@ const courseInitState = {
 	code: '',
 }
 
+const courseInfoInit = {
+	msg: '',
+	data: {},
+	code: ''
+}
+
 const articleInit = {
 	msg: '',
 	code: '',
@@ -157,6 +163,23 @@ export function course(state = courseInitState, action) {
 				...state,
 				msg: '课程删除成功',
 				code: action.code,
+			}
+		default:
+			return state
+	}
+}
+
+export function courseInfo(state = courseInfoInit, action) {
+	switch (action.type) {
+		case ActionTypes.FETCH_ONE_COUSE:
+			return {
+				...state,
+				data: action.payload
+			}
+		case ActionTypes.UPDATE_COURSE:
+			return {
+				...state,
+				data: action.payload
 			}
 		default:
 			return state
@@ -316,6 +339,7 @@ export function User(state = Userinit, action) {
 export default combineReducers({
 	userstatus,
 	course,
+	courseInfo,
 	article,
 	problem,
 	User,

@@ -238,6 +238,44 @@ export function createCourse(course) {
 		}
 	}
 }
+/* --------------------------------------------------获取某个课程-------------------------------------------------------------- */
+function fetchOneCourseSuccess(course) {
+	return { type: ActionTypes.FETCH_ONE_COUSE, payload: course }
+}
+
+export function fetchOneCourse(id) {
+	return async (dispatch) => {
+		const res = await axios({
+      method: 'get',
+      url: `/api/courses/${id}`
+    })
+    if (res.data.code === 1) {
+      dispatch(fetchOneCourseSuccess(res.data.data))
+    }
+	}
+}
+/* --------------------------------------------------更新课程-------------------------------------------------------------- */
+function updateCourseSuccess(course) {
+	return { type: ActionTypes.UPDATE_COURSE, payload: course }
+}
+
+export function updateCourse (id ,data) {
+	const _token = Cookies.get('_token')
+	console.log(data)
+	return async (dispatch) => {
+		const res = await axios({
+      method: 'put',
+			url: `/api/courses/${id}`,
+			headers: {
+				token: _token
+			},
+			data: data
+    })
+    if (res.data.code === 1) {
+      dispatch(updateCourseSuccess(data))
+    }
+	}
+}
 /* --------------------------------------------------获取课程列表-------------------------------------------------------------- */
 // 课程列表
 function courseList(courses) {
