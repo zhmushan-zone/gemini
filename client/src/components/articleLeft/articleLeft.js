@@ -11,6 +11,7 @@ import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterLis
 import './articleLeft.scss'
 import { withRouter } from 'react-router'
 import Cookies from 'js-cookie'
+import Share from '@/share'
 import axios from 'axios'
 const { TextArea } = Input
 
@@ -47,16 +48,16 @@ export default class articleLeft extends Component {
 		})
 		if (res.data.code === 1) {
 			const { upersId } = this.props.thisArticle
-			const index = upersId.indexOf(_id) 
+			const index = upersId.indexOf(_id)
 			if (index === -1) {
 				this.state.upersId.push(_id)
 				this.setState({
 					upersId,
 				})
-			}else{
-				upersId.splice(index,1)
+			} else {
+				upersId.splice(index, 1)
 				this.setState({
-					upersId
+					upersId,
 				})
 			}
 		} else {
@@ -100,8 +101,7 @@ export default class articleLeft extends Component {
 		let { userstatus } = this.props
 		let articleData = this.props.articleData
 		let thisArticle = this.props.thisArticle
-		let { content, title, type } = thisArticle
-		const _id = Cookies.get('_id')
+		let { content, title, type,id } = thisArticle
 		try {
 			var con = Marked(content)
 			var Tag = type.map((v, i) => {
@@ -144,6 +144,17 @@ export default class articleLeft extends Component {
 						<div className='num-person'>
 							<em className='num'>{upersId.length}</em>人推荐
 						</div>
+					</div>
+					<div className='article-page-share'>
+						<a onClick={() => Share.shareToQQZone(title, `/article/${id}/`)}>
+							<Icon type='qq' color='#b6b9bc' size={26} />
+						</a>
+						<a onClick={() => Share.shareToDouban(title, `/article/${id}/`)}>
+							<Icon type='douban_F' color='#b6b9bc' size={24} />
+						</a>
+						<a onClick={() => Share.shareToWeibo(title, `/article/${id}/`)}>
+							<Icon type='weibo' color='#b6b9bc' size={24} />
+						</a>
 					</div>
 
 					{/* 评论 */}

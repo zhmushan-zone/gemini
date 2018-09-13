@@ -31,6 +31,9 @@ export class Article extends BaseEntity {
   @Column()
   viewnum: number;
 
+  @Column()
+  status: ArticleStatus;
+
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();
@@ -43,12 +46,19 @@ export class Article extends BaseEntity {
     if (!this.commentsId) this.commentsId = [];
     if (!this.category) this.category = 0;
     if (!this.viewnum) this.viewnum = 0;
+    if (!this.status) this.status = 0;
   }
 
   @BeforeUpdate()
   beforeUpdate() {
     super.beforeUpdate();
   }
+}
+
+export enum ArticleStatus {
+  Pending,
+  Accpet,
+  Reject
 }
 
 @Entity()

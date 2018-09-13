@@ -2,15 +2,16 @@ import { Body, Controller, Post, UseGuards, Get, Param, Delete, Put } from '@nes
 import { AuthGuard } from '@nestjs/passport';
 import { Usr } from '../user/user.decorators';
 import { success, response, ResponseCode } from '../common/utils';
-import { User } from '../user/user.entity';
+import { User, UserRole } from '../user/user.entity';
 import { CreateArticleDTO, UpdateArticleDTO, CreateCommentDTO } from './dto';
 import { ArticleService } from './article.service';
 import { GeminiError } from '../common/error';
 import { CommentVO, ArticleVO } from './vo';
-import { Article, ArticleCategory, Comment } from './article.entity';
+import { Article, ArticleCategory, Comment, ArticleStatus } from './article.entity';
 import { UserService } from '../user/user.service';
 import { ObjectId } from 'bson';
 import { UserVO } from '../user/vo/user.vo';
+import { Allow } from '../user/role.decorators';
 
 @Controller('/api/articles')
 export class ArticleController {
@@ -173,6 +174,16 @@ export class ArticleController {
     const res = await this.articleService.updateById(article.authorId, id, { upersId: article.upersId } as Article);
     if (res instanceof GeminiError) return response(res.code);
     return success(res.upersId.length);
+  }
+
+  @Put(':id/status/:status')
+  @Allow(UserRole.ADMIN)
+  @UseGuards(AuthGuard('jwt'))
+  async changeStatus(@Param('id') id: string, @Param('status') status: ArticleStatus) {
+    status = ArticleStatus[ArticleStatus[status]];
+    const err = await this.articleService.updateByIdWithAdmin(id, { status } as Article);
+    if (err instanceof GeminiError) return response(err.code);
+    return success();
   }
 
   @Put('comment/:id/up')
