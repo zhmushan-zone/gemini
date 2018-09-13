@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/react-lazyload": "^2.3.1",
+    "react-lazyload": "^2.3.0"
+  }
+}
