@@ -706,7 +706,18 @@ export function focusUser(authorId) {
 			},
 		})
 		if (res.data.code === 1) {
-			dispatch(setWatchUser(authorId))
+			const watchUsersId = [...store.getState().userstatus.watchUsersId]
+			let flag = 0
+			watchUsersId.map((v,i)=>{
+				if(v===authorId){
+					watchUsersId.splice(i,1)
+					flag =1
+				}
+			})
+			if(flag===0){
+				watchUsersId.push(authorId)
+			}
+			dispatch(setWatchUser(watchUsersId))
 		}
 	}
 }

@@ -127,6 +127,11 @@ export function userstatus(state = initState, action) {
 				...state,
 				personCenterInfo: action.data,
 			}
+		case ActionTypes.FOCUS_USER:
+			return {
+				...state,
+				watchUsersId: action.data,
+			}
 		default:
 			return state
 	}
