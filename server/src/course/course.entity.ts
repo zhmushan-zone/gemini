@@ -35,6 +35,12 @@ export class Course extends BaseEntity {
   @Column()
   commentsId: string[];
 
+  @Column()
+  joinersId: string[];
+
+  @Column()
+  rate: number;
+
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();

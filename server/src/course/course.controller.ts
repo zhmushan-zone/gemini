@@ -95,6 +95,22 @@ export class CourseController {
     return success(new CourseVO(res));
   }
 
+
+  @Put(':id/:rate')
+  @UseGuards(AuthGuard('jwt'))
+  async courseJoin(@Usr() user: User, @Param('id') id: string, @Param('rate') rate: string) {
+    const course = await this.courseService.findById(id);
+    if (!course) return success(ResponseCode.NOT_EXISIT);
+    if (!course.joinersId.includes(user.id.toHexString())) {
+      course.joinersId.push(user.id.toHexString());
+    }
+    course.rate = (course.rate * (course.joinersId.length - 1) + Number.parseFloat(rate)) / course.joinersId.length;
+    user.joinCourse[id] = Number.parseFloat(rate);
+    this.userService.updateById(user.id.toHexString(), { joinCourse: user.joinCourse } as User);
+    this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate, joinersId: course.joinersId } as Course);
+    return success();
+  }
+
   constructor(
     private readonly courseService: CourseService,
     private readonly userService: UserService
