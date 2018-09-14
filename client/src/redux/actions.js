@@ -43,13 +43,13 @@ export function register(username, password, repet_pass) {
 			method: 'post',
 			url: '/api/users/register',
 			headers: {
-				captcha: captcha
+				captcha: captcha,
 			},
 			data: {
 				username,
 				email,
-				password
-			}
+				password,
+			},
 		})
 		if (res.data.code === 1) {
 			const data = res.data.data
@@ -99,7 +99,7 @@ export function login(username, password) {
 		if (res.data.code === 1) {
 			Cookies.set('_id', res.data.data.id)
 			Cookies.set('_token', res.data.data.token)
-			dispatch(authSuccess({ username , data: res.data.data }))
+			dispatch(authSuccess({ username, data: res.data.data }))
 		} else if (res.data.code === 100) {
 			dispatch(errorMsg('登录失败'))
 		} else if (res.data.code === -1) {
@@ -127,15 +127,15 @@ export function changePersonMsg(a) {
 			url: '/api/users',
 			headers: {
 				id: _id,
-				token: _token
+				token: _token,
 			},
 			data: {
 				nickname: username,
 				sex,
 				job,
 				city,
-				signature
-			}
+				signature,
+			},
 		})
 		if (res.data.code === 1) {
 			return dispatch(updateSuccesss({ msg: res.data.msg, sex: sex === 1 ? '男' : '女', username, job, city, signature }))
@@ -184,8 +184,8 @@ export function checkedCaptcha(captcha) {
 			method: 'post',
 			url: `/api/users/email/validate/${email}`,
 			headers: {
-				captcha: captcha
-			}
+				captcha: captcha,
+			},
 		})
 		if (res.data.code === 1) {
 			Cookies.set('captcha', captcha)
@@ -224,11 +224,11 @@ export function createCourse(course) {
 				method: 'post',
 				url: '/api/courses',
 				headers: {
-					token: _token
+					token: _token,
 				},
 				data: {
-					...course
-				}
+					...course,
+				},
 			})
 			if (res.data.code === 1) {
 				dispatch(createCourseSuccess(res.data.data))
@@ -246,12 +246,12 @@ function fetchOneCourseSuccess(course) {
 export function fetchOneCourse(id) {
 	return async (dispatch) => {
 		const res = await axios({
-      method: 'get',
-      url: `/api/courses/${id}`
-    })
-    if (res.data.code === 1) {
-      dispatch(fetchOneCourseSuccess(res.data.data))
-    }
+			method: 'get',
+			url: `/api/courses/${id}`,
+		})
+		if (res.data.code === 1) {
+			dispatch(fetchOneCourseSuccess(res.data.data))
+		}
 	}
 }
 /* --------------------------------------------------更新课程-------------------------------------------------------------- */
@@ -259,21 +259,21 @@ function updateCourseSuccess(course) {
 	return { type: ActionTypes.UPDATE_COURSE, payload: course }
 }
 
-export function updateCourse (id ,data) {
+export function updateCourse(id, data) {
 	const _token = Cookies.get('_token')
 	console.log(data)
 	return async (dispatch) => {
 		const res = await axios({
-      method: 'put',
+			method: 'put',
 			url: `/api/courses/${id}`,
 			headers: {
-				token: _token
+				token: _token,
 			},
-			data: data
-    })
-    if (res.data.code === 1) {
-      dispatch(updateCourseSuccess(data))
-    }
+			data: data,
+		})
+		if (res.data.code === 1) {
+			dispatch(updateCourseSuccess(data))
+		}
 	}
 }
 /* --------------------------------------------------获取课程列表-------------------------------------------------------------- */
@@ -304,8 +304,8 @@ export function deleteCourse(id) {
 				method: 'delete',
 				url: `/api/courses/${id}`,
 				headers: {
-					token: _token
-				}
+					token: _token,
+				},
 			})
 
 			if (res.data.code === 1) {
@@ -331,11 +331,11 @@ export function createProblem(problem) {
 				method: 'post',
 				url: '/api/issues',
 				headers: {
-					token: _token
+					token: _token,
 				},
 				data: {
-					...problem
-				}
+					...problem,
+				},
 			})
 			if (res.data.code === 1) {
 				dispatch(createProblemSuccess(res.data.data))
@@ -346,19 +346,19 @@ export function createProblem(problem) {
 	}
 }
 /* ---------------------------------------------------- 删除问题----------------------------------------------------------------------- */
-function deleteProblemSuccess (problems) {
-	return { type: ActionTypes.DELETE_PROBLEM_SUCCESS, payload: problems}
+function deleteProblemSuccess(problems) {
+	return { type: ActionTypes.DELETE_PROBLEM_SUCCESS, payload: problems }
 }
 
-export function deleteProblem (id) {
+export function deleteProblem(id) {
 	const _token = Cookies.get('_token')
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'delete',
 			url: `/api/issues/${id}`,
 			headers: {
-				token: _token
-			}
+				token: _token,
+			},
 		})
 		if (res.data.code === 1) {
 			const problemData = store.getState().problem.problem.filter((item) => item.id !== id)
@@ -379,8 +379,8 @@ export function problemAccept(id) {
 			method: 'put',
 			url: `/api/issues/${id}/status/1`,
 			headers: {
-				token: _token
-			}
+				token: _token,
+			},
 		})
 		if (res.data.code === 1) {
 			dispatch(problemAcceptSuccess(res.data.data))
@@ -411,8 +411,8 @@ export function getProblemListByType(type) {
 			method: 'post',
 			url: '/api/issues/fetch/by-tag/intersect',
 			data: {
-				tags: type
-			}
+				tags: type,
+			},
 		})
 		if (res.data.code === 1) {
 			console.log(res.data.data)
@@ -433,8 +433,8 @@ export function followProblem(problemId) {
 			method: 'put',
 			url: `/api/issues/${problemId}/watch`,
 			headers: {
-				token: _token
-			}
+				token: _token,
+			},
 		})
 		if (res.data.code === 1) {
 			dispatch(followProblemSuccess(res.data.data.watchIssuesId))
@@ -457,11 +457,11 @@ export function commentProblem(problemId, content) {
 				method: 'post',
 				url: `/api/issues/${problemId}/reply`,
 				headers: {
-					token: _token
+					token: _token,
 				},
 				data: {
-					content: content
-				}
+					content: content,
+				},
 			})
 			if (res.data.code === 1) {
 				dispatch(commentProblemSuccess(res.data.data))
@@ -481,7 +481,7 @@ export function fetchComment(problemIds) {
 		const res = await axios({
 			method: 'post',
 			url: '/api/issues/reply/ids',
-			data: problemIds
+			data: problemIds,
 		})
 		if (res.data.code === 1) {
 			dispatch(fetchCommentSuccess(res.data.data))
@@ -501,11 +501,11 @@ export function updateForumTags(tags) {
 			method: 'put',
 			url: '/api/users/tags',
 			headers: {
-				token: _token
+				token: _token,
 			},
 			data: {
-				tags
-			}
+				tags,
+			},
 		})
 		if (res.data.code === 1) {
 			dispatch(updateForumTagsSuccess(tags))
@@ -533,9 +533,9 @@ export function publishArticle(state) {
 		return createArticlError('文章没有内容吗？')
 	} else if (!articleImage) {
 		return createArticlError('文章没有图片吗？')
-	} else if (typeof selectValue!=='number') {
+	} else if (typeof selectValue !== 'number') {
 		return createArticlError('文章没有类型吗？')
-	} else if (articleTag.length===0) {
+	} else if (articleTag.length === 0) {
 		return createArticlError('文章没有标签吗？')
 	}
 	return async (dispatch) => {
@@ -544,15 +544,15 @@ export function publishArticle(state) {
 			method: 'post',
 			url: '/api/articles',
 			headers: {
-				token: _token
+				token: _token,
 			},
 			data: {
 				title: articleName,
 				coverImg: articleImage,
 				type: articleTag,
 				content: articleContent,
-				category: selectValue
-			}
+				category: selectValue,
+			},
 		})
 		if (res.data.code === 1) {
 			dispatch(createArticleSuccess(res.data.data))
@@ -563,7 +563,6 @@ export function publishArticle(state) {
 	}
 }
 
-
 /* fetch all */
 function fetchOneArticleAllSuccess(data) {
 	return { type: ActionTypes.FETCH_All_ARTICLE, data }
@@ -573,7 +572,7 @@ export function fetchArticleAll() {
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'get',
-			url: `/api/articles`
+			url: `/api/articles`,
 		})
 		if (res.data.code === 1) {
 			dispatch(fetchOneArticleAllSuccess(res.data.data))
@@ -586,17 +585,17 @@ export function fetchArticleAll() {
 /* 更具类别返回文章列表 */
 
 function fetchArticleByCategorySuccess(data) {
-	return { type: ActionTypes.FETCH_ARTICLE_CATEGORY, data,code:1 }
+	return { type: ActionTypes.FETCH_ARTICLE_CATEGORY, data, code: 1 }
 }
 function fetchArticleByCategoryError() {
-	return { type: ActionTypes.FETCH_ARTICLE_CATEGORY, code:0 }
+	return { type: ActionTypes.FETCH_ARTICLE_CATEGORY, code: 0 }
 }
 
 export function fetchArticleByCategory(id) {
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'get',
-			url: `/api/articles/category/${id}`
+			url: `/api/articles/category/${id}`,
 		})
 		if (res.data.code === 1) {
 			dispatch(fetchArticleByCategorySuccess(res.data.data))
@@ -607,37 +606,37 @@ export function fetchArticleByCategory(id) {
 }
 
 /* ---------------------------------------------------- 删除文章(审核没通过)---------------------------------------------------------------------- */
-function deleteArticleSuccess (article) {
-	return { type: ActionTypes.DELETE_ARTICLE_SUCCESS, articleArray: article}
+function deleteArticleSuccess(article) {
+	return { type: ActionTypes.DELETE_ARTICLE_SUCCESS, articleArray: article }
 }
 
-export function deleteArticle (id) {
+export function deleteArticle(id) {
 	const _token = Cookies.get('_token')
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'delete',
 			url: `/api/articles/${id}`,
 			headers: {
-				token: _token
-			}
+				token: _token,
+			},
 		})
 		if (res.data.code === 1) {
-			const articleArray = [...store.getState().article.articleArray]
-			articleArray.map((v,i)=>{
-				if(v.id===id){
-					articleArray.splice(i,1)
+			const articleArray = [ ...store.getState().article.articleArray ]
+			articleArray.map((v, i) => {
+				if (v.id === id) {
+					articleArray.splice(i, 1)
 				}
 			})
 			dispatch(deleteArticleSuccess(articleArray))
-		}else{
-			console.log("后端出错了")
+		} else {
+			console.log('后端出错了')
 		}
 	}
 }
 /* ---------------------------------------------------- 文章审核通过----------------------------------------------------------------------- */
 function articleAcceptSuccess(article) {
 	const code = 1
-	return { type: ActionTypes.CHECK_ARTICLE_ACCEPT, articleArray:article, code }
+	return { type: ActionTypes.CHECK_ARTICLE_ACCEPT, articleArray: article, code }
 }
 
 export function articleAccept(id) {
@@ -647,21 +646,20 @@ export function articleAccept(id) {
 			method: 'put',
 			url: `/api/articles/${id}/status/1`,
 			headers: {
-				token: _token
-			}
+				token: _token,
+			},
 		})
 		if (res.data.code === 1) {
-			const articleArray = [...store.getState().article.articleArray]
-			articleArray.map(v=>{
-				if(v.id===id){
-					v.status =1
+			const articleArray = [ ...store.getState().article.articleArray ]
+			articleArray.map((v) => {
+				if (v.id === id) {
+					v.status = 1
 				}
 			})
 			dispatch(articleAcceptSuccess(articleArray))
 		}
 	}
 }
-
 
 /* 发表评论 */
 function sendArticleCommentSuccess(data) {
@@ -673,12 +671,12 @@ export function sendArticleComment(id, content) {
 			method: 'post',
 			url: `/api/articles/${id}/comment`,
 			headers: {
-				token: Cookies.get('_token')
+				token: Cookies.get('_token'),
 			},
 			data: {
 				content: content,
-				to: ""
-			}
+				to: '',
+			},
 		})
 		if (res.data.code === 1) {
 			dispatch(sendArticleCommentSuccess(res.data.data))
@@ -697,7 +695,7 @@ export function getArticleComment(ids) {
 		const res = await axios({
 			method: 'post',
 			url: '/api/articles/comment/ids',
-			data: ids
+			data: ids,
 		})
 		if (res.data.code === 1) {
 			dispatch(getArticleCommentSuccess(res.data.data))
@@ -711,20 +709,20 @@ export function getArticleComment(ids) {
 function setReplyCommentSuccess(data) {
 	return { type: ActionTypes.SET_REPLY_COMMENT, commentReply: data }
 }
-export function setReplyComment(articleId, content,to) {
-	console.log(articleId,content,to)
+export function setReplyComment(articleId, content, to) {
+	console.log(articleId, content, to)
 	const _token = Cookies.get('_token')
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'post',
 			url: `/api/articles/${articleId}/comment`,
 			headers: {
-				token: _token
+				token: _token,
 			},
 			data: {
 				content: content,
-				to:to
-			}
+				to: to,
+			},
 		})
 		if (res.data.code === 1) {
 			dispatch(setReplyCommentSuccess(res.data.data))
@@ -734,7 +732,7 @@ export function setReplyComment(articleId, content,to) {
 
 /* 关注用户 */
 function setWatchUser(data) {
-	return { type: ActionTypes.FOCUS_USER,  data }
+	return { type: ActionTypes.FOCUS_USER, data }
 }
 export function focusUser(authorId) {
 	const _token = Cookies.get('_token')
@@ -743,19 +741,19 @@ export function focusUser(authorId) {
 			method: 'PUT',
 			url: `/api/users/watch/user/${authorId}`,
 			headers: {
-				token: _token
+				token: _token,
 			},
 		})
 		if (res.data.code === 1) {
-			const watchUsersId = [...store.getState().userstatus.watchUsersId]
+			const watchUsersId = [ ...store.getState().userstatus.watchUsersId ]
 			let flag = 0
-			watchUsersId.map((v,i)=>{
-				if(v===authorId){
-					watchUsersId.splice(i,1)
-					flag =1
+			watchUsersId.map((v, i) => {
+				if (v === authorId) {
+					watchUsersId.splice(i, 1)
+					flag = 1
 				}
 			})
-			if(flag===0){
+			if (flag === 0) {
 				watchUsersId.push(authorId)
 			}
 			dispatch(setWatchUser(watchUsersId))
@@ -763,21 +761,20 @@ export function focusUser(authorId) {
 	}
 }
 
-
 /* -------------------------获取举报列表------------------------------------------- */
 function getReportsListSuccess(reports) {
 	return { type: ActionTypes.GET_REPORTS_LIST, payload: reports }
 }
 
-export function getReportsList () {
+export function getReportsList() {
 	const _token = Cookies.get('_token')
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'get',
 			url: '/api/reports',
 			headers: {
-				token: _token
-			}
+				token: _token,
+			},
 		})
 		if (res.data.code === 1) {
 			dispatch(getReportsListSuccess(res.data.data))
@@ -792,12 +789,83 @@ export function fetchUser(id) {
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'get',
-			url: `/api/users/${id}`
+			url: `/api/users/${id}`,
 		})
 		if (res.data.code === 1) {
 			dispatch(fetchOneUser(res.data.data))
 		} else {
 			console.log('服务器出故障了')
+		}
+	}
+}
+
+/* ----------------------------------------------video---------------------------------------------- */
+
+/* 发表评论 */
+function sendVideoCommentSuccess(data) {
+	return { type: ActionTypes.SEND_VIDEO_COMMENT, comment: data }
+}
+export function sendVideoComment(id, content) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'post',
+			url: `/api/articles/${id}/comment`,
+			headers: {
+				token: Cookies.get('_token'),
+			},
+			data: {
+				content: content,
+				to: '',
+			},
+		})
+		if (res.data.code === 1) {
+			dispatch(sendVideoCommentSuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
+		}
+	}
+}
+
+function getVideoCommentSuccess(data) {
+	return { type: ActionTypes.GET_ARTICLE_COMMENT, commentList: data }
+}
+/* 获取评论 */
+export function getVideoComment(ids) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'post',
+			url: '/api/articles/comment/ids',
+			data: ids,
+		})
+		if (res.data.code === 1) {
+			dispatch(getVideoCommentSuccess(res.data.data))
+		} else {
+			console.log('服务器出故障了')
+		}
+	}
+}
+/* 子回复 */
+
+function setVideoReplyCommentSuccess(data) {
+	return { type: ActionTypes.SET_REPLY_COMMENT, commentReply: data }
+}
+export function setVideoReplyComment(articleId, content, to) {
+	console.log(articleId, content, to)
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'post',
+			url: `/api/articles/${articleId}/comment`,
+			headers: {
+				token: _token,
+			},
+			data: {
+				content: content,
+				to: to,
+			},
+		})
+		if (res.data.code === 1) {
+			dispatch(setVideoReplyCommentSuccess(res.data.data))
 		}
 	}
 }

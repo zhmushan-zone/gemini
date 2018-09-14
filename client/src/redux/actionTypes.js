@@ -51,7 +51,7 @@ export const FETCH_All_ARTICLE = 'FETCH_All_ARTICLE'
 // 评论问题
 export const COMMENT_PROBLEM = 'COMMENT_PROBLEM'
 // 讨论区获取评论
-export const FETCH_COMMENT  = 'FETCH_COMMENT'
+export const FETCH_COMMENT = 'FETCH_COMMENT'
 // 问题审核通过
 export const CHECK_PROBLEM_ACCEPT = 'CHECK_PROBLEM_ACCEPT'
 // 获取单个用户
@@ -73,3 +73,7 @@ export const SET_REPLY_COMMENT = 'SET_REPLY_COMMENT'
 export const GET_REPORTS_LIST = 'GET_REPORTS_LIST'
 // 关注用户
 export const FOCUS_USER = 'FOCUS_USER'
+// VIDEO 评论
+export const SEND_VIDEO_COMMENT = 'SEND_VIDEO_COMMENT'
+export const GET_VIDEO_COMMENT = 'GET_VIDEO_COMMENT'
+export const SET_VIDEO_REPLY_COMMENT = 'SET_VIDEO_REPLY_COMMENT'

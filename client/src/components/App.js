@@ -20,6 +20,7 @@ import OpinionFocus from './opinionFocus/opinionFocus'
 import ArticleExcellentSeven from './articleExcellentSeven/articleExcellentSeven'
 import ArticleExcellentThirty from './ArticleExcellentThirty/ArticleExcellentThirty'
 import CoursePreview from './coursePreview/coursePreview'
+import Search from '../containers/search/search'
 import '@/assets/styles/normalize.scss'
 // icon图标
 import '@/assets/styles/font/icon.css'
@@ -35,11 +36,12 @@ class App extends React.Component {
           <Route path="/login" component={Login}></Route>
           <Route path="/editor" component={Editor}></Route>
           <Route path="/admin" component={Admin}></Route>
-          <Route path="/video/:id" component={VideoPage}></Route>
+          <Route path="/video/:courseId" component={VideoPage}></Route>
           <Route path="/" render={(props) => (
             <Layout>
               <Switch>
                 <Route path="/home" component={Home}></Route>
+                <Route path="/search" component={Search}></Route>
                 <Route path="/onlineStudying" component={OnlineStudying}></Route>
                 <Route path="/forum" component={Forum} exact></Route>
                 <Route path="/forum/create" component={forumCreateProblem} exact></Route>

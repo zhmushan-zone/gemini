@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Breadcrumb, Icon } from 'antd'
+import { Breadcrumb,Icon } from 'antd'
+import CustomIcon from '@/common/customIcon/customIcon'
 import TagSample from '../tagSample/tagSample'
 import ArticleComments from '../articleComments/articleComments'
 import { Modal, Input } from 'antd'
@@ -15,6 +16,7 @@ import Share from '@/share'
 import axios from 'axios'
 import { dateSortByCreate } from '@/util/dateSort'
 const { TextArea } = Input
+
 
 @withRouter
 @connect((state) => state, { sendArticleComment, fetchArticleUp })
@@ -147,13 +149,13 @@ export default class articleLeft extends Component {
 					</div>
 					<div className='article-page-share'>
 						<a onClick={() => Share.shareToQQZone(title, `/article/${id}/`)}>
-							<Icon type='qq' color='#b6b9bc' size={26} />
+							<CustomIcon type='qq' color='#b6b9bc' size={26} />
 						</a>
 						<a onClick={() => Share.shareToDouban(title, `/article/${id}/`)}>
-							<Icon type='douban_F' color='#b6b9bc' size={24} />
+							<CustomIcon type='douban_F' color='#b6b9bc' size={24} />
 						</a>
 						<a onClick={() => Share.shareToWeibo(title, `/article/${id}/`)}>
-							<Icon type='weibo' color='#b6b9bc' size={24} />
+							<CustomIcon type='weibo' color='#b6b9bc' size={24} />
 						</a>
 					</div>
 

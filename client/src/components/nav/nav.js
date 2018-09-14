@@ -1,5 +1,6 @@
 import React from 'react'
 import UserStatus from './userStatus/userStatus'
+import { Icon } from 'antd'
 import {withRouter, NavLink} from 'react-router-dom'
 import classnames from 'classnames'
 
@@ -76,9 +77,32 @@ class Nav extends React.Component {
             is?null:<span style={{transform: `translateX(${this.state.selected}00%)`}} className={`navActiveBG ${personCenterNavBgColor}`}></span>
           }
         </div>
-        {
-          !is?<UserStatus />:null
-        }
+        <div className="nav-operation"> 
+          <div className="nav-search-wrapper">
+            <div className="nav-search">
+              <input type="text"/>
+              <span>
+                <a>
+                  <Icon type="search" theme="outlined" />
+                </a>
+              </span>
+            </div>
+          </div>
+          <div className="nav-shopping-cart-wrapper" style={{paddingTop: 12}}>
+            <a className="nav-shopping-cart">
+              <Icon type="shopping-cart" theme="outlined" />
+              <span style={{marginLeft: 10}}>购物车</span>
+            </a>
+          </div>
+          <div className="nav-message-center-wrapper">
+            <a className="nav-message-center">
+              <Icon type="bell" theme="filled" />
+            </a>
+          </div>
+          {
+            !is?<UserStatus />:null
+          }
+        </div>
       </nav>
     )
   }

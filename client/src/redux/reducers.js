@@ -31,7 +31,7 @@ const courseInitState = {
 const courseInfoInit = {
 	msg: '',
 	data: {},
-	code: ''
+	code: '',
 }
 
 const articleInit = {
@@ -61,6 +61,10 @@ const reportInit = {
 }
 
 const Userinit = {}
+
+const videoinit = {
+	comment: [],
+}
 
 export function userstatus(state = initState, action) {
 	switch (action.type) {
@@ -179,12 +183,12 @@ export function courseInfo(state = courseInfoInit, action) {
 		case ActionTypes.FETCH_ONE_COUSE:
 			return {
 				...state,
-				data: action.payload
+				data: action.payload,
 			}
 		case ActionTypes.UPDATE_COURSE:
 			return {
 				...state,
-				data: action.payload
+				data: action.payload,
 			}
 		default:
 			return state
@@ -219,7 +223,7 @@ export function article(state = articleInit, action) {
 			return {
 				...state,
 				articleArray: [ ...action.data ],
-				code:action.code
+				code: action.code,
 			}
 		case ActionTypes.SEND_ARTICLE_COMMENT:
 			return {
@@ -342,6 +346,29 @@ export function User(state = Userinit, action) {
 	}
 }
 
+/* -------------------- video------------------- */
+export function video(state = videoinit, action) {
+	switch (action.type) {
+		case ActionTypes.SEND_VIDEO_COMMENT:
+			return {
+				...state,
+				comment: [ ...state.comment, action.comment ],
+			}
+		case ActionTypes.GET_VIDEO_COMMENT:
+			return {
+				...state,
+				comment: action.commentList,
+			}
+		case ActionTypes.SET_VIDEO_REPLY_COMMENT:
+			return {
+				...state,
+				comment: [ ...state.comment, action.commentReply ],
+			}
+		default:
+			return state
+	}
+}
+
 export default combineReducers({
 	userstatus,
 	course,
@@ -349,6 +376,7 @@ export default combineReducers({
 	article,
 	problem,
 	User,
+	video,
 	problemComment,
 	report,
 })
