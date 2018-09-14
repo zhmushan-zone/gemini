@@ -32,6 +32,9 @@ export class Course extends BaseEntity {
   @Column()
   authorId: string;
 
+  @Column()
+  commentsId: string[];
+
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();
@@ -44,6 +47,7 @@ export class Course extends BaseEntity {
     if (!this.price) this.price = 0;
     if (!this.sections) this.sections = [];
     if (!this.authorId) this.authorId = '';
+    if (!this.commentsId) this.commentsId = [];
   }
 
   @BeforeUpdate()

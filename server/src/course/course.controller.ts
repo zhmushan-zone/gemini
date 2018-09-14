@@ -20,6 +20,11 @@ import { CourseVO } from './vo/course.vo';
 import { User } from '../user/user.entity';
 import { GeminiError } from '../common/error';
 import { UserService } from '../user/user.service';
+import { CreateCommentDTO } from '../article/dto';
+import { Article } from '../article/article.entity';
+import { CommentVO } from '../article/vo';
+import { Course } from './course.entity';
+import { ObjectId } from 'mongodb';
 
 @Controller('/api/courses')
 export class CourseController {
@@ -29,6 +34,26 @@ export class CourseController {
   async create(@Usr() user: User, @Body() createCourseDTO: CreateCourseDTO) {
     const course = await this.courseService.save(user.id.toHexString(), createCourseDTO);
     return success(new CourseVO(course));
+  }
+
+  @Post(':id/comment')
+  @UseGuards(AuthGuard('jwt'))
+  async createComment(
+    @Usr() user: User,
+    @Body() createCommentDTO: CreateCommentDTO,
+    @Param('id') id: string
+  ) {
+    const course = await this.courseService.findById(id);
+    if (!course) return response(ResponseCode.NOT_EXISIT);
+    const comment = await this.courseService.createComment(user.id.toHexString(), createCommentDTO);
+    if (!comment) return response(ResponseCode.UNKNOWN);
+    course.commentsId.push(comment.id.toHexString());
+    const res = await this.courseService.updateById(course.authorId, id, { commentsId: course.commentsId } as Course);
+    if (res instanceof GeminiError) return response(res.code);
+    const commentVO = new CommentVO(comment);
+    commentVO.authorUsername = user.username;
+    commentVO.authorAvatar = user.avatar;
+    return success(commentVO);
   }
 
   @Delete(':id')
@@ -46,6 +71,9 @@ export class CourseController {
     if (!author) return response(ResponseCode.NOT_EXISIT);
     const courseVO = new CourseVO(course);
     courseVO.authorUsername = author.username;
+    courseVO.authorAvatar = author.avatar;
+    courseVO.authorJob = author.job;
+    courseVO.authorSignature = author.signature;
     return success(courseVO);
   }
 

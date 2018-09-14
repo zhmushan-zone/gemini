@@ -6,10 +6,11 @@ import { Course } from './course.entity';
 import { CommonModule } from '../common/common.module';
 import { User } from '../user/user.entity';
 import { UserService } from '../user/user.service';
+import { Comment } from '../article/article.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Course, User]),
+    TypeOrmModule.forFeature([Course, User, Comment]),
     CommonModule
   ],
   controllers: [CourseController],

@@ -3,6 +3,9 @@ import { Course } from '../course.entity';
 export class CourseVO extends Course {
 
   authorUsername: string;
+  authorAvatar: string;
+  authorJob: string;
+  authorSignature: string;
 
   constructor(course: Course) {
     super();

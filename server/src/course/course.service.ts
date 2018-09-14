@@ -4,6 +4,7 @@ import { Course } from './course.entity';
 import { MongoRepository } from 'typeorm';
 import { GeminiError } from '../common/error';
 import { ResponseCode } from '../common/utils';
+import { Comment } from '../article/article.entity';
 
 @Injectable()
 export class CourseService {
@@ -12,6 +13,12 @@ export class CourseService {
     course.authorId = authorId;
     const obj = this.courseRepository.create(course);
     return this.courseRepository.save(obj);
+  }
+
+  createComment(authorId: string, comment: Comment) {
+    comment.authorId = authorId;
+    const obj = this.commentRepository.create(comment);
+    return this.commentRepository.save(obj);
   }
 
   async delete(authorId: string, courseId: string) {
@@ -36,7 +43,9 @@ export class CourseService {
 
   constructor(
     @InjectRepository(Course)
-    private readonly courseRepository: MongoRepository<Course>
+    private readonly courseRepository: MongoRepository<Course>,
+    @InjectRepository(Comment)
+    private readonly commentRepository: MongoRepository<Comment>
   ) {
   }
 }
