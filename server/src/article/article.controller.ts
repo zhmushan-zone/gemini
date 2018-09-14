@@ -24,6 +24,12 @@ export class ArticleController {
     return success(new ArticleVO(article));
   }
 
+  @Post('ids')
+  async findGroup(@Body() ids: string[]) {
+    const articles = await this.articleService.findByIds(ids.map(id => new ObjectId(id)));
+    return success(articles.map(a => new ArticleVO(a)));
+  }
+
   @Post(':id/comment')
   @UseGuards(AuthGuard('jwt'))
   async createComment(
@@ -117,6 +123,11 @@ export class ArticleController {
         (await this.articleService.findByCategory(category))
           .map(a => new ObjectId(a.authorId)))
     ).map(a => new UserVO(a)));
+  }
+
+  @Get('search/:keyword')
+  async search(@Param('keyword') keyword: string) {
+
   }
 
   @Get('watch-article-type')
