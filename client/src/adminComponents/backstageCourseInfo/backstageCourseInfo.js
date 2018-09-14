@@ -1,61 +1,100 @@
 import React, { Component } from 'react'
 import BackstageCourseInfoTop from '../backstageCourseInfoItem/backstageCourseInfoTop/backstageCourseInfoTop'
-import Cookies from 'js-cookie'
-import axios from 'axios'
+import BackstageCourseInfoSection from '../backstageCourseInfoItem/backstageCourseInfoSection/backstageCourseInfoSection'
+import { Icon, Modal, message, Input } from 'antd'
+import { connect } from 'react-redux'
+import { fetchOneCourse, updateCourse } from '@/redux/actions'
+import './backstageCourseInfo.scss'
 
+const confirm = Modal.confirm
+
+@connect(
+  state => state.courseInfo,
+  { fetchOneCourse, updateCourse }
+)
 class BackstageCourseInfo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      course: null
+      loading: false,
+      newSection: ''
     }
   }
   
-  uploadVideo() {
-    document.getElementById("upload-video").addEventListener("change", function (e) {
-      let video = document.getElementById("upload-video").files
-      let bodyFormData
-      bodyFormData = new FormData()
-      for (let index = 0; index < video.length; index++) {
-        const videoNow = video[index]
-        bodyFormData.append('video',videoNow)
-        console.log('1')
-      }
-      axios({
-        method: 'post',
-        url: '/api/videos',
-        data: bodyFormData,
-        headers: {
-          "token": Cookies.get('_token'),
-        },
-      })
-        .then(res => {
-          if (res.data.code === 1) {
-            console.log(res.data)
-          }
-        })
-
+  async componentDidMount() {
+    await this.props.fetchOneCourse(this.props.match.params.id)
+    this.setState({
+      loading: true
     })
   }
-
-  async componentDidMount() {
-    const res = await axios({
-      method: 'get',
-      url: `/api/courses/${this.props.match.params.id}`
+  
+  addSection = () => {
+    const oldCourse = this.props.data
+    confirm({
+      title: '您是否想添加章节',
+      content: <Input onChange={(e) => this.setState({newSection: e.target.value})} placeholder="请输入章节名称" />,
+      onOk: () => {
+        return new Promise(async (resolve, reject) => {
+          if (!this.state.newSection) {
+            reject('请输入章节标题')
+          } else {
+          const newCourse = {}
+          const newSections = [...oldCourse.sections]
+          newSections.push({title: this.state.newSection, nodes:[]})
+            newCourse.title = oldCourse.title
+            newCourse.coverImg = oldCourse.coverImg
+            newCourse.desc = oldCourse.desc
+            newCourse.direction = oldCourse.direction
+            newCourse.type = oldCourse.type
+            newCourse.difficulty = oldCourse.difficulty
+            newCourse.price = oldCourse.price
+            newCourse.sections = newSections
+            await this.props.updateCourse(oldCourse.id, newCourse)
+            resolve('添加成功')
+          }
+        }).then((res) => {
+          message.success(res)
+        }).catch((rej) => {
+          message.warning(rej)
+        })
+      },
+      onCancel() {},
     })
-    if (res.data.code === 1) {
-      this.setState({
-        course: res.data.data
-      })
-    }
+    this.setState({
+      newSection: ''
+    })
   }
   
   render() {
     return (
       <div className="backstage-course-info">
         {
-          this.state.course ? 
-          <BackstageCourseInfoTop course={this.state.course} /> : null
+          this.state.loading ? 
+          <React.Fragment>
+            <BackstageCourseInfoTop course={this.props.data} />
+            <div className="backstage-course-info-desc">
+              <div className="backstage-course-info-desc-title">
+                课程介绍
+              </div>
+              <div className="backstage-course-info-desc-content">
+                {this.props.data.desc}
+              </div>
+            </div>
+            {
+              this.props.data.sections.map((item, index) => {
+                return <BackstageCourseInfoSection 
+                        course={this.props.data}
+                        section={item}
+                        sectionNum={index} 
+                        key={index}
+                      />
+              })
+            }
+            <a className="backstage-course-add-section-btn" onClick={this.addSection}>
+              <Icon type="plus" theme="outlined" />添加章节
+            </a>
+          </React.Fragment>
+          : null
         }
       </div>
     )
