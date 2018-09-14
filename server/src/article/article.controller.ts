@@ -135,7 +135,16 @@ export class ArticleController {
 
   @Get('search/:keyword')
   async search(@Param('keyword') keyword: string) {
-
+    const articles = await this.articleService.search(keyword);
+    const res: ArticleVO[] = [];
+    for (const a of articles) {
+      const author = await this.userService.findById(a.authorId);
+      const articleVO = new ArticleVO(a);
+      articleVO.authorUsername = author.username;
+      articleVO.authorAvatar = author.avatar;
+      res.push(articleVO);
+    }
+    return success(res);
   }
 
   @Get('watch-article-type')

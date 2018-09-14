@@ -88,6 +88,17 @@ export class ArticleService {
     return this.commentRepository.save(obj);
   }
 
+  search(keyword: string) {
+    return this.articleRepository.find({
+      where: {
+        $or: [
+          { title: { $regex: keyword } },
+          { content: { $regex: keyword } }
+        ]
+      }
+    })
+  }
+
   constructor(
     @InjectRepository(Article)
     private readonly articleRepository: MongoRepository<Article>,

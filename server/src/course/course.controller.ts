@@ -95,7 +95,6 @@ export class CourseController {
     return success(new CourseVO(res));
   }
 
-
   @Put(':id/:rate')
   @UseGuards(AuthGuard('jwt'))
   async courseJoin(@Usr() user: User, @Param('id') id: string, @Param('rate') rate: string) {
