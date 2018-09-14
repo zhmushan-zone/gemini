@@ -9,11 +9,6 @@ import OpinionFocusSelect from '../opinionFocusSelect/opinionFocusSelect'
 @withRouter
 @connect((state) => state, { fetchArticleByCategory })
 export default class opinionMainCenter extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-		}
-	}
 	componentWillReceiveProps(nextProps) {
 		if (this.props.match.params.category !== nextProps.match.params.category) {
 			const category = nextProps.match.params.category
@@ -21,14 +16,19 @@ export default class opinionMainCenter extends Component {
 		}
 	}
 	render() {
-		const articleData = this.props.article.articleArray||this.props.articleArray
+		let articleData
+		if (this.props.article.articleArray.length !== 0) {
+			articleData = this.props.article.articleArray
+		} else if (this.props.articleArray) {
+			articleData = this.props.articleArray
+		}
 		const pathname = this.props.history.location.pathname
 		return (
 			<div className='opinion-main-center-container'>
 				{/* 关注 */}
 				{pathname === '/opinion/focus' ? <OpinionFocusSelect /> : null}
 				{pathname === '/opinion' ? <OpinionBanner /> : null}
-				<FetchArticleList articleData={articleData} />
+				{articleData ? <FetchArticleList articleData={articleData} /> : null}
 			</div>
 		)
 	}

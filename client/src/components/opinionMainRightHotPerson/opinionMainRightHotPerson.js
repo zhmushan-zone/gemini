@@ -5,7 +5,8 @@ import { focusUser } from '@/redux/actions'
 import Cookies from 'js-cookie'
 import './opinionMainRightHotPerson.scss'
 import { defaultAvatar } from '../../const'
-@connect((state) => state, {focusUser})
+import LazyLoad from 'react-lazyload'
+@connect((state) => state, { focusUser })
 export default class opinionMainRightHotPerson extends Component {
 	constructor(props) {
 		super(props)
@@ -51,7 +52,9 @@ export default class opinionMainRightHotPerson extends Component {
 								<li className='person' key={v.id}>
 									<div className='left'>
 										<div className='imgCon avatar'>
-											<img src={v.avatar ? `/avatar/${v.avatar}` : defaultAvatar} alt='' />
+											<LazyLoad height={52}>
+												<img src={v.avatar ? `/avatar/${v.avatar}` : defaultAvatar} alt='' />
+											</LazyLoad>
 										</div>
 										<div className='text_author'>
 											<div className='name'>{v.username}</div>
@@ -61,10 +64,8 @@ export default class opinionMainRightHotPerson extends Component {
 										</div>
 									</div>
 									<div className='right'>
-										<button className='follow' onClick={()=>this.handleFollow(v.id)}>
-										{
-											watchUsersId.indexOf(v.id)===-1?"关注":"已关注"
-										}
+										<button className='follow' onClick={() => this.handleFollow(v.id)}>
+											{watchUsersId.indexOf(v.id) === -1 ? '关注' : '已关注'}
 											{/* {this.state.follow ? '已关注' : '关注'} */}
 										</button>
 									</div>

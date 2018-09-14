@@ -11,6 +11,13 @@
 			line-height: 24px;
 			color: #1c1f21;
 		}
+		.more{
+			cursor: pointer;
+			&:hover{
+				color: red;
+				transition: all 0.2s;
+			}
+		}
 	}
 
 	/*  */

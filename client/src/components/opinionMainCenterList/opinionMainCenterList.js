@@ -3,7 +3,7 @@ import { Icon } from 'antd'
 import { Link } from 'react-router-dom'
 import './opinionMainCenterList.scss'
 import PropTypes from 'prop-types'
-
+import LazyLoad from 'react-lazyload'
 class opinionMainCenterList extends Component {
 	static defaultProps = {
 		coverImg: 'https://www.imooc.com/static/img/article/cover/pic23.jpg',
@@ -17,7 +17,9 @@ class opinionMainCenterList extends Component {
 			<div className='opinion-main-center-list-container'>
 				<div className='article-lwrap'>
 					<div className='imgCon'>
-						<img src={this.props.coverImg} alt='' />
+						<LazyLoad height={66}>
+							<img src={this.props.coverImg} alt='' />
+						</LazyLoad>
 					</div>
 					<div className='list-content'>
 						<Link className='title' to={`/article/${this.props.articleId}`}>
