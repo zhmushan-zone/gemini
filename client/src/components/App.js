@@ -35,7 +35,7 @@ class App extends React.Component {
           <Route path="/login" component={Login}></Route>
           <Route path="/editor" component={Editor}></Route>
           <Route path="/admin" component={Admin}></Route>
-          <Route path="/video/:id" component={VideoPage}></Route>
+          <Route path="/video/:courseId" component={VideoPage}></Route>
           <Route path="/" render={(props) => (
             <Layout>
               <Switch>

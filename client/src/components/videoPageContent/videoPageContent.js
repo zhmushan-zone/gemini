@@ -20,10 +20,10 @@ export default class VideoPageContent extends Component {
           '评论': 'false',
           component: VideoPageContentComment
         },
-        {
-          '笔记': 'false',
-          component: VideoPageContentNote
-        }
+        // {
+        //   '笔记': 'false',
+        //   component: VideoPageContentNote
+        // }
       ],
       firstKey: '问答'
     }
