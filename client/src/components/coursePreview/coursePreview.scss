@@ -1,0 +1,112 @@
+.course-class-infos-container {
+	.course-class-infos {
+		background: #000;
+		background: url("https://img.mukewang.com/szimg/5b50881e00011f0620000560.jpg") no-repeat;
+		.w {
+			padding-top: 20px;
+			padding-bottom: 72px;
+			width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			justify-content: space-between;
+		}
+		.path {
+			font-size: 12px;
+			line-height: 24px;
+			color: rgba(255, 255, 255, 0.5);
+			opacity: 1;
+			a {
+				color: rgba(255, 255, 255, 0.5);
+			}
+			.path-split {
+				margin: 0 6px;
+				font-style: normal;
+			}
+			span {
+				color: rgba(255, 255, 255, 0.5);
+				&:hover {
+					color: white;
+				}
+			}
+		}
+		.extra {
+			color: white;
+			display: flex;
+			.course-collect {
+				margin-right: 24px;
+				cursor: pointer;
+				i {
+					font-size: 26px;
+					color: rgb(182, 185, 188);
+					&:hover {
+						color: white;
+					}
+				}
+				font-size: 18px;
+			}
+			.page-share {
+				a {
+					margin-right: 20px;
+				}
+				i {
+					font-size: 26px;
+					color: rgb(182, 185, 188);
+					&:hover {
+						color: white;
+					}
+				}
+			}
+		}
+		.info-warp {
+			text-align: center;
+			padding-top: 72px;
+			.title-box {
+				margin: 0 auto;
+				h1 {
+					font-size: 40px;
+					color: #ffffff;
+					text-shadow: 0 2px 4px rgba(28, 31, 33, 0.6);
+				}
+				h2 {
+					font-size: 16px;
+					color: #ffffff;
+					line-height: 24px;
+					text-shadow: 0 2px 4px rgba(28, 31, 33, 0.6);
+					margin-top: 8px;
+				}
+			}
+			.splitline {
+				width: 640px;
+				height: 1px;
+				background-color: rgba(255, 255, 255, 0.2);
+				margin: 16px auto 16px;
+			}
+			.info-bar {
+				line-height: 18px;
+				padding-bottom: 20px;
+				.statics {
+					display: flex;
+					font-size: 12px;
+					white-space: nowrap;
+					justify-content: center;
+					span {
+						color: rgba(255, 255, 255, 0.6);
+						padding-right: 10px;
+					}
+				}
+			}
+		}
+		.study-button {
+			padding-bottom: 40px;
+			display: flex;
+			justify-content: center;
+		}
+	}
+	.course-infos-t {
+    display: flex;
+		padding: 16px 0 20px 0;
+		text-align: center;
+		background: #ffffff;
+		box-shadow: 0 8px 16px 0 rgba(28, 31, 33, 0.1);
+	}
+}

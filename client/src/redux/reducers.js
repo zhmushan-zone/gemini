@@ -196,6 +196,7 @@ export function article(state = articleInit, action) {
 			return {
 				...state,
 				articleArray: [ ...action.data ],
+				code:action.code
 			}
 		case ActionTypes.SEND_ARTICLE_COMMENT:
 			return {

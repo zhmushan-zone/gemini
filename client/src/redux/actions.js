@@ -548,7 +548,10 @@ export function fetchArticleAll() {
 /* 更具类别返回文章列表 */
 
 function fetchArticleByCategorySuccess(data) {
-	return { type: ActionTypes.FETCH_ARTICLE_CATEGORY, data }
+	return { type: ActionTypes.FETCH_ARTICLE_CATEGORY, data,code:1 }
+}
+function fetchArticleByCategoryError() {
+	return { type: ActionTypes.FETCH_ARTICLE_CATEGORY, code:0 }
 }
 
 export function fetchArticleByCategory(id) {
@@ -560,7 +563,7 @@ export function fetchArticleByCategory(id) {
 		if (res.data.code === 1) {
 			dispatch(fetchArticleByCategorySuccess(res.data.data))
 		} else {
-			console.log('服务器出故障了')
+			dispatch(fetchArticleByCategoryError())
 		}
 	}
 }
