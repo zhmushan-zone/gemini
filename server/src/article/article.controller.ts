@@ -27,7 +27,15 @@ export class ArticleController {
   @Post('ids')
   async findGroup(@Body() ids: string[]) {
     const articles = await this.articleService.findByIds(ids.map(id => new ObjectId(id)));
-    return success(articles.map(a => new ArticleVO(a)));
+    const res: Article[] = [];
+    for (const a of articles) {
+      const author = await this.userService.findById(a.authorId);
+      const articleVO = new ArticleVO(a);
+      articleVO.authorUsername = author.username;
+      articleVO.authorAvatar = author.avatar;
+      res.push(articleVO);
+    }
+    return success(res);
   }
 
   @Post(':id/comment')
