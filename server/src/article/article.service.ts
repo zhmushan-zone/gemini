@@ -96,7 +96,7 @@ export class ArticleService {
           { content: { $regex: keyword } }
         ]
       }
-    })
+    });
   }
 
   constructor(

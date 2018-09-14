@@ -112,6 +112,17 @@ export class IssueService {
     return this.subReplyRepository.save(obj);
   }
 
+  search(keyword: string) {
+    return this.issueRepository.find({
+      where: {
+        $or: [
+          { title: { $regex: keyword } },
+          { content: { $regex: keyword } }
+        ]
+      }
+    });
+  }
+
   constructor(
     @InjectRepository(Issue)
     private readonly issueRepository: MongoRepository<Issue>,

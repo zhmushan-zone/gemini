@@ -183,6 +183,20 @@ export class IssueController {
     return success(commonData.issueReplyNumTotally);
   }
 
+  @Get('search/:keyword')
+  async search(@Param('keyword') keyword: string) {
+    const issues = await this.issueService.search(keyword);
+    const res: IssueVO[] = [];
+    for (const i of issues) {
+      const author = await this.userService.findById(i.authorId);
+      const issueVO = new IssueVO(i);
+      issueVO.authorUsername = author.username;
+      issueVO.authorAvatar = author.avatar;
+      res.push(issueVO);
+    }
+    return success(res);
+  }
+
   @Get('tags/:tag/user-approved-num')
   async userApprovedNum(@Param('tag') tag) {
     const commonData = await this.commonEntity.get();

@@ -55,6 +55,12 @@ export class UserController {
     );
   }
 
+  @Get('search/:keyword')
+  async search(@Param('keyword') keyword: string) {
+    const users = await this.userService.search(keyword);
+    return success(users.map(u => new UserVO(u)));
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const user = await this.userService.findById(id);

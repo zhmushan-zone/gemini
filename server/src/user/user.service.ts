@@ -72,6 +72,17 @@ export class UserService {
     return captchaInfo;
   }
 
+  search(keyword: string) {
+    return this.userRepository.find({
+      where: {
+        $or: [
+          { username: { $regex: keyword } },
+          { nickname: { $regex: keyword } }
+        ]
+      }
+    });
+  }
+
   constructor(
     @InjectRepository(User)
     private readonly userRepository: MongoRepository<User>
