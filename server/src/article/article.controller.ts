@@ -12,6 +12,7 @@ import { UserService } from '../user/user.service';
 import { ObjectId } from 'bson';
 import { UserVO } from '../user/vo/user.vo';
 import { Allow } from '../user/role.decorators';
+import { Common } from '../common/common.entity';
 
 @Controller('/api/articles')
 export class ArticleController {
@@ -134,6 +135,18 @@ export class ArticleController {
     return success(articles.map(a => new ArticleVO(a)));
   }
 
+  @Get('up-weekly')
+  async upWeekly() {
+    const commonData = await this.commonEntity.get();
+    return success(commonData.articleUpNumWeekly);
+  }
+
+  @Get('up-monthly')
+  async upMonthly() {
+    const commonData = await this.commonEntity.get();
+    return success(commonData.articleUpNumMonthly);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const article = await this.articleService.findById(id);
@@ -173,6 +186,9 @@ export class ArticleController {
     }
     const res = await this.articleService.updateById(article.authorId, id, { upersId: article.upersId } as Article);
     if (res instanceof GeminiError) return response(res.code);
+
+    this.commonEntity.increaseArticleUpNum(id);
+
     return success(res.upersId.length);
   }
 
@@ -222,6 +238,7 @@ export class ArticleController {
 
   constructor(
     private readonly articleService: ArticleService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly commonEntity: Common
   ) { }
 }
