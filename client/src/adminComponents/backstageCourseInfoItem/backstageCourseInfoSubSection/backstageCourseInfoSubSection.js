@@ -19,14 +19,16 @@ class BackstageCourseInfoSubSection extends Component {
     this.state = {
       loading: false,
       visible: false,
-      currentVideo: ''
+      currentVideo: '',
+      currentTitle: ''
     }
   }
   
-  showModal = (video) => {
+  showModal = (video, title) => {
     this.setState({
       visible: true,
-      currentVideo: video
+      currentVideo: video,
+      currentTitle: title
     })
   }
   
@@ -103,7 +105,7 @@ class BackstageCourseInfoSubSection extends Component {
                           item.video === 'empty' ? '无' :
                           <span>
                             {item.video}
-                            <a onClick={() => this.showModal(item.video)} style={{fontSize: 16, lineHeight: '16px', marginLeft: 4}}>
+                            <a onClick={() => this.showModal(item.video, item.title)} style={{fontSize: 16, lineHeight: '16px', marginLeft: 4}}>
                               <Icon type="play-circle" theme="outlined" />
                               播放
                             </a> 
@@ -134,7 +136,7 @@ class BackstageCourseInfoSubSection extends Component {
           }
         </Collapse>
         <Modal
-          title="Basic Modal"
+          title={this.state.currentTitle}
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}

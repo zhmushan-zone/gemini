@@ -12,6 +12,7 @@ import { UserService } from '../user/user.service';
 import { ObjectId } from 'bson';
 import { UserVO } from '../user/vo/user.vo';
 import { Allow } from '../user/role.decorators';
+import { Common } from '../common/common.entity';
 
 @Controller('/api/articles')
 export class ArticleController {
@@ -21,6 +22,20 @@ export class ArticleController {
   async create(@Usr() user: User, @Body() createArticleDTO: CreateArticleDTO) {
     const article = await this.articleService.save(user.id.toHexString(), createArticleDTO);
     return success(new ArticleVO(article));
+  }
+
+  @Post('ids')
+  async findGroup(@Body() ids: string[]) {
+    const articles = await this.articleService.findByIds(ids.map(id => new ObjectId(id)));
+    const res: Article[] = [];
+    for (const a of articles) {
+      const author = await this.userService.findById(a.authorId);
+      const articleVO = new ArticleVO(a);
+      articleVO.authorUsername = author.username;
+      articleVO.authorAvatar = author.avatar;
+      res.push(articleVO);
+    }
+    return success(res);
   }
 
   @Post(':id/comment')
@@ -118,6 +133,11 @@ export class ArticleController {
     ).map(a => new UserVO(a)));
   }
 
+  @Get('search/:keyword')
+  async search(@Param('keyword') keyword: string) {
+
+  }
+
   @Get('watch-article-type')
   @UseGuards(AuthGuard('jwt'))
   async findByWatchArticleType(@Usr() user: User) {
@@ -132,6 +152,18 @@ export class ArticleController {
   async findByUpped(@Usr() user: User) {
     const articles = await this.articleService.findByUpersId(user.id.toHexString());
     return success(articles.map(a => new ArticleVO(a)));
+  }
+
+  @Get('up-weekly')
+  async upWeekly() {
+    const commonData = await this.commonEntity.get();
+    return success(commonData.articleUpNumWeekly);
+  }
+
+  @Get('up-monthly')
+  async upMonthly() {
+    const commonData = await this.commonEntity.get();
+    return success(commonData.articleUpNumMonthly);
   }
 
   @Get(':id')
@@ -173,6 +205,9 @@ export class ArticleController {
     }
     const res = await this.articleService.updateById(article.authorId, id, { upersId: article.upersId } as Article);
     if (res instanceof GeminiError) return response(res.code);
+
+    this.commonEntity.increaseArticleUpNum(id);
+
     return success(res.upersId.length);
   }
 
@@ -222,6 +257,7 @@ export class ArticleController {
 
   constructor(
     private readonly articleService: ArticleService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly commonEntity: Common
   ) { }
 }

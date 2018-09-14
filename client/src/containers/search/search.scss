@@ -1,0 +1,87 @@
+.search-top {
+  padding: 46px 0 38px 0;
+  background: #D9DDE1;
+
+  .search-input-wrapper {
+    width: 840px;
+    margin: 0 auto;
+    height: 48px;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 4px 8px 0 rgba(7,17,27,.1);
+    display: flex;
+    overflow: hidden;
+
+    .search-icon {
+      width: 52px;
+      font-size: 24px;
+      color: #D9DDE1;
+      text-align: center;
+      line-height: 48px;
+    }
+
+    input {
+      flex: 1;
+      outline: none;
+      border: none;
+      font-size: 16px;
+    }
+
+    .search-btn {
+      display: block;
+      width: 104px;
+      font-size: 16px;
+      background: #F01414;
+      line-height: 48px;
+      text-align: center;
+      color: #fff;
+    }
+  }
+
+  .hot-search-key {
+    width: 840px;
+    margin: 0 auto;
+    padding-top: 16px;
+    color: #4D555D;
+    font-size: 12px;
+
+    a {
+      color: #4D555D;
+      margin-left: 10px;
+      font-size: 12px;
+
+      &:hover {
+        color: #07111b;
+      }
+    }
+  }
+}
+
+.search-wrapper {
+  height: 800px;
+  background: #f8fafc;
+  padding-top: 20px;
+
+  .search-content {
+    width: 1000px;
+    margin: 0 auto;
+
+    .ant-tabs-tab {
+      &:hover {
+        color: #F01414;
+      }
+    }
+    
+    .ant-tabs-bar {
+      border: none;
+    }
+
+    .ant-tabs-tab-active {
+      color: #F01414;
+    }
+    
+    .ant-tabs-ink-bar {
+      background-color: #F01414;
+    }
+  }
+}

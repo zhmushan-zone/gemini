@@ -21,6 +21,12 @@ export class Common extends BaseEntity {
   @Column()
   userApprovedNumByTags: {};
 
+  @Column()
+  articleUpNumWeekly: {};
+
+  @Column()
+  articleUpNumMonthly: {};
+
   create(obj = {}) {
     return this.commonRepository.create(obj);
   }
@@ -66,6 +72,25 @@ export class Common extends BaseEntity {
     this.save(commonData);
   }
 
+  async increaseArticleUpNum(id: string) {
+    const commonData = await this.get();
+    commonData.articleUpNumWeekly[id] = ++commonData.articleUpNumWeekly[id] || 1;
+    commonData.articleUpNumMonthly[id] = ++commonData.articleUpNumMonthly[id] || 1;
+    this.save(commonData);
+  }
+
+  async emptyArticleUpNumWeekly() {
+    const commonData = await this.get();
+    commonData.articleUpNumWeekly = {};
+    this.save(commonData);
+  }
+
+  async emptyArticleUpNumMonthly() {
+    const commonData = await this.get();
+    commonData.articleUpNumMonthly = {};
+    this.save(commonData);
+  }
+
   repository() {
     return this.commonRepository;
   }
@@ -90,5 +115,7 @@ export class Common extends BaseEntity {
   ) {
     super();
     scheduleJob('0 0 0 * * 1', this.emptyIssueReplyNumWeekly);
+    scheduleJob('0 0 0 * * 1', this.emptyArticleUpNumWeekly);
+    scheduleJob('0 0 0 1 * *', this.emptyArticleUpNumMonthly);
   }
 }

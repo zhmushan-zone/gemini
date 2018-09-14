@@ -20,6 +20,7 @@ export class UserVO extends User {
     this.watchUsersId = user.watchUsersId;
     this.watchedUsersId = user.watchedUsersId;
     this.role = user.role;
+    this.joinCourse = user.joinCourse;
     this.createAt = user.createAt;
     this.updateAt = user.updateAt;
     this.token = token;

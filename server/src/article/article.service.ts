@@ -29,6 +29,10 @@ export class ArticleService {
     return this.articleRepository.find();
   }
 
+  findByIds(ids: ObjectId[]) {
+    return this.articleRepository.findByIds(ids);
+  }
+
   findByAuthorId(authorId: string) {
     return this.articleRepository.find({ authorId });
   }

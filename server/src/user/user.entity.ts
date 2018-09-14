@@ -64,6 +64,9 @@ export class User extends BaseEntity {
   @Column()
   watchedUsersId: string[];
 
+  @Column()
+  joinCourse: {}
+
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();
@@ -84,6 +87,7 @@ export class User extends BaseEntity {
     if (!this.watchArticleTypes) this.watchArticleTypes = [];
     if (!this.watchUsersId) this.watchUsersId = [];
     if (!this.watchedUsersId) this.watchedUsersId = [];
+    if (!this.joinCourse) this.joinCourse = {};
   }
 
   @BeforeUpdate()
