@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Collapse, Icon, Button, message } from 'antd'
+import { Collapse, Icon, message, Modal } from 'antd'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { connect } from 'react-redux'
@@ -17,8 +17,29 @@ class BackstageCourseInfoSubSection extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      loading: false
+      loading: false,
+      visible: false,
+      currentVideo: ''
     }
+  }
+  
+  showModal = (video) => {
+    this.setState({
+      visible: true,
+      currentVideo: video
+    })
+  }
+  
+  handleOk = (e) => {
+    this.setState({
+      visible: false,
+    })
+  }
+
+  handleCancel = (e) => {
+    this.setState({
+      visible: false,
+    })
   }
   
   videoUpload (e, subSectionNum) {
@@ -72,15 +93,22 @@ class BackstageCourseInfoSubSection extends Component {
   render() {
     return (
       <div className="backstage-course-info-subSection">
-        <a className="backstage-course-add-subSection">
-          <Icon type="plus" theme="outlined" />添加小节
-        </a>
         <Collapse style={{marginTop: 16}}>
           {
             this.props.subSection.map((item, index) => {
-              return <Panel header={item.title} key={index + 1}>
+              return <Panel header={`第${index + 1}节:${item.title}`} key={index + 1}>
                       <div className="backstage-course-current-video">
-                        当前视频: {item.video === 'empty' ? '无' : item.video}
+                        <span>当前视频:</span> 
+                        {
+                          item.video === 'empty' ? '无' :
+                          <span>
+                            {item.video}
+                            <a onClick={() => this.showModal(item.video)} style={{fontSize: 16, lineHeight: '16px', marginLeft: 4}}>
+                              <Icon type="play-circle" theme="outlined" />
+                              播放
+                            </a> 
+                          </span>
+                        }
                       </div>
                       <div className="backstage-course-video-upload-wrapper" style={{background: this.state.loading ? '#40a9ff' : '#1890ff'}}>
                         {
@@ -105,17 +133,21 @@ class BackstageCourseInfoSubSection extends Component {
             })
           }
         </Collapse>
+        <Modal
+          title="Basic Modal"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          bodyStyle={{padding: 0}}
+          destroyOnClose={true}
+        >
+          <video src={`/video/${this.state.currentVideo}`} controls="controls">
+            您的浏览器不支持 video 标签。
+          </video>
+        </Modal>
       </div>
     )
   }
 }
-
-const data = [
-  'Racing car sprays burning fuel into crowd.',
-  'Japanese princess to wed commoner.',
-  'Australian walks 100km after outback crash.',
-  'Man charged over missing wedding girl.',
-  'Los Angeles battles huge wildfires.',
-]
 
 export default BackstageCourseInfoSubSection
