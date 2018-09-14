@@ -12,7 +12,7 @@ class SectionAdd extends Component {
       sections.push({
         key: i,
         title: '',
-        node: []
+        nodes: []
       })
     }
     this.props.sectionChange('sections', sections)
