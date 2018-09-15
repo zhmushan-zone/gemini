@@ -7,6 +7,7 @@ import SearchCourseItem from '../../components/searchItem/searchCourseItem/searc
 import SearchProblemItem from '../../components/searchItem/searchProblemItem/searchProblemitem'
 import { connect } from 'react-redux'
 import { search } from '@/redux/actions'
+import Loading from '@/common/loading/loading'
 
 import './search.scss'
 
@@ -20,23 +21,38 @@ class Search extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      searchContent: ''
+      searchContent: '',
+      loading: true
     }
   }
   
-  componentDidMount() {
-    this.props.search(this.props.match.params.content)
+  async componentDidMount() {
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Enter' && this.state.searchContent) {
+        this.props.history.push(`/search/${this.state.searchContent}`)
+      }
+    })
+    this.setState({
+      searchContent: this.props.match.params.content
+    })
+    await this.props.search(this.props.match.params.content)
+    this.setState({
+      loading: false,
+    })
   }
 
-  componentWillReceiveProps(nextProps) {
+  async componentWillReceiveProps(nextProps) {
     if (this.props.match.params.content !== nextProps.match.params.content) {
       this.setState({
-        searchContent: nextProps.match.params.content
+        searchContent: nextProps.match.params.content,
+        loading: true
       })
-      this.props.search(nextProps.match.params.content)
+      await this.props.search(nextProps.match.params.content)
+      this.setState({
+        loading: false
+      })
     }
   }
-  
   render() {
     console.log(this.props)
     const courses = [...this.props.courses]
@@ -109,23 +125,32 @@ class Search extends Component {
             <Tabs defaultActiveKey="1">
               <TabPane tab="课程" key="1">
                 {
-                  courseItems ?
-                  courseItems :
-                  <p style={{textAlign: 'center', color: '#93999F',marginTop: 136, fontSize: 16}}>没有找到与"{this.state.searchContent}"相关的结果</p>
+                  this.state.loading ?
+                  <Loading style={{marginTop: 136}} /> :
+                  (
+                    courseItems ? courseItems :
+                    <p style={{textAlign: 'center', color: '#93999F',marginTop: 136, fontSize: 16}}>没有找到与"{this.props.match.params.content}"相关的结果</p>
+                  )
                 }
               </TabPane>
               <TabPane tab="答疑" key="2">
               {
-                problemItems ?
-                problemItems : 
-                <p style={{textAlign: 'center', color: '#93999F',marginTop: 136, fontSize: 16}}>没有找到与"{this.state.searchContent}"相关的结果</p>
-              }
+                  this.state.loading ?
+                  <Loading style={{marginTop: 136}} /> :
+                  (
+                    problemItems ? problemItems :
+                    <p style={{textAlign: 'center', color: '#93999F',marginTop: 136, fontSize: 16}}>没有找到与"{this.props.match.params.content}"相关的结果</p>
+                  )
+                }
               </TabPane>
               <TabPane tab="看法" key="3">
-                {
-                  articleItems ?
-                  articleItems :
-                  <p style={{textAlign: 'center', color: '#93999F',marginTop: 136, fontSize: 16}}>没有找到与"{this.state.searchContent}"相关的结果</p>
+              {
+                  this.state.loading ?
+                  <Loading style={{marginTop: 136}} /> :
+                  (
+                    articleItems ? articleItems :
+                    <p style={{textAlign: 'center', color: '#93999F',marginTop: 136, fontSize: 16}}>没有找到与"{this.props.match.params.content}"相关的结果</p>
+                  )
                 }
               </TabPane>
             </Tabs>
