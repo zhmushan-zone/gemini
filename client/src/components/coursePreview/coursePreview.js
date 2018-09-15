@@ -1,16 +1,56 @@
 import React, { Component } from 'react'
 import './coursePreview.scss'
-import { Tabs } from 'antd'
+import { Tabs, Input } from 'antd'
 import CustomIcon from '@/common/customIcon/customIcon'
-import { Icon, Button } from 'antd'
+import { getVideoComment } from '@/redux/actions.js'
+import { Rate } from 'antd'
 import Share from '@/share'
+import axios from 'axios'
 import { defaultAvatar } from '@/const'
+import { connect } from 'react-redux'
+import Cookies from 'js-cookie'
+import { withRouter } from 'react-router'
 const TabPane = Tabs.TabPane
+const { TextArea } = Input
+@withRouter
+@connect((state) => state, { getVideoComment })
 export default class CoursePreview extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			courseId: this.props.match.params.courseId,
+			course: {},
+		}
+	}
+	async componentDidMount() {
+		// 获取课程
+		await axios({
+			method: 'GET',
+			url: `/api/courses/${this.state.courseId}`,
+			headers: {
+				token: Cookies.get('_token'),
+			},
+		}).then((res) => {
+			this.setState({
+				course: res.data.data,
+			})
+			Cookies.set('video-commentsId', res.data.data.commentsId)
+		})
+		const commentsId = await JSON.parse(Cookies.get('video-commentsId'))
+		setTimeout(() => {
+			this.props.getVideoComment(commentsId)
+		}, 200)
+	}
 	callback(key) {
 		console.log(key)
 	}
 	render() {
+		const { course } = this.state
+		const { sections } = course
+		const { video } = this.props
+		const comment = video.comment
+		const difficulty = [ '初级', '中级', '高级' ]
+		console.log(course)
 		return (
 			<div className='course-class-infos-container'>
 				<div className='course-class-infos'>
@@ -18,17 +58,17 @@ export default class CoursePreview extends Component {
 						<div className='path'>
 							<a href='/'>实战</a>
 							<i className='path-split'>\</i>
-							<span>SpringBoot 仿抖音短视频小程序开发 全栈式实战项目</span>
+							<span>{course.title}</span>
 						</div>
 						<div className='extra'>
 							<div className='page-share'>
-								<a onClick={() => Share.shareToQQZone('title', `/article/1/`)}>
+								<a onClick={() => Share.shareToQQZone(course.title, `/class/1/`)}>
 									<CustomIcon type='qq' color='#b6b9bc' size={26} />
 								</a>
-								<a onClick={() => Share.shareToDouban('title', `/article/2/`)}>
+								<a onClick={() => Share.shareToDouban(course.title, `/class/2/`)}>
 									<CustomIcon type='douban_F' color='#b6b9bc' size={24} />
 								</a>
-								<a onClick={() => Share.shareToWeibo('title', `/article/2/`)}>
+								<a onClick={() => Share.shareToWeibo(course.title, `/class/2/`)}>
 									<CustomIcon type='weibo' color='#b6b9bc' size={24} />
 								</a>
 							</div>
@@ -36,19 +76,19 @@ export default class CoursePreview extends Component {
 					</div>
 					<div className='info-warp'>
 						<div className='title-box'>
-							<h1>Java仿抖音短视频小程序开发全栈式实战项目</h1>
+							<h1>{course.title}</h1>
 						</div>
 						<div className='splitline' />
 						<div className='info-bar'>
 							<div className='statics'>
 								<div className='info-author'>
-									<img src={defaultAvatar} alt='' />
-									寿恺梁
+									<img src={course.authorAvatar ? `/avatar/${course.authorAvatar}` : defaultAvatar} alt='' />
+									<span>{course.authorUsername}</span>
 								</div>
-								<span>难度中级</span>
+								<span>难度{difficulty[course.difficulty]}</span>
 								<span>时长17小时</span>
 								<span>学习人数629</span>
-								<span>综合评分10.00分</span>
+								<span>综合评分{course.rate}分</span>
 							</div>
 						</div>
 					</div>
@@ -79,17 +119,77 @@ export default class CoursePreview extends Component {
 							<div className='chapter'>
 								<div className='course-description'>简介：讲解 Rigidbody 组件和触发器的基础使用方法，串联讲解的内容，完成平衡球小游戏的制作，同时了解各种陷阱制作。</div>
 							</div>
-							<div className='chapter course-wrap'>
-								<h3>第1章 课程介绍与面板属性</h3>
-							<div className="video"></div>
-
-							</div>
+							{sections ? (
+								sections.map((v, i) => (
+									<div className='chapter course-wrap' key={v.title}>
+										<ul className='video'>
+											<li>{`第${i + 1}章- ` + v.title}</li>
+											{v.nodes ? (
+												<React.Fragment>
+													{v.nodes.map((b, j) => {
+														return (
+															<li
+																key={b.title}
+																className='hover'
+																onClick={() => {
+																	this.handleSee(b.video)
+																}}
+															>
+																<CustomIcon type={'video02'} size={16} className='video-logo' />
+																{`${i + 1}-${j + 1}- ` + b.title}
+															</li>
+														)
+													})}
+												</React.Fragment>
+											) : null}
+										</ul>
+									</div>
+								))
+							) : null}
 						</TabPane>
-						<TabPane tab='问答评论' key='2'>
-							Content of Tab Pane 2
+						<TabPane tab='课程评论' key='2'>
+							{comment ? (
+								comment.map((v) => {
+									return (
+										<div className='comment-item' key={v.id}>
+											<div className='avatar'>
+												<img src={v.authorAvatar ? `/avatar/${v.authorAvatar}` : defaultAvatar} alt='' />
+											</div>
+											<div className='content'>
+												<a href='' className='username' style={{ color: '#93999f' }}>
+													{v.authorUsername}
+												</a>
+												<p>{v.content}</p>
+												<p>{v.createAt}</p>
+											</div>
+										</div>
+									)
+								})
+							) : null}
 						</TabPane>
 						<TabPane tab='用户评价' key='3'>
-							Content of Tab Pane 3
+							<div className='evaluation-info'>
+								<div className='evaluation-title'>综合评分</div>
+								<div className='evaluation-score'>5.0</div>
+								<Rate disabled defaultValue={5} />
+							</div>
+							<div className='evaluate'>
+								<div className='your'>
+									<h2>请输入您的评分</h2>
+									<Rate allowHalf defaultValue={0} />
+								</div>
+								<div className='evaluate-item'>
+									<div className='avatar'>
+										<img src={defaultAvatar} alt='' />
+									</div>
+									<div className='your-evalute'>
+										<TextArea rows={4} defaultValue={'请输入你的总结'} />
+									</div>
+								</div>
+								<p className="send-evaluate-p">
+									<div className='send-evaluate'>发表</div>
+								</p>
+							</div>
 						</TabPane>
 					</Tabs>,
 				</div>
