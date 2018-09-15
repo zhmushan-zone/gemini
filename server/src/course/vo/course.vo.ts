@@ -21,6 +21,7 @@ export class CourseVO extends Course {
     this.authorId = course.authorId;
     this.joinersId = course.joinersId;
     this.rate = course.rate;
+    this.commentsId = course.commentsId;
     this.updateAt = course.updateAt;
     this.createAt = course.createAt;
   }
