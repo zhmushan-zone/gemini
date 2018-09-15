@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, Input } from 'antd'
-import CustomIcon from '@/common/customIcon/customIcon'
 import VideoComment from '../videoComment/videoComment'
 import './videoPageContentCommentList.scss'
-import { defaultAvatar } from '@/const'
 
 import { withRouter } from 'react-router'
 
@@ -17,6 +15,7 @@ export default class VideoPageContentCommentList extends Component {
 			report: '举报信息',
 			visible: false,
 			confirmLoading: false,
+			courseId:this.props.match.params.courseId
 		}
 	}
 	handleChange(e, key) {
@@ -51,27 +50,6 @@ export default class VideoPageContentCommentList extends Component {
 		return (
 			<div className='comment-list-container'>
 				<VideoComment courseId={this.state.courseId}/>
-				{/* <div className='headslider'>
-					<a href=''>
-						<img src={defaultAvatar} alt='' />
-					</a>
-				</div>
-				<div className='text'>
-					<div className='name'>精慕门6508062</div>
-					<div className='content'>wwwwwwwwwwwwwwwwww</div>
-					<div className='replymegfooter'>
-						<div className='l-box'>
-							<div className='thump'>
-								<CustomIcon type='dianzan' color='#ccc' size={14} />
-								1
-							</div>
-							<a onClick={this.showModal}>举报</a>
-						</div>
-						<div className='r-time'>
-							<span>12小时前</span>
-						</div>
-					</div>
-				</div> */}
 				<Modal
 					title='举报信息'
 					visible={this.state.visible}

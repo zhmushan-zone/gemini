@@ -9,7 +9,6 @@ import '../articleCommentsItem/articleCommentsItem.scss'
 
 const { TextArea } = Input
 const RadioGroup = Radio.Group
-
 class VideoCommentsItem extends Component {
 	constructor(props) {
 		super(props)
@@ -23,7 +22,7 @@ class VideoCommentsItem extends Component {
 			replys: [],
 			to: '',
 			reportType: null,
-			reportContent: ''
+			reportContent: '',
 		}
 		this.stateChange = this.stateChange.bind(this)
 	}
@@ -99,7 +98,7 @@ class VideoCommentsItem extends Component {
 		const _token = Cookies.get('_token')
 		await axios({
 			method: 'put',
-			url: `/api/articles/comment/${this.props.articleId}/up`,
+			url: `/api/articles/comment/${this.props.commentId}/up`,
 			headers: {
 				token: _token
 			}
@@ -113,7 +112,7 @@ class VideoCommentsItem extends Component {
 		const _token = Cookies.get('_token')
 		await axios({
 			method: 'put',
-			url: `/api/articles/comment/${this.props.articleId}/down`,
+			url: `/api/articles/comment/${this.props.commentId}/down`,
 			headers: {
 				token: _token
 			}
@@ -132,14 +131,14 @@ class VideoCommentsItem extends Component {
 		if (!this.state.content.length) {
 			return message.warning('输入不能为空')
 		}
-		await this.props.setReplyComment(this.props.articleId, this.state.content, this.state.to)
+		await this.props.setReplyComment(this.props.courseId, this.state.content, this.state.to)
 		this.setState({
 			content: ''
 		})
 	}
 	replyLength = () => {
 		let array = []
-		this.props.articleComment.map((item, index) => {
+		this.props.videoComment.map((item, index) => {
 			if (item.to === this.props.commentId) {
 				array.push(index)
 			}
@@ -232,8 +231,8 @@ class VideoCommentsItem extends Component {
 						className='forum-reply-wrapper'
 						style={{ paddingTop: this.state.isReplyFold || !replys.length ? 0 : 20 }}
 					>
-						{this.props.articleComment.length && !this.state.isReplyFold ? (
-							this.props.articleComment.map((item) => {
+						{this.props.videoComment.length && !this.state.isReplyFold ? (
+							this.props.videoComment.map((item) => {
 								if (item.to === commentId) {
 									return (
 										<VideoCommentsReplyItem

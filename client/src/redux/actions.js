@@ -806,10 +806,11 @@ function sendVideoCommentSuccess(data) {
 	return { type: ActionTypes.SEND_VIDEO_COMMENT, comment: data }
 }
 export function sendVideoComment(id, content) {
+	console.log(id,content)
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'post',
-			url: `/api/articles/${id}/comment`,
+			url: `/api/courses/${id}/comment`,
 			headers: {
 				token: Cookies.get('_token'),
 			},
@@ -827,7 +828,7 @@ export function sendVideoComment(id, content) {
 }
 
 function getVideoCommentSuccess(data) {
-	return { type: ActionTypes.GET_ARTICLE_COMMENT, commentList: data }
+	return { type: ActionTypes.GET_VIDEO_COMMENT, commentList: data }
 }
 /* 获取评论 */
 export function getVideoComment(ids) {
@@ -847,15 +848,15 @@ export function getVideoComment(ids) {
 /* 子回复 */
 
 function setVideoReplyCommentSuccess(data) {
-	return { type: ActionTypes.SET_REPLY_COMMENT, commentReply: data }
+	return { type: ActionTypes.SET_VIDEO_REPLY_COMMENT, commentReply: data }
 }
-export function setVideoReplyComment(articleId, content, to) {
-	console.log(articleId, content, to)
+export function setVideoReplyComment(courseId, content, to) {
+	console.log(courseId, content, to)
 	const _token = Cookies.get('_token')
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'post',
-			url: `/api/articles/${articleId}/comment`,
+			url: `/api/courses/${courseId}/comment`,
 			headers: {
 				token: _token,
 			},

@@ -77,16 +77,16 @@ class UserStatus extends React.Component {
                     <div className="user-info-center">
                       <ul>
                         <li>
-                          <a href="#javascript">我是链接</a>
+                          <a href="#javascript">我的课程</a>
                         </li>
                         <li>
-                          <a href="#javascript">我是链接</a>
+                          <a href="#javascript">订单中心</a>
                         </li>
                         <li>
-                          <a href="#javascript">我是链接</a>
+                          <a href="#javascript">我的文章</a>
                         </li>
                         <li>
-                          <a href="#javascript">我是链接</a>
+                          <a href="#javascript">个人设置</a>
                         </li>
                       </ul>
                     </div>
