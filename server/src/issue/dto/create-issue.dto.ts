@@ -6,4 +6,5 @@ export class CreateIssueDTO extends Issue {
   @IsNotEmpty() @IsString() readonly title;
   @IsNotEmpty() @IsString() readonly content;
   @ArrayNotEmpty() @IsEnum(WatchTag, { each: true }) readonly tags;
+  @IsString() readonly bindCourseId;
 }

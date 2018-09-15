@@ -113,15 +113,26 @@ export class CourseController {
 
   @Put(':id/:rate')
   @UseGuards(AuthGuard('jwt'))
+  async rate(@Usr() user: User, @Param('id') id: string, @Param('rate') rate: string) {
+    const course = await this.courseService.findById(id);
+    if (!course) return success(ResponseCode.NOT_EXISIT);
+    if (!course.joinersId.includes(user.id.toHexString())) return success(ResponseCode.NOT_COURSE_JOINER);
+    course.rate = (course.rate * (course.joinersId.length - 1) + Number.parseFloat(rate)) / course.joinersId.length;
+    this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate } as Course);
+    return success();
+  }
+
+  @Put('join/:id')
+  @UseGuards(AuthGuard('jwt'))
   async courseJoin(@Usr() user: User, @Param('id') id: string, @Param('rate') rate: string) {
     const course = await this.courseService.findById(id);
     if (!course) return success(ResponseCode.NOT_EXISIT);
-    if (!course.joinersId.includes(user.id.toHexString())) {
-      course.joinersId.push(user.id.toHexString());
-    }
-    course.rate = (course.rate * (course.joinersId.length - 1) + Number.parseFloat(rate)) / course.joinersId.length;
+    if (course.joinersId.includes(user.id.toHexString())) return success(ResponseCode.ALREADY_COURSE_JOINER);
+    if (!(user.integral - course.price >= 0)) return success(ResponseCode.INTEGRAL_NOT_ENOUGH);
+    course.joinersId.push(user.id.toHexString());
     user.joinCourse[id] = Number.parseFloat(rate);
-    this.userService.updateById(user.id.toHexString(), { joinCourse: user.joinCourse } as User);
+    user.integral -= course.price;
+    this.userService.updateById(user.id.toHexString(), { joinCourse: user.joinCourse, integral: user.integral } as User);
     this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate, joinersId: course.joinersId } as Course);
     return success();
   }

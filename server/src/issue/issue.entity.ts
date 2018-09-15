@@ -36,6 +36,9 @@ export class Issue extends BaseEntity {
   @Column()
   status: IssueStatus;
 
+  @Column()
+  bindCourseId: string;
+
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();
@@ -47,6 +50,7 @@ export class Issue extends BaseEntity {
     if (!this.viewnum) this.viewnum = 0;
     if (!this.watchersId) this.watchersId = [];
     if (!this.status) this.status = IssueStatus.Pending;
+    if (!this.bindCourseId) this.bindCourseId = '';
   }
 
   @BeforeUpdate()

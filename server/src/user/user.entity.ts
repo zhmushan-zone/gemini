@@ -67,6 +67,8 @@ export class User extends BaseEntity {
   @Column()
   joinCourse: {};
 
+  integral: number;
+
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();
@@ -88,6 +90,7 @@ export class User extends BaseEntity {
     if (!this.watchUsersId) this.watchUsersId = [];
     if (!this.watchedUsersId) this.watchedUsersId = [];
     if (!this.joinCourse) this.joinCourse = {};
+    if (!this.integral) this.integral = 0;
   }
 
   @BeforeUpdate()

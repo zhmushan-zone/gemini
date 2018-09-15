@@ -203,6 +203,25 @@ export class IssueController {
     return success(commonData.userApprovedNumByTags[tag] || {});
   }
 
+  @Get('/reply/author/:id')
+  async findByReplyAuthorId(@Param('id') id: string) {
+    const replys = await this.issueService.findReplyByAuthorId(id);
+    return success(replys.map(r => r.issueId));
+  }
+
+  @Get('author/:id')
+  async findByAuthorId(@Param('id') id: string) {
+    const issues = await this.issueService.findByAuthorId(id);
+    const author = await this.userService.findById(id);
+    return success(issues.map(a => {
+      return {
+        ...new IssueVO(a),
+        authorUsername: author.username,
+        authorAvatar: author.avatar
+      } as IssueVO;
+    }));
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const issue = await this.issueService.findById(id);
