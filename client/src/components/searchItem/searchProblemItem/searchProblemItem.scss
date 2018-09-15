@@ -1,0 +1,42 @@
+.search-problem-item {
+  margin: 0 auto 8px;
+	background: #fff;
+	border-radius: 8px;
+	padding: 32px;
+	box-shadow: 0 4px 8px 0 rgba(7, 17, 27, .05);
+	box-sizing: border-box;
+  display: flex;
+
+  .search-problem-item-left {
+    width: 72px;
+
+    img {
+      width: 48px;
+      height: 48px;
+    }
+  }
+  .search-problem-item-right {
+    flex: 1;
+
+    .search-problem-item-tags {
+      span, a{
+        color: #93999F;
+        font-size: 12px;
+        margin-right: 12px;
+      }
+    }
+
+    .search-problem-item-title {
+      margin: 0;
+      font-size: 16px;
+      line-height: 24px;
+      color: #07111B;
+      font-weight: 700;
+    }
+
+    .search-problem-item-replysNum {
+      color: #93999F;
+      font-size: 12px;
+    }
+  }
+}

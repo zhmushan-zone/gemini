@@ -19,19 +19,19 @@ const initState = {
 	watchIssuesId: [],
 	watchUsersId: [],
 	watchedUsersId: [],
-	personCenterInfo: '',
+	personCenterInfo: ''
 }
 
 const courseInitState = {
 	msg: '',
 	courses: [],
-	code: '',
+	code: ''
 }
 
 const courseInfoInit = {
 	msg: '',
 	data: {},
-	code: '',
+	code: ''
 }
 
 const articleInit = {
@@ -39,31 +39,37 @@ const articleInit = {
 	code: '',
 	comment: [],
 	upersId: [],
-	articleArray: [],
+	articleArray: []
 }
 
 const problemInitState = {
 	msg: '',
 	problem: [],
-	code: '',
+	code: ''
 }
 
 const problemCommentInit = {
 	msg: '',
 	replys: [],
-	code: '',
+	code: ''
 }
 
 const reportInit = {
 	msg: '',
 	reports: [],
-	code: '',
+	code: ''
 }
 
 const Userinit = {}
 
 const videoinit = {
-	comment: [],
+	comment: []
+}
+
+const searchInit = {
+	courses: [],
+	problems: [],
+	articles: []
 }
 
 export function userstatus(state = initState, action) {
@@ -75,28 +81,28 @@ export function userstatus(state = initState, action) {
 				...state,
 				...action.payload,
 				redirectTo: '/home',
-				...action.username,
+				...action.username
 			}
 		case ActionTypes.FORGET_PASS:
 			return {
 				...state,
-				email: action.email,
+				email: action.email
 			}
 		case ActionTypes.ERROR_MSG:
 			return {
 				...state,
 				msg: action.msg,
-				code: action.code,
+				code: action.code
 			}
 		case ActionTypes.REMOVE_MSG:
 			return {
 				...state,
-				msg: action.msg,
+				msg: action.msg
 			}
 		case ActionTypes.LOAD_DATA:
 			return {
 				...state,
-				...action.payload,
+				...action.payload
 			}
 		case ActionTypes.UPDATE_PERSON_MSG:
 			return {
@@ -106,41 +112,41 @@ export function userstatus(state = initState, action) {
 				msg: action.payload.msg,
 				city: action.payload.city,
 				signature: action.payload.signature,
-				sex: action.payload.sex,
+				sex: action.payload.sex
 			}
 		case ActionTypes.CHANGE_AVATAR:
 			return {
 				...state,
-				avatar: action.avatar,
+				avatar: action.avatar
 			}
 		case ActionTypes.SEND_EMAIL_SUCCESS:
 			return {
 				...state,
-				code: action.code,
+				code: action.code
 			}
 		case ActionTypes.LOGOUT:
 			return {
-				...initState,
+				...initState
 			}
 		case ActionTypes.UPDATE_FORUM_TAGS:
 			return {
 				...state,
-				watchTags: action.tags,
+				watchTags: action.tags
 			}
 		case ActionTypes.FOLLOW_PROBLEM:
 			return {
 				...state,
-				watchIssuesId: action.payload,
+				watchIssuesId: action.payload
 			}
 		case ActionTypes.FETCH_ONE_USER:
 			return {
 				...state,
-				personCenterInfo: action.data,
+				personCenterInfo: action.data
 			}
 		case ActionTypes.FOCUS_USER:
 			return {
 				...state,
-				watchUsersId: action.data,
+				watchUsersId: action.data
 			}
 		default:
 			return state
@@ -153,25 +159,25 @@ export function course(state = courseInitState, action) {
 			return {
 				...state,
 				msg: action.msg,
-				code: action.code,
+				code: action.code
 			}
 		case ActionTypes.CREATE_COURSE_SUCCESS:
 			return {
 				...state,
 				courses: [ ...state.courses, action.payload ],
 				msg: '课程创建成功',
-				code: action.code,
+				code: action.code
 			}
 		case ActionTypes.COURSE_LIST:
 			return {
 				...state,
-				courses: action.payload,
+				courses: action.payload
 			}
 		case ActionTypes.COURSE_DELETE_SUCCESS:
 			return {
 				...state,
 				msg: '课程删除成功',
-				code: action.code,
+				code: action.code
 			}
 		default:
 			return state
@@ -183,12 +189,12 @@ export function courseInfo(state = courseInfoInit, action) {
 		case ActionTypes.FETCH_ONE_COUSE:
 			return {
 				...state,
-				data: action.payload,
+				data: action.payload
 			}
 		case ActionTypes.UPDATE_COURSE:
 			return {
 				...state,
-				data: action.payload,
+				data: action.payload
 			}
 		default:
 			return state
@@ -200,55 +206,55 @@ export function article(state = articleInit, action) {
 		case ActionTypes.REMOVE_MSG:
 			return {
 				...state,
-				msg: action.msg,
+				msg: action.msg
 			}
 		case ActionTypes.CREATE_ARTICLE_SUCCESS:
 			return {
 				...state,
 				code: action.code,
-				article: action.article,
+				article: action.article
 			}
 		case ActionTypes.CREATE_ARTICLE_ERROR:
 			return {
 				...state,
 				msg: action.msg,
-				code: action.code,
+				code: action.code
 			}
 		case ActionTypes.FETCH_All_ARTICLE:
 			return {
 				...state,
-				articleArray: [ ...action.data ],
+				articleArray: [ ...action.data ]
 			}
 		case ActionTypes.FETCH_ARTICLE_CATEGORY:
 			return {
 				...state,
 				articleArray: [ ...action.data ],
-				code: action.code,
+				code: action.code
 			}
 		case ActionTypes.SEND_ARTICLE_COMMENT:
 			return {
 				...state,
-				comment: [ ...state.comment, action.comment ],
+				comment: [ ...state.comment, action.comment ]
 			}
 		case ActionTypes.GET_ARTICLE_COMMENT:
 			return {
 				...state,
-				comment: action.commentList,
+				comment: action.commentList
 			}
 		case ActionTypes.SET_REPLY_COMMENT:
 			return {
 				...state,
-				comment: [ ...state.comment, action.commentReply ],
+				comment: [ ...state.comment, action.commentReply ]
 			}
 		case ActionTypes.DELETE_ARTICLE_SUCCESS:
 			return {
 				...state,
-				articleArray: action.articleArray,
+				articleArray: action.articleArray
 			}
 		case ActionTypes.CHECK_ARTICLE_ACCEPT:
 			return {
 				...state,
-				articleArray: action.articleArray,
+				articleArray: action.articleArray
 			}
 		default:
 			return state
@@ -261,34 +267,34 @@ export function problem(state = problemInitState, action) {
 			return {
 				...state,
 				msg: action.msg,
-				code: action.code,
+				code: action.code
 			}
 		case ActionTypes.CREATE_PROBLEM_SUCCESS:
 			return {
 				...state,
 				problem: [ ...state.problem, action.payload ],
 				msg: '提交成功，请等待审核',
-				code: action.code,
+				code: action.code
 			}
 		case ActionTypes.PROBLEM_LIST:
 			return {
 				...state,
-				problem: action.payload,
+				problem: action.payload
 			}
 		case ActionTypes.PROBLEM_LIST_BY_TYPE:
 			return {
 				...state,
-				problem: action.payload,
+				problem: action.payload
 			}
 		case ActionTypes.DELETE_PROBLEM_SUCCESS:
 			return {
 				...state,
-				problem: action.payload,
+				problem: action.payload
 			}
 		case ActionTypes.CHECK_PROBLEM_ACCEPT:
 			return {
 				...state,
-				problem: action.payload,
+				problem: action.payload
 			}
 		default:
 			return state
@@ -301,19 +307,19 @@ export function problemComment(state = problemCommentInit, action) {
 			return {
 				...state,
 				msg: action.msg,
-				code: action.code,
+				code: action.code
 			}
 		case ActionTypes.COMMENT_PROBLEM:
 			return {
 				...state,
 				replys: [ ...state.replys, action.payload ],
 				code: action.code,
-				msg: action.msg,
+				msg: action.msg
 			}
 		case ActionTypes.FETCH_COMMENT:
 			return {
 				...state,
-				replys: action.payload,
+				replys: action.payload
 			}
 
 		default:
@@ -326,7 +332,7 @@ export function report(state = reportInit, action) {
 		case ActionTypes.GET_REPORTS_LIST:
 			return {
 				...state,
-				reports: action.payload,
+				reports: action.payload
 			}
 		default:
 			return state
@@ -339,7 +345,7 @@ export function User(state = Userinit, action) {
 		case ActionTypes.FETCH_ONE_USER:
 			return {
 				...state,
-				...action.data,
+				...action.data
 			}
 		default:
 			return state
@@ -352,17 +358,31 @@ export function video(state = videoinit, action) {
 		case ActionTypes.SEND_VIDEO_COMMENT:
 			return {
 				...state,
-				comment: [ ...state.comment, action.comment ],
+				comment: [ ...state.comment, action.comment ]
 			}
 		case ActionTypes.GET_VIDEO_COMMENT:
 			return {
 				...state,
-				comment: action.commentList,
+				comment: action.commentList
 			}
 		case ActionTypes.SET_VIDEO_REPLY_COMMENT:
 			return {
 				...state,
-				comment: [ ...state.comment, action.commentReply ],
+				comment: [ ...state.comment, action.commentReply ]
+			}
+		default:
+			return state
+	}
+}
+/* -------------------- search------------------- */
+export function search(state = searchInit, action) {
+	switch (action.type) {
+		case ActionTypes.SEARCH:
+			return {
+				...state,
+				courses: action.payload.courses,
+				problems: action.payload.problems,
+				articles: action.payload.articles
 			}
 		default:
 			return state
@@ -377,6 +397,7 @@ export default combineReducers({
 	problem,
 	User,
 	video,
+	search,
 	problemComment,
-	report,
+	report
 })
