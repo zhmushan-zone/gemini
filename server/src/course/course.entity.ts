@@ -54,6 +54,7 @@ export class Course extends BaseEntity {
     if (!this.sections) this.sections = [];
     if (!this.authorId) this.authorId = '';
     if (!this.commentsId) this.commentsId = [];
+    if (!this.joinersId) this.joinersId = [];
     if (!this.rate) this.rate = 5;
   }
 
