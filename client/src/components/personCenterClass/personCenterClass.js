@@ -9,8 +9,8 @@ class PersonCenterClass extends React.Component {
   render() {
     return (
       <div className="person-center-class-container">
-        <Tabs defaultActiveKey="1" onChange={this.callback}>
-          <TabPane tab="最近学习" key="1">
+        <Tabs defaultActiveKey="1" onChange={this.callback} >
+          <TabPane tab="最近学习" key="1" >
             <div className="study-tl">
               <div className="tl-item">
                 <div className="time">
@@ -42,9 +42,6 @@ class PersonCenterClass extends React.Component {
                         <div className="catog-points">
                           <span className="i-left span-common">
                             <a>笔记<i>0</i></a>
-                          </span>
-                          <span className="i-mid span-common">
-                            <a>代码<i>0</i></a>
                           </span>
                           <span className="i-right span-common">
                             <a>问答<i>0</i></a>

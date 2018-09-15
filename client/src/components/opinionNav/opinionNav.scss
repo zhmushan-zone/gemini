@@ -13,28 +13,6 @@
 		align-items: center;
 		justify-content: space-between;
 	}
-	.search-warp {
-		width: 480px;
-		height: 36px;
-		background: #f3f5f6;
-		border-radius: 8px;
-		margin: 12px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    .search{
-      border: none;
-      background: #f3f5f6;
-    }
-    .icon-container{
-      width: 40px;
-      display: flex;
-      justify-content: center;
-      .icon-search{
-        font-size: 18px;
-      }
-    }
-	}
 	.operate-area {
 		display: flex;
 		justify-content: space-around;

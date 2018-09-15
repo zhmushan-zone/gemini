@@ -4,11 +4,10 @@
 		background: url("https://img.mukewang.com/szimg/5b50881e00011f0620000560.jpg") no-repeat;
 		.w {
 			padding-top: 20px;
-			padding-bottom: 72px;
-			width: 1200px;
 			margin: 0 auto;
 			display: flex;
 			justify-content: space-between;
+			width: 80%;
 		}
 		.path {
 			font-size: 12px;
@@ -32,18 +31,6 @@
 		.extra {
 			color: white;
 			display: flex;
-			.course-collect {
-				margin-right: 24px;
-				cursor: pointer;
-				i {
-					font-size: 26px;
-					color: rgb(182, 185, 188);
-					&:hover {
-						color: white;
-					}
-				}
-				font-size: 18px;
-			}
 			.page-share {
 				a {
 					margin-right: 20px;
@@ -58,25 +45,20 @@
 			}
 		}
 		.info-warp {
-			text-align: center;
-			padding-top: 72px;
+			padding-top: 10px;
+			width: 80%;
+			margin: 0 auto;
 			.title-box {
-				margin: 0 auto;
+				text-align: left;
 				h1 {
-					font-size: 40px;
+					margin-top: 0px;
+					font-size: 36px;
 					color: #ffffff;
 					text-shadow: 0 2px 4px rgba(28, 31, 33, 0.6);
-				}
-				h2 {
-					font-size: 16px;
-					color: #ffffff;
-					line-height: 24px;
-					text-shadow: 0 2px 4px rgba(28, 31, 33, 0.6);
-					margin-top: 8px;
 				}
 			}
 			.splitline {
-				width: 640px;
+				width: 100%;
 				height: 1px;
 				background-color: rgba(255, 255, 255, 0.2);
 				margin: 16px auto 16px;
@@ -86,30 +68,113 @@
 				padding-bottom: 20px;
 				.statics {
 					display: flex;
-					font-size: 12px;
 					white-space: nowrap;
-					justify-content: center;
+					justify-content: start;
+					align-items: center;
 					span {
-						color: rgba(255, 255, 255, 0.6);
+						color: rgb(255, 255, 255);
 						padding-right: 10px;
+						font-size: 14px;
 					}
 				}
 			}
 		}
-		.study-button {
-			padding-bottom: 40px;
-			display: flex;
-			justify-content: center;
+		.info-author {
+			padding-left: 56px;
+			padding-right: 60px;
+			line-height: 12px;
+			font-size: 12px;
+			color: rgb(255, 255, 255);
+			padding-bottom: 10px;
+			img {
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+			}
 		}
 	}
-	.course-infos-t {
-		display: flex;
-		padding: 16px 0 20px 0;
-		text-align: center;
-		background: #ffffff;
-		box-shadow: 0 8px 16px 0 rgba(28, 31, 33, 0.1);
+	.tab-course-preview {
+		color: #000;
+		width: 80%;
+		.ant-tabs-ink-bar {
+			background-color: red;
+		}
+		.ant-tabs-tab-active {
+			color: red;
+		}
+		.ant-tabs-tab {
+			&:hover {
+				color: red;
+			}
+		}
 	}
-	.info-author{
-
+	.course-content {
+		width: 80%;
+		margin: 0 auto;
+		position: relative;
+	}
+	.course-aside-info {
+		position: absolute;
+		margin-bottom: 32px;
+		right: 0;
+		top: -100px;
+		width: 300px;
+		min-height: 150px;
+		padding: 24px 32px 32px;
+		background: #fff;
+		box-shadow: 0 8px 16px 0 rgba(7, 17, 27, .1);
+		border-radius: 12px;
+		z-index: 100;
+		.learn-btn {
+			display: flex;
+			justify-content: center;
+			font-size: 18px;
+			button {
+				color: #fff;
+				background-color: red;
+				border-radius: 30px;
+				width: 90%;
+				height: 46px;
+				border: none;
+				cursor: pointer;
+			}
+		}
+		.course-info-tip {
+			padding-top: 24px;
+			.first {
+				margin-bottom: 24px;
+			}
+			dt {
+				margin-bottom: 6px;
+				font-weight: 700;
+				font-size: 14px;
+				color: #000;
+			}
+			dd {
+				margin-bottom: 6px;
+				font-size: 12px;
+				word-wrap: break-word;
+				word-break: break-all;
+				white-space: pre-line;
+			}
+		}
+	}
+	.chapter {
+		width: 80%;
+	}
+	.course-description {
+		line-height: 28px;
+		margin-bottom: 8px;
+		padding: 24px 32px 32px;
+		background: #fff;
+		box-shadow: 0 8px 16px 0 rgba(7, 17, 27, .1);
+		border-radius: 12px;
+	}
+	.course-wrap {
+		margin-bottom: 8px;
+		padding: 24px 32px 32px;
+		background: #fff;
+		box-shadow: 0 8px 16px 0 rgba(7, 17, 27, .1);
+		border-radius: 12px;
 	}
 }

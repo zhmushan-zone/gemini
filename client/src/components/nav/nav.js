@@ -68,7 +68,7 @@ class Nav extends React.Component {
         }
     })
     return (
-      <nav style={is?{'boxShadow':'none'}:null}>
+      <nav style={is?{'boxShadow':'none'}:null } className="allNav">
         <div className="nav-sections">
           <ul>
             {navSections}

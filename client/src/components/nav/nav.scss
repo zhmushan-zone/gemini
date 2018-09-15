@@ -1,122 +1,122 @@
 ul {
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
+	list-style-type: none;
+	padding-left: 0;
+	margin: 0;
 }
 
 a {
-    text-decoration: none;
+	text-decoration: none;
 }
 
-nav {
-    width: 100%;
-    height: 60px;
-    display: flex;
-    justify-content: space-around;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
-    z-index: 100;
-    
-    .nav-operation {
-        display: flex;
+.allNav {
+	width: 100%;
+	height: 60px;
+	display: flex;
+	justify-content: space-around;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+	z-index: 100;
+	position: relative;
+	.nav-operation {
+		display: flex;
 
-        .nav-search-wrapper {
-            margin-right: 20px;
-            .nav-search {
-                width: 180px;
-                display: flex;
-                height: 50px;
-                border-bottom: 1px solid #D9DDE1;
+		.nav-search-wrapper {
+			margin-right: 20px;
+			.nav-search {
+				width: 180px;
+				display: flex;
+				height: 50px;
+				border-bottom: 1px solid #d9dde1;
 
-                input {
-                    outline: none;
-                    border: none;
-                    padding-top: 10px;
-                }
-                span {
-                    font-size: 20px;
-                    line-height: 60px;
+				input {
+					outline: none;
+					border: none;
+					padding-top: 10px;
+				}
+				span {
+					font-size: 20px;
+					line-height: 60px;
 
-                    a {
-                        color: #787d82;
+					a {
+						color: #787d82;
 
-                        &:hover {
-                            color: #f45154;
-                        }
-                    }
-                }
-            }
-        }
-        .nav-shopping-cart {
-            display: block;
-            height: 36px;
-            line-height: 36px;
-            border: 1px solid #D9DDE1;
-            border-radius: 18px;
-            padding: 0 18px;
-            color: #787d82;
-            margin-left: 16px;
+						&:hover {
+							color: #f45154;
+						}
+					}
+				}
+			}
+		}
+		.nav-shopping-cart {
+			display: block;
+			height: 36px;
+			line-height: 36px;
+			border: 1px solid #d9dde1;
+			border-radius: 18px;
+			padding: 0 18px;
+			color: #787d82;
+			margin-left: 16px;
 
-            &:hover {
-                color: #f45154;
-                border-color: #f45154;
-            }
-        }
-        
-        .nav-message-center {
-            margin: 0 16px;
-            line-height: 60px;
-            color: #787d82;
-            font-size: 20px;
-        
-            &:hover {
-                color: #f45154;
-            }
-        }
-    }
-    
-    .nav-sections {
-        width: 500px;
-        position: relative;
+			&:hover {
+				color: #f45154;
+				border-color: #f45154;
+			}
+		}
 
-        ul {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            line-height: 60px;
+		.nav-message-center {
+			margin: 0 16px;
+			line-height: 60px;
+			color: #787d82;
+			font-size: 20px;
 
-            li {
-                width: 25%;
-                text-align: center;
+			&:hover {
+				color: #f45154;
+			}
+		}
+	}
 
-                a {
-                    display: flex;
-                    justify-content: center;
-                    color: #4D555D;
-                    transition: all .15s ease;
-                    text-decoration: none;
-                    &:hover {
-                        color: darken(slategrey, 20%);
-                        transition: all .15s ease;
-                    }
-                    &.selected {
-                        transition: all .15s ease;
-                        color: white;
-                    }
-                }
-            }
-        }
+	.nav-sections {
+		width: 500px;
+		position: relative;
 
-        .navActiveBG {
-            position: absolute;
-            top: 18px;
-            width: 25%;
-            height: 24px;
-            background: #f45154;
-            border-radius: 4px;
-            transition: transform .5s cubic-bezier(0.7, -0.2, 0.2, 1.5);
-            will-change: transform;
-            z-index: -1;
-            box-shadow: 0 3px 6px rgba(0,0,0,.11), 0 1px 3px rgba(0,0,0,.08);
-        }
-    }
+		ul {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			line-height: 60px;
+
+			li {
+				width: 25%;
+				text-align: center;
+
+				a {
+					display: flex;
+					justify-content: center;
+					color: #4d555d;
+					transition: all .15s ease;
+					text-decoration: none;
+					&:hover {
+						color: darken(slategrey, 20%);
+						transition: all .15s ease;
+					}
+					&.selected {
+						transition: all .15s ease;
+						color: white;
+					}
+				}
+			}
+		}
+
+		.navActiveBG {
+			position: absolute;
+			top: 18px;
+			width: 25%;
+			height: 24px;
+			background: #f45154;
+			border-radius: 4px;
+			transition: transform .5s cubic-bezier(0.7, -0.2, 0.2, 1.5);
+			will-change: transform;
+			z-index: -1;
+			box-shadow: 0 3px 6px rgba(0, 0, 0, .11), 0 1px 3px rgba(0, 0, 0, .08);
+		}
+	}
 }
