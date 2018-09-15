@@ -41,7 +41,7 @@ class App extends React.Component {
             <Layout>
               <Switch>
                 <Route path="/home" component={Home}></Route>
-                <Route path="/search" component={Search}></Route>
+                <Route path="/search/:content" component={Search}></Route>
                 <Route path="/onlineStudying" component={OnlineStudying}></Route>
                 <Route path="/forum" component={Forum} exact></Route>
                 <Route path="/forum/create" component={forumCreateProblem} exact></Route>

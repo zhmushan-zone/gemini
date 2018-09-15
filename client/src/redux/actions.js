@@ -870,3 +870,27 @@ export function setVideoReplyComment(courseId, content, to) {
 		}
 	}
 }
+/* ----------------------------------------------搜索---------------------------------------------- */
+function searchSuccess(courses, problems, articles) {
+	return { type: ActionTypes.SEARCH, payload: {courses, problems, articles} }
+}
+
+export function search(content) {
+	return async (dispatch) => {
+		const res1 = await axios({
+			method: 'get',
+			url: `/api/courses/search/${content}`
+		})
+		const res2 = await axios({
+			method: 'get',
+			url: `/api/issues/search/${content}`
+		})
+		const res3 = await axios({
+			method: 'get',
+			url: `/api/articles/search/${content}`
+		})
+		if (res1.data.code === 1 || res2.data.code === 1 || res3.data.code === 1) {
+			dispatch(searchSuccess(res1.data.data, res2.data.data, res3.data.data))
+		}
+	}
+}
