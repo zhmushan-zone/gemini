@@ -102,6 +102,8 @@ export class Common extends BaseEntity {
     if (!this.issueReplyNumWeekly) this.issueReplyNumWeekly = {};
     if (!this.issueReplyNumTotally) this.issueReplyNumTotally = {};
     if (!this.userApprovedNumByTags) this.userApprovedNumByTags = {};
+    if (!this.articleUpNumWeekly) this.articleUpNumWeekly = {};
+    if (!this.articleUpNumMonthly) this.articleUpNumMonthly = {};
   }
 
   @BeforeUpdate()
