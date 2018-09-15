@@ -4,7 +4,7 @@ import './opinionMainRight.scss'
 import seven from '@/assets/imgs/seven.png'
 import thirty from '@/assets/imgs/thirty.png'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router'
 @withRouter
 @connect((state) => state, {})
 export default class opinionMainRight extends Component {

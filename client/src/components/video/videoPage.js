@@ -57,7 +57,6 @@ export default class VideoPage extends Component {
 		this.setState({
 			[key]: e.target.value,
 		})
-		console.log(this.state.comment)
 	}
 	handleCancel = () => {
 		console.log('Clicked cancel button')
@@ -79,6 +78,7 @@ export default class VideoPage extends Component {
 			this.setState({
 				course: res.data.data,
 			})
+			Cookies.set('video-commentsId', res.data.data.commentsId)
 		})
 	}
 	comment() {

@@ -9,25 +9,25 @@ import '../articleComments/articleComments.scss'
 @withRouter
 @connect((state) => state, { getVideoComment, setVideoReplyComment })
 class VideoComments extends Component {
-	// async componentDidMount() {
-	// 	const commentsId = await JSON.parse(Cookies.get('video-commentsId'))
-	// 	setTimeout(() => {
-	// 		this.props.getVideoComment(commentsId)
-	// 	}, 200)
-	// }
+	async componentDidMount() {
+		const commentsId = await JSON.parse(Cookies.get('video-commentsId'))
+		setTimeout(() => {
+			this.props.getVideoComment(commentsId)
+		}, 200)
+	}
 	render() {
-		const articleComment = dateSortByUpdate(this.props.video.comment)
+		const videoComment = dateSortByUpdate(this.props.video.comment)
 		const { userstatus } = this.props
 		return (
 			<div className='article-page-comments'>
-				<div className='article-page-comments-num'>{articleComment.length}回答</div>
-				{articleComment ? (
-					articleComment.map((item) => {
+				<div className='article-page-comments-num'>{videoComment.length}回答</div>
+				{videoComment ? (
+					videoComment.map((item) => {
 						if (item.to === '') {
 							return (
 								<VideoCommentsItem
-									articleComment={articleComment}
-									articleId={this.props.articleId}
+									videoComment={videoComment}
+									courseId={this.props.courseId}
 									commentId={item.id}
 									authorName={item.authorUsername}
 									authorAvatar={item.authorAvatar}
@@ -41,7 +41,7 @@ class VideoComments extends Component {
 									// 回复的头像
 									myAvatar={userstatus.avatar}
 									// 子回复
-									setReplyComment={(id, content, to) => this.props.setReplyComment(id, content, to)}
+									setReplyComment={(id, content, to) => this.props.setVideoReplyComment(id, content, to)}
 								/>
 							)
 						}

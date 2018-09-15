@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './coursePreview.scss'
+import CustomIcon from '@/common/customIcon/customIcon'
 import { Icon, Button } from 'antd'
 import Share from '@/share'
 export default class CoursePreview extends Component {
@@ -20,13 +21,13 @@ export default class CoursePreview extends Component {
 							</div>
 							<div className='page-share'>
 								<a onClick={() => Share.shareToQQZone('title', `/article/1/`)}>
-									<Icon type='qq' color='#b6b9bc' size={26} />
+									<CustomIcon type='qq' color='#b6b9bc' size={26} />
 								</a>
 								<a onClick={() => Share.shareToDouban('title', `/article/2/`)}>
-									<Icon type='douban_F' color='#b6b9bc' size={24} />
+									<CustomIcon type='douban_F' color='#b6b9bc' size={24} />
 								</a>
 								<a onClick={() => Share.shareToWeibo('title', `/article/2/`)}>
-									<Icon type='weibo' color='#b6b9bc' size={24} />
+									<CustomIcon type='weibo' color='#b6b9bc' size={24} />
 								</a>
 							</div>
 						</div>
@@ -58,6 +59,9 @@ export default class CoursePreview extends Component {
 					<ul>
 						<li>12</li>
 					</ul>
+				</div>
+				<div className="info-author">
+
 				</div>
 			</div>
 		)
