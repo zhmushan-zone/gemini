@@ -80,7 +80,6 @@
 			}
 		}
 		.info-author {
-			padding-left: 56px;
 			padding-right: 60px;
 			line-height: 12px;
 			font-size: 12px;
@@ -90,6 +89,7 @@
 				width: 40px;
 				height: 40px;
 				border-radius: 50%;
+				margin-right: 20px;
 			}
 		}
 	}
@@ -176,5 +176,112 @@
 		background: #fff;
 		box-shadow: 0 8px 16px 0 rgba(7, 17, 27, .1);
 		border-radius: 12px;
+	}
+	.video {
+		padding-top: 16px;
+		li {
+			position: relative;
+			padding-left: 12px;
+			height: 48px;
+			line-height: 48px;
+			list-style: none;
+		}
+		.hover:hover {
+			background: rgb(254, 243, 243);
+			cursor: pointer;
+			border-radius: 10px;
+		}
+	}
+	.comment-item {
+		padding: 24px 25px;
+		border-top: 1px solid #d9dde1;
+		display: -ms-flexbox;
+		display: flex;
+		.avatar {
+			width: 72px;
+			> img {
+				border-radius: 50%;
+				width: 40px;
+				height: 40px;
+			}
+			.content {
+				flex: 1;
+				a {
+					color: #93999f;
+					margin-bottom: 4px;
+				}
+				p {
+					color: black;
+					margin: 0px;
+				}
+			}
+		}
+	}
+	.evaluation-info {
+		margin-bottom: 32px;
+		padding: 24px 32px;
+		background: #fff;
+		border-radius: 12px;
+		overflow: hidden;
+		display: flex;
+		box-shadow: 0 4px 8px 0 rgba(7, 17, 27, .1);
+		align-items: center;
+		.evaluation-title {
+			color: #1c1f21;
+			line-height: 16px;
+			font-weight: 700;
+		}
+		.evaluation-score {
+			padding-left: 16px;
+			font-size: 32px;
+			font-weight: 700;
+			color: #4d555d;
+			line-height: 32px;
+			margin-right: 10px;
+		}
+	}
+	.evaluate {
+		margin-bottom: 8px;
+		padding: 24px 32px;
+		background: #fff;
+		border-radius: 12px;
+		box-shadow: 0 4px 8px 0 rgba(7, 17, 27, .1);
+		.your {
+			display: flex;
+		}
+		h2 {
+			margin-right: 20px;
+		}
+		.evaluate-item {
+			padding: 10px 0 15px;
+			display: flex;
+			align-items: center;
+			.avatar {
+				width: 72px;
+				img {
+					width: 50px;
+					height: 50px;
+					border-radius: 50%;
+				}
+			}
+			.your-evalute {
+				flex: 1;
+			}
+		}
+		.send-evaluate-p {
+			display: flex;
+			flex-direction: row-reverse;
+		}
+		.send-evaluate {
+			width: 100px;
+			height: 40px;
+			background: red;
+			border-radius: 10px;
+			color: white;
+			font-size: 18px;
+			line-height: 40px;
+			text-align: center;
+			cursor: pointer;
+		}
 	}
 }
