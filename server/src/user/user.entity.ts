@@ -65,7 +65,7 @@ export class User extends BaseEntity {
   watchedUsersId: string[];
 
   @Column()
-  joinCourse: {}
+  joinCourse: {};
 
   @BeforeInsert()
   beforeInsert() {

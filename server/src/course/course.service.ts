@@ -41,6 +41,17 @@ export class CourseService {
     return this.courseRepository.save(doc);
   }
 
+  search(keyword: string) {
+    return this.courseRepository.find({
+      where: {
+        $or: [
+          { title: { $regex: keyword } },
+          { decs: { $regex: keyword } }
+        ]
+      }
+    });
+  }
+
   constructor(
     @InjectRepository(Course)
     private readonly courseRepository: MongoRepository<Course>,

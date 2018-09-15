@@ -63,6 +63,22 @@ export class CourseController {
     return success();
   }
 
+  @Get('search/:keyword')
+  async search(@Param('keyword') keyword: string) {
+    const courses = await this.courseService.search(keyword);
+    const res: CourseVO[] = [];
+    for (const c of courses) {
+      const author = await this.userService.findById(c.authorId);
+      const courseVO = new CourseVO(c);
+      courseVO.authorUsername = author.username;
+      courseVO.authorAvatar = author.avatar;
+      courseVO.authorJob = author.job;
+      courseVO.authorSignature = author.signature;
+      res.push(courseVO);
+    }
+    return success(res);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const course = await this.courseService.findById(id);
