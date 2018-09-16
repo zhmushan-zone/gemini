@@ -61,6 +61,12 @@ export class UserController {
     return success(users.map(u => new UserVO(u)));
   }
 
+  @Get('shoppingcart')
+  @UseGuards(AuthGuard('jwt'))
+  findShoppingcart(@Usr() user: User) {
+    return success(user.shoppingcart);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const user = await this.userService.findById(id);
