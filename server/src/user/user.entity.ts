@@ -65,7 +65,7 @@ export class User extends BaseEntity {
   watchedUsersId: string[];
 
   @Column()
-  joinCourse: {};
+  joinCourse: string[];
 
   @Column()
   integral: number;
@@ -93,7 +93,7 @@ export class User extends BaseEntity {
     if (!this.watchArticleTypes) this.watchArticleTypes = [];
     if (!this.watchUsersId) this.watchUsersId = [];
     if (!this.watchedUsersId) this.watchedUsersId = [];
-    if (!this.joinCourse) this.joinCourse = {};
+    if (!this.joinCourse) this.joinCourse = [];
     if (!this.integral) this.integral = 0;
     if (!this.shoppingcart) this.shoppingcart = [];
   }

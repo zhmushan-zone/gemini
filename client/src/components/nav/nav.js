@@ -1,5 +1,6 @@
 import React from 'react'
 import UserStatus from './userStatus/userStatus'
+import { Link } from 'react-router-dom'
 import { Icon } from 'antd'
 import {withRouter, NavLink} from 'react-router-dom'
 import classnames from 'classnames'
@@ -76,13 +77,18 @@ class Nav extends React.Component {
     })
     return (
       <nav style={is?{'boxShadow':'none'}:null } className="allNav">
-        <div className="nav-sections">
-          <ul>
-            {navSections}
-          </ul>
-          {
-            is?null:<span style={{transform: `translateX(${this.state.selected}00%)`}} className={`navActiveBG ${personCenterNavBgColor}`}></span>
-          }
+        <div className="nav-left">
+          <div className="nav-logo">
+            <img src={require(`@/assets/imgs/logo.png`)} alt=""/>
+          </div>
+          <div className="nav-sections">
+            <ul>
+              {navSections}
+            </ul>
+            {
+              is?null:<span style={{transform: `translateX(${this.state.selected}00%)`}} className={`navActiveBG ${personCenterNavBgColor}`}></span>
+            }
+          </div>
         </div>
         <div className="nav-operation"> 
           <div className="nav-search-wrapper">
@@ -96,10 +102,10 @@ class Nav extends React.Component {
             </div>
           </div>
           <div className="nav-shopping-cart-wrapper" style={{paddingTop: 12}}>
-            <a className="nav-shopping-cart">
+            <Link to={`/shoppingCart`} className="nav-shopping-cart">
               <Icon type="shopping-cart" theme="outlined" />
               <span style={{marginLeft: 10}}>购物车</span>
-            </a>
+            </Link>
           </div>
           <div className="nav-message-center-wrapper">
             <a className="nav-message-center">

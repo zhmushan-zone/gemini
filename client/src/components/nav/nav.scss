@@ -16,6 +16,67 @@ a {
 	box-shadow: 0 0 10px rgba(0, 0, 0, .3);
 	z-index: 100;
 	position: relative;
+
+	.nav-left {
+		display: flex;
+		line-height: 60px;
+
+		.nav-logo {
+			margin-right: 40px;
+			img {
+				width: 100px;
+				position: relative;
+				bottom: 2px;
+			}
+		}
+		
+		.nav-sections {
+			width: 500px;
+			position: relative;
+	
+			ul {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				line-height: 60px;
+	
+				li {
+					width: 25%;
+					text-align: center;
+					cursor: pointer;
+	
+					a {
+						display: flex;
+						justify-content: center;
+						color: #4d555d;
+						transition: all .15s ease;
+						text-decoration: none;
+						&:hover {
+							color: darken(slategrey, 20%);
+							transition: all .15s ease;
+						}
+						&.selected {
+							transition: all .15s ease;
+							color: white;
+						}
+					}
+				}
+			}
+	
+			.navActiveBG {
+				position: absolute;
+				top: 18px;
+				width: 25%;
+				height: 24px;
+				background: #f45154;
+				border-radius: 4px;
+				transition: transform .5s cubic-bezier(0.7, -0.2, 0.2, 1.5);
+				will-change: transform;
+				z-index: -1;
+				box-shadow: 0 3px 6px rgba(0, 0, 0, .11), 0 1px 3px rgba(0, 0, 0, .08);
+			}
+		}
+	}
 	.nav-operation {
 		display: flex;
 
@@ -75,49 +136,4 @@ a {
 		}
 	}
 
-	.nav-sections {
-		width: 500px;
-		position: relative;
-
-		ul {
-			width: 100%;
-			display: flex;
-			justify-content: space-between;
-			line-height: 60px;
-
-			li {
-				width: 25%;
-				text-align: center;
-
-				a {
-					display: flex;
-					justify-content: center;
-					color: #4d555d;
-					transition: all .15s ease;
-					text-decoration: none;
-					&:hover {
-						color: darken(slategrey, 20%);
-						transition: all .15s ease;
-					}
-					&.selected {
-						transition: all .15s ease;
-						color: white;
-					}
-				}
-			}
-		}
-
-		.navActiveBG {
-			position: absolute;
-			top: 18px;
-			width: 25%;
-			height: 24px;
-			background: #f45154;
-			border-radius: 4px;
-			transition: transform .5s cubic-bezier(0.7, -0.2, 0.2, 1.5);
-			will-change: transform;
-			z-index: -1;
-			box-shadow: 0 3px 6px rgba(0, 0, 0, .11), 0 1px 3px rgba(0, 0, 0, .08);
-		}
-	}
 }
