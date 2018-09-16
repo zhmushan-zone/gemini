@@ -67,7 +67,11 @@ export class User extends BaseEntity {
   @Column()
   joinCourse: {};
 
+  @Column()
   integral: number;
+
+  @Column()
+  shoppingcart: string[];
 
   @BeforeInsert()
   beforeInsert() {
@@ -91,6 +95,7 @@ export class User extends BaseEntity {
     if (!this.watchedUsersId) this.watchedUsersId = [];
     if (!this.joinCourse) this.joinCourse = {};
     if (!this.integral) this.integral = 0;
+    if (!this.shoppingcart) this.shoppingcart = [];
   }
 
   @BeforeUpdate()

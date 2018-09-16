@@ -182,6 +182,13 @@ export class UserController {
     return success();
   }
 
+  @Put('shoppingcart')
+  @UseGuards(AuthGuard('jwt'))
+  async changeShoppingcart(@Usr() user: User, @Body() courseIds: string[]) {
+    this.userService.updateById(user.id.toHexString(), { shoppingcart: courseIds } as User);
+    return success();
+  }
+
   @Post('/has')
   async has(@Body() checkUserDTO: CheckUserDTO) {
     const user = await this.userService.findOne(checkUserDTO);

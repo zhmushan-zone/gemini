@@ -36,6 +36,12 @@ export class CourseController {
     return success(new CourseVO(course));
   }
 
+  @Post('ids')
+  async findGroup(@Body() ids: string[]) {
+    const courses = await this.courseService.findByIds(ids.map(id => new ObjectId(id)));
+    return success(courses.map(c => new CourseVO(c)));
+  }
+
   @Post(':id/comment')
   @UseGuards(AuthGuard('jwt'))
   async createComment(

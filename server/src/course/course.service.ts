@@ -5,6 +5,7 @@ import { MongoRepository } from 'typeorm';
 import { GeminiError } from '../common/error';
 import { ResponseCode } from '../common/utils';
 import { Comment } from '../article/article.entity';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class CourseService {
@@ -32,6 +33,10 @@ export class CourseService {
 
   findAll() {
     return this.courseRepository.find();
+  }
+
+  findByIds(ids: ObjectId[]) {
+    return this.courseRepository.findByIds(ids);
   }
 
   async updateById(authorId: string, id: string, course: Course) {
