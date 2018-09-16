@@ -47,6 +47,21 @@ export default class CoursePreview extends Component {
 	callback(key) {
 		console.log(key)
 	}
+	// 发表评分
+	async handleSendRate() {
+		await axios({
+			method: 'put',
+			url: `/api/courses/rate/${this.state.courseId}`,
+			headers: {
+				token: Cookies.get('_token'),
+			},
+		}).then((res) => {
+			console.log(res.data.data)
+		})
+	}
+	handleSee(id){
+		console.log(id)
+	}
 	render() {
 		const { course } = this.state
 		const { sections } = course
@@ -187,16 +202,18 @@ export default class CoursePreview extends Component {
 									</div>
 									<div className='your-evalute'>
 										<TextArea
+											placeholder='您的总结'
 											rows={4}
-											defaultValue={'请输入你的总结'}
 											value={this.state.summary}
-											onChange={this.stateChange.bind(this, 'summary')}
+											onChange={(e) => this.setState({ summary: e.target.value })}
 										/>
 									</div>
 								</div>
-								<p className='send-evaluate-p'>
-									<div className='send-evaluate'>发表</div>
-								</p>
+								<div className='send-evaluate-p'>
+									<div className='send-evaluate' onClick={this.handleSendRate.bind(this)}>
+										发表
+									</div>
+								</div>
 							</div>
 							<div className='evaluation-item'>
 								<div className='avatar'>

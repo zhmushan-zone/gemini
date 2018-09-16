@@ -9,7 +9,7 @@ class PersonCenterClass extends React.Component {
   render() {
     return (
       <div className="person-center-class-container">
-        <Tabs defaultActiveKey="1" onChange={this.callback} >
+        <Tabs defaultActiveKey="1" onChange={this.callback}>
           <TabPane tab="最近学习" key="1" >
             <div className="study-tl">
               <div className="tl-item">

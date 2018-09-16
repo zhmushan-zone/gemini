@@ -1,7 +1,21 @@
 import React, { Component } from 'react'
 import './videoPageContentQuestionList.scss'
 import { defaultAvatar } from '../../const'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+@withRouter
+@connect((state) => state, {})
 export default class VideoPageContentQuestionList extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			cousecomment: [],
+			couseId: this.props.match.params.couseId,
+		}
+	}
+	componentDidMount() {
+    
+  }
 	render() {
 		return (
 			<div className='video-wenda-container'>
@@ -21,7 +35,7 @@ export default class VideoPageContentQuestionList extends Component {
 						<div className='l-box'>
 							<span>1 回答</span> <span>42 浏览</span>
 						</div>
-            <p>1997</p>
+						<p>1997</p>
 					</div>
 				</div>
 			</div>

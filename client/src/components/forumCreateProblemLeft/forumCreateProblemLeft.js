@@ -17,6 +17,7 @@ class ForumCreateProblemLeft extends Component {
 			title: '',
 			content: '',
 			tags: [],
+			bindCourseId: '',
 		}
 		this.stateChange = this.stateChange.bind(this)
 	}

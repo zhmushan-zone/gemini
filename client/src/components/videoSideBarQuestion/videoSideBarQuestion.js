@@ -5,6 +5,8 @@ import CustomIcon from '@/common/customIcon/customIcon'
 import { createProblem } from '@/redux/actions'
 import './videoSideBarQuestion.scss'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+@withRouter
 @connect((state) => state, { createProblem })
 export default class VideoSideBarQuestion extends Component {
 	constructor(props) {
@@ -12,8 +14,8 @@ export default class VideoSideBarQuestion extends Component {
 		this.state = {
 			content: '',
 			title: '',
-			tags:['前端','后端','数据库'],
-			bindCourseId:""
+			tags:[0,1],
+			bindCourseId:this.props.match.params.courseId
 		}
 		this.stateChange = this.stateChange.bind(this)
 	}
