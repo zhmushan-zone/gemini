@@ -11,7 +11,6 @@ import PersonCenterInformation from '../personCenterInformation/personCenterInfo
 import PersonCenterArticle from '../personCenterArticle/personCenterArticle'
 import personCenterClass from '../personCenterClass/personCenterClass'
 import personCenterFocus from '../personCenterFocus/personCenterFocus'
-import personCenterUpload from '../personCenterUpload/personCenterUpload'
 import personCenterYuanwen from '../personCenterYuanwen/personCenterYuanwen'
 import './personCenter.scss'
 import {defaultAvatar,notSetText} from  '@/const'
@@ -131,13 +130,6 @@ class PersonCener extends React.Component {
 				to: `/personCenter/${UserId}/focus`,
 				is: this.props.location.pathname === `/personCenter/${UserId}/focus`,
 				component: personCenterFocus
-			},
-			{
-				name: '视频',
-				icon: 'shangchuan',
-				to: `/personCenter/${UserId}/myvideo`,
-				is: this.props.location.pathname === `/personCenter/${UserId}/myvideo`,
-				component: personCenterUpload
 			},
 			{
 				name: '问答',

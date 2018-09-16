@@ -40,7 +40,9 @@ export enum ReportType {
   IssueSubReply,
   Article,
   ArticleComment,
-  ArticleSubComment
+  ArticleSubComment,
+  videoReply,
+  videoSubReply
 }
 
 export enum ReportReason {

@@ -10,7 +10,8 @@ class Nav extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      selected: 0
+      selected: 0,
+      searchContent: ''
     }
   }
 
@@ -45,6 +46,12 @@ class Nav extends React.Component {
     }
   }
 
+  search() {
+    if (this.state.searchContent) {
+      this.props.history.push(`/search/${this.state.searchContent}`)
+    }
+  }
+  
   render() {
     var is = this.props.location.pathname.split('/')[1]==='personCenter'
     const personCenterNavBgColor=classnames({
@@ -68,7 +75,7 @@ class Nav extends React.Component {
         }
     })
     return (
-      <nav style={is?{'boxShadow':'none'}:null}>
+      <nav style={is?{'boxShadow':'none'}:null } className="allNav">
         <div className="nav-sections">
           <ul>
             {navSections}
@@ -80,9 +87,9 @@ class Nav extends React.Component {
         <div className="nav-operation"> 
           <div className="nav-search-wrapper">
             <div className="nav-search">
-              <input type="text"/>
+              <input type="text" onChange={(e) => this.setState({searchContent: e.target.value})}/>
               <span>
-                <a>
+                <a onClick={() => this.search()}>
                   <Icon type="search" theme="outlined" />
                 </a>
               </span>

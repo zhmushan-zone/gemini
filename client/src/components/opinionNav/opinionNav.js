@@ -16,17 +16,11 @@ export default class opinionNav extends Component {
 						<div className='article-logo'>
 							<img src={logo} alt='' />
 						</div>
-						<div className='search-warp'>
-							<Input placeholder='搜索感兴趣的知识和文章' className='search' />
-							<div className='icon-container'>
-								<Icon type='search' className='icon-search' />
-							</div>
-						</div>
 						<div className='operate-area'>
 							<Button type='danger' onClick={this.toEditor}>
 								写文章
 							</Button>
-							<Button type=''>动态圈</Button>
+							{/* <Button type=''>动态圈</Button> */}
 						</div>
 					</div>
 				</nav>

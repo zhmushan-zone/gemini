@@ -11,10 +11,10 @@ export default class articleExcellentSeven extends Component {
 		this.state = {
 			articleWeeklyId: {},
 			articleWeekly: [],
+			show: true,
 		}
 	}
 	async componentDidMount() {
-
 		// 获取全部用户
 		await axios({
 			method: 'GET',
@@ -33,18 +33,19 @@ export default class articleExcellentSeven extends Component {
 		await axios({
 			method: 'post',
 			url: `/api/articles/ids`,
-			data:sortable,
+			data: sortable,
 			headers: {
 				token: Cookies.get('_token'),
 			},
 		}).then((res) => {
 			this.setState({
 				articleWeekly: res.data.data,
+				show: false,
 			})
 		})
 	}
 	render() {
-		const { articleWeekly } = this.state
+		const { articleWeekly, show } = this.state
 		return (
 			<div className='article-excellent-seven-container'>
 				<div className='headImg'>7日精选文章</div>
@@ -69,9 +70,8 @@ export default class articleExcellentSeven extends Component {
 								/>
 							)
 						})
-					) : (
-						<Loading />
-					)}
+					) : null}
+					<Loading show={show} title={'加载中.....'} />
 				</div>
 			</div>
 		)
