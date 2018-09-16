@@ -19,7 +19,8 @@ const initState = {
 	watchIssuesId: [],
 	watchUsersId: [],
 	watchedUsersId: [],
-	personCenterInfo: ''
+	personCenterInfo: '',
+	shoppingcart: []
 }
 
 const courseInitState = {
@@ -70,6 +71,10 @@ const searchInit = {
 	courses: [],
 	problems: [],
 	articles: []
+}
+
+const shoppingCartInit = {
+	courses: []
 }
 
 export function userstatus(state = initState, action) {
@@ -389,6 +394,18 @@ export function search(state = searchInit, action) {
 	}
 }
 
+export function shoppingCart(state = shoppingCartInit, action) {
+	switch (action.type) {
+		case ActionTypes.GET_SHOPPING_CART:
+			return {
+				...state,
+				courses: action.payload
+			}
+		default: 
+			return state
+	}
+}
+
 export default combineReducers({
 	userstatus,
 	course,
@@ -399,5 +416,6 @@ export default combineReducers({
 	video,
 	search,
 	problemComment,
-	report
+	report,
+	shoppingCart
 })

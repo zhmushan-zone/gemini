@@ -4,11 +4,11 @@ import './loading.scss'
 class Loading extends React.Component {
 	render() {
 		return (
-			<div class="loading" style={this.props.style}>
-				<div class="c1"></div>
-				<div class="c2"></div>
-				<div class="c3"></div>
-				<div class="c4"></div>
+			<div className="loading" style={this.props.style}>
+				<div className="c1"></div>
+				<div className="c2"></div>
+				<div className="c3"></div>
+				<div className="c4"></div>
 			</div>
 		)
 	}
