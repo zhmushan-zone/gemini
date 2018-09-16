@@ -10,6 +10,7 @@ import { ArticleModule } from './article/article.module';
 import { IssueModule } from './issue/issue.module';
 import { ReportModule } from './report/report.module';
 import { VideoModule } from './video/video.module';
+import { NoticeModule } from './notice/notice.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { VideoModule } from './video/video.module';
     ArticleModule,
     IssueModule,
     ReportModule,
-    VideoModule
+    VideoModule,
+    NoticeModule
   ],
   controllers: [AppController],
   providers: [AppService]

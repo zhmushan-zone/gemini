@@ -13,6 +13,9 @@ import { ObjectId } from 'bson';
 import { UserVO } from '../user/vo/user.vo';
 import { Allow } from '../user/role.decorators';
 import { Common } from '../common/common.entity';
+import { NoticeService } from '../notice/notice.service';
+import { NoticeGateway } from '../notice/notice.gateway';
+import { Notice, NoticeType } from '../notice/notice.entity';
 
 @Controller('/api/articles')
 export class ArticleController {

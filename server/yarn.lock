@@ -52,12 +52,12 @@
   version "5.0.0"
   resolved "http://registry.npm.taobao.org/@nestjs/typeorm/download/@nestjs/typeorm-5.0.0.tgz#d8ae64cb03d350e1fe4c7cea58d62fa4c3b2e4e2"
 
-"@nestjs/websockets@^5.0.0":
-  version "5.0.1"
-  resolved "http://registry.npm.taobao.org/@nestjs/websockets/download/@nestjs/websockets-5.0.1.tgz#1714e05f3b75d18ba0a6031cbe0e3ac5fee52e12"
+"@nestjs/websockets@^5.3.7":
+  version "5.3.7"
+  resolved "https://registry.yarnpkg.com/@nestjs/websockets/-/websockets-5.3.7.tgz#2baa6afc2ad12188f4cd0d57162e2e339f9d2a4b"
   dependencies:
     iterare "0.0.8"
-    socket.io "^2.0.3"
+    socket.io "^2.1.1"
 
 "@nodelib/fs.stat@^1.0.1":
   version "1.1.0"
@@ -190,6 +190,12 @@
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
+
+"@types/socket.io@^1.4.38":
+  version "1.4.38"
+  resolved "https://registry.yarnpkg.com/@types/socket.io/-/socket.io-1.4.38.tgz#ee1e16d66242a153e1e27aad5a99e0513c39a0ae"
+  dependencies:
+    "@types/node" "*"
 
 "@types/strip-bom@^3.0.0":
   version "3.0.0"
@@ -6120,7 +6126,7 @@ socket.io-parser@~3.2.0:
     debug "~3.1.0"
     isarray "2.0.1"
 
-socket.io@^2.0.3, socket.io@^2.1.1:
+socket.io@^2.1.1:
   version "2.1.1"
   resolved "http://registry.npm.taobao.org/socket.io/download/socket.io-2.1.1.tgz#a069c5feabee3e6b214a75b40ce0652e1cfb9980"
   dependencies:
