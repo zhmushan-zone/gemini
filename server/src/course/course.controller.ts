@@ -110,20 +110,20 @@ export class CourseController {
   async updateOne(
     @Usr() user: User,
     @Body() updateCourseDTO: UpdateCourseDTO,
-    @Param('id') id
+    @Param('id') id: string
   ) {
     const res = await this.courseService.updateById(user.id.toHexString(), id, updateCourseDTO);
     if (res instanceof GeminiError) return response(res.code);
     return success(new CourseVO(res));
   }
 
-  @Put(':id/:rate')
+  @Put('rate/:id')
   @UseGuards(AuthGuard('jwt'))
-  async rate(@Usr() user: User, @Param('id') id: string, @Param('rate') rate: string) {
+  async rate(@Usr() user: User, @Param('id') id: string, @Body() rate: {num: number, content: string}) {
     const course = await this.courseService.findById(id);
     if (!course) return success(ResponseCode.NOT_EXISIT);
     if (!course.joinersId.includes(user.id.toHexString())) return success(ResponseCode.NOT_COURSE_JOINER);
-    course.rate = (course.rate * (course.joinersId.length - 1) + Number.parseFloat(rate)) / course.joinersId.length;
+    course.rate.num = (course.rate.num * (course.joinersId.length - 1) + rate.num) / course.joinersId.length;
     this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate } as Course);
     return success();
   }
