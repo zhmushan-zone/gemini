@@ -56,7 +56,7 @@ class App extends React.Component {
                 <Route path="/article/:id" component={ArticleSample}></Route>
                 <Route path="/excellentSeven" component={ArticleExcellentSeven}></Route>
                 <Route path="/excellentThirty" component={ArticleExcellentThirty}></Route>
-                <Route path="/class" component={CoursePreview}></Route>
+                <Route path="/class/:courseId" component={CoursePreview}></Route>
                 <Redirect path="/" to={{ pathname: '/home' }} />       
               </Switch>
               <Footer />

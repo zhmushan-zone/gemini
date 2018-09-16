@@ -2,16 +2,23 @@ import React, { Component } from 'react'
 import { Input, Button } from 'antd'
 import ProblemEditor from '../CreateProblemItems/problemEditor/problemEditor'
 import CustomIcon from '@/common/customIcon/customIcon'
+import { createProblem } from '@/redux/actions'
 import './videoSideBarQuestion.scss'
-import 'simplemde/dist/simplemde.min.css'
+import { connect } from 'react-redux'
+@connect((state) => state, { createProblem })
 export default class VideoSideBarQuestion extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			content: '',
-			question: '',
+			title: '',
+			tags:['前端','后端','数据库'],
+			bindCourseId:""
 		}
 		this.stateChange = this.stateChange.bind(this)
+	}
+	componentDidMount() {
+		
 	}
 	handleChange(key, e) {
 		this.setState({
@@ -24,7 +31,7 @@ export default class VideoSideBarQuestion extends Component {
 		})
 	}
 	handleSubmit = () => {
-		console.log(this.state)
+		this.props.createProblem(this.state)
 	}
 	stateChange(key, value) {
 		this.setState({
@@ -44,8 +51,8 @@ export default class VideoSideBarQuestion extends Component {
 					size='large'
 					placeholder='请输入您的问题'
 					className='question'
-					value={this.state.question}
-					onChange={this.handleChange.bind(this, 'question')}
+					value={this.state.title}
+					onChange={this.handleChange.bind(this, 'title')}
 				/>
 				{/* <SimpleMDE
           onChange={this.Change.bind(this)}
