@@ -27,6 +27,7 @@ import { Course } from './course.entity';
 import { ObjectId } from 'mongodb';
 import { from, forkJoin } from 'rxjs';
 import { map, scan } from 'rxjs/operators';
+import { config } from '../config';
 
 @Controller('/api/courses')
 export class CourseController {
@@ -147,6 +148,12 @@ export class CourseController {
     const course = await this.courseService.findById(id);
     if (!course) return response(ResponseCode.NOT_EXISIT);
     if (!course.joinersId.includes(user.id.toHexString())) return response(ResponseCode.NOT_COURSE_JOINER);
+
+    if (course.rate[user.id.toHexString()] !== null && course.rateComment[user.id.toHexString()] !== null) {
+      const err = await this.userService.addIntegral(user.id.toHexString(), config.integral.course.rateAndRateComment);
+      if (err instanceof GeminiError) response(err.code);
+    }
+
     course.rate[user.id.toHexString()] = rate;
     course.rateComment[user.id.toHexString()] = rateComment;
     await this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate, rateComment: course.rateComment } as Course);

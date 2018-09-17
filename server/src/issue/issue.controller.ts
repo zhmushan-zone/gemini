@@ -11,6 +11,7 @@ import { UserService } from '../user/user.service';
 import { CreateIssueDTO, UpdateIssueDTO, CreateReplyDTO, CreateSubReplyDTO, FetchIssueByTagsDTO } from './dto';
 import { IssueVO, ReplyVO, SubReplyVO } from './vo';
 import { Common } from '../common/common.entity';
+import { config } from '../config';
 
 @Controller('/api/issues')
 export class IssueController {
@@ -21,6 +22,10 @@ export class IssueController {
     const issue = await this.issueService.save(user.id.toHexString(), createIssueDTO);
     const issueVO = new IssueVO(issue);
     issueVO.authorAvatar = user.avatar;
+
+    const err = await this.userService.addIntegral(user.id.toHexString(), config.integral.issue.create);
+    if (err instanceof GeminiError) response(err.code);
+
     return success(issueVO);
   }
 
@@ -50,6 +55,8 @@ export class IssueController {
     if (res instanceof GeminiError) return response(res.code);
 
     this.commonEntity.increaseIssueReplyNum(user.id.toHexString());
+    const err = this.userService.addIntegral(user.id.toHexString(), config.integral.issue.reply);
+    if (err instanceof GeminiError) response(err.code);
 
     return success({
       ...new ReplyVO(reply),
@@ -334,6 +341,10 @@ export class IssueController {
     }
     const res = await this.issueService.updateReplyById(reply.authorId, id, { upersId: reply.upersId } as Reply);
     if (res instanceof GeminiError) return response(res.code);
+
+    const err = await this.userService.addIntegral(reply.authorId, config.integral.issue.replyUp);
+    if (err instanceof GeminiError) response(err.code);
+
     return success();
   }
 
