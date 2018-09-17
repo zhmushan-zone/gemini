@@ -25,6 +25,8 @@ import { Article } from '../article/article.entity';
 import { CommentVO } from '../article/vo';
 import { Course } from './course.entity';
 import { ObjectId } from 'mongodb';
+import { from, forkJoin } from 'rxjs';
+import { map, scan } from 'rxjs/operators';
 
 @Controller('/api/courses')
 export class CourseController {
@@ -130,18 +132,24 @@ export class CourseController {
     return success();
   }
 
-  @Put('join/:id')
+  @Put('join')
   @UseGuards(AuthGuard('jwt'))
-  async courseJoin(@Usr() user: User, @Param('id') id: string) {
-    const course = await this.courseService.findById(id);
-    if (!course) return success(ResponseCode.NOT_EXISIT);
-    if (course.joinersId.includes(user.id.toHexString())) return success(ResponseCode.ALREADY_COURSE_JOINER);
-    if (!(user.integral - course.price >= 0)) return success(ResponseCode.INTEGRAL_NOT_ENOUGH);
-    course.joinersId.push(user.id.toHexString());
-    user.joinCourse.push(course.id.toHexString());
-    user.integral -= course.price;
-    this.userService.updateById(user.id.toHexString(), { joinCourse: user.joinCourse, integral: user.integral } as User);
-    this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate, joinersId: course.joinersId } as Course);
+  async courseJoin(@Usr() user: User, @Body() ids: string[]) {
+    const courses = from(await this.courseService.findByIds(ids.map(i => new ObjectId(i))));
+    const amount = (await forkJoin(courses.pipe(
+      map(c => c.price),
+      scan((acc, p) => acc + p)
+    )).toPromise())[0];
+    if (!(amount <= user.integral)) return success(ResponseCode.INTEGRAL_NOT_ENOUGH);
+    courses.subscribe(async course => {
+      if (!course.joinersId.includes(user.id.toHexString())) {
+        course.joinersId.push(user.id.toHexString());
+        user.joinCourse.push(course.id.toHexString());
+        user.integral -= course.price;
+        await this.userService.updateById(user.id.toHexString(), { joinCourse: user.joinCourse, integral: user.integral } as User);
+        await this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate, joinersId: course.joinersId } as Course);
+      }
+    });
     return success();
   }
 
