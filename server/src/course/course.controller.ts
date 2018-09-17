@@ -124,7 +124,7 @@ export class CourseController {
   async rate(@Usr() user: User, @Param('id') id: string, @Body() rateInfo: { rate: number, rateComment: string }) {
     const { rate, rateComment } = rateInfo;
     const course = await this.courseService.findById(id);
-    if (!course) return success(ResponseCode.NOT_EXISIT);
+    if (!course) return response(ResponseCode.NOT_EXISIT);
     if (!course.joinersId.includes(user.id.toHexString())) return success(ResponseCode.NOT_COURSE_JOINER);
     course.rate[user.id.toHexString()] = rate;
     course.rateComment[user.id.toHexString()] = rateComment;
