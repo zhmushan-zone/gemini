@@ -209,10 +209,18 @@ export class IssueController {
     return success(replys.map(r => r.issueId));
   }
 
-  @Get('courses/:id')
+  @Get('course/:id')
   async findByCourseId(@Param('id') id: string) {
     const issues = await this.issueService.findByCourseId(id);
-    return success(issues.map(i => new IssueVO(i)));
+    const res = [] as IssueVO[];
+    for (const i of issues) {
+      const author = await this.userService.findById(i.authorId);
+      const issueVO = new IssueVO(i);
+      issueVO.authorUsername = author.username;
+      issueVO.authorAvatar = author.avatar;
+      res.push(issueVO);
+    }
+    return success(res);
   }
 
   @Get('author/:id')
