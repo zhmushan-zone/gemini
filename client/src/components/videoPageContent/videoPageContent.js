@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import CoursePreview from '@/common/coursePreview/coursePreview'
 import VideoPageContentComment from '../videoPageContentComment/videoPageContentComment'
 import VideoPageContentQuestion from '../videoPageContentQuestion/videoPageContentQuestion'
-import VideoPageContentNote from '../videoPageContentNote/videoPageContentNote'
+// import VideoPageContentNote from '../videoPageContentNote/videoPageContentNote'
 import './videoPageContent.scss'
 
 

@@ -1,5 +1,16 @@
 .person-center-article {
 	padding-top: 46px;
+	.ant-tabs-tab{
+		&:hover{
+			color: red;
+		}
+	}
+	.ant-tabs-tab-active{
+		color: red;
+	}
+	.ant-tabs-ink-bar{
+		background: red;
+	}
 	.notattend {
 		margin-top: 150px;
 		font-size: 18px;
