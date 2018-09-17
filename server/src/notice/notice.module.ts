@@ -8,6 +8,7 @@ import { NoticeService } from './notice.service';
 
 @Module({
   imports: [AuthModule, TypeOrmModule.forFeature([Notice])],
+  controllers: [NoticeController],
   providers: [NoticeGateway, NoticeService],
   exports: [NoticeGateway, NoticeService]
 })
