@@ -16,6 +16,7 @@ import { Common } from '../common/common.entity';
 import { NoticeService } from '../notice/notice.service';
 import { NoticeGateway } from '../notice/notice.gateway';
 import { Notice, NoticeType } from '../notice/notice.entity';
+import { config } from '../config';
 
 @Controller('/api/articles')
 export class ArticleController {
@@ -219,6 +220,8 @@ export class ArticleController {
     if (res instanceof GeminiError) return response(res.code);
 
     this.commonEntity.increaseArticleUpNum(id);
+    const err = this.userService.addIntegral(user.id.toHexString(), config.integral.article.up);
+    if (err instanceof GeminiError) return response(err.code);
 
     return success(res.upersId.length);
   }
@@ -228,8 +231,14 @@ export class ArticleController {
   @UseGuards(AuthGuard('jwt'))
   async changeStatus(@Param('id') id: string, @Param('status') status: ArticleStatus) {
     status = ArticleStatus[ArticleStatus[status]];
-    const err = await this.articleService.updateByIdWithAdmin(id, { status } as Article);
+    const article = await this.articleService.findById(id);
+    if (!article) response(ResponseCode.NOT_EXISIT);
+    let err: any = await this.articleService.updateByIdWithAdmin(id, { status } as Article);
     if (err instanceof GeminiError) return response(err.code);
+
+    err = this.userService.addIntegral(article.authorId, config.integral.article.reviewed);
+    if (err instanceof GeminiError) return response(err.code);
+
     return success();
   }
 

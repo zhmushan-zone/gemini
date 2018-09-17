@@ -71,7 +71,7 @@ export default class articleExcellentSeven extends Component {
 							)
 						})
 					) : null}
-					<Loading show={show} title={'加载中.....'} />
+					{this.state.show ? <Loading /> : null}
 				</div>
 			</div>
 		)

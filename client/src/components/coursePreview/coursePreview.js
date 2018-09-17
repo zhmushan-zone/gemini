@@ -2,18 +2,18 @@ import React, { Component } from 'react'
 import './coursePreview.scss'
 import { Tabs, Input } from 'antd'
 import CustomIcon from '@/common/customIcon/customIcon'
-import { getVideoComment } from '@/redux/actions.js'
+import { getVideoComment, getCourseOne, courseRate } from '@/redux/actions.js'
 import { Rate } from 'antd'
 import Share from '@/share'
 import axios from 'axios'
 import { defaultAvatar } from '@/const'
 import { connect } from 'react-redux'
-import Cookies from 'js-cookie'
 import { withRouter } from 'react-router'
+import { formatDate } from '@/util/time'
 const TabPane = Tabs.TabPane
 const { TextArea } = Input
 @withRouter
-@connect((state) => state, { getVideoComment })
+@connect((state) => state, { getVideoComment, getCourseOne, courseRate })
 export default class CoursePreview extends Component {
 	constructor(props) {
 		super(props)
@@ -22,6 +22,7 @@ export default class CoursePreview extends Component {
 			course: {},
 			summary: '',
 			rate: '',
+			users: [],
 		}
 	}
 	stateChange(key, value) {
@@ -30,30 +31,60 @@ export default class CoursePreview extends Component {
 		})
 	}
 	async componentDidMount() {
-		// 获取课程
+		//获取指定课程
+		await this.props.getCourseOne(this.state.courseId)
+		let rate = await this.props.video.rate
+		let rateArray = await Object.keys(rate)
 		await axios({
-			method: 'GET',
-			url: `/api/courses/${this.state.courseId}`,
-			headers: {
-				token: Cookies.get('_token'),
-			},
+			method: 'post',
+			url: `/api/users/ids`,
+			data: rateArray,
 		}).then((res) => {
 			this.setState({
-				course: res.data.data,
+				users: res.data.data,
 			})
-			Cookies.set('video-commentsId', res.data.data.commentsId)
 		})
 	}
 	callback(key) {
 		console.log(key)
 	}
+	// 发表评分
+	async handleSendRate() {
+		// await axios({
+		// 	method: 'put',
+		// 	url: `/api/courses/join`,
+		// 	headers: {
+		// 		token: Cookies.get('_token'),
+		// 	},
+		// 	data: [ this.state.courseId ],
+		// }).then((res) => {
+		// 	console.log(res.data.data)
+		// })
+		await this.props.courseRate(this.state.courseId, this.state.rate, this.state.summary)
+	}
+	handleSee(id) {
+		console.log(id)
+	}
 	render() {
-		const { course } = this.state
-		const { sections } = course
-		const { video } = this.props
+		const { users } = this.state
+		const video = this.props.video
+		const { course } = video
+		const sections = course.sections ? course.sections : []
 		const comment = video.comment
 		const difficulty = [ '初级', '中级', '高级' ]
-		console.log(course)
+		let loginuser = this.props.userstatus.avatar
+		let rateComment = video.rateComment
+		let rate = video.rate
+		let rateArray = rate ? Object.keys(rate) : []
+		let rateValue = rate ? Object.values(rate) : []
+		var num = 0
+		rateValue.map((v) => {
+			num += v
+		})
+		let rateLength = rateArray.length === 0 ? 1 : rateArray.length
+		let average = num / rateLength
+		console.log(rateLength)
+		let rateCommentArray = rateComment ? Object.keys(rateComment) : []
 		return (
 			<div className='course-class-infos-container'>
 				<div className='course-class-infos'>
@@ -91,7 +122,7 @@ export default class CoursePreview extends Component {
 								<span>难度{difficulty[course.difficulty]}</span>
 								<span>时长17小时</span>
 								<span>学习人数629</span>
-								<span>综合评分{course.rate}分</span>
+								<span>综合评分5分</span>
 							</div>
 						</div>
 					</div>
@@ -120,7 +151,7 @@ export default class CoursePreview extends Component {
 					<Tabs defaultActiveKey='1' onChange={this.callback} size='large' className='tab-course-preview'>
 						<TabPane tab='课程章节' key='1'>
 							<div className='chapter'>
-								<div className='course-description'>简介：讲解 Rigidbody 组件和触发器的基础使用方法，串联讲解的内容，完成平衡球小游戏的制作，同时了解各种陷阱制作。</div>
+								<div className='course-description'>{course.desc}</div>
 							</div>
 							{sections ? (
 								sections.map((v, i) => (
@@ -173,48 +204,54 @@ export default class CoursePreview extends Component {
 						<TabPane tab='用户评价' key='3'>
 							<div className='evaluation-info'>
 								<div className='evaluation-title'>综合评分</div>
-								<div className='evaluation-score'>5.0</div>
-								<Rate disabled defaultValue={5} />
+								<div className='evaluation-score'>{average}</div>
+								<Rate disabled defaultValue={average} />
 							</div>
 							<div className='evaluate'>
 								<div className='your'>
 									<h2>请输入您的评分</h2>
-									<Rate allowHalf defaultValue={0} onChange={(num) => this.stateChange.bind(this, 'rate')} />
+									<Rate allowHalf defaultValue={0} onChange={(rate) => this.setState({ rate: rate })} />
 								</div>
 								<div className='evaluate-item'>
 									<div className='avatar'>
-										<img src={defaultAvatar} alt='' />
+										<img src={loginuser ? `/avatar/${loginuser}` : defaultAvatar} alt='' />
 									</div>
 									<div className='your-evalute'>
 										<TextArea
+											placeholder='您的总结'
 											rows={4}
-											defaultValue={'请输入你的总结'}
 											value={this.state.summary}
-											onChange={this.stateChange.bind(this, 'summary')}
+											onChange={(e) => this.setState({ summary: e.target.value })}
 										/>
 									</div>
 								</div>
-								<p className='send-evaluate-p'>
-									<div className='send-evaluate'>发表</div>
-								</p>
-							</div>
-							<div className='evaluation-item'>
-								<div className='avatar'>
-									<img src={defaultAvatar} alt='' />
-								</div>
-								<div className='content'>
-									<div className='top'>
-										<span>shoukailiang</span>
-										<Rate disabled defaultValue={0} />
-									</div>
-									<div className='con'>
-										<p>正好看</p>
-									</div>
-									<div className='time'>
-										<span>1997</span>
+								<div className='send-evaluate-p'>
+									<div className='send-evaluate' onClick={this.handleSendRate.bind(this)}>
+										发表
 									</div>
 								</div>
 							</div>
+							{rateArray.map((v, i) => {
+								return (
+									<div className='evaluation-item' key={i}>
+										<div className='avatar'>
+											<img src={users[i] ? `/avatar/${users[i].avatar}` : defaultAvatar} alt='' />
+										</div>
+										<div className='content'>
+											<div className='top'>
+												<span>{users[i] ? users[i].username : ''}</span>
+												<Rate disabled defaultValue={rate[v]} />
+											</div>
+											<div className='con'>
+												<p>{rateComment[v]}</p>
+											</div>
+											{/* <div className='time'>
+												<span>1997</span>
+											</div> */}
+										</div>
+									</div>
+								)
+							})}
 						</TabPane>
 					</Tabs>,
 				</div>

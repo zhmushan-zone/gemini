@@ -3,7 +3,9 @@ import { BaseEntity } from './base.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { scheduleJob } from 'node-schedule';
-import { WatchTag } from '../user/user.entity';
+import { WatchTag, User } from '../user/user.entity';
+import { UserService } from '../user/user.service';
+import { config } from '../config';
 
 @Entity()
 @Injectable()
@@ -52,6 +54,22 @@ export class Common extends BaseEntity {
     const commonData = await this.get();
     commonData.issueReplyNumWeekly = {};
     this.save(commonData);
+
+    const keys = Object.keys(commonData.issueReplyNumWeekly)
+      .sort(
+        (key1, key2) =>
+          commonData.issueReplyNumWeekly[key2] - commonData.issueReplyNumWeekly[key1]
+      );
+    if (keys[0]) this.userService.addIntegral(keys[0], config.integral.issue.weekRank.first);
+    if (keys[1]) this.userService.addIntegral(keys[1], config.integral.issue.weekRank.second);
+    if (keys[2]) this.userService.addIntegral(keys[2], config.integral.issue.weekRank.third);
+    if (keys[3]) this.userService.addIntegral(keys[3], config.integral.issue.weekRank.fourthTOTenth);
+    if (keys[4]) this.userService.addIntegral(keys[4], config.integral.issue.weekRank.fourthTOTenth);
+    if (keys[5]) this.userService.addIntegral(keys[5], config.integral.issue.weekRank.fourthTOTenth);
+    if (keys[6]) this.userService.addIntegral(keys[6], config.integral.issue.weekRank.fourthTOTenth);
+    if (keys[7]) this.userService.addIntegral(keys[7], config.integral.issue.weekRank.fourthTOTenth);
+    if (keys[8]) this.userService.addIntegral(keys[8], config.integral.issue.weekRank.fourthTOTenth);
+    if (keys[9]) this.userService.addIntegral(keys[9], config.integral.issue.weekRank.fourthTOTenth);
   }
 
   async increaseUserApprovedNumByTags(tags: WatchTag[], userId: string) {
@@ -83,12 +101,44 @@ export class Common extends BaseEntity {
     const commonData = await this.get();
     commonData.articleUpNumWeekly = {};
     this.save(commonData);
+
+    const keys = Object.keys(commonData.articleUpNumWeekly)
+      .sort(
+        (key1, key2) =>
+          commonData.articleUpNumWeekly[key2] - commonData.articleUpNumWeekly[key1]
+      );
+    if (keys[0]) this.userService.addIntegral(keys[0], config.integral.article.weekRank.first);
+    if (keys[1]) this.userService.addIntegral(keys[1], config.integral.article.weekRank.second);
+    if (keys[2]) this.userService.addIntegral(keys[2], config.integral.article.weekRank.third);
+    if (keys[3]) this.userService.addIntegral(keys[3], config.integral.article.weekRank.fourthTOTenth);
+    if (keys[4]) this.userService.addIntegral(keys[4], config.integral.article.weekRank.fourthTOTenth);
+    if (keys[5]) this.userService.addIntegral(keys[5], config.integral.article.weekRank.fourthTOTenth);
+    if (keys[6]) this.userService.addIntegral(keys[6], config.integral.article.weekRank.fourthTOTenth);
+    if (keys[7]) this.userService.addIntegral(keys[7], config.integral.article.weekRank.fourthTOTenth);
+    if (keys[8]) this.userService.addIntegral(keys[8], config.integral.article.weekRank.fourthTOTenth);
+    if (keys[9]) this.userService.addIntegral(keys[9], config.integral.article.weekRank.fourthTOTenth);
   }
 
   async emptyArticleUpNumMonthly() {
     const commonData = await this.get();
     commonData.articleUpNumMonthly = {};
     this.save(commonData);
+
+    const keys = Object.keys(commonData.articleUpNumMonthly)
+      .sort(
+        (key1, key2) =>
+          commonData.articleUpNumMonthly[key2] - commonData.articleUpNumMonthly[key1]
+      );
+    if (keys[0]) this.userService.addIntegral(keys[0], config.integral.article.monthRank.first);
+    if (keys[1]) this.userService.addIntegral(keys[1], config.integral.article.monthRank.second);
+    if (keys[2]) this.userService.addIntegral(keys[2], config.integral.article.monthRank.third);
+    if (keys[3]) this.userService.addIntegral(keys[3], config.integral.article.monthRank.fourthTOTenth);
+    if (keys[4]) this.userService.addIntegral(keys[4], config.integral.article.monthRank.fourthTOTenth);
+    if (keys[5]) this.userService.addIntegral(keys[5], config.integral.article.monthRank.fourthTOTenth);
+    if (keys[6]) this.userService.addIntegral(keys[6], config.integral.article.monthRank.fourthTOTenth);
+    if (keys[7]) this.userService.addIntegral(keys[7], config.integral.article.monthRank.fourthTOTenth);
+    if (keys[8]) this.userService.addIntegral(keys[8], config.integral.article.monthRank.fourthTOTenth);
+    if (keys[9]) this.userService.addIntegral(keys[9], config.integral.article.monthRank.fourthTOTenth);
   }
 
   repository() {
@@ -113,7 +163,9 @@ export class Common extends BaseEntity {
 
   constructor(
     @InjectRepository(Common)
-    private readonly commonRepository: MongoRepository<Common>
+    private readonly commonRepository: MongoRepository<Common>,
+    @InjectRepository(User)
+    private readonly userService: UserService
   ) {
     super();
     scheduleJob('0 0 0 * * 1', this.emptyIssueReplyNumWeekly);

@@ -4,6 +4,15 @@ div {
 
 .person-center-class-container {
   padding-top: 46px;
+  .ant-tabs-tab{
+    color: red;
+    &:hover{
+      color: red;
+    }
+  }
+  .ant-tabs-ink-bar{
+    background: red;
+  }
   .study-tl {
     padding: 0px 0px 0px 64px;
   }

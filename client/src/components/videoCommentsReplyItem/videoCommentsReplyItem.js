@@ -29,7 +29,7 @@ class VideoCommentsReplyItem extends Component {
 			},
 			data: {
 				srcId: this.props.subCommentId,
-				type: 5,
+				type: 7,
 				msg: this.state.reportContent,
 				reason: this.state.reportType,
 			},

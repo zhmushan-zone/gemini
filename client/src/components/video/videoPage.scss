@@ -1,101 +1,110 @@
-.video-page-container{
-  display: flex;
-  height: 800px;
-  .course-sidebar-layout{
-    display: flex;
-    background: #1C1F21;
-    width: 80px;
-    align-items: center;
-    height: 100%;
-    position: relative;
-    dl{
-      flex: 1;
-      width: 100%;
-      dd{
-        display: flex;
-        height: 72px;
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        &:hover{
-          background: #26292C;
-          color: #ccc;
-        }
-      }
-    }
-    span{
-      font-size: 12px;
-      color: rgba(255,255,255,.4);
-      line-height: 18px;
-    }
-  }
-  .video{
-    flex: 1;
-    height: 100%;
-    background: #1C1F21;
-  }
-  .video-panel{
-    justify-content: center;
-    &:hover{
-      cursor: pointer;
-    }
-  }
-  .teacher-msg{
-    padding: 20px;
-    position: relative;
-    background: #1C1F21;
-    .delete{
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-    }
-    .v-teachers{
-      margin-bottom: 16px;
-      display: flex;
-      dd{
-        margin-left: 12px;
-      }
-      .v-t-nickname{
-        font-size: 16px;
-        color: #FFF;
-        line-height: 24px;
-      }
-      .v-t-title{
-        font-size: 12px;
-        color: rgba(255,255,255,.8);
-        line-height: 18px;
-      }
-    }
-    .v-teachers-info{
-      font-size: 12px;
-      color: rgba(255,255,255,.6);
-      line-height: 22px;
-    }
-    .v-teachers-img{
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      overflow: hidden;
-      img{
-        height: 100%;
-        width: 100%;
-      }
-    }
-  }
-  .question{
-    padding: 20px;
-    position: relative;
-    background: white;
-  }
-  .note{
-    padding: 20px;
-    position: relative;
-    background: white;
-  }
+.video-page-container {
+	display: flex;
+	height: 800px;
+	.course-sidebar-layout {
+		display: flex;
+		background: #1c1f21;
+		width: 80px;
+		align-items: center;
+		height: 100%;
+		position: relative;
+		dl {
+			flex: 1;
+			width: 100%;
+			dd {
+				display: flex;
+				height: 72px;
+				flex-direction: column;
+				text-align: center;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				&:hover {
+					background: #26292c;
+					color: #ccc;
+				}
+			}
+		}
+		span {
+			font-size: 12px;
+			color: rgba(255, 255, 255, .4);
+			line-height: 18px;
+		}
+	}
+	.video {
+		flex: 1;
+		height: 100%;
+		background: #1c1f21;
+	}
+	.video-panel {
+		justify-content: center;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	.teacher-msg {
+		position: absolute;
+		top: 60px;
+		right: 0px;
+		padding: 20px;
+		height: 800px;
+		background: #1c1f21;
+		.delete {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			cursor: pointer;
+		}
+		.v-teachers {
+			margin-bottom: 16px;
+			display: flex;
+			dd {
+				margin-left: 12px;
+			}
+			.v-t-nickname {
+				font-size: 16px;
+				color: #fff;
+				line-height: 24px;
+			}
+			.v-t-title {
+				font-size: 12px;
+				color: rgba(255, 255, 255, .8);
+				line-height: 18px;
+			}
+		}
+		.v-teachers-info {
+			font-size: 12px;
+			color: rgba(255, 255, 255, .6);
+			line-height: 22px;
+		}
+		.v-teachers-img {
+			width: 48px;
+			height: 48px;
+			border-radius: 50%;
+			overflow: hidden;
+			img {
+				height: 100%;
+				width: 100%;
+			}
+		}
+	}
+	.question {
+		height: 800px;
+		padding: 20px;
+		position: absolute;
+		background: white;
+		top: 60px;
+		right: 0;
+	}
+	.note {
+		padding: 20px;
+		position: relative;
+		background: white;
+	}
 }
-.none{
-  display: none!important;
+.none {
+	display: none !important;
+}
+.op-zero {
+	opacity: 0;
 }

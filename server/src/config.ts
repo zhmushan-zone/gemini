@@ -33,6 +33,45 @@ export const config = {
     avatar: __dirname + '/../public/avatar',
     video: __dirname + '/../public/video',
     coverImg: __dirname + '/../public/cover-img'
+  },
+  integral: {
+    article: {
+      reviewed: 20,
+      weekRank: {
+        first: 50,
+        second: 30,
+        third: 20,
+        fourthTOTenth: 10
+      },
+      monthRank: {
+        first: 100,
+        second: 70,
+        third: 50,
+        fourthTOTenth: 30
+      },
+      up: 0.4
+    },
+    course: {
+      up: 0.2,
+      rateAndRateComment: 5
+    },
+    issue: {
+      create: -5,
+      reply: 3,
+      replyUp: 0.2,
+      weekRank: {
+        first: 50,
+        second: 30,
+        third: 20,
+        fourthTOTenth: 10
+      },
+      monthRank: {
+        first: 100,
+        second: 70,
+        third: 50,
+        fourthTOTenth: 30
+      }
+    }
   }
 };
 

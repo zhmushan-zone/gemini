@@ -48,7 +48,7 @@ class VideoCommentsItem extends Component {
 			},
 			data: {
 				srcId: this.props.commentId,
-				type: 5,
+				type: 6,
 				msg: this.state.reportContent,
 				reason: this.state.reportType
 			}

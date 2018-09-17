@@ -23,7 +23,14 @@ export class ReportController {
   @Get()
   async findAll() {
     const reports = await this.reportService.findAll();
-    return success(reports.map(r => new ReportVO(r)));
+    const res = [] as ReportVO[];
+    for (const r of reports) {
+      const reportVO = new ReportVO(r);
+      const reporter = await this.userService.findById(r.reporterId);
+      reportVO.reporterUsername = reporter.username;
+      res.push(reportVO);
+    }
+    return success(res);
   }
 
   @Get('type/:type')

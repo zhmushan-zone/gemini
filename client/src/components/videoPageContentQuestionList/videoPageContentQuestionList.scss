@@ -6,6 +6,7 @@
 	border-radius: 12px;
 	position: relative;
 	display: flex;
+
 	.icon-wenda {
 		position: absolute;
 		left: 0;
@@ -29,6 +30,12 @@
 	}
 	.r-content {
 		flex: 1;
+		h2 {
+			cursor: pointer;
+			&:hover {
+				color: red;
+			}
+		}
 		.con {
 			margin-top: 10px;
 			color: #4d555d;
@@ -36,18 +43,18 @@
 			line-height: 22px;
 			word-wrap: break-word;
 			word-break: break-all;
-      overflow: hidden;
-      border-left: 2px solid #D9DDE1;
-      padding-left: 20px;
-    }
-    .last{
-      display: flex;
-      justify-content: space-between;
-    }
-    .l-box{
-      span{
-        padding-right: 20px;
-      }
-    }
+			overflow: hidden;
+			border-left: 2px solid #d9dde1;
+			padding-left: 20px;
+		}
+		.last {
+			display: flex;
+			justify-content: space-between;
+		}
+		.l-box {
+			span {
+				padding-right: 20px;
+			}
+		}
 	}
 }
