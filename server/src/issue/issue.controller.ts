@@ -19,7 +19,9 @@ export class IssueController {
   @UseGuards(AuthGuard('jwt'))
   async create(@Usr() user: User, @Body() createIssueDTO: CreateIssueDTO) {
     const issue = await this.issueService.save(user.id.toHexString(), createIssueDTO);
-    return success(new IssueVO(issue));
+    const issueVO = new IssueVO(issue);
+    issueVO.authorAvatar = user.avatar;
+    return success(issueVO);
   }
 
   @Post('fetch/by-tag/intersect')
