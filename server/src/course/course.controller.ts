@@ -125,7 +125,7 @@ export class CourseController {
     const { rate, rateComment } = rateInfo;
     const course = await this.courseService.findById(id);
     if (!course) return response(ResponseCode.NOT_EXISIT);
-    if (!course.joinersId.includes(user.id.toHexString())) return success(ResponseCode.NOT_COURSE_JOINER);
+    if (!course.joinersId.includes(user.id.toHexString())) return response(ResponseCode.NOT_COURSE_JOINER);
     course.rate[user.id.toHexString()] = rate;
     course.rateComment[user.id.toHexString()] = rateComment;
     await this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate, rateComment: course.rateComment } as Course);
@@ -140,7 +140,7 @@ export class CourseController {
       map(c => c.price),
       scan((acc, p) => acc + p)
     )).toPromise())[0];
-    if (!(amount <= user.integral)) return success(ResponseCode.INTEGRAL_NOT_ENOUGH);
+    if (!(amount <= user.integral)) return response(ResponseCode.INTEGRAL_NOT_ENOUGH);
     courses.subscribe(async course => {
       if (!course.joinersId.includes(user.id.toHexString())) {
         course.joinersId.push(user.id.toHexString());
