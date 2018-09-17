@@ -39,7 +39,10 @@ export class Course extends BaseEntity {
   joinersId: string[];
 
   @Column()
-  rate: number;
+  rate: {}; // userId: rate
+
+  @Column()
+  rateComment: {}; // userId: rateComment
 
   @BeforeInsert()
   beforeInsert() {
@@ -55,7 +58,8 @@ export class Course extends BaseEntity {
     if (!this.authorId) this.authorId = '';
     if (!this.commentsId) this.commentsId = [];
     if (!this.joinersId) this.joinersId = [];
-    if (!this.rate) this.rate = 5;
+    if (!this.rate) this.rate = {};
+    if (!this.rateComment) this.rateComment = {};
   }
 
   @BeforeUpdate()

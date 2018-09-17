@@ -129,7 +129,6 @@ export default class VideoPage extends Component {
 	}
 	render() {
 		const { visible, confirmLoading, course, videoId } = this.state
-		console.log(course)
 		return (
 			<React.Fragment>
 				<VideoHeader courseName={course.title} />

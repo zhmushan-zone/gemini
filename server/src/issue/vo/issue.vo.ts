@@ -15,6 +15,7 @@ export class IssueVO extends Issue {
     this.viewnum = issue.viewnum;
     this.watchersId = issue.watchersId;
     this.status = issue.status;
+    this.bindCourseId = issue.bindCourseId;
     this.updateAt = issue.updateAt;
     this.createAt = issue.createAt;
   }

@@ -894,3 +894,58 @@ export function search(content) {
 		}
 	}
 }
+/* ----------------------------------------------获取购物车信息---------------------------------------------- */
+function getShoppingCartSuccess(courses) {
+	return { type: ActionTypes.GET_SHOPPING_CART, payload: courses }
+}
+
+export function getShoppingCart() {
+	const _id = Cookies.get('_id')
+	return async (dispatch) => {
+		const res1 = await axios({
+			method: 'get',
+			url: `/api/users/${_id}`
+		})
+		if (res1.data.code === 1) {
+			const res2 = await axios({
+				method: 'post',
+				url: '/api/courses/ids',
+				data: res1.data.data.shoppingcart
+			})
+			const courses = []
+      for (let item of res2.data.data) {
+        const course = {}
+        course.id = item.id
+        course.coverImg = item.coverImg
+        course.title = item.title
+        course.price = item.price
+        courses.push(course)
+			}
+			console.log(courses)
+			dispatch(getShoppingCartSuccess(courses))
+		}
+	}
+}
+/* ----------------------------------------------删除购物车内课程---------------------------------------------- */
+export function deleteShoppingCartCourse (courses) {
+	const _token = Cookies.get('_token')
+	const ids = []
+	for (let item of courses) {
+		console.log(item)
+		ids.push(item.id)
+	}
+	console.log()
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'put',
+			url: '/api/users/shoppingcart',
+			headers: {
+				token: _token
+			},
+			data: ids
+		})
+		if (res.data.code === 1) {
+			dispatch(getShoppingCartSuccess(courses))
+		}
+	}
+}

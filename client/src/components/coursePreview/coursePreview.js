@@ -20,7 +20,14 @@ export default class CoursePreview extends Component {
 		this.state = {
 			courseId: this.props.match.params.courseId,
 			course: {},
+			summary: '',
+			rate: '',
 		}
+	}
+	stateChange(key, value) {
+		this.setState({
+			[key]: value,
+		})
 	}
 	async componentDidMount() {
 		// 获取课程
@@ -36,10 +43,6 @@ export default class CoursePreview extends Component {
 			})
 			Cookies.set('video-commentsId', res.data.data.commentsId)
 		})
-		const commentsId = await JSON.parse(Cookies.get('video-commentsId'))
-		setTimeout(() => {
-			this.props.getVideoComment(commentsId)
-		}, 200)
 	}
 	callback(key) {
 		console.log(key)
@@ -176,19 +179,41 @@ export default class CoursePreview extends Component {
 							<div className='evaluate'>
 								<div className='your'>
 									<h2>请输入您的评分</h2>
-									<Rate allowHalf defaultValue={0} />
+									<Rate allowHalf defaultValue={0} onChange={(num) => this.stateChange.bind(this, 'rate')} />
 								</div>
 								<div className='evaluate-item'>
 									<div className='avatar'>
 										<img src={defaultAvatar} alt='' />
 									</div>
 									<div className='your-evalute'>
-										<TextArea rows={4} defaultValue={'请输入你的总结'} />
+										<TextArea
+											rows={4}
+											defaultValue={'请输入你的总结'}
+											value={this.state.summary}
+											onChange={this.stateChange.bind(this, 'summary')}
+										/>
 									</div>
 								</div>
-								<p className="send-evaluate-p">
+								<p className='send-evaluate-p'>
 									<div className='send-evaluate'>发表</div>
 								</p>
+							</div>
+							<div className='evaluation-item'>
+								<div className='avatar'>
+									<img src={defaultAvatar} alt='' />
+								</div>
+								<div className='content'>
+									<div className='top'>
+										<span>shoukailiang</span>
+										<Rate disabled defaultValue={0} />
+									</div>
+									<div className='con'>
+										<p>正好看</p>
+									</div>
+									<div className='time'>
+										<span>1997</span>
+									</div>
+								</div>
 							</div>
 						</TabPane>
 					</Tabs>,

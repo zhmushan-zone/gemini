@@ -110,33 +110,35 @@ export class CourseController {
   async updateOne(
     @Usr() user: User,
     @Body() updateCourseDTO: UpdateCourseDTO,
-    @Param('id') id
+    @Param('id') id: string
   ) {
     const res = await this.courseService.updateById(user.id.toHexString(), id, updateCourseDTO);
     if (res instanceof GeminiError) return response(res.code);
     return success(new CourseVO(res));
   }
 
-  @Put(':id/:rate')
+  @Put('rate/:id')
   @UseGuards(AuthGuard('jwt'))
-  async rate(@Usr() user: User, @Param('id') id: string, @Param('rate') rate: string) {
+  async rate(@Usr() user: User, @Param('id') id: string, @Body() rateInfo: { rate: number, rateComment: string }) {
+    const { rate, rateComment } = rateInfo;
     const course = await this.courseService.findById(id);
     if (!course) return success(ResponseCode.NOT_EXISIT);
     if (!course.joinersId.includes(user.id.toHexString())) return success(ResponseCode.NOT_COURSE_JOINER);
-    course.rate = (course.rate * (course.joinersId.length - 1) + Number.parseFloat(rate)) / course.joinersId.length;
-    this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate } as Course);
+    course.rate[user.id.toHexString()] = rate;
+    course.rateComment[user.id.toHexString()] = rateComment;
+    await this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate, rateComment: course.rateComment } as Course);
     return success();
   }
 
   @Put('join/:id')
   @UseGuards(AuthGuard('jwt'))
-  async courseJoin(@Usr() user: User, @Param('id') id: string, @Param('rate') rate: string) {
+  async courseJoin(@Usr() user: User, @Param('id') id: string) {
     const course = await this.courseService.findById(id);
     if (!course) return success(ResponseCode.NOT_EXISIT);
     if (course.joinersId.includes(user.id.toHexString())) return success(ResponseCode.ALREADY_COURSE_JOINER);
     if (!(user.integral - course.price >= 0)) return success(ResponseCode.INTEGRAL_NOT_ENOUGH);
     course.joinersId.push(user.id.toHexString());
-    user.joinCourse[id] = Number.parseFloat(rate);
+    user.joinCourse.push(course.id.toHexString());
     user.integral -= course.price;
     this.userService.updateById(user.id.toHexString(), { joinCourse: user.joinCourse, integral: user.integral } as User);
     this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate, joinersId: course.joinersId } as Course);
