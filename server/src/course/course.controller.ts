@@ -107,6 +107,27 @@ export class CourseController {
     return success(courses.map(course => new CourseVO(course)));
   }
 
+  @Put('join')
+  @UseGuards(AuthGuard('jwt'))
+  async courseJoin(@Usr() user: User, @Body() ids: string[]) {
+    const courses = from(await this.courseService.findByIds(ids.map(i => new ObjectId(i))));
+    const amount = (await forkJoin(courses.pipe(
+      map(c => c.price),
+      scan((acc, p) => acc + p)
+    )).toPromise())[0];
+    if (!(amount <= user.integral)) return response(ResponseCode.INTEGRAL_NOT_ENOUGH);
+    courses.subscribe(async course => {
+      if (!course.joinersId.includes(user.id.toHexString())) {
+        course.joinersId.push(user.id.toHexString());
+        user.joinCourse.push(course.id.toHexString());
+        user.integral -= course.price;
+        await this.userService.updateById(user.id.toHexString(), { joinCourse: user.joinCourse, integral: user.integral } as User);
+        await this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate, joinersId: course.joinersId } as Course);
+      }
+    });
+    return success();
+  }
+
   @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   async updateOne(
@@ -129,27 +150,6 @@ export class CourseController {
     course.rate[user.id.toHexString()] = rate;
     course.rateComment[user.id.toHexString()] = rateComment;
     await this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate, rateComment: course.rateComment } as Course);
-    return success();
-  }
-
-  @Put('join')
-  @UseGuards(AuthGuard('jwt'))
-  async courseJoin(@Usr() user: User, @Body() ids: string[]) {
-    const courses = from(await this.courseService.findByIds(ids.map(i => new ObjectId(i))));
-    const amount = (await forkJoin(courses.pipe(
-      map(c => c.price),
-      scan((acc, p) => acc + p)
-    )).toPromise())[0];
-    if (!(amount <= user.integral)) return response(ResponseCode.INTEGRAL_NOT_ENOUGH);
-    courses.subscribe(async course => {
-      if (!course.joinersId.includes(user.id.toHexString())) {
-        course.joinersId.push(user.id.toHexString());
-        user.joinCourse.push(course.id.toHexString());
-        user.integral -= course.price;
-        await this.userService.updateById(user.id.toHexString(), { joinCourse: user.joinCourse, integral: user.integral } as User);
-        await this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate, joinersId: course.joinersId } as Course);
-      }
-    });
     return success();
   }
 
