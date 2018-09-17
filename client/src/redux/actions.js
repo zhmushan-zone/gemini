@@ -289,6 +289,21 @@ export function getCourseList() {
 		}
 	}
 }
+// 单个课程
+function courseOne(courses) {
+	return { type: ActionTypes.FETCH_ONE_COURSE, data: courses }
+}
+export function getCourseOne(courseId) {
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'get',
+			url: `/api/courses/${courseId}`,
+		})
+		if (res.data.code === 1) {
+			dispatch(courseOne(res.data.data))
+		}
+	}
+}
 
 /* --------------------------------------------------删除课程-------------------------------------------------------------- */
 // 课程删除成功
@@ -806,7 +821,7 @@ function sendVideoCommentSuccess(data) {
 	return { type: ActionTypes.SEND_VIDEO_COMMENT, comment: data }
 }
 export function sendVideoComment(id, content) {
-	console.log(id,content)
+	console.log(id, content)
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'post',
@@ -870,30 +885,105 @@ export function setVideoReplyComment(courseId, content, to) {
 		}
 	}
 }
+/* 获取video下面的问答 */
+
+function getVideoIssueSuccess(data) {
+	return { type: ActionTypes.GET_VIDEO_ISSUE, issues: data }
+}
+export function getVideoIssue(id) {
+	console.log(id)
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'get',
+			url: `/api/issues/course/${id}`,
+			headers: {
+				token: _token,
+			},
+		})
+		if (res.data.code === 1) {
+			dispatch(getVideoIssueSuccess(res.data.data))
+		}
+	}
+}
+
+/* 评分 */
+function courseRateSuccess(rate, rateComment) {
+	var userid = Cookies.get('_id')
+	var rateObj = {
+		[userid]: rate,
+	}
+	var rateCommentObj = {
+		[userid]: rateComment,
+	}
+	return { type: ActionTypes.COURSE_RATE, rateObj, rateCommentObj }
+}
+export function courseRate(courseId, rate, rateComment) {
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'put',
+			url: `/api/courses/rate/${courseId}`,
+			headers: {
+				token: _token,
+			},
+			data: {
+				rate: rate,
+				rateComment: rateComment,
+			},
+		})
+		if (res.data.code === 1) {
+			dispatch(courseRateSuccess(rate, rateComment))
+		}
+	}
+}
+
+/* 发送video下面的问答 */
+
+function sendVideoIssueSuccess(data) {
+	return { type: ActionTypes.SEND_VIDEO_ISSUE, issues: data }
+}
+export function sendVideoIssue(data) {
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'POST',
+			url: `/api/issues`,
+			headers: {
+				token: _token,
+			},
+		})
+		if (res.data.code === 1) {
+			dispatch(sendVideoIssueSuccess(res.data.data))
+		}
+	}
+}
+
 /* ----------------------------------------------搜索---------------------------------------------- */
 function searchSuccess(courses, problems, articles) {
-	return { type: ActionTypes.SEARCH, payload: {courses, problems, articles} }
+	return { type: ActionTypes.SEARCH, payload: { courses, problems, articles } }
 }
 
 export function search(content) {
 	return async (dispatch) => {
 		const res1 = await axios({
 			method: 'get',
-			url: `/api/courses/search/${content}`
+			url: `/api/courses/search/${content}`,
 		})
 		const res2 = await axios({
 			method: 'get',
-			url: `/api/issues/search/${content}`
+			url: `/api/issues/search/${content}`,
 		})
 		const res3 = await axios({
 			method: 'get',
-			url: `/api/articles/search/${content}`
+			url: `/api/articles/search/${content}`,
 		})
 		if (res1.data.code === 1 || res2.data.code === 1 || res3.data.code === 1) {
 			dispatch(searchSuccess(res1.data.data, res2.data.data, res3.data.data))
 		}
 	}
 }
+
 /* ----------------------------------------------获取购物车信息---------------------------------------------- */
 function getShoppingCartSuccess(courses) {
 	return { type: ActionTypes.GET_SHOPPING_CART, payload: courses }
@@ -904,22 +994,22 @@ export function getShoppingCart() {
 	return async (dispatch) => {
 		const res1 = await axios({
 			method: 'get',
-			url: `/api/users/${_id}`
+			url: `/api/users/${_id}`,
 		})
 		if (res1.data.code === 1) {
 			const res2 = await axios({
 				method: 'post',
 				url: '/api/courses/ids',
-				data: res1.data.data.shoppingcart
+				data: res1.data.data.shoppingcart,
 			})
 			const courses = []
-      for (let item of res2.data.data) {
-        const course = {}
-        course.id = item.id
-        course.coverImg = item.coverImg
-        course.title = item.title
-        course.price = item.price
-        courses.push(course)
+			for (let item of res2.data.data) {
+				const course = {}
+				course.id = item.id
+				course.coverImg = item.coverImg
+				course.title = item.title
+				course.price = item.price
+				courses.push(course)
 			}
 			console.log(courses)
 			dispatch(getShoppingCartSuccess(courses))
@@ -927,7 +1017,7 @@ export function getShoppingCart() {
 	}
 }
 /* ----------------------------------------------删除购物车内课程---------------------------------------------- */
-export function deleteShoppingCartCourse (courses) {
+export function deleteShoppingCartCourse(courses) {
 	const _token = Cookies.get('_token')
 	const ids = []
 	for (let item of courses) {
@@ -940,9 +1030,9 @@ export function deleteShoppingCartCourse (courses) {
 			method: 'put',
 			url: '/api/users/shoppingcart',
 			headers: {
-				token: _token
+				token: _token,
 			},
-			data: ids
+			data: ids,
 		})
 		if (res.data.code === 1) {
 			dispatch(getShoppingCartSuccess(courses))

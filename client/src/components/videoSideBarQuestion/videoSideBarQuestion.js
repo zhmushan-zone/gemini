@@ -3,6 +3,7 @@ import { Input, Button } from 'antd'
 import ProblemEditor from '../CreateProblemItems/problemEditor/problemEditor'
 import CustomIcon from '@/common/customIcon/customIcon'
 import { createProblem } from '@/redux/actions'
+import { message } from 'antd'
 import './videoSideBarQuestion.scss'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
@@ -14,26 +15,33 @@ export default class VideoSideBarQuestion extends Component {
 		this.state = {
 			content: '',
 			title: '',
-			tags:[0,1],
-			bindCourseId:this.props.match.params.courseId
+			tags: [ 0, 1 ],
+			bindCourseId: this.props.match.params.courseId,
 		}
 		this.stateChange = this.stateChange.bind(this)
 	}
-	componentDidMount() {
-		
-	}
+	componentDidMount() {}
 	handleChange(key, e) {
 		this.setState({
 			[key]: e.target.value,
 		})
 	}
-	Change(value) {
-		this.setState({
-			textValue: value,
-		})
-	}
-	handleSubmit = () => {
-		this.props.createProblem(this.state)
+	handleSubmit = async () => {
+		await this.props.createProblem(this.state)
+		if (this.props.video.code === 1) {
+			message.success('发送成功')
+			this.props.closeQuestion()
+			this.setState(
+				{
+					title: '',
+				},
+				() => {
+					this.stateChange('content', '')
+				}
+			)
+		} else {
+			message.success('发送失败')
+		}
 	}
 	stateChange(key, value) {
 		this.setState({

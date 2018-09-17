@@ -107,6 +107,11 @@ export default class VideoPage extends Component {
 			noteShow: false,
 		})
 	}
+	closeQuestion() {
+		this.setState({
+			questionShow: false,
+		})
+	}
 	// 笔记
 	clickNote = () => {
 		this.setState({
@@ -188,7 +193,10 @@ export default class VideoPage extends Component {
 						<CustomIcon type='icon-arrow-left4' size={24} color='white' />
 					</div>
 					<div className={`question ${this.state.questionShow ? '' : 'none'}`} style={{ width: 550 }}>
-						<VideoSideBarQuestion closeNoteorQues={this.handleCloseNoteorQues} />
+						<VideoSideBarQuestion
+							closeNoteorQues={this.handleCloseNoteorQues}
+							closeQuestion={this.closeQuestion.bind(this)}
+						/>
 					</div>
 
 					<div className={`note ${this.state.noteShow ? '' : 'none'}`} style={{ width: 550 }}>
