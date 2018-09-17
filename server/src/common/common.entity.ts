@@ -3,7 +3,8 @@ import { BaseEntity } from './base.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { scheduleJob } from 'node-schedule';
-import { WatchTag } from '../user/user.entity';
+import { WatchTag, User } from '../user/user.entity';
+import { UserService } from '../user/user.service';
 
 @Entity()
 @Injectable()
@@ -83,6 +84,8 @@ export class Common extends BaseEntity {
     const commonData = await this.get();
     commonData.articleUpNumWeekly = {};
     this.save(commonData);
+
+    user
   }
 
   async emptyArticleUpNumMonthly() {
@@ -113,7 +116,9 @@ export class Common extends BaseEntity {
 
   constructor(
     @InjectRepository(Common)
-    private readonly commonRepository: MongoRepository<Common>
+    private readonly commonRepository: MongoRepository<Common>,
+    @InjectRepository(User)
+    private readonly userService: UserService
   ) {
     super();
     scheduleJob('0 0 0 * * 1', this.emptyIssueReplyNumWeekly);

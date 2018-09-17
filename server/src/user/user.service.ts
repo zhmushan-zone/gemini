@@ -83,6 +83,13 @@ export class UserService {
     });
   }
 
+  async addIntegral(userId: string, integral: number) {
+    const user = await this.userRepository.findOne(userId);
+    user.integral += integral;
+    if (!(user.integral >= 0)) return new GeminiError(ResponseCode.INTEGRAL_NOT_ENOUGH);
+    this.userRepository.update(user.id.toHexString(), { integral: user.integral });
+  }
+
   constructor(
     @InjectRepository(User)
     private readonly userRepository: MongoRepository<User>
