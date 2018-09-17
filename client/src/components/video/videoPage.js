@@ -66,7 +66,6 @@ export default class VideoPage extends Component {
 		})
 	}
 	async componentDidMount() {
-		document.querySelector('.video').parentNode.style.flex = '1'
 		// 获取课程
 		await axios({
 			method: 'GET',
@@ -105,6 +104,7 @@ export default class VideoPage extends Component {
 		this.setState({
 			questionShow: !this.state.questionShow,
 			noteShow: false,
+			show: false,
 		})
 	}
 	closeQuestion() {
@@ -199,9 +199,9 @@ export default class VideoPage extends Component {
 						/>
 					</div>
 
-					<div className={`note ${this.state.noteShow ? '' : 'none'}`} style={{ width: 550 }}>
+					{/* <div className={`note ${this.state.noteShow ? '' : 'none'}`} style={{ width: 550 }}>
 						<VideoSideBarNote closeNoteorQues={this.handleCloseNoteorQues} />
-					</div>
+					</div> */}
 
 					<div className={` teacher-msg ${this.state.show ? '' : 'none'}`} style={{ width: 500 }}>
 						<div className='panel-container'>

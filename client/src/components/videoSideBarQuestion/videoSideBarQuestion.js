@@ -60,7 +60,7 @@ export default class VideoSideBarQuestion extends Component {
 				<Input
 					size='large'
 					placeholder='请输入您的问题'
-					className='question'
+					className='question-input'
 					value={this.state.title}
 					onChange={this.handleChange.bind(this, 'title')}
 				/>

@@ -54,6 +54,7 @@ class PersonCenterArticle extends React.Component {
 									<div className='article-item' key={v.id}>
 										<div className='item-title'>
 											<a href={`/article/${v.id}`}>{v.title}</a>
+											{v.status === 0 ? <span className='unreviewed-class'>未审核</span> : null}
 										</div>
 										<div className='content'>{v.content}</div>
 										<div className='bottom'>
