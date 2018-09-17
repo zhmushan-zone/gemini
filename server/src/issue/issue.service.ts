@@ -66,6 +66,10 @@ export class IssueService {
     return this.issueRepository.find({ authorId });
   }
 
+  findByCourseId(bindCourseId: string) {
+    return this.issueRepository.find({ bindCourseId });
+  }
+
   async updateById(authorId: string, id: string, issue: Issue) {
     const doc = await this.issueRepository.findOne(id, { where: { authorId } });
     if (!doc) return new GeminiError(ResponseCode.NOT_EXISIT);

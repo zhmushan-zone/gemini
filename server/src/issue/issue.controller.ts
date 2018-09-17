@@ -209,6 +209,20 @@ export class IssueController {
     return success(replys.map(r => r.issueId));
   }
 
+  @Get('course/:id')
+  async findByCourseId(@Param('id') id: string) {
+    const issues = await this.issueService.findByCourseId(id);
+    const res = [] as IssueVO[];
+    for (const i of issues) {
+      const author = await this.userService.findById(i.authorId);
+      const issueVO = new IssueVO(i);
+      issueVO.authorUsername = author.username;
+      issueVO.authorAvatar = author.avatar;
+      res.push(issueVO);
+    }
+    return success(res);
+  }
+
   @Get('author/:id')
   async findByAuthorId(@Param('id') id: string) {
     const issues = await this.issueService.findByAuthorId(id);
