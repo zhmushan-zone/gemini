@@ -20,7 +20,7 @@ export class NoticeController {
     createNoticeDTO.from = user.id.toHexString();
     const notice = await this.noticeService.save(createNoticeDTO);
     if (!notice) return success(ResponseCode.UNKNOWN);
-    this.noticeGateway.notice(notice.to.toString(), notice);
+    this.noticeGateway.notice(user.id.toHexString(), notice);
     return success();
   }
 }
