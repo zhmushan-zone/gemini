@@ -73,6 +73,9 @@ export class User extends BaseEntity {
   @Column()
   shoppingcart: string[];
 
+  @Column()
+  activities: UserActivity[];
+
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();
@@ -96,12 +99,35 @@ export class User extends BaseEntity {
     if (!this.joinCourse) this.joinCourse = [];
     if (!this.integral) this.integral = 0;
     if (!this.shoppingcart) this.shoppingcart = [];
+    if (!this.activities) this.activities = [];
   }
 
   @BeforeUpdate()
   beforeUpdate() {
     super.beforeUpdate();
   }
+}
+
+export interface UserActivity {
+  type: UserActivityType;
+  srcId: string;
+  body?: any;
+  commentParent?: CommentParent;
+}
+
+export enum CommentParent {
+  Article,
+  Course
+}
+
+export enum UserActivityType {
+  CreateArticle,
+  UpArticle,
+  CreateIssue,
+  WatchIssue,
+  ReplyIssue,
+  CreateComment,
+  JoinCourse
 }
 
 export const enum UserRole {

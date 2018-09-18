@@ -1,6 +1,6 @@
 import { Injectable, Global } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User, UserRole } from './user.entity';
+import { User, UserRole, UserActivity } from './user.entity';
 import { encrpty, generateSalt, ResponseCode } from '../common/utils';
 import { MongoRepository } from 'typeorm';
 import { GeminiError } from '../common/error';
@@ -87,7 +87,13 @@ export class UserService {
     const user = await this.userRepository.findOne(userId);
     user.integral += integral;
     if (!(user.integral >= 0)) return new GeminiError(ResponseCode.INTEGRAL_NOT_ENOUGH);
-    this.userRepository.update(user.id.toHexString(), { integral: user.integral });
+    this.userRepository.update(userId, { integral: user.integral });
+  }
+
+  async updateActivities(userId: string, activity: UserActivity) {
+    const user = await this.userRepository.findOne(userId);
+    user.activities.unshift(activity);
+    this.userRepository.update(userId, { activities: user.activities });
   }
 
   constructor(
