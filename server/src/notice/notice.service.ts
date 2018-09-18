@@ -21,6 +21,7 @@ export class NoticeService {
 
   async save(notice: Notice) {
     const obj = notice.id ? notice : this.noticeRepository.create(notice);
+    obj.createAt = new Date().toLocaleString();
     let err = new GeminiError(ResponseCode.NOT_EXISIT);
     switch (obj.type) {
       case NoticeType.issueReply: {
@@ -136,7 +137,11 @@ export class NoticeService {
     return this.noticeRepository.save(obj);
   }
 
-  async findById(id: string) {
+  findById(id: string) {
     return this.noticeRepository.findOne(id);
+  }
+
+  findByTo(to: string) {
+    return this.noticeRepository.find({ where: { to } });
   }
 }

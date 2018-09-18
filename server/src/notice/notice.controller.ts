@@ -15,6 +15,13 @@ export class NoticeController {
     private readonly noticeService: NoticeService
   ) { }
 
+  @Get()
+  @UseGuards(AuthGuard('jwt'))
+  async findAll(@Usr() user: User) {
+    const notices = await this.noticeService.findByTo(user.id.toHexString());
+    return success(notices);
+  }
+
   @Post()
   @UseGuards(AuthGuard('jwt'))
   async create(@Usr() user: User, @Body() createNoticeDTO: CreateNoticeDTO) {
@@ -27,7 +34,7 @@ export class NoticeController {
 
   @Put('read/:id')
   @UseGuards(AuthGuard('jwt'))
-  async findOne(@Usr() user: User, @Param('id') id: string) {
+  async readOne(@Usr() user: User, @Param('id') id: string) {
     const notice = await this.noticeService.findById(id);
     if (!(notice.to === user.id.toHexString())) return response(ResponseCode.NOT_YOUR_NOTICE);
     notice.isRead = true;
