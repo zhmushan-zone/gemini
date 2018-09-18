@@ -73,6 +73,7 @@ class BackstageCourseInfoSubSection extends Component {
           const newCourse = {}
           const newSections = [...oldCourse.sections]
           newSections[sectionNum].nodes[subSectionNum].video = res.data.data[0]
+          newCourse.id = oldCourse.id
           newCourse.title = oldCourse.title
           newCourse.coverImg = oldCourse.coverImg
           newCourse.desc = oldCourse.desc

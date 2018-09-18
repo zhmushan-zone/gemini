@@ -14,7 +14,7 @@ class ForumRight extends Component {
     console.log(_token)
     return (
       <div className="forum-right">
-        <ForumPerson username={this.props.username} integral={this.props.integral} />
+        <ForumPerson username={this.props.username} avatar={this.props.avatar} integral={this.props.integral} />
         {
           _token ? 
             <ForumFollowClass follow={this.props.follow} followChange={this.props.stateChange} />

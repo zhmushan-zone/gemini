@@ -22,6 +22,7 @@ class BackstageCourseInfoSection extends Component {
   
   addSubSection = () => {
     const oldCourse = this.props.course
+    console.log(this.props.course)
     const sectionNum = this.props.sectionNum
     confirm({
       title: '您是否想为该章节添加小节？',
@@ -34,6 +35,7 @@ class BackstageCourseInfoSection extends Component {
           const newCourse = {}
           const newSections = [...oldCourse.sections]
           newSections[sectionNum].nodes.push({title: this.state.newSubSection, video: 'empty'})
+            newCourse.id = oldCourse.id
             newCourse.title = oldCourse.title
             newCourse.coverImg = oldCourse.coverImg
             newCourse.desc = oldCourse.desc
