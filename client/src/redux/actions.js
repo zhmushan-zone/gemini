@@ -1035,3 +1035,29 @@ export function deleteShoppingCartCourse(courses) {
 		}
 	}
 }
+/* ----------------------------------------------获取所有消息---------------------------------------------- */
+function fetchMessageSuccess(msgs) {
+	return { type: ActionTypes.FETCH_MESSAGE, payload: msgs }
+}
+
+export function fetchMessage() {
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'get',
+			url: '/api/notices',
+			headers: {
+				token: _token
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(fetchMessageSuccess(res.data.data))
+		}
+	}
+}
+/* ----------------------------------------------更新消息---------------------------------------------- */
+export function updateMessage(msgs) {
+	return dispatch => {
+		dispatch(fetchMessageSuccess(msgs))
+	}
+}

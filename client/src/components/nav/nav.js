@@ -4,16 +4,24 @@ import { Link } from 'react-router-dom'
 import { Icon } from 'antd'
 import {withRouter, NavLink} from 'react-router-dom'
 import classnames from 'classnames'
+import { connect } from 'react-redux'
+import { fetchMessage } from '@/redux/actions'
 
 import './nav.scss'
+
 @withRouter
+@connect(
+  state => state.message,
+  { fetchMessage }
+)
 class Nav extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       selected: 0,
       searchContent: '',
-      shoppingCartCount: 0
+      shoppingCartCount: 0,
+      isHaveUnRead: false
     }
     this.stateChange = this.stateChange.bind(this)
   }
@@ -24,7 +32,7 @@ class Nav extends React.Component {
     })
   }
   
-  componentDidMount () {
+  async componentDidMount () {
     const { pathname } = this.props.location
     if (pathname === '/onlineStudying') {
       this.setState({
@@ -39,8 +47,31 @@ class Nav extends React.Component {
         selected: 3
       })
     }
+    await this.props.fetchMessage()
+    this.props.msg.map(item => {
+      if (item.isRead === false) {
+        return this.setState({
+          isHaveUnRead: true
+        })
+      }
+    })
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.msg !== this.props.msg) {
+      nextProps.msg.map(item => {
+        if (item.isRead === false) {
+          return this.setState({
+            isHaveUnRead: true
+          })
+        }
+      })
+      return this.setState({
+        isHaveUnRead: false
+      })
+    }
+  }
+  
   navSectionClick (e) {
     const navActiveBG = document.querySelector('.navActiveBG')
     if(navActiveBG){
@@ -83,7 +114,6 @@ class Nav extends React.Component {
           )
         }
     })
-    console.log(this.state.shoppingCartCount)
     return (
       <nav style={is?{'boxShadow':'none'}:null } className="allNav">
         <div className="nav-left">
@@ -125,6 +155,10 @@ class Nav extends React.Component {
           <div className="nav-message-center-wrapper">
             <Link to={'/messageCenter'} className="nav-message-center">
               <Icon type="bell" theme="filled" />
+              {
+                this.state.isHaveUnRead ? 
+                <span className="new-message-alert"></span> : null
+              }
             </Link>
           </div>
           {

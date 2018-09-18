@@ -81,6 +81,10 @@ const shoppingCartInit = {
 	courses: [],
 }
 
+const messageInit = {
+	msg: []
+}
+
 export function userstatus(state = initState, action) {
 	switch (action.type) {
 		// case ActionTypes.LOGIN:
@@ -441,6 +445,18 @@ export function shoppingCart(state = shoppingCartInit, action) {
 	}
 }
 
+export function message(state = messageInit, action) {
+	switch (action.type) {
+		case ActionTypes.FETCH_MESSAGE:
+			return {
+				...state,
+				msg: action.payload
+			}
+		default:
+			return state
+	}
+}
+
 export default combineReducers({
 	userstatus,
 	course,
@@ -453,4 +469,5 @@ export default combineReducers({
 	problemComment,
 	report,
 	shoppingCart,
+	message
 })
