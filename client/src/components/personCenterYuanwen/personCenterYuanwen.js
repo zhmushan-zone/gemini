@@ -5,6 +5,7 @@ import axios from 'axios'
 import './personCenterYuanwen.scss'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+import Loading from '@/common/loading/loading'
 const TabPane = Tabs.TabPane
 @withRouter
 @connect((state) => state, {})
@@ -17,6 +18,7 @@ export default class PersonCenterYuanwen extends Component {
 			myReplyIssuesId: [],
 			userId: this.props.match.params.id,
 			myfocus: [],
+			show: true,
 		}
 	}
 	async componentDidMount() {
@@ -31,6 +33,7 @@ export default class PersonCenterYuanwen extends Component {
 		}).then((res) => {
 			this.setState({
 				myIssues: res.data.data,
+				show: false,
 			})
 		})
 
@@ -44,6 +47,7 @@ export default class PersonCenterYuanwen extends Component {
 		}).then((res) => {
 			this.setState({
 				myReplyIssuesId: res.data.data,
+				show: false,
 			})
 		})
 		console.log(this.props.userstatus.watchIssuesId)
@@ -56,6 +60,7 @@ export default class PersonCenterYuanwen extends Component {
 		}).then((res) => {
 			this.setState({
 				myReplyIssues: res.data.data,
+				show: false,
 			})
 		})
 
@@ -67,11 +72,12 @@ export default class PersonCenterYuanwen extends Component {
 		}).then((res) => {
 			this.setState({
 				myfocus: res.data.data,
+				show: false,
 			})
 		})
 	}
 	render() {
-		const { myIssues, myReplyIssues, myfocus } = this.state
+		const { myIssues, myReplyIssues, myfocus, show } = this.state
 		const { isOwn } = this.props
 		console.log(myReplyIssues)
 		return (
@@ -173,6 +179,7 @@ export default class PersonCenterYuanwen extends Component {
 						)}
 					</TabPane>
 				</Tabs>
+				{this.state.show ? <Loading /> : null}
 			</div>
 		)
 	}

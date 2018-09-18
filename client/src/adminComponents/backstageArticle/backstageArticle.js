@@ -27,16 +27,15 @@ export default class BackstageArticle extends Component {
 	}
 	async componentDidMount() {
 		// 获取全部用户
-		await axios({
+		let res = await axios({
 			method: 'GET',
 			url: '/api/users',
 			headers: {
 				token: Cookies.get('_token'),
 			},
-		}).then((res) => {
-			this.setState({
-				users: res.data.data,
-			})
+		})
+		await this.setState({
+			users: res.data.data,
 		})
 		// 获取文章
 		await axios({
@@ -45,7 +44,7 @@ export default class BackstageArticle extends Component {
 		}).then((res) => {
 			this.setState({
 				articles: res.data.data,
-				show: true,
+				show: false,
 			})
 		})
 	}
@@ -96,8 +95,6 @@ export default class BackstageArticle extends Component {
 				this.isSimilar(this.state.showType, item.category) &&
 				this.isSimilar2(item.authorUsername, this.state.selectUser)
 		)
-
-		console.log(articleSimilar)
 
 		return (
 			<div className='back-article-container'>
