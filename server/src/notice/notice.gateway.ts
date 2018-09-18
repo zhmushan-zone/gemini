@@ -28,7 +28,10 @@ export class NoticeGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const token = client.handshake.query.token;
     const payload = jwt.decode(token) as Payload;
     const user = await this.authService.validate(payload);
-    if (!user) client.disconnect();
+    if (!user) {
+      client.disconnect();
+      return;
+    }
     this.clients[user.id.toHexString()] = client.id;
   }
 
