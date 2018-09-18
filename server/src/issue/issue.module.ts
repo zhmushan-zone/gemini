@@ -13,6 +13,7 @@ import { CommonModule } from '../common/common.module';
     CommonModule
   ],
   controllers: [IssueController],
-  providers: [IssueService, UserService]
+  providers: [IssueService, UserService],
+  exports: [IssueService]
 })
-export class IssueModule {}
+export class IssueModule { }

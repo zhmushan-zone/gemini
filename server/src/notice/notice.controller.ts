@@ -5,7 +5,8 @@ import { Usr } from '../user/user.decorators';
 import { User } from '../user/user.entity';
 import { CreateNoticeDTO } from './dto';
 import { NoticeService } from './notice.service';
-import { success, ResponseCode } from '../common/utils';
+import { success, response } from '../common/utils';
+import { GeminiError } from '../common/error';
 
 @Controller('/api/notices')
 export class NoticeController {
@@ -18,9 +19,9 @@ export class NoticeController {
   @UseGuards(AuthGuard('jwt'))
   async create(@Usr() user: User, @Body() createNoticeDTO: CreateNoticeDTO) {
     createNoticeDTO.from = user.id.toHexString();
-    const notice = await this.noticeService.save(createNoticeDTO);
-    if (!notice) return success(ResponseCode.UNKNOWN);
-    this.noticeGateway.notice(user.id.toHexString(), notice);
+    const doc = await this.noticeService.save(createNoticeDTO);
+    if (doc instanceof GeminiError) return response(doc.code);
+    this.noticeGateway.notice(user.id.toHexString(), doc);
     return success();
   }
 }

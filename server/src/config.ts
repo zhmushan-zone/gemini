@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import { Issue } from './issue/issue.entity';
 
 export const config = {
   port: 9999,
@@ -77,7 +76,7 @@ export const config = {
   template: {
     notice: {
       // 当用户发布的问题被回答时
-      issueReply: (time: string, title: string, isRead: boolean) => `
+      issueReply: (time: string, title: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -97,7 +96,7 @@ export const config = {
         </div>
       `,
       // 当用户在某问题中的回答被回复时
-      issueSubReply: (time: string, title: string, isRead: boolean) => `
+      issueSubReply: (time: string, title: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -117,7 +116,7 @@ export const config = {
         </div>
       `,
       // 当用户在某问题中在某个回答下的回复被他人回复
-      issueSubReply2: (time: string, title: string, isRead: boolean) => `
+      issueSubReply2: (time: string, title: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -137,7 +136,7 @@ export const config = {
         </div>
       `,
       // 当用户发布的问题通过审核时
-      IssuePass: (time: string, title: string, isRead: boolean) => `
+      issuePass: (time: string, title: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -157,7 +156,7 @@ export const config = {
         </div>
       `,
       // 当用户发布的问题审核失败
-      IssueFail: (time: string, title: string, reason: string, isRead: boolean) => `
+      issueFail: (time: string, title: string, reason: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -178,7 +177,7 @@ export const config = {
         </div>
       `,
       // 当用户的问题被他人举报
-      IssueReported: (time: string, title: string, reason: string, isRead: boolean) => `
+      issueReported: (time: string, title: string, reason: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -199,7 +198,7 @@ export const config = {
         </div>
       `,
       // 当用户在某问题中的回答被他人举报
-      IssueReplyReported: (time: string, title: string, reason: string, isRead: boolean) => `
+      issueReplyReported: (time: string, title: string, reason: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -220,7 +219,7 @@ export const config = {
         </div>
       `,
       // 当用户在某问题下的回答的回复被人举报
-      IssueSubReplyReported: (time: string, title: string, reason: string, isRead: boolean) => `
+      issueSubReplyReported: (time: string, title: string, reason: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -241,7 +240,7 @@ export const config = {
         </div>
       `,
       // 当用户发布的文章被评论时
-      articleReply: (time: string, title: string, isRead: boolean) => `
+      articleReply: (time: string, title: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -261,7 +260,7 @@ export const config = {
         </div>
       `,
       // 当用户在文章中的评论被回复
-      articleSubReply: (time: string, title: string, isRead: boolean) => `
+      articleSubReply: (time: string, title: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -281,7 +280,7 @@ export const config = {
         </div>
       `,
       // 当用户在某文章中的评论下的回复被他人回复
-      articleSubReply2: (time: string, title: string, isRead: boolean) => `
+      articleSubReply2: (time: string, title: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -301,7 +300,7 @@ export const config = {
         </div>
       `,
       // 当用户发布的问题通过审核时
-      articlePass: (time: string, title: string, isRead: boolean) => `
+      articlePass: (time: string, title: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -321,7 +320,7 @@ export const config = {
         </div>
       `,
       // 当用户发布的文章审核失败
-      articleFail: (time: string, title: string, reason: string, isRead: boolean) => `
+      articleFail: (time: string, title: string, reason: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -342,7 +341,7 @@ export const config = {
         </div>
       `,
       // 当用户的文章被他人举报
-      articleReported: (time: string, title: string, reason: string, isRead: boolean) => `
+      articleReported: (time: string, title: string, reason: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -363,7 +362,7 @@ export const config = {
         </div>
       `,
       // 当用户在某文章中的评论被他人举报
-      articleReplyReported: (time: string, title: string, reason: string, isRead: boolean) => `
+      articleReplyReported: (time: string, title: string, reason: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -384,7 +383,7 @@ export const config = {
         </div>
       `,
       // 当用户在某文章下的评论的回复被人举报
-      articleSubReplyReported: (time: string, title: string, reason: string, isRead: boolean) => `
+      articleSubReplyReported: (time: string, title: string, reason: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -405,7 +404,7 @@ export const config = {
         </div>
       `,
       // 当用户在某课程中的评论被他人举报
-      courseReplyReported: (time: string, title: string, reason: string, isRead: boolean) => `
+      courseReplyReported: (time: string, title: string, reason: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
@@ -426,7 +425,7 @@ export const config = {
         </div>
       `,
       // 当用户在某课程下的评论的回复被人举报
-      courseSubReplyReported: (time: string, title: string, reason: string, isRead: boolean) => `
+      courseSubReplyReported: (time: string, title: string, reason: string, isRead = false) => `
         <div className="message-center-item-${isRead ? null : 'un'}read">
           <div className="message-center-item-left">
             <div>
