@@ -17,10 +17,13 @@ export class Notice extends BaseEntity {
   isRead: boolean;
 
   @Column()
-  content: string;
+  template: string;
 
   @Column()
   srcId: string;
+
+  @Column()
+  reason: string;
 
   @BeforeInsert()
   beforeInsert() {
@@ -29,8 +32,9 @@ export class Notice extends BaseEntity {
     if (!this.type) this.type = 0;
     if (!this.to) this.to = '';
     if (!this.isRead) this.isRead = false;
-    if (!this.content) this.content = '';
+    if (!this.template) this.template = '';
     if (!this.srcId) this.srcId = '';
+    if (!this.reason) this.reason = '';
   }
 
   @BeforeUpdate()
@@ -40,8 +44,22 @@ export class Notice extends BaseEntity {
 }
 
 export enum NoticeType {
-  Article,
-  Issue,
-  Report,
-  Course
+  issueReply,
+  issueSubReply,
+  issueSubReply2,
+  IssuePass,
+  IssueFail,
+  IssueReported,
+  IssueReplyReported,
+  IssueSubReplyReported,
+  articleReply,
+  articleSubReply,
+  articleSubReply2,
+  articlePass,
+  articleFail,
+  articleReported,
+  articleReplyReported,
+  articleSubReplyReported,
+  courseReplyReported,
+  courseSubReplyReported
 }

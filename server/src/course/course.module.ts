@@ -17,7 +17,8 @@ import { Comment } from '../article/article.entity';
   providers: [
     CourseService,
     UserService
-  ]
+  ],
+  exports: [CourseService]
 })
 export class CourseModule {
 }

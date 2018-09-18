@@ -1,11 +1,12 @@
-import { Get, Controller, Post, UseGuards, Body } from '@nestjs/common';
+import { Get, Controller, Post, UseGuards, Body, Param, Put } from '@nestjs/common';
 import { NoticeGateway } from './notice.gateway';
 import { AuthGuard } from '@nestjs/passport';
 import { Usr } from '../user/user.decorators';
 import { User } from '../user/user.entity';
 import { CreateNoticeDTO } from './dto';
 import { NoticeService } from './notice.service';
-import { success, ResponseCode } from '../common/utils';
+import { success, response, ResponseCode } from '../common/utils';
+import { GeminiError } from '../common/error';
 
 @Controller('/api/notices')
 export class NoticeController {
@@ -18,9 +19,20 @@ export class NoticeController {
   @UseGuards(AuthGuard('jwt'))
   async create(@Usr() user: User, @Body() createNoticeDTO: CreateNoticeDTO) {
     createNoticeDTO.from = user.id.toHexString();
-    const notice = await this.noticeService.save(createNoticeDTO);
-    if (!notice) return success(ResponseCode.UNKNOWN);
-    this.noticeGateway.notice(user.id.toHexString(), notice);
+    const doc = await this.noticeService.save(createNoticeDTO);
+    if (doc instanceof GeminiError) return response(doc.code);
+    this.noticeGateway.notice(user.id.toHexString(), doc);
+    return success();
+  }
+
+  @Put('read/:id')
+  @UseGuards(AuthGuard('jwt'))
+  async findOne(@Usr() user: User, @Param('id') id: string) {
+    const notice = await this.noticeService.findById(id);
+    if (!(notice.to === user.id.toHexString())) return response(ResponseCode.NOT_YOUR_NOTICE);
+    notice.isRead = true;
+    const doc = await this.noticeService.save(notice);
+    if (doc instanceof GeminiError) return response(doc.code);
     return success();
   }
 }

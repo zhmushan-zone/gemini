@@ -11,7 +11,8 @@ export enum ResponseCode {
   NOT_COURSE_JOINER = 107,
   ALREADY_COURSE_JOINER = 108,
   INTEGRAL_NOT_ENOUGH = 109,
-  NOT_VIDEO = 201
+  NOT_VIDEO = 201,
+  NOT_YOUR_NOTICE = 301
 }
 
 export const response = (code: ResponseCode, data?: any) => ({ code, msg: ResponseCode[code], data });
