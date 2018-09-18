@@ -28,7 +28,7 @@ export class NoticeController {
     createNoticeDTO.from = user.id.toHexString();
     const doc = await this.noticeService.save(createNoticeDTO);
     if (doc instanceof GeminiError) return response(doc.code);
-    this.noticeGateway.notice(user.id.toHexString(), doc);
+    this.noticeGateway.notice(doc.to, doc);
     return success();
   }
 

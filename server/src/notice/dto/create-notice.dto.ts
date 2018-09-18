@@ -5,4 +5,5 @@ export class CreateNoticeDTO extends Notice {
   @IsEnum(NoticeType) readonly type;
   @IsString() @IsNotEmpty() readonly srcId;
   @IsString() readonly reason;
+  @IsString() @IsNotEmpty() readonly to;
 }
