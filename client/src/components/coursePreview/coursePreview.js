@@ -24,6 +24,7 @@ export default class CoursePreview extends Component {
 			summary: '',
 			rate: '',
 			users: [],
+			shoppingCartCourses: [],
 		}
 	}
 	stateChange(key, value) {
@@ -32,22 +33,29 @@ export default class CoursePreview extends Component {
 		})
 	}
 	async toStudy() {
-		if (this.props.video.course.price === 0) {
-			this.props.history.push(`/video/${this.state.courseId}`)
-		} else {
-			// 跳转到购物车
-			let res = await axios({
-				method: 'put',
-				url: `/api/courses/join`,
-				headers: {
-					token: Cookies.get('_token'),
-				},
-				data: [ this.state.courseId ],
-			})
-			if (res.data.code === 1) {
-				let shoppingCart= this.props.shoppingCart
-				if (shoppingCart.courses.indexOf(this.state.courseId) === -1) {
-					
+		// 跳转到购物车
+		let res = await axios({
+			method: 'put',
+			url: `/api/courses/join`,
+			headers: {
+				token: Cookies.get('_token'),
+			},
+			data: [ this.state.courseId ],
+		})
+		if (res.data.code === 1) {
+			if (this.props.video.course.price === 0) {
+				this.props.history.push(`/video/${this.state.courseId}`)
+			} else {
+				let shoppingCartCourses = this.props.shoppingCart.courses
+				this.setState({
+					shoppingCartCourses,
+				})
+				if (shoppingCartCourses.indexOf(this.state.courseId) === -1) {
+					this.state.shoppingCartCourses.push(this.state.courseId)
+					this.setState({
+						shoppingCartCourses,
+					})
+					this.props.history.push('../shoppingCart')
 				} else {
 					message.warn('你已经加入过了')
 				}
@@ -229,7 +237,7 @@ export default class CoursePreview extends Component {
 							<div className='evaluate'>
 								<div className='your'>
 									<h2>请输入您的评分</h2>
-									<Rate allowHalf defaultValue={0} onChange={(rate) => this.setState({ rate: rate })} />
+									<Rate allowHalf defaultValue={5} onChange={(rate) => this.setState({ rate: rate })} />
 								</div>
 								<div className='evaluate-item'>
 									<div className='avatar'>
