@@ -4,7 +4,7 @@ export const config = {
   port: 9999,
   token: {
     secret: 'sdkjfnaskfjnhewkjnfkn',
-    expiresIn: '7 days'
+    expiresIn: '30 days'
   },
   email: {
     resendTime: 60000,

@@ -2,7 +2,7 @@ import { Body, Controller, Post, UseGuards, Get, Param, Delete, Put } from '@nes
 import { AuthGuard } from '@nestjs/passport';
 import { Usr } from '../user/user.decorators';
 import { success, response, ResponseCode } from '../common/utils';
-import { User, UserRole } from '../user/user.entity';
+import { User, UserRole, UserActivityType, CommentParent } from '../user/user.entity';
 import { CreateArticleDTO, UpdateArticleDTO, CreateCommentDTO } from './dto';
 import { ArticleService } from './article.service';
 import { GeminiError } from '../common/error';
@@ -59,6 +59,12 @@ export class ArticleController {
     const commentVO = new CommentVO(comment);
     commentVO.authorUsername = user.username;
     commentVO.authorAvatar = user.avatar;
+
+    await this.userService.updateActivities(
+      user.id.toHexString(),
+      { srcId: article.id.toHexString(), type: UserActivityType.CreateComment, commentParent: CommentParent.Article }
+    );
+
     return success(commentVO);
   }
 
@@ -232,6 +238,11 @@ export class ArticleController {
     const err = this.userService.addIntegral(user.id.toHexString(), config.integral.article.up);
     if (err instanceof GeminiError) return response(err.code);
 
+    await this.userService.updateActivities(
+      user.id.toHexString(),
+      { srcId: article.id.toHexString(), type: UserActivityType.UpArticle }
+    );
+
     return success(res.upersId.length);
   }
 
@@ -241,12 +252,17 @@ export class ArticleController {
   async changeStatus(@Param('id') id: string, @Param('status') status: ArticleStatus) {
     status = ArticleStatus[ArticleStatus[status]];
     const article = await this.articleService.findById(id);
-    if (!article) response(ResponseCode.NOT_EXISIT);
-    let err: any = await this.articleService.updateByIdWithAdmin(id, { status } as Article);
+    if (!article) return response(ResponseCode.NOT_EXISIT);
+    let err = await this.articleService.updateByIdWithAdmin(id, { status } as Article);
     if (err instanceof GeminiError) return response(err.code);
 
-    err = this.userService.addIntegral(article.authorId, config.integral.article.reviewed);
+    err = await this.userService.addIntegral(article.authorId, config.integral.article.reviewed);
     if (err instanceof GeminiError) return response(err.code);
+
+    await this.userService.updateActivities(
+      article.authorId,
+      { srcId: article.id.toHexString(), type: UserActivityType.CreateArticle }
+    );
 
     return success();
   }

@@ -11,10 +11,10 @@ export default class ArticleExcellentThirty extends Component {
 		this.state = {
 			articleMonthlyId: {},
 			articleMonthly: [],
+			show: true,
 		}
 	}
 	async componentDidMount() {
-
 		// 获取全部用户
 		await axios({
 			method: 'GET',
@@ -33,16 +33,17 @@ export default class ArticleExcellentThirty extends Component {
 		await axios({
 			method: 'post',
 			url: `/api/articles/ids`,
-			data:sortable
+			data: sortable,
 		}).then((res) => {
 			console.log(res)
 			this.setState({
 				articleMonthly: res.data.data,
+				show: false,
 			})
 		})
 	}
 	render() {
-		const { articleMonthly } = this.state
+		const { articleMonthly, show } = this.state
 		console.log(articleMonthly)
 		return (
 			<div className='article-excellent-thirty-container'>
@@ -68,9 +69,8 @@ export default class ArticleExcellentThirty extends Component {
 								/>
 							)
 						})
-					) : (
-						<Loading />
-					)}
+					) : null}
+					{show ? <Loading /> : null}
 				</div>
 			</div>
 		)

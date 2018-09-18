@@ -23,7 +23,7 @@ import * as nodemailer from 'nodemailer';
 import { AuthService } from '../common/auth/auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Usr } from './user.decorators';
-import { User, WatchTag, UserRole } from './user.entity';
+import { User, WatchTag, UserRole, UserActivityType, CommentParent } from './user.entity';
 import * as path from 'path';
 import * as fs from 'fs';
 import { GeminiError } from '../common/error';
@@ -31,6 +31,9 @@ import { ObjectId } from 'mongodb';
 import { ArticleType } from '../article/article.entity';
 import { Allow } from './role.decorators';
 import { RolesGuard } from '../common/role.guard';
+import { ArticleService } from '../article/article.service';
+import { IssueService } from '../issue/issue.service';
+import { CourseService } from '../course/course.service';
 
 @Controller('/api/users')
 export class UserController {
@@ -59,6 +62,40 @@ export class UserController {
   async search(@Param('keyword') keyword: string) {
     const users = await this.userService.search(keyword);
     return success(users.map(u => new UserVO(u)));
+  }
+
+  @Get('activities')
+  @UseGuards(AuthGuard('jwt'))
+  async findActivities(@Usr() user: User) {
+    for (const activity of user.activities) {
+      switch (activity.type) {
+        case UserActivityType.CreateArticle:
+        case UserActivityType.UpArticle: {
+          activity.body = await this.articleService.findById(activity.srcId);
+          break;
+        }
+        case UserActivityType.CreateIssue:
+        case UserActivityType.WatchIssue:
+        case UserActivityType.ReplyIssue: {
+          activity.body = await this.issueService.findById(activity.srcId);
+          break;
+        }
+        case UserActivityType.CreateComment: {
+          if (activity.commentParent === CommentParent.Article) {
+            activity.body = await this.articleService.findById(activity.srcId);
+          } else if (activity.commentParent === CommentParent.Course) {
+            activity.body = await this.courseService.findById(activity.srcId);
+          }
+          break;
+        }
+        case UserActivityType.JoinCourse: {
+          activity.body = await this.courseService.findById(activity.srcId);
+          break;
+        }
+      }
+    }
+
+    return success(user.activities);
   }
 
   @Get('shoppingcart')
@@ -266,7 +303,10 @@ export class UserController {
 
   constructor(
     private readonly userService: UserService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly articleService: ArticleService,
+    private readonly issueService: IssueService,
+    private readonly courseService: CourseService
   ) {
   }
 }

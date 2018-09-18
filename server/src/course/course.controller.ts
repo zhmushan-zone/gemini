@@ -17,7 +17,7 @@ import { CreateCourseDTO, UpdateCourseDTO } from './dto';
 import { CourseService } from './course.service';
 import { success, response, ResponseCode } from '../common/utils';
 import { CourseVO } from './vo/course.vo';
-import { User } from '../user/user.entity';
+import { User, UserActivityType, CommentParent } from '../user/user.entity';
 import { GeminiError } from '../common/error';
 import { UserService } from '../user/user.service';
 import { CreateCommentDTO } from '../article/dto';
@@ -62,6 +62,12 @@ export class CourseController {
     const commentVO = new CommentVO(comment);
     commentVO.authorUsername = user.username;
     commentVO.authorAvatar = user.avatar;
+
+    await this.userService.updateActivities(
+      user.id.toHexString(),
+      { srcId: course.id.toHexString(), type: UserActivityType.CreateComment, commentParent: CommentParent.Course }
+    );
+
     return success(commentVO);
   }
 
@@ -124,6 +130,12 @@ export class CourseController {
         user.integral -= course.price;
         await this.userService.updateById(user.id.toHexString(), { joinCourse: user.joinCourse, integral: user.integral } as User);
         await this.courseService.updateById(course.authorId, course.id.toHexString(), { rate: course.rate, joinersId: course.joinersId } as Course);
+
+        await this.userService.updateActivities(
+          user.id.toHexString(),
+          { srcId: course.id.toHexString(), type: UserActivityType.JoinCourse }
+        );
+
       }
     });
     return success();
@@ -151,7 +163,7 @@ export class CourseController {
 
     if (course.rate[user.id.toHexString()] !== null && course.rateComment[user.id.toHexString()] !== null) {
       const err = await this.userService.addIntegral(user.id.toHexString(), config.integral.course.rateAndRateComment);
-      if (err instanceof GeminiError) response(err.code);
+      if (err instanceof GeminiError) return response(err.code);
     }
 
     course.rate[user.id.toHexString()] = rate;

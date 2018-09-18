@@ -1,7 +1,7 @@
 import { Controller, Post, UseGuards, Body, Put, Param, Get, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Usr } from '../user/user.decorators';
-import { User, UserRole } from '../user/user.entity';
+import { User, UserRole, UserActivityType } from '../user/user.entity';
 import { IssueService } from './issue.service';
 import { success, response, ResponseCode } from '../common/utils/response.util';
 import { ObjectId } from 'mongodb';
@@ -19,12 +19,17 @@ export class IssueController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   async create(@Usr() user: User, @Body() createIssueDTO: CreateIssueDTO) {
+    const err = await this.userService.addIntegral(user.id.toHexString(), config.integral.issue.create);
+    if (err instanceof GeminiError) return response(err.code);
+
     const issue = await this.issueService.save(user.id.toHexString(), createIssueDTO);
     const issueVO = new IssueVO(issue);
     issueVO.authorAvatar = user.avatar;
 
-    const err = await this.userService.addIntegral(user.id.toHexString(), config.integral.issue.create);
-    if (err instanceof GeminiError) response(err.code);
+    await this.userService.updateActivities(
+      issue.authorId,
+      { srcId: issue.id.toHexString(), type: UserActivityType.CreateIssue }
+    );
 
     return success(issueVO);
   }
@@ -56,7 +61,12 @@ export class IssueController {
 
     this.commonEntity.increaseIssueReplyNum(user.id.toHexString());
     const err = this.userService.addIntegral(user.id.toHexString(), config.integral.issue.reply);
-    if (err instanceof GeminiError) response(err.code);
+    if (err instanceof GeminiError) return response(err.code);
+
+    await this.userService.updateActivities(
+      user.id.toHexString(),
+      { srcId: issue.id.toHexString(), type: UserActivityType.ReplyIssue }
+    );
 
     return success({
       ...new ReplyVO(reply),
@@ -300,6 +310,12 @@ export class IssueController {
     const res = this.userService.updateById(user.id.toHexString(), { watchIssuesId: user.watchIssuesId } as User);
     if (res instanceof GeminiError) return response(res.code);
     this.issueService.updateByIdWithoutUpdateDate(id, { watchersId: issue.watchersId } as Issue);
+
+    await this.userService.updateActivities(
+      user.id.toHexString(),
+      { srcId: issue.id.toHexString(), type: UserActivityType.WatchIssue }
+    );
+
     return success(user.watchIssuesId);
   }
 
@@ -343,7 +359,7 @@ export class IssueController {
     if (res instanceof GeminiError) return response(res.code);
 
     const err = await this.userService.addIntegral(reply.authorId, config.integral.issue.replyUp);
-    if (err instanceof GeminiError) response(err.code);
+    if (err instanceof GeminiError) return response(err.code);
 
     return success();
   }
