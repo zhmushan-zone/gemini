@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { defaultAvatar } from '@/const'
 
 import './forumPersonal.scss'
 
-@connect(
-  state => state.userstatus,
-  null
-)
 class ForumPersonal extends Component {
   render() {
     return (
@@ -16,7 +11,7 @@ class ForumPersonal extends Component {
           <img src={this.props.avatar ? `/avatar/${this.props.avatar}` : defaultAvatar} alt=""/>
           <div className="forum-personal-user-info-data">
             <span style={{color: '#14191e'}}>{this.props.username}</span>
-            <span style={{fontSize: 12, color: '#787d82'}}>积分: 0</span>
+            <span style={{fontSize: 12, color: '#787d82'}}>积分: {this.props.integral}</span>
           </div>
         </div>
         <div className="forum-personal-user-info-bottom">

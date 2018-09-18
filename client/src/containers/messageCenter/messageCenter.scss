@@ -1,0 +1,136 @@
+.message-center {
+  min-height: 800px;
+  padding-top: 40px;
+  padding-bottom: 50px;
+
+  .message-center-content {
+    width: 1000px;
+    margin: 0 auto;
+
+    h3 {
+      font-size: 24px;
+      color: #4d555d;
+      font-weight: 400;
+    }
+    
+    .message-center-content-top {
+      height: 50px;
+      background: #f3f5f7;
+      font-family: "微软雅黑";
+      font-size: 14px;
+      line-height: 50px;
+      color: #93999f;
+      border-top: 1px solid #b7bbbf;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+
+      .message-clear-alert {
+        color: #93999f;
+      }
+
+      a {
+        color: #4d555d;
+        transition: none;
+
+        &:hover {
+          color: rgb(240, 20, 20);
+        }
+      }
+    }
+  }
+}
+
+.message-center-item-read {
+  padding: 20px 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #d9dde1;
+  display: flex;
+
+  .message-center-item-left {
+    width: 68px;
+
+    div {
+      width: 48px;
+      height: 32px;
+      border: 1px solid #d9dde1;
+      background: #fff;
+      color: #93999f;
+      line-height: 30px;
+      text-align: center;
+    }
+  }
+  .message-center-item-right {
+    flex: 1;
+
+    .message-center-item-content {
+      color: #93999f;
+      font-size: 16px;
+      font-family: "微软雅黑";
+
+      a {
+        color: #93999f;
+        padding: 0 5px;
+        font-weight: 700;
+        transition: none;
+
+        &:hover {
+          color: #4d555d;
+        }
+      }
+    }
+    .message-center-item-time {
+      font-weight: 400;
+      font-size: 14px;
+      color: #93999f;
+      line-height: 30px;
+    }
+  }
+}
+
+.message-center-item-unread {
+  padding: 20px 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #d9dde1;
+  display: flex;
+
+  .message-center-item-left {
+    width: 68px;
+
+    div {
+      width: 48px;
+      height: 32px;
+      border: 1px solid #f01414;
+      background: #fde7e5;
+      color: #f01414;
+      line-height: 30px;
+      text-align: center;
+    }
+  }
+  .message-center-item-right {
+    flex: 1;
+
+    .message-center-item-content {
+      color: #4d555d;
+      font-size: 16px;
+      font-family: "微软雅黑";
+
+      a {
+        color: #4d555d;
+        padding: 0 5px;
+        font-weight: 700;
+        transition: none;
+
+        &:hover {
+          color: #07111b;
+        }
+      }
+    }
+    .message-center-item-time {
+      font-weight: 400;
+      font-size: 14px;
+      color: #93999f;
+      line-height: 30px;
+    }
+  }
+}

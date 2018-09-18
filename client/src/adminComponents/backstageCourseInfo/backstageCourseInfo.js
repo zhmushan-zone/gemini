@@ -41,6 +41,7 @@ class BackstageCourseInfo extends Component {
           const newCourse = {}
           const newSections = [...oldCourse.sections]
           newSections.push({title: this.state.newSection, nodes:[]})
+            newCourse.id = oldCourse.id
             newCourse.title = oldCourse.title
             newCourse.coverImg = oldCourse.coverImg
             newCourse.desc = oldCourse.desc

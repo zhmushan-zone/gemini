@@ -35,7 +35,7 @@ export const CREATE_ARTICLE_ERROR = 'CREATE_ARTICLE_ERROR'
 // 发表问题
 export const CREATE_PROBLEM_SUCCESS = 'CREATE_PROBLEM_SUCCESS'
 // 获取某个问题
-export const FETCH_ONE_COUSE = 'FETCH_ONE_COURSE'
+export const FETCH_ONE_COUSE = 'FETCH_ONE_COUSE'
 // 更新某个问题
 export const UPDATE_COURSE = 'UPDATE_COURSE'
 // 删除问题

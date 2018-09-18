@@ -27,25 +27,25 @@ export class NoticeService {
       case NoticeType.issueReply: {
         const issue = await this.issueService.findById(obj.srcId);
         if (issue) err = null;
-        obj.template = config.template.notice.issueReply(obj.createAt, issue.title);
+        obj.template = config.template.notice.issueReply(obj.srcId, obj.createAt, issue.title);
         break;
       }
       case NoticeType.issueSubReply: {
         const issue = await this.issueService.findById(obj.srcId);
         if (issue) err = null;
-        obj.template = config.template.notice.issueSubReply(obj.createAt, issue.title);
+        obj.template = config.template.notice.issueSubReply(obj.srcId, obj.createAt, issue.title);
         break;
       }
       case NoticeType.issueSubReply2: {
         const issue = await this.issueService.findById(obj.srcId);
         if (issue) err = null;
-        obj.template = config.template.notice.issueSubReply2(obj.createAt, issue.title);
+        obj.template = config.template.notice.issueSubReply2(obj.srcId, obj.createAt, issue.title);
         break;
       }
       case NoticeType.IssuePass: {
         const issue = await this.issueService.findById(obj.srcId);
         if (issue) err = null;
-        obj.template = config.template.notice.issuePass(obj.createAt, issue.title);
+        obj.template = config.template.notice.issuePass(obj.srcId, obj.createAt, issue.title);
         break;
       }
       case NoticeType.IssueFail: {
@@ -63,37 +63,37 @@ export class NoticeService {
       case NoticeType.IssueReplyReported: {
         const issue = await this.issueService.findById(obj.srcId);
         if (issue) err = null;
-        obj.template = config.template.notice.issueReplyReported(obj.createAt, issue.title, obj.reason);
+        obj.template = config.template.notice.issueReplyReported(obj.srcId, obj.createAt, issue.title, obj.reason);
         break;
       }
       case NoticeType.IssueSubReplyReported: {
         const issue = await this.issueService.findById(obj.srcId);
         if (issue) err = null;
-        obj.template = config.template.notice.issueSubReplyReported(obj.createAt, issue.title, obj.reason);
+        obj.template = config.template.notice.issueSubReplyReported(obj.srcId, obj.createAt, issue.title, obj.reason);
         break;
       }
       case NoticeType.articleReply: {
         const article = await this.articleService.findById(obj.srcId);
         if (article) err = null;
-        obj.template = config.template.notice.articleReply(obj.createAt, article.title);
+        obj.template = config.template.notice.articleReply(obj.srcId, obj.createAt, article.title);
         break;
       }
       case NoticeType.articleSubReply: {
         const article = await this.articleService.findById(obj.srcId);
         if (article) err = null;
-        obj.template = config.template.notice.articleSubReply(obj.createAt, article.title);
+        obj.template = config.template.notice.articleSubReply(obj.srcId, obj.createAt, article.title);
         break;
       }
       case NoticeType.articleSubReply2: {
         const article = await this.articleService.findById(obj.srcId);
         if (article) err = null;
-        obj.template = config.template.notice.articleSubReply2(obj.createAt, article.title);
+        obj.template = config.template.notice.articleSubReply2(obj.srcId, obj.createAt, article.title);
         break;
       }
       case NoticeType.articlePass: {
         const article = await this.articleService.findById(obj.srcId);
         if (article) err = null;
-        obj.template = config.template.notice.articlePass(obj.createAt, article.title);
+        obj.template = config.template.notice.articlePass(obj.srcId, obj.createAt, article.title);
         break;
       }
       case NoticeType.articleFail: {
@@ -111,25 +111,25 @@ export class NoticeService {
       case NoticeType.articleReplyReported: {
         const article = await this.articleService.findById(obj.srcId);
         if (article) err = null;
-        obj.template = config.template.notice.articleReplyReported(obj.createAt, article.title, obj.reason);
+        obj.template = config.template.notice.articleReplyReported(obj.srcId, obj.createAt, article.title, obj.reason);
         break;
       }
       case NoticeType.articleSubReplyReported: {
         const article = await this.articleService.findById(obj.srcId);
         if (article) err = null;
-        obj.template = config.template.notice.articleSubReplyReported(obj.createAt, article.title, obj.reason);
+        obj.template = config.template.notice.articleSubReplyReported(obj.srcId, obj.createAt, article.title, obj.reason);
         break;
       }
       case NoticeType.courseReplyReported: {
         const course = await this.courseService.findById(obj.srcId);
         if (course) err = null;
-        obj.template = config.template.notice.courseReplyReported(obj.createAt, course.title, obj.reason);
+        obj.template = config.template.notice.courseReplyReported(obj.srcId, obj.createAt, course.title, obj.reason);
         break;
       }
       case NoticeType.courseSubReplyReported: {
         const course = await this.courseService.findById(obj.srcId);
         if (course) err = null;
-        obj.template = config.template.notice.courseSubReplyReported(obj.createAt, course.title, obj.reason);
+        obj.template = config.template.notice.courseSubReplyReported(obj.srcId, obj.createAt, course.title, obj.reason);
         break;
       }
     }

@@ -261,7 +261,6 @@ function updateCourseSuccess(course) {
 
 export function updateCourse(id, data) {
 	const _token = Cookies.get('_token')
-	console.log(data)
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'put',
