@@ -34,9 +34,11 @@ export default class BackstageArticle extends Component {
 				token: Cookies.get('_token'),
 			},
 		})
-		await this.setState({
-			users: res.data.data,
-		})
+		if (res.data.code === 1) {
+			await this.setState({
+				users: res.data.data,
+			})
+		}
 		// 获取文章
 		await axios({
 			method: 'GET',

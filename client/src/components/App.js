@@ -38,6 +38,7 @@ class App extends React.Component {
 	}
 
 	stateChange(key, value) {
+		console.log('object')
 		this.setState({
 			[key]: value,
 		})
@@ -47,11 +48,11 @@ class App extends React.Component {
 		return (
 			<React.Fragment>
 				{/* 检验是否有登录信息 */}
-				<AutoRoute stateChange={this.stateChange} />
-				{/* 有了switch后，匹配到path后就不会再匹配下去了 */}
-				{
+				<AutoRoute stateChange={() => this.stateChange('isAuth', true)} />
+				<Route path='/login' component={Login} />
+				{this.state.isAuth ? (
 					<Switch>
-						<Route path='/login' component={Login} />\
+						{/* <Route path='/login' component={Login} /> */}
 						<Route path='/editor' component={Editor} />
 						<Route path='/admin' component={Admin} />
 						<Route path='/video/:courseId' component={VideoPage} />
@@ -84,7 +85,7 @@ class App extends React.Component {
 							)}
 						/>
 					</Switch>
-				}
+				) : null}
 			</React.Fragment>
 		)
 	}
