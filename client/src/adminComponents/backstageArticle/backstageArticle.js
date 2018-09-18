@@ -18,7 +18,7 @@ export default class BackstageArticle extends Component {
 			showType: Array.from({ length: ArticleCategoryAll.length }, (v, i) => i),
 			articles: [],
 			users: [],
-			selectUser: []
+			selectUser: [],
 		}
 		this.stateChange = this.stateChange.bind(this)
 		this.handleChange = this.handleChange.bind(this)
@@ -29,32 +29,32 @@ export default class BackstageArticle extends Component {
 			method: 'GET',
 			url: '/api/users',
 			headers: {
-				token: Cookies.get('_token')
-			}
+				token: Cookies.get('_token'),
+			},
 		}).then((res) => {
 			this.setState({
-				users: res.data.data
+				users: res.data.data,
 			})
 		})
 		// 获取文章
 		await axios({
 			method: 'GET',
-			url: '/api/articles'
+			url: '/api/articles',
 		}).then((res) => {
 			this.setState({
-				articles: res.data.data
+				articles: res.data.data,
 			})
 		})
 	}
 
 	stateChange(key, value) {
 		this.setState({
-			[key]: value
+			[key]: value,
 		})
 	}
 	handleChange(value) {
 		this.setState({
-			selectUser: value
+			selectUser: value,
 		})
 	}
 

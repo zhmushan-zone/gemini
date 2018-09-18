@@ -41,7 +41,7 @@ class BackstageReportCenterContent extends Component {
 					<span style={{ marginRight: 18, display: 'inline-block', lineHeight: '32px' }}>所属类目：</span>
 					{tagItems}
 				</div>
-				<ReportCenterTable report={this.props.report} Tabkey={this.props.Tabkey} showType={this.state.showType} />
+				<ReportCenterTable Tabkey={this.props.Tabkey} showType={this.state.showType} />
 			</div>
 		)
 	}

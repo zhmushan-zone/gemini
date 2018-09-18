@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { getProblemList, problemAccept, deleteProblem } from '@/redux/actions'
 import { ArticleType as Type } from '@/const'
 import { dateSortByCreate } from '@/util/dateSort'
-
+import axios from 'axios'
 const confirm = Modal.confirm
 const { TextArea } = Input
 
