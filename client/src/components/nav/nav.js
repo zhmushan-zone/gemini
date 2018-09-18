@@ -12,10 +12,18 @@ class Nav extends React.Component {
     super(props)
     this.state = {
       selected: 0,
-      searchContent: ''
+      searchContent: '',
+      shoppingCartCount: 0
     }
+    this.stateChange = this.stateChange.bind(this)
   }
 
+  stateChange(key, value) {
+    this.setState({
+      [key]: value
+    })
+  }
+  
   componentDidMount () {
     const { pathname } = this.props.location
     if (pathname === '/onlineStudying') {
@@ -75,6 +83,7 @@ class Nav extends React.Component {
           )
         }
     })
+    console.log(this.state.shoppingCartCount)
     return (
       <nav style={is?{'boxShadow':'none'}:null } className="allNav">
         <div className="nav-left">
@@ -105,15 +114,21 @@ class Nav extends React.Component {
             <Link to={`/shoppingCart`} className="nav-shopping-cart">
               <Icon type="shopping-cart" theme="outlined" />
               <span style={{marginLeft: 10}}>购物车</span>
+              {
+                this.state.shoppingCartCount ?
+                <span className="nav-shopping-cart-count">
+                  {this.state.shoppingCartCount}
+                </span> : null
+              }
             </Link>
           </div>
           <div className="nav-message-center-wrapper">
-            <a className="nav-message-center">
+            <Link to={'/messageCenter'} className="nav-message-center">
               <Icon type="bell" theme="filled" />
-            </a>
+            </Link>
           </div>
           {
-            !is?<UserStatus />:null
+            !is?<UserStatus stateChange={this.stateChange} />:null
           }
         </div>
       </nav>

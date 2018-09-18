@@ -3,7 +3,7 @@ import { Checkbox, Modal, message } from 'antd'
 import CustomIcon from '@/common/customIcon/customIcon'
 import ShoppingCartItem from '../shoppingCartItem/shoppingCartItem'
 import { connect } from 'react-redux'
-import { getShoppingCart } from '@/redux/actions'
+import { getShoppingCart, deleteShoppingCartCourse } from '@/redux/actions'
 import Loading from '@/common/loading/loading'
 import axios from 'axios'
 import Cookies from 'js-cookie'
@@ -14,7 +14,7 @@ const confirm = Modal.confirm
 
 @connect(
   state => state,
-  { getShoppingCart }
+  { getShoppingCart, deleteShoppingCartCourse }
 )
 class ShoppingCart extends Component {
   constructor(props) {
@@ -63,20 +63,35 @@ class ShoppingCart extends Component {
       onOk: () => {
         return new Promise(async (resolve, reject) => {
           const _token = Cookies.get('_token')
+          let newCourses = [...this.props.shoppingCart.courses]
           const purchaseList = [...this.state.selectList]
-          for (let item of purchaseList) {
-            console.log(item)
-            await axios({
-              method: 'put',
-              url: `/api/courses/join/${this.props.shoppingCart.courses[item].id}`,
-              headers: {
-                token: _token
-              }
-            })
+          const ids = []
+          newCourses = newCourses.filter((item, index) => {
+            return !purchaseList.includes(index)
+          })
+          for (let item of this.state.selectList) {
+            ids.push(this.props.shoppingCart.courses[item].id)
           }
-          resolve('购买成功')
+          const res = await axios({
+            method: 'put',
+            url: `/api/courses/join`,
+            headers: {
+              token: _token
+            },
+            data: ids
+          })
+          if (res.data.code === 1) {
+            await this.props.deleteShoppingCartCourse(newCourses)
+            resolve('购买成功')
+          }
         }).then(res => {
           message.success(res)
+          this.setState({
+            selectList: []
+          })
+          setTimeout(() => {
+            this.props.history.push(`/personCenter/${this.props.userstatus.id}/class`)
+          }, 1000)
         })
       },
       onCancel() {},
@@ -86,8 +101,10 @@ class ShoppingCart extends Component {
   render() {
     const myIntegral = this.props.userstatus.integral
     let totalPrice = 0
-    for (let item of this.state.selectList) {
-      totalPrice += this.props.shoppingCart.courses[item].price
+    if(this.props.shoppingCart.courses.length) {
+      for (let item of this.state.selectList) {
+        totalPrice += this.props.shoppingCart.courses[item].price
+      }
     }
     return (
       <div className="shopping-cart">

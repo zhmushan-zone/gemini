@@ -261,7 +261,6 @@ function updateCourseSuccess(course) {
 
 export function updateCourse(id, data) {
 	const _token = Cookies.get('_token')
-	console.log(data)
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'put',
@@ -1011,7 +1010,6 @@ export function getShoppingCart() {
 				course.price = item.price
 				courses.push(course)
 			}
-			console.log(courses)
 			dispatch(getShoppingCartSuccess(courses))
 		}
 	}
@@ -1021,10 +1019,8 @@ export function deleteShoppingCartCourse(courses) {
 	const _token = Cookies.get('_token')
 	const ids = []
 	for (let item of courses) {
-		console.log(item)
 		ids.push(item.id)
 	}
-	console.log()
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'put',

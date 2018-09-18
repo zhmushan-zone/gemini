@@ -36,7 +36,13 @@ class UserStatus extends React.Component {
     this.props.logout()
   }
 
-
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.shoppingcart)
+    if (nextProps.shoppingcart.length !== this.props.shoppingcart) {
+      this.props.stateChange('shoppingCartCount', nextProps.shoppingcart.length)
+    }
+  }
+  
   render() {
     const nickname = this.props.nickname ? this.props.nickname : this.props.username
     const linkStyle = this.state.isUserInfoShow ? { border: '2px solid #f01414' } : { border: 'none' }

@@ -16,9 +16,14 @@ export class ArticleService {
     return this.articleRepository.save(obj);
   }
 
-  async delete(authorId: string, id: string) {
-    const article = await this.articleRepository.findOne(id, { where: { authorId } });
+  async delete(id: string) {
+    const article = await this.articleRepository.findOne(id);
     this.articleRepository.delete(article);
+  }
+
+  async deleteComment(id: string) {
+    const comment = await this.commentRepository.findOne(id);
+    this.commentRepository.delete(comment);
   }
 
   findById(id: string) {

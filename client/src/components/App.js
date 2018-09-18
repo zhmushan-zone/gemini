@@ -22,47 +22,65 @@ import ArticleExcellentThirty from './ArticleExcellentThirty/ArticleExcellentThi
 import CoursePreview from './coursePreview/coursePreview'
 import Search from '../containers/search/search'
 import ShoppingCart from '../components/shoppingCart/shoppingCart'
+import MessageCenter from '../containers/messageCenter/messageCenter'
 import '@/assets/styles/normalize.scss'
 // icon图标
 import '@/assets/styles/font/icon.css'
 import opinionRecommend from './opinionRecommend/opinionRecommend'
 class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isAuth: false
+    }
+    this.stateChange = this.stateChange.bind(this)
+  }
+  
+  stateChange(key, value) {
+    this.setState({
+      [key]: value
+    })
+  }
+  
   render() {
     return (
       <React.Fragment>
         {/* 检验是否有登录信息 */}
-        <AutoRoute />
+        <AutoRoute stateChange={this.stateChange} />
         {/* 有了switch后，匹配到path后就不会再匹配下去了 */}
-        <Switch>
-          <Route path="/login" component={Login}></Route>
-          <Route path="/editor" component={Editor}></Route>
-          <Route path="/admin" component={Admin}></Route>
-          <Route path="/video/:courseId" component={VideoPage}></Route>
-          <Route path="/" render={(props) => (
-            <Layout>
-              <Switch>
-                <Route path="/home" component={Home}></Route>
-                <Route path="/search/:content" component={Search}></Route>
-                <Route path="/shoppingCart" component={ShoppingCart}></Route>
-                <Route path="/onlineStudying" component={OnlineStudying}></Route>
-                <Route path="/forum" component={Forum} exact></Route>
-                <Route path="/forum/create" component={forumCreateProblem} exact></Route>
-                <Route path="/forum/details/:id" component={ForumProblemPage}></Route>
-                <Route path="/forum/type/:type" component={ForumProblemTypePage}></Route>
-                <Route path="/opinion/focus" component={OpinionFocus}></Route>
-                <Route path="/opinion/:category" component={Opinion}></Route>
-                <Route path="/opinion" component={opinionRecommend}></Route>
-                <Route path="/personCenter/:id" component={PersonCenter}></Route>
-                <Route path="/article/:id" component={ArticleSample}></Route>
-                <Route path="/excellentSeven" component={ArticleExcellentSeven}></Route>
-                <Route path="/excellentThirty" component={ArticleExcellentThirty}></Route>
-                <Route path="/class/:courseId" component={CoursePreview}></Route>
-                <Redirect path="/" to={{ pathname: '/home' }} />       
-              </Switch>
-              <Footer />
-            </Layout>
-          )}></Route>
-        </Switch>
+        {
+          <Switch>
+            <Route path="/login" component={Login}></Route>\
+              <Route path="/editor" component={Editor}></Route>
+              <Route path="/admin" component={Admin}></Route>
+              <Route path="/video/:courseId" component={VideoPage}></Route>
+              <Route path="/" render={(props) => (
+                <Layout>
+                  <Switch>
+                    <Route path="/home" component={Home}></Route>
+                    <Route path="/search/:content" component={Search}></Route>
+                    <Route path="/shoppingCart" component={ShoppingCart}></Route>
+                    <Route path="/messageCenter" component={MessageCenter}></Route>
+                    <Route path="/onlineStudying" component={OnlineStudying}></Route>
+                    <Route path="/forum" component={Forum} exact></Route>
+                    <Route path="/forum/create" component={forumCreateProblem} exact></Route>
+                    <Route path="/forum/details/:id" component={ForumProblemPage}></Route>
+                    <Route path="/forum/type/:type" component={ForumProblemTypePage}></Route>
+                    <Route path="/opinion/focus" component={OpinionFocus}></Route>
+                    <Route path="/opinion/:category" component={Opinion}></Route>
+                    <Route path="/opinion" component={opinionRecommend}></Route>
+                    <Route path="/personCenter/:id" component={PersonCenter}></Route>
+                    <Route path="/article/:id" component={ArticleSample}></Route>
+                    <Route path="/excellentSeven" component={ArticleExcellentSeven}></Route>
+                    <Route path="/excellentThirty" component={ArticleExcellentThirty}></Route>
+                    <Route path="/class/:courseId" component={CoursePreview}></Route>
+                    <Redirect path="/" to={{ pathname: '/home' }} />       
+                  </Switch>
+                  <Footer />
+                </Layout>
+              )}></Route>
+          </Switch>
+        }
       </React.Fragment>
     )
   }
