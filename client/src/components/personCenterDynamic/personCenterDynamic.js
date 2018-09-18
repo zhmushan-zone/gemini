@@ -1,26 +1,31 @@
 import React from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import Loading from '@/common/loading/loading'
 import './PersonCenterDynamic.scss'
 class PersonCenterDynamic extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			activities: [],
+			show: true,
 		}
 	}
 	componentDidMount = async () => {
-		await axios({
-			method: 'GET',
-			url: '/api/users/activities',
-			headers: {
-				token: Cookies.get('_token'),
-			},
-		}).then((res) => {
-			this.setState({
-				activities: res.data.data,
+		setTimeout(() => {
+			axios({
+				method: 'GET',
+				url: '/api/users/activities',
+				headers: {
+					token: Cookies.get('_token'),
+				},
+			}).then((res) => {
+				this.setState({
+					activities: res.data.data,
+					show: false,
+				})
 			})
-		})
+		}, 1000)
 	}
 
 	render() {
@@ -55,21 +60,8 @@ class PersonCenterDynamic extends React.Component {
 							)
 						})
 					) : null}
-
-					<li className='item'>
-						<div className='activity'>
-							<a className='link'>
-								<div className='meta-box'>
-									<div className='action'>发表了文章</div>
-									<div className='data'>2018-9-18 13:26:40</div>
-								</div>
-								<div className='content'>
-									<div className='title'> node：爬虫爬取网页图片</div>
-								</div>
-							</a>
-						</div>
-					</li>
 				</ul>
+				{this.state.show ? <Loading /> : null}
 			</div>
 		)
 	}

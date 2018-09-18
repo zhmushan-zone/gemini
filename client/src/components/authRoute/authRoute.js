@@ -12,9 +12,7 @@ class AutoRoute extends React.Component {
 		super(props)
 		this.state = {}
 	}
-	stateChange() {
-		this.props.stateChange()
-	}
+
 	componentDidMount() {
 		var publicList = [ '/login' ]
 		var pathname = this.props.location.pathname
@@ -25,16 +23,9 @@ class AutoRoute extends React.Component {
 		}
 
 		axios
-			.get('/api/users/auth', {
-				headers: {
-					id: _id,
-					token: _token,
-				},
-			})
+			.get(`/api/users/${_id}`)
 			.then(async (res) => {
 				await this.props.loadData(res.data.data)
-				Cookies.set('_token', res.data.data.token)
-				this.stateChange()
 			})
 			.catch((rej) => {
 				this.props.history.push('/login')
