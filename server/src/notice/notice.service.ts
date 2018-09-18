@@ -136,7 +136,11 @@ export class NoticeService {
     return this.noticeRepository.save(obj);
   }
 
-  async findById(id: string) {
+  findById(id: string) {
     return this.noticeRepository.findOne(id);
+  }
+
+  findByTo(to: string) {
+    return this.noticeRepository.find({ where: { to } });
   }
 }
