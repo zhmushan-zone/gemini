@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import { ArticleType as Type, ArticleCategory } from '@/const'
 import { fetchArticleAll, articleAccept, deleteArticle } from '@/redux/actions'
 import { dateSortByCreate } from '@/util/dateSort'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 const confirm = Modal.confirm
 const { TextArea } = Input
 @connect((state) => state.article, { fetchArticleAll, articleAccept, deleteArticle })
@@ -38,23 +40,37 @@ class BackstageCheckArticleTable extends Component {
 			visible: false,
 		})
 	}
-	agree(id) {
+	agree(id, authorId) {
 		confirm({
 			title: '请确认您的操作',
 			content: '您是否要批准该条请求，请您确认',
 			onOk: () => {
 				return new Promise(async (resolve, reject) => {
+					const _token = Cookies.get('_token')
 					await this.props.articleAccept(id)
-					resolve(1)
+					await axios({
+            method: 'post',
+            url: '/api/notices',
+            headers: {
+              token: _token
+            },
+            data: {
+              type: 11,
+              reason: '',
+              srcId: id,
+              to: authorId
+            }
+          })
+          resolve('请求已通过')
 				}).then((res) => {
-					message.success('该请求已通过')
+					message.success(res)
 				})
 			},
 			onCancel() {},
 		})
 	}
 
-	disagree(id) {
+	disagree(id, authorId) {
 		confirm({
 			title: '您确定要拒绝该请求吗',
 			content: (
@@ -62,7 +78,21 @@ class BackstageCheckArticleTable extends Component {
 			),
 			onOk: () => {
 				return new Promise(async (resolve, reject) => {
+					const _token = Cookies.get('_token')
 					await this.props.deleteArticle(id)
+					await axios({
+            method: 'post',
+            url: '/api/notices',
+            headers: {
+              token: _token
+            },
+            data: {
+              type: 12,
+              reason: this.state.disagreeReason,
+              srcId: id,
+              to: authorId
+            }
+          })
 					resolve(1)
 				}).then((res) => {
 					message.success('该请求已被拒绝')
@@ -118,11 +148,11 @@ class BackstageCheckArticleTable extends Component {
 				key: 'action',
 				render: (text, record) => (
 					<span>
-						<a style={{ color: '#5fcf9a' }} onClick={() => this.agree(record.id)}>
+						<a style={{ color: '#5fcf9a' }} onClick={() => this.agree(record.id, record.authorId)}>
 							批准
 						</a>
 						<Divider type='vertical' />
-						<a style={{ color: 'rgba(240, 20, 20, 0.8)' }} onClick={() => this.disagree(record.id)}>
+						<a style={{ color: 'rgba(240, 20, 20, 0.8)' }} onClick={() => this.disagree(record.id, record.authorId)}>
 							拒绝
 						</a>
 					</span>
@@ -133,10 +163,12 @@ class BackstageCheckArticleTable extends Component {
 		const data = []
 		if (this.props.articleArray) {
 			const article = this.props.articleArray.filter(item => item.status === 0)
+			dateSortByCreate(article)
 			article.map((item, index) => {
 				const articlemData = {}
 				articlemData.key = `${index + 1}`
 				articlemData.author = item.authorUsername
+				articlemData.authorId = item.authorId
 				articlemData.title = item.title
 				articlemData.category = ArticleCategory[item.category]
 				articlemData.type = item.type
