@@ -29,25 +29,11 @@ import '@/assets/styles/font/icon.css'
 import opinionRecommend from './opinionRecommend/opinionRecommend'
 
 class App extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			isAuth: false,
-		}
-		this.stateChange = this.stateChange.bind(this)
-	}
-
-	stateChange(key, value) {
-		this.setState({
-			[key]: value,
-		})
-	}
-
 	render() {
 		return (
 			<React.Fragment>
 				{/* 检验是否有登录信息 */}
-				<AutoRoute stateChange={this.stateChange} />
+				<AutoRoute />
 				{/* 有了switch后，匹配到path后就不会再匹配下去了 */}
 				{
 					<Switch>

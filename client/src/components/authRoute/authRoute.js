@@ -24,15 +24,10 @@ class AutoRoute extends React.Component {
 				},
 			})
 			.then(async (res) => {
-				if (res.data.code === 1) {
-					// 有登录信息
-					// 其实是为了解决刷新的时候虽然页面不跳转但是，数据没了
-					await this.props.loadData(res.data.data)
-					Cookies.set('_token', res.data.data.token)
-					this.props.stateChange('isAuth', true)
-				} else {
-					this.props.history.push('/login')
-				}
+				// 有登录信息
+				// 其实是为了解决刷新的时候虽然页面不跳转但是，数据没了
+				await this.props.loadData(res.data.data)
+				Cookies.set('_token', res.data.data.token)
 			})
 			.catch((rej) => {
 				this.props.history.push('/login')

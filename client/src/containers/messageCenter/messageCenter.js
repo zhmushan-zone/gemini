@@ -24,8 +24,7 @@ class MessageCenter extends Component {
   }
   
   async componentDidMount() {
-    setTimeout(async () => {
-      const data = [...this.props.msg]
+    const data = [...this.props.msg]
       const templateData = []
       data.length > 1 ? dateSortByCreate(data) : null
       data.map(v => templateData.push(v.template))
@@ -33,8 +32,7 @@ class MessageCenter extends Component {
       this.setState({
         loading: false,
         content: templateData
-      })
-    }, 3000)
+    })  
     socket.on('notice', (data) => {
       const newMsg = [data, ...this.props.msg]
       const oldContent = this.state.content
