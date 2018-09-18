@@ -21,6 +21,7 @@ export class NoticeService {
 
   async save(notice: Notice) {
     const obj = notice.id ? notice : this.noticeRepository.create(notice);
+    obj.createAt = new Date().toLocaleString();
     let err = new GeminiError(ResponseCode.NOT_EXISIT);
     switch (obj.type) {
       case NoticeType.issueReply: {
