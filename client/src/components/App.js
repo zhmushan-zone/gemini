@@ -50,42 +50,40 @@ class App extends React.Component {
 				{/* 检验是否有登录信息 */}
 				<AutoRoute stateChange={() => this.stateChange('isAuth', true)} />
 				<Route path='/login' component={Login} />
-				{this.state.isAuth ? (
-					<Switch>
-						<Route path='/login' component={Login} />
-						<Route path='/editor' component={Editor} />
-						<Route path='/admin' component={Admin} />
-						<Route path='/video/:courseId' component={VideoPage} />
-						<Route
-							path='/'
-							render={(props) => (
-								<Layout>
-									<Switch>
-										<Route path='/home' component={Home} />
-										<Route path='/search/:content' component={Search} />
-										<Route path='/shoppingCart' component={ShoppingCart} />
-										<Route path='/messageCenter' component={MessageCenter} />
-										<Route path='/onlineStudying' component={OnlineStudying} />
-										<Route path='/forum' component={Forum} exact />
-										<Route path='/forum/create' component={forumCreateProblem} exact />
-										<Route path='/forum/details/:id' component={ForumProblemPage} />
-										<Route path='/forum/type/:type' component={ForumProblemTypePage} />
-										<Route path='/opinion/focus' component={OpinionFocus} />
-										<Route path='/opinion/:category' component={Opinion} />
-										<Route path='/opinion' component={opinionRecommend} />
-										<Route path='/personCenter/:id' component={PersonCenter} />
-										<Route path='/article/:id' component={ArticleSample} />
-										<Route path='/excellentSeven' component={ArticleExcellentSeven} />
-										<Route path='/excellentThirty' component={ArticleExcellentThirty} />
-										<Route path='/class/:courseId' component={CoursePreview} />
-										<Redirect path='/' to={{ pathname: '/home' }} />
-									</Switch>
-									<Footer />
-								</Layout>
-							)}
-						/>
-					</Switch>
-				) : null}
+				<Switch>
+					<Route path='/login' component={Login} />
+					<Route path='/editor' component={Editor} />
+					<Route path='/admin' component={Admin} />
+					<Route path='/video/:courseId' component={VideoPage} />
+					<Route
+						path='/'
+						render={(props) => (
+							<Layout>
+								<Switch>
+									<Route path='/home' component={Home} />
+									<Route path='/search/:content' component={Search} />
+									<Route path='/shoppingCart' component={ShoppingCart} />
+									<Route path='/messageCenter' component={MessageCenter} />
+									<Route path='/onlineStudying' component={OnlineStudying} />
+									<Route path='/forum' component={Forum} exact />
+									<Route path='/forum/create' component={forumCreateProblem} exact />
+									<Route path='/forum/details/:id' component={ForumProblemPage} />
+									<Route path='/forum/type/:type' component={ForumProblemTypePage} />
+									<Route path='/opinion/focus' component={OpinionFocus} />
+									<Route path='/opinion/:category' component={Opinion} />
+									<Route path='/opinion' component={opinionRecommend} />
+									<Route path='/personCenter/:id' component={PersonCenter} />
+									<Route path='/article/:id' component={ArticleSample} />
+									<Route path='/excellentSeven' component={ArticleExcellentSeven} />
+									<Route path='/excellentThirty' component={ArticleExcellentThirty} />
+									<Route path='/class/:courseId' component={CoursePreview} />
+									<Redirect to={{ pathname: '/home' }} />
+								</Switch>
+								<Footer />
+							</Layout>
+						)}
+					/>
+				</Switch>
 			</React.Fragment>
 		)
 	}
