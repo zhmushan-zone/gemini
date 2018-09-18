@@ -39,8 +39,6 @@ class PersonCenterDynamic extends React.Component {
 					{activities ? (
 						activities.map((v) => {
 							const item = v.body
-							console.log(item)
-							console.log(v.type)
 							return (
 								<li className='item' key={item.srcId}>
 									<div className='activity'>

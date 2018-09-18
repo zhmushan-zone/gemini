@@ -13,6 +13,7 @@ class UserStatus extends React.Component {
 		this.state = {
 			isLogin: Cookies.get('_id') ? true : false,
 			isUserInfoShow: false,
+			_id: Cookies.get('_id'),
 		}
 	}
 	//  鼠标移到头像显示用户板块
@@ -80,16 +81,16 @@ class UserStatus extends React.Component {
 								<div className='user-info-center'>
 									<ul>
 										<li>
-											<a href='#javascript'>我的课程</a>
+											<a href={`/personCenter/${this.state._id}/class`}>我的课程</a>
 										</li>
 										<li>
-											<a href='#javascript'>订单中心</a>
+											<a href={`/personCenter/${this.state._id}/yuanwen`}>我的问答</a>
 										</li>
 										<li>
-											<a href='#javascript'>我的文章</a>
+											<a href={`/personCenter/${this.state._id}/article`}>我的文章</a>
 										</li>
 										<li>
-											<a href='#javascript'>个人设置</a>
+											<a href={`/personCenter/${this.state._id}/set`}>个人设置</a>
 										</li>
 									</ul>
 								</div>

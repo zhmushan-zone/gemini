@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Breadcrumb,Icon } from 'antd'
+import { Breadcrumb, Icon } from 'antd'
 import CustomIcon from '@/common/customIcon/customIcon'
 import TagSample from '../tagSample/tagSample'
 import ArticleComments from '../articleComments/articleComments'
@@ -16,7 +16,6 @@ import Share from '@/share'
 import axios from 'axios'
 import { dateSortByCreate } from '@/util/dateSort'
 const { TextArea } = Input
-
 
 @withRouter
 @connect((state) => state, { sendArticleComment, fetchArticleUp })
@@ -195,19 +194,21 @@ export default class articleLeft extends Component {
 								v.type.map((v) => {
 									type.push(ArticleType[v])
 								})
-								return (
-									<OpinionMainCenterList
-										key={v.createAt}
-										title={v.title}
-										category={ArticleCategory[v.category]}
-										see={v.viewnum}
-										author={v.authorUsername}
-										time={v.createAt}
-										tag={type}
-										coverImg={`/cover-img/${v.coverImg}`}
-										articleId={v.id}
-									/>
-								)
+								if (v.status === 1) {
+									return (
+										<OpinionMainCenterList
+											key={v.createAt}
+											title={v.title}
+											category={ArticleCategory[v.category]}
+											see={v.viewnum}
+											author={v.authorUsername}
+											time={v.createAt}
+											tag={type}
+											coverImg={`/cover-img/${v.coverImg}`}
+											articleId={v.id}
+										/>
+									)
+								}
 							})
 						) : (
 							''
