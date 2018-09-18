@@ -118,16 +118,18 @@ class ReporCenterTable extends Component {
 				headers: {
 					token: Cookies.get('_token'),
 				},
-			}).then((res) => {
-				if (res.data.code === 1) {
-					message.success('删除成功')
-					this.changestatus(item)
-				} else {
-					message.warning('删除失败')
-				}
-			}).catch(rej=>{
-				message.warning('出错了，一定发生了什么奇怪的事情')
 			})
+				.then((res) => {
+					if (res.data.code === 1) {
+						message.success('删除成功')
+						this.changestatus(item)
+					} else {
+						message.warning('删除失败')
+					}
+				})
+				.catch((rej) => {
+					message.warning('出错了，一定发生了什么奇怪的事情')
+				})
 		} else if (item.typeNum === 2) {
 			//回答子回复
 			await axios({
@@ -136,16 +138,18 @@ class ReporCenterTable extends Component {
 				headers: {
 					token: Cookies.get('_token'),
 				},
-			}).then((res) => {
-				if (res.data.code === 1) {
-					message.success('删除成功')
-					this.changestatus(item)
-				} else {
-					message.warning('删除失败')
-				}
-			}).catch(rej=>{
-				message.warning('出错了，一定发生了什么奇怪的事情')
 			})
+				.then((res) => {
+					if (res.data.code === 1) {
+						message.success('删除成功')
+						this.changestatus(item)
+					} else {
+						message.warning('删除失败')
+					}
+				})
+				.catch((rej) => {
+					message.warning('出错了，一定发生了什么奇怪的事情')
+				})
 		} else if (item.typeNum === 3) {
 			// 文章
 			await axios({
@@ -154,16 +158,18 @@ class ReporCenterTable extends Component {
 				headers: {
 					token: Cookies.get('_token'),
 				},
-			}).then((res) => {
-				if (res.data.code === 1) {
-					message.success('删除成功')
-					this.changestatus(item)
-				} else {
-					message.warning('删除失败')
-				}
-			}).catch(rej=>{
-				message.warning('出错了，一定发生了什么奇怪的事情')
 			})
+				.then((res) => {
+					if (res.data.code === 1) {
+						message.success('删除成功')
+						this.changestatus(item)
+					} else {
+						message.warning('删除失败')
+					}
+				})
+				.catch((rej) => {
+					message.warning('出错了，一定发生了什么奇怪的事情')
+				})
 		} else if (item.typeNum === 4) {
 			//章评论
 			await axios({
@@ -172,16 +178,18 @@ class ReporCenterTable extends Component {
 				headers: {
 					token: Cookies.get('_token'),
 				},
-			}).then((res) => {
-				if (res.data.code === 1) {
-					message.success('删除成功')
-					this.changestatus(item)
-				} else {
-					message.warning('删除失败')
-				}
-			}).catch(rej=>{
-				message.warning('出错了，一定发生了什么奇怪的事情')
 			})
+				.then((res) => {
+					if (res.data.code === 1) {
+						message.success('删除成功')
+						this.changestatus(item)
+					} else {
+						message.warning('删除失败')
+					}
+				})
+				.catch((rej) => {
+					message.warning('出错了，一定发生了什么奇怪的事情')
+				})
 		} else if (item.typeNum === 5) {
 			//文章子评论
 			await axios({
@@ -190,16 +198,18 @@ class ReporCenterTable extends Component {
 				headers: {
 					token: Cookies.get('_token'),
 				},
-			}).then((res) => {
-				if (res.data.code === 1) {
-					message.success('删除成功')
-					this.changestatus(item)
-				} else {
-					message.warning('删除失败')
-				}
-			}).catch(rej=>{
-				message.warning('出错了，一定发生了什么奇怪的事情')
 			})
+				.then((res) => {
+					if (res.data.code === 1) {
+						message.success('删除成功')
+						this.changestatus(item)
+					} else {
+						message.warning('删除失败')
+					}
+				})
+				.catch((rej) => {
+					message.warning('出错了，一定发生了什么奇怪的事情')
+				})
 		} else if (item.typeNum === 6) {
 			//视频评论
 			await axios({
@@ -208,15 +218,17 @@ class ReporCenterTable extends Component {
 				headers: {
 					token: Cookies.get('_token'),
 				},
-			}).then((res) => {
-				if (res.data.code === 1) {
-					message.success('删除成功')
-				} else {
-					message.warning('删除失败')
-				}
-			}).catch(rej=>{
-				message.warning('出错了，一定发生了什么奇怪的事情')
 			})
+				.then((res) => {
+					if (res.data.code === 1) {
+						message.success('删除成功')
+					} else {
+						message.warning('删除失败')
+					}
+				})
+				.catch((rej) => {
+					message.warning('出错了，一定发生了什么奇怪的事情')
+				})
 			await this.changestatus(item)
 		} else if (item.typeNum === 7) {
 			//视频子评论
@@ -226,16 +238,18 @@ class ReporCenterTable extends Component {
 				headers: {
 					token: Cookies.get('_token'),
 				},
-			}).then((res) => {
-				if (res.data.code === 1) {
-					message.success('删除成功')
-					this.changestatus(item)
-				} else {
-					message.warning('删除失败')
-				}
-			}).catch(rej=>{
-				message.warning('出错了，一定发生了什么奇怪的事情')
 			})
+				.then((res) => {
+					if (res.data.code === 1) {
+						message.success('删除成功')
+						this.changestatus(item)
+					} else {
+						message.warning('删除失败')
+					}
+				})
+				.catch((rej) => {
+					message.warning('出错了，一定发生了什么奇怪的事情')
+				})
 		}
 	}
 	// 无视

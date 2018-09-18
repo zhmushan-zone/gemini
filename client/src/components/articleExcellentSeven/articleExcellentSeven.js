@@ -71,7 +71,7 @@ export default class articleExcellentSeven extends Component {
 							)
 						})
 					) : null}
-					{this.state.show ? <Loading /> : null}
+					{show ? <Loading /> : null}
 				</div>
 			</div>
 		)

@@ -219,9 +219,9 @@ class Login extends React.Component {
 								</svg>
 							</button>
 							<div className="f_link">
-								<a href="" className="resetTag" onClick={this.forgetPass}>
+								{/* <a href="" className="resetTag" onClick={this.forgetPass}>
 									忘记密码?
-								</a>
+								</a> */}
 							</div>
 						</form>
 					</div>

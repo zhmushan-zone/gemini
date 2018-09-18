@@ -91,3 +91,5 @@ export const SEND_VIDEO_ISSUE = 'SEND_VIDEO_ISSUE'
 export const FETCH_ONE_COURSE_VIDEO = 'FETCH_ONE_COURSE_VIDEO'
 // 课程评分
 export const COURSE_RATE = 'COURSE_RATE'
+// 获取消息
+export const FETCH_MESSAGE = 'FETCH_MESSAGE'

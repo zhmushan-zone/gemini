@@ -7,6 +7,7 @@ import './backstageArticle.scss'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import BackstateArticleItem from '../backstateArticleItem/backstateArticleItem'
+import Loading from '@/common/loading/loading'
 const Search = Input.Search
 const Option = Select.Option
 @connect((state) => state.article, {})
@@ -19,6 +20,7 @@ export default class BackstageArticle extends Component {
 			articles: [],
 			users: [],
 			selectUser: [],
+			show: true,
 		}
 		this.stateChange = this.stateChange.bind(this)
 		this.handleChange = this.handleChange.bind(this)
@@ -43,6 +45,7 @@ export default class BackstageArticle extends Component {
 		}).then((res) => {
 			this.setState({
 				articles: res.data.data,
+				show: true,
 			})
 		})
 	}
@@ -68,7 +71,7 @@ export default class BackstageArticle extends Component {
 	}
 
 	render() {
-		const { users, articles } = this.state
+		const { users, articles, show } = this.state
 		const tagItems = ArticleCategoryAll.map((item, index) => {
 			return (
 				<BackstageTag
@@ -141,6 +144,8 @@ export default class BackstageArticle extends Component {
 						<p style={{ color: 'rgba(0,0,0,.45)', textAlign: 'center' }}>暂无数据</p>
 					)}
 				</div>
+
+				{show ? <Loading /> : null}
 			</div>
 		)
 	}
