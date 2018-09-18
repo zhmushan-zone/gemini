@@ -290,7 +290,7 @@ export function getCourseList() {
 }
 // 单个课程
 function courseOne(courses) {
-	return { type: ActionTypes.FETCH_ONE_COURSE, data: courses }
+	return { type: ActionTypes.FETCH_ONE_COURSE_VIDEO, data: courses }
 }
 export function getCourseOne(courseId) {
 	return async (dispatch) => {

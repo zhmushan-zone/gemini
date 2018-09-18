@@ -401,7 +401,7 @@ export function video(state = videoinit, action) {
 		// 		...state,
 		// 		courses: [ ...action.payload ],
 		// 	}
-		case ActionTypes.FETCH_ONE_COURSE:
+		case ActionTypes.FETCH_ONE_COURSE_VIDEO:
 			return {
 				...state,
 				course: action.data,

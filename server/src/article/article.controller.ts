@@ -79,8 +79,17 @@ export class ArticleController {
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  delete(@Usr() user: User, @Param('id') id) {
-    this.articleService.delete(user.id.toHexString(), id);
+  @Allow(UserRole.ADMIN)
+  delete(@Param('id') id) {
+    this.articleService.delete(id);
+    return success();
+  }
+
+  @Delete('comment/:id')
+  @UseGuards(AuthGuard('jwt'))
+  @Allow(UserRole.ADMIN)
+  deleteComment(@Param('id') id) {
+    this.articleService.deleteComment(id);
     return success();
   }
 

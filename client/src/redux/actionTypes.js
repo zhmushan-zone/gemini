@@ -88,7 +88,7 @@ export const GET_VIDEO_ISSUE = 'GET_VIDEO_ISSUE'
 // 发送课程下面的问答
 export const SEND_VIDEO_ISSUE = 'SEND_VIDEO_ISSUE'
 // 获取单个course
-export const FETCH_ONE_COURSE = 'FETCH_ONE_COURSE'
+export const FETCH_ONE_COURSE_VIDEO = 'FETCH_ONE_COURSE_VIDEO'
 // 课程评分
 export const COURSE_RATE = 'COURSE_RATE'
 // 获取消息

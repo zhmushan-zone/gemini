@@ -1,44 +1,41 @@
 import React, { Component } from 'react'
 import { Tabs } from 'antd'
 import BackstageReportCenterContent from '../backstageReportCenterContent/backstageReportCenterContent'
-import { connect } from 'react-redux'
-import { getReportsList } from '@/redux/actions'
 
 import './backstageReportCenter.scss'
 
 const TabPane = Tabs.TabPane
 
-@connect(
-  state => state.report,
-  { getReportsList }
-)
 class BackstageReportCenter extends Component {
-  callback(key) {
-    console.log(key)
-  }
+	constructor(props) {
+		super(props)
+		this.state = {
+			key: 0,
+    }
+    this.callback = this.callback.bind(this)
+	}
+	callback(key) {
+		this.setState({
+			key: key,
+		})
+	}
 
-  componentDidMount() {
-    this.props.getReportsList()
-  }
 
-  render() {
-    console.log(this.props.reports)
-    return (
-      <div className="backstage-report-center">
-        <Tabs defaultActiveKey="1" onChange={this.callback}>
-          <TabPane tab="全部" key="1">
-            <BackstageReportCenterContent />
-          </TabPane>
-          <TabPane tab="未处理" key="2">
-            <BackstageReportCenterContent />
-          </TabPane>
-          <TabPane tab="已处理" key="3">
-            <BackstageReportCenterContent />
-          </TabPane>
-        </Tabs>
-      </div>
-    )
-  }
+	render() {
+		let report = this.props.reports
+		return (
+			<div className='backstage-report-center'>
+				<Tabs defaultActiveKey='0' onChange={this.callback}>
+					<TabPane tab='未处理' key='0'>
+						<BackstageReportCenterContent  Tabkey={this.state.key} />
+					</TabPane>
+					<TabPane tab='已处理' key='1'>
+						<BackstageReportCenterContent Tabkey={this.state.key} />
+					</TabPane>
+				</Tabs>
+			</div>
+		)
+	}
 }
 
 export default BackstageReportCenter

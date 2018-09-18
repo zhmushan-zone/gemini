@@ -6,8 +6,11 @@ import { getProblemList, problemAccept, deleteProblem } from '@/redux/actions'
 import { ArticleType as Type } from '@/const'
 import { dateSortByCreate } from '@/util/dateSort'
 import axios from 'axios'
+<<<<<<< HEAD
 import Cookies from 'js-cookie'
 
+=======
+>>>>>>> a7382d8d46406e5073108f9cd1d2c92d8373330f
 const confirm = Modal.confirm
 const { TextArea } = Input
 
