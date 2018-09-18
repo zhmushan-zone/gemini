@@ -252,7 +252,7 @@ export class ArticleController {
   async changeStatus(@Param('id') id: string, @Param('status') status: ArticleStatus) {
     status = ArticleStatus[ArticleStatus[status]];
     const article = await this.articleService.findById(id);
-    if (!article) response(ResponseCode.NOT_EXISIT);
+    if (!article) return response(ResponseCode.NOT_EXISIT);
     let err = await this.articleService.updateByIdWithAdmin(id, { status } as Article);
     if (err instanceof GeminiError) return response(err.code);
 

@@ -19,12 +19,12 @@ export class IssueController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   async create(@Usr() user: User, @Body() createIssueDTO: CreateIssueDTO) {
+    const err = await this.userService.addIntegral(user.id.toHexString(), config.integral.issue.create);
+    if (err instanceof GeminiError) return response(err.code);
+
     const issue = await this.issueService.save(user.id.toHexString(), createIssueDTO);
     const issueVO = new IssueVO(issue);
     issueVO.authorAvatar = user.avatar;
-
-    const err = await this.userService.addIntegral(user.id.toHexString(), config.integral.issue.create);
-    if (err instanceof GeminiError) response(err.code);
 
     await this.userService.updateActivities(
       issue.authorId,
@@ -61,7 +61,7 @@ export class IssueController {
 
     this.commonEntity.increaseIssueReplyNum(user.id.toHexString());
     const err = this.userService.addIntegral(user.id.toHexString(), config.integral.issue.reply);
-    if (err instanceof GeminiError) response(err.code);
+    if (err instanceof GeminiError) return response(err.code);
 
     await this.userService.updateActivities(
       user.id.toHexString(),
@@ -359,7 +359,7 @@ export class IssueController {
     if (res instanceof GeminiError) return response(res.code);
 
     const err = await this.userService.addIntegral(reply.authorId, config.integral.issue.replyUp);
-    if (err instanceof GeminiError) response(err.code);
+    if (err instanceof GeminiError) return response(err.code);
 
     return success();
   }

@@ -94,6 +94,8 @@ export class UserController {
         }
       }
     }
+
+    return success(user.activities);
   }
 
   @Get('shoppingcart')

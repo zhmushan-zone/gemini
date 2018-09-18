@@ -163,7 +163,7 @@ export class CourseController {
 
     if (course.rate[user.id.toHexString()] !== null && course.rateComment[user.id.toHexString()] !== null) {
       const err = await this.userService.addIntegral(user.id.toHexString(), config.integral.course.rateAndRateComment);
-      if (err instanceof GeminiError) response(err.code);
+      if (err instanceof GeminiError) return response(err.code);
     }
 
     course.rate[user.id.toHexString()] = rate;
