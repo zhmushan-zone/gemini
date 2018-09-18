@@ -41,10 +41,10 @@ export class NoticeGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
   }
 
-  @SubscribeMessage('events')
+/*   @SubscribeMessage('events')
   findAll(client: Socket, data): Observable<WsResponse<number>> {
     return from([1, 2, 3]).pipe(map(item => ({ event: 'events', data: item })));
-  }
+  } */
 
   notice(userId: string, info: Notice) {
     if (this.clients[userId]) {
