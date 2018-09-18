@@ -52,7 +52,7 @@ class App extends React.Component {
 				<Route path='/login' component={Login} />
 				{this.state.isAuth ? (
 					<Switch>
-						{/* <Route path='/login' component={Login} /> */}
+						<Route path='/login' component={Login} />
 						<Route path='/editor' component={Editor} />
 						<Route path='/admin' component={Admin} />
 						<Route path='/video/:courseId' component={VideoPage} />
