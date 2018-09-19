@@ -1,5 +1,6 @@
 import React from "react"
-import Banner from '@/components/banner/banner'
+import Banner from '@/components/banner2/banner2'
+import WebsiteIntroduce from '../../components/websiteIntroduce/websiteIntroduce'
 import Recommend from '@/components/recommend/recommend'
 import LastestCourse from '@/components/lastestCourse/lastestCourse'
 import WonderfulContent from '@/components/wonderfulContent/wonderfulContent'
@@ -35,10 +36,9 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        <div className="home-top">
-          <Banner />
-          <Recommend hotCourse={this.state.hotCourse} />
-        </div>
+        <Banner />
+        <WebsiteIntroduce />
+        <Recommend hotCourse={this.state.hotCourse} />
         <LastestCourse latestCourse={this.state.latestCourse} />
         <WonderfulContent />
         <ExcellentUsers />
