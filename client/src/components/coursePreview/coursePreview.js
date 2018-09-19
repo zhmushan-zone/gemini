@@ -33,32 +33,26 @@ export default class CoursePreview extends Component {
 		})
 	}
 	async toStudy() {
-		// 跳转到购物车
-		let res = await axios({
-			method: 'put',
-			url: `/api/courses/join`,
-			headers: {
-				token: Cookies.get('_token'),
-			},
-			data: [ this.state.courseId ],
-		})
-		if (res.data.code === 1) {
-			if (this.props.video.course.price === 0) {
-				this.props.history.push(`/video/${this.state.courseId}`)
-			} else {
-				let shoppingCartCourses = this.props.shoppingCart.courses
-				this.setState({
-					shoppingCartCourses,
+		// 判断是否要钱
+		if (this.props.video.course.price === 0) {
+			this.props.history.push(`/video/${this.state.courseId}`)
+		} else {
+			let shoppingCartCourses = this.props.shoppingCart.courses
+			console.log(shoppingCartCourses)
+			if (shoppingCartCourses.indexOf(this.state.courseId) === -1) {
+				let res = await axios({
+					method: 'put',
+					url: `/api/users/shoppingcart`,
+					headers: {
+						token: Cookies.get('_token'),
+					},
+					data: [ ...shoppingCartCourses, this.state.courseId ],
 				})
-				if (shoppingCartCourses.indexOf(this.state.courseId) === -1) {
-					this.state.shoppingCartCourses.push(this.state.courseId)
-					this.setState({
-						shoppingCartCourses,
-					})
+				if (res.data.code === 1) {
 					this.props.history.push('../shoppingCart')
-				} else {
-					message.warn('你已经加入过了')
 				}
+			} else {
+				message.warn('你已经加入过了')
 			}
 		}
 
