@@ -28,7 +28,7 @@ class MessageCenter extends Component {
     const templateData = []
     data.length > 1 ? dateSortByCreate(data) : null
     data.map(v => templateData.push(v.template))
-    await templateData.join()
+    await templateData.join('')
     this.setState({
       loading: false,
       content: templateData
@@ -59,7 +59,7 @@ class MessageCenter extends Component {
       const templateData = []
       data.length > 1 ? dateSortByCreate(data) : null
       data.map(v => templateData.push(v.template))
-      templateData.join()
+      templateData.join('')
       this.setState({
         loading: false,
         content: templateData

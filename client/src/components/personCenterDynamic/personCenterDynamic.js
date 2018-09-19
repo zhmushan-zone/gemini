@@ -15,7 +15,6 @@ class PersonCenterDynamic extends React.Component {
 		}
 	}
 	componentDidMount = async () => {
-		setTimeout(() => {
 			axios({
 				method: 'GET',
 				url: `/api/users/${this.state.UserId}/activities`,
@@ -25,7 +24,6 @@ class PersonCenterDynamic extends React.Component {
 					show: false,
 				})
 			})
-		}, 1000)
 	}
 
 	render() {
@@ -36,7 +34,7 @@ class PersonCenterDynamic extends React.Component {
 			<div className='dynamic-container'>
 				{/* <p className="nodata">暂无任何动态</p> */}
 				<ul>
-					{activities ? (
+					{activities.length!==0 ? (
 						activities.map((v) => {
 							const item = v.body
 							return (

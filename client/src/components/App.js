@@ -42,29 +42,31 @@ class App extends React.Component {
 					<Route
 						path='/'
 						render={(props) => (
-							<Layout>
-								<Switch>
-									<Route path='/home' component={Home} />
-									<Route path='/search/:content' component={Search} />
-									<Route path='/shoppingCart' component={ShoppingCart} />
-									<Route path='/messageCenter' component={MessageCenter} />
-									<Route path='/onlineStudying' component={OnlineStudying} />
-									<Route path='/forum' component={Forum} exact />
-									<Route path='/forum/create' component={forumCreateProblem} exact />
-									<Route path='/forum/details/:id' component={ForumProblemPage} />
-									<Route path='/forum/type/:type' component={ForumProblemTypePage} />
-									<Route path='/opinion' component={opinionRecommend} exact />
-									<Route path='/opinion/focus' component={OpinionFocus} exact />
-									<Route path='/opinion/:category' component={Opinion} />
-									<Route path='/personCenter/:id' component={PersonCenter} />
-									<Route path='/article/:id' component={ArticleSample} />
-									<Route path='/excellentSeven' component={ArticleExcellentSeven} />
-									<Route path='/excellentThirty' component={ArticleExcellentThirty} />
-									<Route path='/class/:courseId' component={CoursePreview} />
-									<Redirect to={{ pathname: '/home' }} />
-								</Switch>
+							<React.Fragment>
+								<Layout>
+									<Switch>
+										<Route path='/home' component={Home} />
+										<Route path='/search/:content' component={Search} />
+										<Route path='/shoppingCart' component={ShoppingCart} />
+										<Route path='/messageCenter' component={MessageCenter} />
+										<Route path='/onlineStudying' component={OnlineStudying} />
+										<Route path='/forum' component={Forum} exact />
+										<Route path='/forum/create' component={forumCreateProblem} exact />
+										<Route path='/forum/details/:id' component={ForumProblemPage} />
+										<Route path='/forum/type/:type' component={ForumProblemTypePage} />
+										<Route path='/opinion' component={opinionRecommend} exact />
+										<Route path='/opinion/focus' component={OpinionFocus} exact />
+										<Route path='/opinion/:category' component={Opinion} />
+										<Route path='/personCenter/:id' component={PersonCenter} />
+										<Route path='/article/:id' component={ArticleSample} />
+										<Route path='/excellentSeven' component={ArticleExcellentSeven} />
+										<Route path='/excellentThirty' component={ArticleExcellentThirty} />
+										<Route path='/class/:courseId' component={CoursePreview} />
+										<Redirect to={{ pathname: '/home' }} />
+									</Switch>
+								</Layout>
 								<Footer />
-							</Layout>
+							</React.Fragment>
 						)}
 					/>
 				</Switch>

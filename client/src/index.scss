@@ -1,3 +1,8 @@
+#root {
+	display: flex;
+	flex-flow: column;
+	min-height: 100vh;
+}
 .error-msg {
 	position: fixed;
 	top: 10px;
