@@ -53,9 +53,9 @@ class App extends React.Component {
 									<Route path='/forum/create' component={forumCreateProblem} exact />
 									<Route path='/forum/details/:id' component={ForumProblemPage} />
 									<Route path='/forum/type/:type' component={ForumProblemTypePage} />
-									<Route path='/opinion/focus' component={OpinionFocus} />
+									<Route path='/opinion' component={opinionRecommend} exact />
+									<Route path='/opinion/focus' component={OpinionFocus} exact />
 									<Route path='/opinion/:category' component={Opinion} />
-									<Route path='/opinion' component={opinionRecommend} />
 									<Route path='/personCenter/:id' component={PersonCenter} />
 									<Route path='/article/:id' component={ArticleSample} />
 									<Route path='/excellentSeven' component={ArticleExcellentSeven} />

@@ -43,7 +43,7 @@ export default class opinionMainRightHotPerson extends Component {
 			<div className='recommended_author'>
 				<div className='top'>
 					<h3>推荐作者</h3>
-					<div className='more'>更多</div>
+					{/* <div className='more'>更多</div> */}
 				</div>
 				<ul className='personList'>
 					{users.map((v) => {

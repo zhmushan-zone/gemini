@@ -34,10 +34,22 @@ export default class CoursePreview extends Component {
 	}
 	async toStudy() {
 		// 判断是否要钱
+		const { courseId } = this.state
 		if (this.props.video.course.price === 0) {
+			const res = await axios({
+				method: 'put',
+				url: `/api/courses/join`,
+				headers: {
+					token: Cookies.get('_token'),
+				},
+				data: [ courseId ],
+			})
+			if (res.data.code === 1) {
+				message.success('加入课程成功')
+			}
 			this.props.history.push(`/video/${this.state.courseId}`)
 		} else {
-			let shoppingCartCourses = this.props.shoppingCart.courses
+			let shoppingCartCourses = this.props.userstatus.joinCourse
 			console.log(shoppingCartCourses)
 			if (shoppingCartCourses.indexOf(this.state.courseId) === -1) {
 				let res = await axios({
@@ -52,7 +64,8 @@ export default class CoursePreview extends Component {
 					this.props.history.push('../shoppingCart')
 				}
 			} else {
-				message.warn('你已经加入过了')
+				message.warn('你可以观看视频了')
+				this.props.history.push(`/video/${this.state.courseId}`)
 			}
 		}
 
@@ -82,11 +95,10 @@ export default class CoursePreview extends Component {
 		if (this.props.video.code === 1) {
 			message.success('评论成功')
 		} else {
-			message.success('请查看是否加入课程了')
+			message.warn('请查看是否加入课程了')
 		}
 		this.setState({
 			summary: '',
-			rate: '',
 		})
 	}
 	handleSee(id) {
@@ -163,14 +175,6 @@ export default class CoursePreview extends Component {
 					<div className='course-aside-info'>
 						<div className='learn-btn'>
 							<button onClick={() => this.toStudy()}>
-								{console.log(this.props.userstatus.joinCourse, this.state.courseId)}
-								{console.log(
-									this.props.userstatus
-										? this.props.userstatus.joinCourse
-											? this.props.userstatus.joinCourse.indexOf(this.state.courseId) === 1
-											: null
-										: null
-								)}
 								{this.props.video.course.price === 0 || isJoin === false ? '开始学习' : '加入购物车'}
 							</button>
 						</div>
@@ -273,14 +277,15 @@ export default class CoursePreview extends Component {
 								</div>
 							</div>
 							{rateArray.map((v, i) => {
+								console.log(users[i])
 								return (
 									<div className='evaluation-item' key={i}>
 										<div className='avatar'>
-											{users[i] ? <img src={users[i] ? `/avatar/${users[i].avatar}` : defaultAvatar} alt='' /> : null}
+											{<img src={users[i] ? `/avatar/${users[i].avatar}` : defaultAvatar} alt='' />}
 										</div>
 										<div className='content'>
 											<div className='top'>
-												<span>{users[i] ? users[i].username : 'admin'}</span>
+												<span>{users[i] ? users[i].username : this.props.userstatus.username}</span>
 												<Rate disabled value={rate[v] - 0} />
 											</div>
 											<div className='con'>

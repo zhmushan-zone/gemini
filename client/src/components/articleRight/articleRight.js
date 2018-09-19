@@ -5,7 +5,7 @@ import './articleRight.scss'
 import { defaultAvatar } from '@/const'
 import axios from 'axios'
 import { withRouter, Link } from 'react-router-dom'
-import {notSetText} from '@/const.js'
+import { notSetText } from '@/const.js'
 @withRouter
 export default class articleRight extends Component {
 	constructor(props) {
@@ -34,7 +34,7 @@ export default class articleRight extends Component {
 			})
 		}
 	}
-	seeOtherArticle(id){
+	seeOtherArticle(id) {
 		this.props.history.push(`/article/${id}`)
 	}
 
@@ -45,7 +45,7 @@ export default class articleRight extends Component {
 	}
 
 	render() {
-		const { article, watchUsersId, authorId,job } = this.props
+		const { article, watchUsersId, authorId, job } = this.props
 		const { thisAuthorArticle } = this.state
 		return (
 			<div className='right-article-container'>
@@ -58,24 +58,24 @@ export default class articleRight extends Component {
 							{/* follow ? '已关注' : '关注' */}
 							<span onClick={this.toFollow}>{watchUsersId.indexOf(authorId) === -1 ? '关注' : '已关注'}</span>
 						</div>
-						<div className='job'>{job?job:notSetText}</div>
+						<div className='job'>{job ? job : notSetText}</div>
 						<div className='contribution'>
 							<span>{thisAuthorArticle.length}片文章</span>
-							<span>贡献55555字</span>
+							{/* <span>贡献55555字</span> */}
 						</div>
 					</div>
 				</div>
 				<div className='other_article'>
 					<div className='head'>
 						<h2 className='title'>作者相关文章</h2>
-						<span className='more'>更多</span>
+						{/* <span className='more'>更多</span> */}
 					</div>
 					<ul className='content'>
 						{this.state.thisAuthorArticle.map((v, i) => {
 							return (
-								<li className='article-item' key={i} onClick={()=>this.seeOtherArticle(v.id)}>
+								<li className='article-item' key={i} onClick={() => this.seeOtherArticle(v.id)}>
 									<Icon type='file-text' />
-									{v.content}
+									{v.title}
 								</li>
 							)
 						})}

@@ -107,7 +107,7 @@ class PersonCener extends React.Component {
 				name: '课程',
 				icon: 'kecheng',
 				to: `/personCenter/${UserId}/class`,
-				is: this.props.location.pathname === `/personCenter/${UserId}/class`,
+				is: this.props.location.pathname === `/personCenter/${UserId}/class` && isOwn,
 				component: personCenterClass,
 			},
 			{
@@ -196,19 +196,19 @@ class PersonCener extends React.Component {
 							</div>
 							<div className='item follows'>
 								<div className='u-info-learn' title='学习时长335小时18分'>
-									<em>{parseInt(this.props.userstatus.integral, 10)}</em>
+									<em>{this.props.User ? parseInt(this.props.User.integral, 10) : 0}</em>
 									<span>积分</span>
 								</div>
 							</div>
 							<div className='item follows'>
 								<div className='u-info-learn' title='学习时长335小时18分'>
-									<em>{this.props.userstatus.watchUsersId.length}</em>
+									<em>{this.props.User.watchUsersId ? this.props.User.watchUsersId.length : 0}</em>
 									<span>关注</span>
 								</div>
 							</div>
 							<div className='item follows'>
 								<div className='u-info-learn' title='学习时长335小时18分'>
-									<em>{this.props.userstatus.watchUsersId.length}</em>
+									<em>{this.props.User.watchedUsersId ? this.props.User.watchedUsersId.length : 0}</em>
 									<span>粉丝</span>
 								</div>
 							</div>
