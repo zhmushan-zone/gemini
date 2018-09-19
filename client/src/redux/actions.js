@@ -2,7 +2,6 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import * as ActionTypes from './actionTypes'
 import store from './stores'
-import { func } from 'prop-types'
 
 function errorMsg(msg) {
 	return { msg, code: 0, type: ActionTypes.ERROR_MSG }
@@ -918,15 +917,8 @@ function courseRateSuccess(rate, rateComment) {
 	}
 	return { type: ActionTypes.COURSE_RATE, rateObj, rateCommentObj, code: 1 }
 }
-function courseRateError(rate, rateComment) {
-	var userid = Cookies.get('_id')
-	var rateObj = {
-		[userid]: rate,
-	}
-	var rateCommentObj = {
-		[userid]: rateComment,
-	}
-	return { type: ActionTypes.COURSE_RATE, rateObj, rateCommentObj, code: 0 }
+function courseRateError() {
+	return { type: ActionTypes.COURSE_RATE, code: 0 }
 }
 export function courseRate(courseId, rate, rateComment) {
 	const _token = Cookies.get('_token')
@@ -945,7 +937,7 @@ export function courseRate(courseId, rate, rateComment) {
 		if (res.data.code === 1) {
 			dispatch(courseRateSuccess(rate, rateComment))
 		} else {
-			dispatch(courseRateError(rate, rateComment))
+			dispatch(courseRateError())
 		}
 	}
 }

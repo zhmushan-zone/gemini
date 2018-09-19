@@ -3,22 +3,22 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import Loading from '@/common/loading/loading'
 import './PersonCenterDynamic.scss'
+import { withRouter } from 'react-router'
+@withRouter
 class PersonCenterDynamic extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			activities: [],
 			show: true,
+			UserId: this.props.match.params.id,
 		}
 	}
 	componentDidMount = async () => {
 		setTimeout(() => {
 			axios({
 				method: 'GET',
-				url: '/api/users/activities',
-				headers: {
-					token: Cookies.get('_token'),
-				},
+				url: `/api/users/${this.state.UserId}/activities`,
 			}).then((res) => {
 				this.setState({
 					activities: res.data.data,
@@ -40,7 +40,7 @@ class PersonCenterDynamic extends React.Component {
 						activities.map((v) => {
 							const item = v.body
 							return (
-								<li className='item' key={item.srcId}>
+								<li className='item' key={item.createAt}>
 									<div className='activity'>
 										<a className='link'>
 											<div className='meta-box'>

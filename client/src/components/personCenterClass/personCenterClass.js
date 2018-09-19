@@ -3,6 +3,9 @@ import { Tabs } from 'antd'
 import './personCenterClass.scss'
 const TabPane = Tabs.TabPane
 class PersonCenterClass extends React.Component {
+  componentDidMount() {
+    
+  }
   callback = (key) => {
     console.log(key)
   }

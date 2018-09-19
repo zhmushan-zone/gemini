@@ -7,7 +7,6 @@ const initState = {
 	username: '',
 	email: '',
 	re_username: '',
-	forget_email: '',
 	id: '',
 	redirectTo: '',
 	job: '未设置',
@@ -94,7 +93,7 @@ export function userstatus(state = initState, action) {
 				...state,
 				...action.payload,
 				redirectTo: '/home',
-				...action.username,
+				username: action.username,
 			}
 		case ActionTypes.FORGET_PASS:
 			return {
@@ -357,6 +356,7 @@ export function report(state = reportInit, action) {
 export function User(state = Userinit, action) {
 	switch (action.type) {
 		case ActionTypes.FETCH_ONE_USER:
+			console.log(action.data)
 			return {
 				...state,
 				...action.data,

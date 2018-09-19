@@ -49,7 +49,6 @@ class App extends React.Component {
 			<React.Fragment>
 				{/* 检验是否有登录信息 */}
 				<AutoRoute stateChange={() => this.stateChange('isAuth', true)} />
-				<Route path='/login' component={Login} />
 				<Switch>
 					<Route path='/login' component={Login} />
 					<Route path='/editor' component={Editor} />
