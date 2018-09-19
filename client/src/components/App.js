@@ -29,6 +29,17 @@ import '@/assets/styles/font/icon.css'
 import opinionRecommend from './opinionRecommend/opinionRecommend'
 
 class App extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			hasError: false,
+		}
+	}
+	componentDidCatch(error, info) {
+		this.setState({
+			hasError: true,
+		})
+	}
 	render() {
 		return (
 			<React.Fragment>

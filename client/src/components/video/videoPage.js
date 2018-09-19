@@ -67,6 +67,7 @@ export default class VideoPage extends Component {
 	}
 	async componentDidMount() {
 		// 获取课程
+		console.log(this.state.courseId)
 		await axios({
 			method: 'GET',
 			url: `/api/courses/${this.state.courseId}`,
