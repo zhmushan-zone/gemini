@@ -29,27 +29,11 @@ import '@/assets/styles/font/icon.css'
 import opinionRecommend from './opinionRecommend/opinionRecommend'
 
 class App extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			isAuth: false,
-		}
-		this.stateChange = this.stateChange.bind(this)
-	}
-
-	stateChange(key, value) {
-		console.log('object')
-		this.setState({
-			[key]: value,
-		})
-	}
-
 	render() {
 		return (
 			<React.Fragment>
 				{/* 检验是否有登录信息 */}
-				<AutoRoute stateChange={() => this.stateChange('isAuth', true)} />
-				<Route path='/login' component={Login} />
+				<AutoRoute />
 				<Switch>
 					<Route path='/login' component={Login} />
 					<Route path='/editor' component={Editor} />

@@ -1037,6 +1037,7 @@ export function deleteShoppingCartCourse(courses) {
 }
 /* ----------------------------------------------获取所有消息---------------------------------------------- */
 function fetchMessageSuccess(msgs) {
+	console.log(msgs)
 	return { type: ActionTypes.FETCH_MESSAGE, payload: msgs }
 }
 
