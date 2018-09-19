@@ -42,15 +42,6 @@ class MessageCenter extends Component {
       })
       this.props.updateMessage(newMsg)
     })
-    socket.on('connection', (data) => {
-      console.log('11')
-    })
-    socket.on('connect', (data) => {
-      console.log('1')
-    })
-    socket.on('disconnect', (data) => {
-      console.log('0')
-    })
   }
   
   componentWillReceiveProps(nextProps) {

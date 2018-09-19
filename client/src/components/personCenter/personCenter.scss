@@ -114,14 +114,13 @@
     }
     .wrap {
         position: relative;
-        width: 1200px;
+        width: 1000px;
         margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
     }
     .slider {
-        position: absolute;
         width: 172px;
-        left: 24px;
-        top: 0;
         ul li:first-child {
             margin-top: 40px;
         }
@@ -154,7 +153,7 @@
         }
     }
     .u-container {
-        margin-left: 240px;
+        width: 788px;
         min-height: 589px;
     }
 }

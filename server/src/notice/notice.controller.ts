@@ -7,6 +7,7 @@ import { CreateNoticeDTO } from './dto';
 import { NoticeService } from './notice.service';
 import { success, response, ResponseCode } from '../common/utils';
 import { GeminiError } from '../common/error';
+import { ObjectId } from 'mongodb';
 
 @Controller('/api/notices')
 export class NoticeController {
@@ -32,14 +33,14 @@ export class NoticeController {
     return success();
   }
 
-  @Put('read/:id')
+  @Put('read')
   @UseGuards(AuthGuard('jwt'))
-  async readOne(@Usr() user: User, @Param('id') id: string) {
-    const notice = await this.noticeService.findById(id);
-    if (!(notice.to === user.id.toHexString())) return response(ResponseCode.NOT_YOUR_NOTICE);
-    notice.isRead = true;
-    const doc = await this.noticeService.save(notice);
-    if (doc instanceof GeminiError) return response(doc.code);
+  async readOne(@Usr() user: User, @Body() ids: string[]) {
+    const notices = await this.noticeService.findByIds(ids.map(i => new ObjectId(i)));
+    for (const notice of notices) {
+      notice.isRead = true;
+      await this.noticeService.save(notice);
+    }
     return success();
   }
 }
