@@ -13,18 +13,19 @@ margin-bottom: 20px;
     }
 
     h3 {
+      width: 210px;
       font-size: 16px;
       color: #07111B;
       line-height: 24px;
-      word-wrap: break-word;
       overflow: hidden;
       text-overflow: ellipsis;
       max-height: 46px;
       transition: color .3s;
-      text-align: left;
       padding: 0 8px;
       margin-top: 12px;
       margin-bottom: 0;
+      white-space: nowrap;
+      text-align: left;
     }
 
     .course-preview-data {

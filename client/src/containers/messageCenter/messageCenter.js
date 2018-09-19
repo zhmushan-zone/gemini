@@ -24,26 +24,47 @@ class MessageCenter extends Component {
   }
   
   async componentDidMount() {
-    setTimeout(async () => {
-      const data = [...this.props.msg]
-      const templateData = []
-      data.length > 1 ? dateSortByCreate(data) : null
-      data.map(v => templateData.push(v.template))
-      await templateData.join('a')
-      this.setState({
-        loading: false,
-        content: templateData
-      })
-    }, 3000)
+    const data = [...this.props.msg]
+    const templateData = []
+    data.length > 1 ? dateSortByCreate(data) : null
+    data.map(v => templateData.push(v.template))
+    await templateData.join()
+    this.setState({
+      loading: false,
+      content: templateData
+    })
     socket.on('notice', (data) => {
       const newMsg = [data, ...this.props.msg]
       const oldContent = this.state.content
-      const newContent = [data.template, oldContent].join('a')
+      const newContent = [data.template, oldContent].join()
       this.setState({
         content: newContent
       })
       this.props.updateMessage(newMsg)
     })
+    socket.on('connection', (data) => {
+      console.log('11')
+    })
+    socket.on('connect', (data) => {
+      console.log('1')
+    })
+    socket.on('disconnect', (data) => {
+      console.log('0')
+    })
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    if (this.props.msg !== nextProps.msg) {
+      const data = [...nextProps.msg]
+      const templateData = []
+      data.length > 1 ? dateSortByCreate(data) : null
+      data.map(v => templateData.push(v.template))
+      templateData.join()
+      this.setState({
+        loading: false,
+        content: templateData
+      })
+    }
   }
   
   render() {

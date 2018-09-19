@@ -3,6 +3,8 @@ import { Input, message } from 'antd'
 import { connect } from 'react-redux'
 import { commentProblem } from '@/redux/actions'
 import { withRouter } from 'react-router-dom'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
 import './forumProblemPageReply.scss'
 
@@ -34,6 +36,22 @@ class ForumProblemPageReply extends Component {
     } 
     await this.props.commentProblem(problemId, this.state.replyContent)
     if (this.props.code === 1) {
+      console.log(problemId)
+      console.log(this.props.authorId)
+      const _token = Cookies.get('_token')
+      axios({
+        method: 'post',
+        url: '/api/notices',
+        headers: {
+          token: _token
+        },
+        data: {
+          type: 0,
+          reason: '',
+          srcId: problemId,
+          to: this.props.authorId
+        }
+      })
       this.setState({
         replyContent: ''
       })

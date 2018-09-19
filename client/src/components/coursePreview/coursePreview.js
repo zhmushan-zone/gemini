@@ -6,10 +6,11 @@ import { getVideoComment, getCourseOne, courseRate } from '@/redux/actions.js'
 import { Rate } from 'antd'
 import Share from '@/share'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 import { defaultAvatar } from '@/const'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { formatDate } from '@/util/time'
+import { message } from 'antd'
 const TabPane = Tabs.TabPane
 const { TextArea } = Input
 @withRouter
@@ -23,12 +24,39 @@ export default class CoursePreview extends Component {
 			summary: '',
 			rate: '',
 			users: [],
+			shoppingCartCourses: [],
 		}
 	}
 	stateChange(key, value) {
 		this.setState({
 			[key]: value,
 		})
+	}
+	async toStudy() {
+		// 判断是否要钱
+		if (this.props.video.course.price === 0) {
+			this.props.history.push(`/video/${this.state.courseId}`)
+		} else {
+			let shoppingCartCourses = this.props.shoppingCart.courses
+			console.log(shoppingCartCourses)
+			if (shoppingCartCourses.indexOf(this.state.courseId) === -1) {
+				let res = await axios({
+					method: 'put',
+					url: `/api/users/shoppingcart`,
+					headers: {
+						token: Cookies.get('_token'),
+					},
+					data: [ ...shoppingCartCourses, this.state.courseId ],
+				})
+				if (res.data.code === 1) {
+					this.props.history.push('../shoppingCart')
+				}
+			} else {
+				message.warn('你已经加入过了')
+			}
+		}
+
+		// console.log(this.state.course)
 	}
 	async componentDidMount() {
 		//获取指定课程
@@ -50,17 +78,16 @@ export default class CoursePreview extends Component {
 	}
 	// 发表评分
 	async handleSendRate() {
-		// await axios({
-		// 	method: 'put',
-		// 	url: `/api/courses/join`,
-		// 	headers: {
-		// 		token: Cookies.get('_token'),
-		// 	},
-		// 	data: [ this.state.courseId ],
-		// }).then((res) => {
-		// 	console.log(res.data.data)
-		// })
-		await this.props.courseRate(this.state.courseId, this.state.rate, this.state.summary)
+		await this.props.courseRate(this.state.courseId, this.state.rate - 0, this.state.summary)
+		if (this.props.video.code === 1) {
+			message.success('评论成功')
+		} else {
+			message.success('请查看是否加入课程了')
+		}
+		this.setState({
+			summary: '',
+			rate: '',
+		})
 	}
 	handleSee(id) {
 		console.log(id)
@@ -77,14 +104,18 @@ export default class CoursePreview extends Component {
 		let rate = video.rate
 		let rateArray = rate ? Object.keys(rate) : []
 		let rateValue = rate ? Object.values(rate) : []
-		var num = 0
-		rateValue.map((v) => {
-			num += v
-		})
+		let num =
+			rateValue.length !== 0
+				? rateValue.reduce((a, b) => {
+						return a + b
+					})
+				: 0
 		let rateLength = rateArray.length === 0 ? 1 : rateArray.length
 		let average = num / rateLength
-		console.log(rateLength)
-		let rateCommentArray = rateComment ? Object.keys(rateComment) : []
+		// let rateCommentArray = rateComment ? Object.keys(rateComment) : []
+		let isJoin = this.props.userstatus
+			? this.props.userstatus.joinCourse ? this.props.userstatus.joinCourse.indexOf(this.state.courseId) === -1 : true
+			: true
 		return (
 			<div className='course-class-infos-container'>
 				<div className='course-class-infos'>
@@ -121,8 +152,8 @@ export default class CoursePreview extends Component {
 								</div>
 								<span>难度{difficulty[course.difficulty]}</span>
 								<span>时长17小时</span>
-								<span>学习人数629</span>
-								<span>综合评分5分</span>
+								<span>学习人数{course.joinersId ? course.joinersId.length : 0}</span>
+								<span>综合评分{average}分</span>
 							</div>
 						</div>
 					</div>
@@ -131,7 +162,17 @@ export default class CoursePreview extends Component {
 				<div className='course-content'>
 					<div className='course-aside-info'>
 						<div className='learn-btn'>
-							<button>开始学习</button>
+							<button onClick={() => this.toStudy()}>
+								{console.log(this.props.userstatus.joinCourse, this.state.courseId)}
+								{console.log(
+									this.props.userstatus
+										? this.props.userstatus.joinCourse
+											? this.props.userstatus.joinCourse.indexOf(this.state.courseId) === 1
+											: null
+										: null
+								)}
+								{this.props.video.course.price === 0 || isJoin === false ? '开始学习' : '加入购物车'}
+							</button>
 						</div>
 						<div className='course-info-tip'>
 							<dl className='first'>
@@ -205,12 +246,12 @@ export default class CoursePreview extends Component {
 							<div className='evaluation-info'>
 								<div className='evaluation-title'>综合评分</div>
 								<div className='evaluation-score'>{average}</div>
-								<Rate disabled defaultValue={average} />
+								<Rate disabled value={average - 0} />
 							</div>
 							<div className='evaluate'>
 								<div className='your'>
 									<h2>请输入您的评分</h2>
-									<Rate allowHalf defaultValue={0} onChange={(rate) => this.setState({ rate: rate })} />
+									<Rate allowHalf defaultValue={5} onChange={(rate) => this.setState({ rate: rate })} />
 								</div>
 								<div className='evaluate-item'>
 									<div className='avatar'>
@@ -235,19 +276,16 @@ export default class CoursePreview extends Component {
 								return (
 									<div className='evaluation-item' key={i}>
 										<div className='avatar'>
-											<img src={users[i] ? `/avatar/${users[i].avatar}` : defaultAvatar} alt='' />
+											{users[i] ? <img src={users[i] ? `/avatar/${users[i].avatar}` : defaultAvatar} alt='' /> : null}
 										</div>
 										<div className='content'>
 											<div className='top'>
-												<span>{users[i] ? users[i].username : ''}</span>
-												<Rate disabled defaultValue={rate[v]} />
+												<span>{users[i] ? users[i].username : 'admin'}</span>
+												<Rate disabled value={rate[v] - 0} />
 											</div>
 											<div className='con'>
 												<p>{rateComment[v]}</p>
 											</div>
-											{/* <div className='time'>
-												<span>1997</span>
-											</div> */}
 										</div>
 									</div>
 								)

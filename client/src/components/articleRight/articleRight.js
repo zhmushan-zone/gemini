@@ -83,7 +83,7 @@ export default class articleRight extends Component {
 				</div>
 
 				<div className='related-lessons'>
-					{courses.map((item, index) => {
+					{/* {courses.map((item, index) => {
 						return (
 							<CoursePreview
 								name={item.name}
@@ -95,7 +95,7 @@ export default class articleRight extends Component {
 								key={index}
 							/>
 						)
-					})}
+					})} */}
 				</div>
 			</div>
 		)

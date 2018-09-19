@@ -4,13 +4,13 @@ export const config = {
   port: 9999,
   token: {
     secret: 'sdkjfnaskfjnhewkjnfkn',
-    expiresIn: '7 days'
+    expiresIn: '30 days'
   },
   email: {
     resendTime: 60000,
     expiresIn: 300000,
     from: 'Gemini <zhangtest@yeah.net>',
-    subject: 'Welcome to Gemini',
+    subject: '收到来自 IT Alley 的验证邮件',
     html: (captcha: string) => getEmailTemplate().replace('{{captcha}}', captcha),
     host: 'smtp.yeah.net',
     auth: {
@@ -105,9 +105,9 @@ export const config = {
           </div>
           <div class="message-center-item-right">
             <div class="message-center-item-content">
-              <span>你的提问</span>
+              <span>你在</span>
               <a>${title}</a>
-              <span>有新的回答</span>
+              <span>的回答有新的回复</span>
             </div>
             <div class="message-center-item-time">
               ${time}

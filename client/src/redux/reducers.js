@@ -82,7 +82,7 @@ const shoppingCartInit = {
 }
 
 const messageInit = {
-	msg: []
+	msg: [],
 }
 
 export function userstatus(state = initState, action) {
@@ -413,6 +413,7 @@ export function video(state = videoinit, action) {
 				...state,
 				rate: { ...state.rate, ...action.rateObj },
 				rateComment: { ...state.rateComment, ...action.rateCommentObj },
+				code: action.code,
 			}
 		default:
 			return state
@@ -450,7 +451,7 @@ export function message(state = messageInit, action) {
 		case ActionTypes.FETCH_MESSAGE:
 			return {
 				...state,
-				msg: action.payload
+				msg: action.payload,
 			}
 		default:
 			return state
@@ -469,5 +470,5 @@ export default combineReducers({
 	problemComment,
 	report,
 	shoppingCart,
-	message
+	message,
 })
