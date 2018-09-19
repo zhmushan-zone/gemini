@@ -64,9 +64,11 @@ export class UserController {
     return success(users.map(u => new UserVO(u)));
   }
 
-  @Get('activities')
+  @Get(':id/activities')
   @UseGuards(AuthGuard('jwt'))
-  async findActivities(@Usr() user: User) {
+  async findActivities(@Param('id') id: string) {
+    const user = await this.userService.findById(id);
+    if (!user) return response(ResponseCode.NOT_EXISIT);
     for (const activity of user.activities) {
       switch (activity.type) {
         case UserActivityType.CreateArticle:
