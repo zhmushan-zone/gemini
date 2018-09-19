@@ -47,11 +47,13 @@ class PersonCenterClass extends React.Component {
 								<div className='study-tl' key={v.id}>
 									<div className='tl-item'>
 										<div className='time'>
-											<b>{v.updateAt.split(' ')[0].split('-')[0]}</b>
-											<em>
+											<b key={new Date().getTime() + Math.random() * 100000+v.id}>
+												{v.updateAt.split(' ')[0].split('-')[0]}
+											</b>
+											<em key={new Date().getTime() + Math.random() * 100000}>
 												{v.updateAt.split(' ')[0].split('-')[1] + '月' + v.updateAt.split(' ')[0].split('-')[2] + '日'}
 											</em>
-											<em>{v.updateAt.split(' ')[1]}</em>
+											<em key={new Date().getTime() + Math.random() * 100000}>{v.updateAt.split(' ')[1]}</em>
 										</div>
 										<div className='course-list'>
 											<ul>

@@ -198,7 +198,7 @@ class PersonCener extends React.Component {
 							</div>
 							<div className='item follows'>
 								<div className='u-info-learn' title='学习时长335小时18分'>
-									<em>{this.props.User ? parseInt(this.props.User.integral, 10) : 0}</em>
+									<em>{this.props.User.integral ? parseInt(this.props.User.integral, 10) : 0}</em>
 									<span>积分</span>
 								</div>
 							</div>
