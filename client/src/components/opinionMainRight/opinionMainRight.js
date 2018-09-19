@@ -12,15 +12,18 @@ export default class opinionMainRight extends Component {
 		const { articleArray } = this.props.article
 		return (
 			<div className='opinion-main-right'>
+				<div className='button-send-article' onClick={() => this.props.history.push('/editor')}>
+					我要发表
+				</div>
 				<div className='carefully_selected'>
-					<div className='sevenImg' onClick={()=>this.props.history.push('/excellentSeven')}>
+					<div className='sevenImg' onClick={() => this.props.history.push('/excellentSeven')}>
 						<img src={seven} alt='' />
 					</div>
-					<div className='thirtyImg' onClick={()=>this.props.history.push('/excellentThirty')}>
+					<div className='thirtyImg' onClick={() => this.props.history.push('/excellentThirty')}>
 						<img src={thirty} alt='' />
 					</div>
 				</div>
-				{articleArray ? <OpinionMainRightHot artcileArray={articleArray} /> : "暂无数据"}
+				{articleArray ? <OpinionMainRightHot artcileArray={articleArray} /> : '暂无数据'}
 			</div>
 		)
 	}

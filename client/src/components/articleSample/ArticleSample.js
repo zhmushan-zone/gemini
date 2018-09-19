@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import OpinionNav from '../opinionNav/opinionNav'
 import ArticleLeft from '../articleLeft/articleLeft'
 import ArticleRight from '../articleRight/articleRight'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { fetchArticleOne, fetchArticleAll, focusUser } from '@/redux/actions'
 import { withRouter } from 'react-router-dom'
-import Cookies from 'js-cookie'
 import './articleSample.scss'
 @withRouter
 @connect((state) => state, { fetchArticleOne, fetchArticleAll, focusUser })
@@ -47,7 +45,6 @@ export default class ArticleSample extends Component {
 		const { authorId } = article
 		return (
 			<React.Fragment>
-				<OpinionNav />
 				<div className='article-container'>
 					{articleArray && article ? <ArticleLeft thisArticle={article} articleData={articleArray} /> : null}
 					{authorId && article ? (

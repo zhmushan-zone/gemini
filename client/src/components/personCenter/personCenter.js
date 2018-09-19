@@ -175,11 +175,13 @@ class PersonCener extends React.Component {
 								</Modal>
 							</div>
 						</div>
-						<div className='user-info-right'>
-							<h3 className='user-name'>{data.nickname ? data.nickname : data.username}</h3>
-						</div>
-						<div className='user-sign'>
-							<p className='user-desc'>{data.signature ? data.signature : notSetText}</p>
+						<div className='message-information'>
+							<div className='user-info-right'>
+								<h3 className='user-name'>{data.nickname ? data.nickname : data.username}</h3>
+							</div>
+							<div className='user-sign'>
+								<p className='user-desc'>{data.signature ? data.signature : notSetText}</p>
+							</div>
 						</div>
 						<div className='study-info'>
 							<div className='item follows'>
