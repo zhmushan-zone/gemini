@@ -67,7 +67,6 @@ class MessageCenter extends Component {
       content: '您是否要将所有消息设置成已读？',
       onOk: () => {
         return new Promise(async (resolve, reject) => {
-          console.log(msgsId)
           const res = await axios({
             method: 'put',
             url: '/api/notices/read',
@@ -77,9 +76,17 @@ class MessageCenter extends Component {
             data: msgsId
           })
           if (res.data.code === 1){
-            const newMsgs = [...msgs].map(item => item.isRead === true)
-            await this.props.updateMessage(newMsgs)
-            resolve('设置成功')
+            const res2 = await axios({
+              method: 'get',
+              url: '/api/notices',
+              headers: {
+                token: Cookies.get('_token')
+              }
+            })
+            if(res2.data.code === 1) {
+              await this.props.updateMessage(res2.data.data)
+              resolve('设置成功')
+            }
           }
         }).then(res => {
           return message.success(res)
