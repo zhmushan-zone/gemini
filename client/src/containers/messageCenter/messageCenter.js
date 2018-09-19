@@ -4,10 +4,13 @@ import Cookies from 'js-cookie'
 import { dateSortByCreate } from '@/util/dateSort'
 import { connect } from 'react-redux'
 import { updateMessage } from '@/redux/actions'
+import { Modal, message } from 'antd'
 import Loading from '@/common/loading/loading'
+import axios from 'axios'
 
 import './messageCenter.scss'
 
+const confirm = Modal.confirm
 const socket = io(`http://localhost:9999?token=${Cookies.get('_token')}`)
 
 @connect(
@@ -42,15 +45,6 @@ class MessageCenter extends Component {
       })
       this.props.updateMessage(newMsg)
     })
-    socket.on('connection', (data) => {
-      console.log('11')
-    })
-    socket.on('connect', (data) => {
-      console.log('1')
-    })
-    socket.on('disconnect', (data) => {
-      console.log('0')
-    })
   }
   
   componentWillReceiveProps(nextProps) {
@@ -67,16 +61,50 @@ class MessageCenter extends Component {
     }
   }
   
+  readMsg(msgs, msgsId) {
+    confirm({
+      title: '设置确认',
+      content: '您是否要将所有消息设置成已读？',
+      onOk: () => {
+        return new Promise(async (resolve, reject) => {
+          console.log(msgsId)
+          const res = await axios({
+            method: 'put',
+            url: '/api/notices/read',
+            headers: {
+              token: Cookies.get('_token')
+            },
+            data: msgsId
+          })
+          if (res.data.code === 1){
+            const newMsgs = [...msgs].map(item => item.isRead === true)
+            await this.props.updateMessage(newMsgs)
+            resolve('设置成功')
+          }
+        }).then(res => {
+          return message.success(res)
+        })
+      },
+      onCancel() {},
+    })
+  }
+  
   render() {
+    let unreadMsg = []
+    let unreadMsgIds = []
+    if (this.props.msg.length) {
+      unreadMsg = this.props.msg.filter(item => !item.isRead)
+      unreadMsgIds = [...unreadMsg].map(item => item = item.id)
+    }
     return (
       <div className="message-center">
         <div className="message-center-content">
           <h3>
-            消息通知(未读消息2条)
+            消息通知(未读消息{unreadMsg.length}条)
           </h3>
           <div className="message-center-content-top">
             <span className="message-clear-alert">系统自动清理三个月前的已读通知</span>
-            <a>全部设为已读</a>
+            <a onClick={unreadMsg.length ? () => this.readMsg(this.props.msg, unreadMsgIds) : null}>全部设为已读</a>
           </div>
           {
             this.state.loading ? 

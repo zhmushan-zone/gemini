@@ -4,10 +4,10 @@ import './personCenterClass.scss'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import { loadData } from '@/redux/actions'
+import { fetchUser } from '@/redux/actions'
 const TabPane = Tabs.TabPane
 @withRouter
-@connect((state) => state, { loadData })
+@connect((state) => state, { fetchUser })
 class PersonCenterClass extends React.Component {
 	constructor(props) {
 		super(props)
@@ -18,14 +18,7 @@ class PersonCenterClass extends React.Component {
 	}
 	async componentDidMount() {
 		// fetch one
-		const res1 = await axios({
-			method: 'get',
-			url: `/api/users/${this.state.userId}`,
-		})
-		if (res1.data.code === 1) {
-		} else {
-			console.log('后端出错了')
-		}
+		await this.props.fetchUser(this.state.userId)
 		const joinCourse = this.props.userstatus.joinCourse
 		const res = await axios({
 			method: 'post',
@@ -54,11 +47,13 @@ class PersonCenterClass extends React.Component {
 								<div className='study-tl' key={v.id}>
 									<div className='tl-item'>
 										<div className='time'>
-											<b>{v.updateAt.split(' ')[0].split('-')[0]}</b>
-											<em>
+											<b key={new Date().getTime() + Math.random() * 100000+v.id}>
+												{v.updateAt.split(' ')[0].split('-')[0]}
+											</b>
+											<em key={new Date().getTime() + Math.random() * 100000}>
 												{v.updateAt.split(' ')[0].split('-')[1] + '月' + v.updateAt.split(' ')[0].split('-')[2] + '日'}
 											</em>
-											<em>{v.updateAt.split(' ')[1]}</em>
+											<em key={new Date().getTime() + Math.random() * 100000}>{v.updateAt.split(' ')[1]}</em>
 										</div>
 										<div className='course-list'>
 											<ul>

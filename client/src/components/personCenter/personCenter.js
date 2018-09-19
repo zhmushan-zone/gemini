@@ -175,11 +175,13 @@ class PersonCener extends React.Component {
 								</Modal>
 							</div>
 						</div>
-						<div className='user-info-right'>
-							<h3 className='user-name'>{data.nickname ? data.nickname : data.username}</h3>
-						</div>
-						<div className='user-sign'>
-							<p className='user-desc'>{data.signature ? data.signature : notSetText}</p>
+						<div className='message-information'>
+							<div className='user-info-right'>
+								<h3 className='user-name'>{data.nickname ? data.nickname : data.username}</h3>
+							</div>
+							<div className='user-sign'>
+								<p className='user-desc'>{data.signature ? data.signature : notSetText}</p>
+							</div>
 						</div>
 						<div className='study-info'>
 							<div className='item follows'>
@@ -196,7 +198,7 @@ class PersonCener extends React.Component {
 							</div>
 							<div className='item follows'>
 								<div className='u-info-learn' title='学习时长335小时18分'>
-									<em>{this.props.User ? parseInt(this.props.User.integral, 10) : 0}</em>
+									<em>{this.props.User.integral ? parseInt(this.props.User.integral, 10) : 0}</em>
 									<span>积分</span>
 								</div>
 							</div>
