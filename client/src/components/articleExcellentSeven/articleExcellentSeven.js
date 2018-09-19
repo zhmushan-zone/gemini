@@ -23,11 +23,13 @@ export default class articleExcellentSeven extends Component {
 				token: Cookies.get('_token'),
 			},
 		}).then((res) => {
+			console.log(res.data)
 			this.setState({
 				articleWeeklyId: res.data.data,
 			})
 		})
 		const { articleWeeklyId } = this.state
+		console.log(articleWeeklyId)
 		let sortable = Object.keys(articleWeeklyId).sort((a, b) => articleWeeklyId[a] - articleWeeklyId[b])
 		// 获取文章
 		await axios({

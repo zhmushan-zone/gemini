@@ -43,7 +43,7 @@ class UserStatus extends React.Component {
 	render() {
 		const nickname = this.props.nickname ? this.props.nickname : this.props.username
 		const linkStyle = this.state.isUserInfoShow ? { border: '2px solid #f01414' } : { border: 'none' }
-		const loginUser = this.props.id
+		const loginUser = this.state._id
 		return (
 			<div className='userStatus' onMouseEnter={() => this.toggleHover()} onMouseLeave={() => this.toggleHover()}>
 				{this.state.isLogin ? (
@@ -73,7 +73,9 @@ class UserStatus extends React.Component {
 												<span className='user-info-experience'>经验868</span>
 											</a>
 											<a href='#javascript'>
-												<span className='user-info-integral'>积分{parseInt(this.props.integral, 10)}</span>
+												<span className='user-info-integral'>
+													积分{this.props.integral ? parseInt(this.props.integral, 10) : 0}
+												</span>
 											</a>
 										</div>
 									</div>

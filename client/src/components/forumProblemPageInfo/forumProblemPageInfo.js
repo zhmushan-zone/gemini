@@ -25,6 +25,7 @@ class ForumProblemPageInfo extends Component {
     this.state = {
       visible: false,
       authorInfo: {
+        authorId: '',
         username: '',
         avatar: ''
       },
@@ -48,6 +49,7 @@ class ForumProblemPageInfo extends Component {
     await this.props.fetchUser(this.props.currentProblem.authorId)
     this.setState({
       authorInfo: {
+        authorId: this.props.currentProblem.authorId,
         username: this.props.User.username,
         avatar: this.props.User.avatar
       }
@@ -193,7 +195,7 @@ class ForumProblemPageInfo extends Component {
             </div>
           </div>
         </div>
-        <ForumProblemPageReply />
+        <ForumProblemPageReply authorId={this.state.authorInfo.authorId} />
         <Modal
           title="举报"
           visible={this.state.visible}

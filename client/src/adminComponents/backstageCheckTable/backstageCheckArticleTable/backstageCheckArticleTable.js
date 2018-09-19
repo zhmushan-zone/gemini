@@ -79,7 +79,6 @@ class BackstageCheckArticleTable extends Component {
 			onOk: () => {
 				return new Promise(async (resolve, reject) => {
 					const _token = Cookies.get('_token')
-					await this.props.deleteArticle(id)
 					await axios({
             method: 'post',
             url: '/api/notices',
@@ -93,6 +92,7 @@ class BackstageCheckArticleTable extends Component {
               to: authorId
             }
           })
+					await this.props.deleteArticle(id)
 					resolve(1)
 				}).then((res) => {
 					message.success('该请求已被拒绝')

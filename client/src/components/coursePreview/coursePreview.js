@@ -286,7 +286,7 @@ export default class CoursePreview extends Component {
 										</div>
 										<div className='content'>
 											<div className='top'>
-												<span>{users[i] ? users[i].username : 'admin'}</span>
+												<span>{users[i] ? users[i].username : this.props.userstatus.username}</span>
 												<Rate disabled value={rate[v] - 0} />
 											</div>
 											<div className='con'>

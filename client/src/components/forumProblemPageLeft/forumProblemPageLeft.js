@@ -24,7 +24,7 @@ class ForumProblemPageLeft extends Component {
     return (
       <div className="forum-problem-page-left">
         <ForumProblemPageInfo paramId={this.props.paramId} currentProblem={this.props.problem}/>
-        <ForumProblemPageComments replys={this.props.replys} />
+        <ForumProblemPageComments replys={this.props.replys} problemId={this.props.problem.id} />
       </div>
     )
   }
