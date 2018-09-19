@@ -4,7 +4,7 @@ import WebsiteIntroduce from '../../components/websiteIntroduce/websiteIntroduce
 import Recommend from '@/components/recommend/recommend'
 import LastestCourse from '@/components/lastestCourse/lastestCourse'
 import WonderfulContent from '@/components/wonderfulContent/wonderfulContent'
-import ExcellentUsers from '@/components/excellentUsers/excellentUsers'
+// import ExcellentUsers from '@/components/excellentUsers/excellentUsers'
 import { connect } from 'react-redux'
 import { getCourseList } from '@/redux/actions'
 import { dateSortByCreate } from '@/util/dateSort'
@@ -41,7 +41,7 @@ class Home extends React.Component {
         <Recommend hotCourse={this.state.hotCourse} />
         <LastestCourse latestCourse={this.state.latestCourse} />
         <WonderfulContent />
-        <ExcellentUsers />
+        {/* <ExcellentUsers /> */}
       </div>
     )
   }
