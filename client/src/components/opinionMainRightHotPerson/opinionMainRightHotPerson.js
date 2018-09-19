@@ -59,7 +59,7 @@ export default class opinionMainRightHotPerson extends Component {
 										<div className='text_author'>
 											<div className='name'>{v.username}</div>
 											<p>
-												<span className='margin-right-40'>40篇文章</span>
+												{/* <span className='margin-right-40'>40篇文章</span> */}
 											</p>
 										</div>
 									</div>
