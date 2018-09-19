@@ -8,6 +8,7 @@ import { ArticleService } from '../article/article.service';
 import { CourseService } from '../course/course.service';
 import { GeminiError } from '../common/error';
 import { ResponseCode } from '../common/utils';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class NoticeService {
@@ -139,6 +140,10 @@ export class NoticeService {
 
   findById(id: string) {
     return this.noticeRepository.findOne(id);
+  }
+
+  findByIds(ids: ObjectId[]) {
+    return this.noticeRepository.findByIds(ids);
   }
 
   findByTo(to: string) {
