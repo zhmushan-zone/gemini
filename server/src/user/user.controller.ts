@@ -65,7 +65,6 @@ export class UserController {
   }
 
   @Get(':id/activities')
-  @UseGuards(AuthGuard('jwt'))
   async findActivities(@Param('id') id: string) {
     const user = await this.userService.findById(id);
     if (!user) return response(ResponseCode.NOT_EXISIT);
