@@ -3,17 +3,29 @@ import { Tabs, message } from 'antd'
 import './personCenterClass.scss'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import { loadData } from '@/redux/actions'
 const TabPane = Tabs.TabPane
-@connect((state) => state, {})
+@withRouter
+@connect((state) => state, { loadData })
 class PersonCenterClass extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			courses: [],
+			userId: this.props.match.params.id,
 		}
 	}
 	async componentDidMount() {
+		// fetch one
+		const res1 = await axios({
+			method: 'get',
+			url: `/api/users/${this.state.userId}`,
+		})
+		if (res1.data.code === 1) {
+		} else {
+			console.log('后端出错了')
+		}
 		const joinCourse = this.props.userstatus.joinCourse
 		const res = await axios({
 			method: 'post',
@@ -25,7 +37,7 @@ class PersonCenterClass extends React.Component {
 				courses: res.data.data,
 			})
 		} else {
-			return message.error('举报失败')
+			return message.error('失败了')
 		}
 	}
 	callback = (key) => {
@@ -36,7 +48,7 @@ class PersonCenterClass extends React.Component {
 		return (
 			<div className='person-center-class-container'>
 				<Tabs defaultActiveKey='1' onChange={this.callback}>
-					<TabPane tab='最近学习' key='1'>
+					<TabPane tab='已加入的课程' key='1'>
 						{courses.map((v) => {
 							return (
 								<div className='study-tl' key={v.id}>
@@ -81,7 +93,7 @@ class PersonCenterClass extends React.Component {
 																</a> */}
 															</span>
 															<Link className='btn-red continute-btn' to={`/video/${v.id}`}>
-																继续学习
+																去学习
 															</Link>
 														</div>
 													</div>

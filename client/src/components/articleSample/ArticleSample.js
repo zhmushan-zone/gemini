@@ -25,7 +25,6 @@ export default class ArticleSample extends Component {
 		})
 		console.log(res.data.code)
 		if (res.data.code === 1) {
-			Cookies.set('commentsId', res.data.data.commentsId)
 			this.setState({
 				article: res.data.data,
 			})
