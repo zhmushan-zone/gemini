@@ -68,7 +68,7 @@ export default class BackstageArticle extends Component {
 
 	isSimilar(arr1, num) {
 		arr1 = Array.from(arr1, (x) => x)
-		return arr1.includes(num + 1)
+		return arr1.includes(num)
 	}
 
 	render() {
