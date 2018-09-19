@@ -116,7 +116,7 @@ const articles = [
 		`,
 		viewerCoutent: '951',
 		recommendCount: '12',
-		img: 'https://img.mukewang.com/5afba9300001878502560256-210-130.jpg',
+		img: `${require('@/assets/article/1.jpg')}`,
 	},
 	{
 		title: '作为前端你拿什么证明网站体验？',
@@ -124,7 +124,7 @@ const articles = [
 			'前端重构程序员是一个关注代码同时还要留意体验的异类。代码的优化虽然难，但是有比较多的性能测试工具去证明优化的成果。然而体验这种东西，我们又要如何去证明它的好与坏呢？今天我着重会基于「webnovel」PC站点从以上两点给大家介绍，如何从体验的角度去做重构的优化，并如何用数据去证明你的优化是有效果的。',
 		viewerCoutent: '951',
 		recommendCount: '12',
-		img: 'https://img.mukewang.com/5afba9300001878502560256-210-130.jpg',
+		img: `${require('@/assets/article/2.jpg')}`,
 	},
 	{
 		title: 'Flutter | 状态管理探索篇——Scoped Model（一）',
@@ -134,7 +134,7 @@ const articles = [
 			`,
 		viewerCoutent: '951',
 		recommendCount: '12',
-		img: 'https://img.mukewang.com/5afba9300001878502560256-210-130.jpg',
+		img: `${require('@/assets/article/3.jpg')}`,
 	},
 	{
 		title: 'React 官方发布性能分析插件Profiler',
@@ -142,7 +142,7 @@ const articles = [
 			'React 16.5 新增了对开发工具（DevTools）性能分析插件（profiler plugin）的支持。该插件通过 React Profiler API（实验中）收集每个组件渲染的耗时，用于分析识别出 React 应用中的性能瓶颈。它与我们即将推出的 time slicing 和 suspense 这两个功能将完全兼容。',
 		viewerCoutent: '951',
 		recommendCount: '12',
-		img: 'https://img.mukewang.com/5afba9300001878502560256-210-130.jpg',
+		img: `${require('@/assets/article/4.jpg')}`,
 	},
 	{
 		title: '如何为 Cloud TPU 编写自定义估算器模型',
@@ -150,7 +150,7 @@ const articles = [
 			'张量处理单元 (TPU) 可加速处理 Google 内各种机器学习工作负载，并可供 Google Cloud 客户使用。您可以在 Cloud TPU 参考模型存储区找到启用 TPU 的顶尖图像模型版本，例如 ResNet 和 AmoebaNet；您还可以使用强大的 Tensor2Tensor 库，在 TPU 上执行文本摘要和问答任务。这些教程会为您分步介绍如何使用当下很多最热门的 Cloud TPU 参考模型。',
 		viewerCoutent: '951',
 		recommendCount: '12',
-		img: 'https://img.mukewang.com/5afba9300001878502560256-210-130.jpg',
+		img: `${require('@/assets/article/5.jpg')}`,
 	},
 	{
 		title: '如何基于区块链技术开发应用',
@@ -158,7 +158,7 @@ const articles = [
 			'随着区块链的火热，相信很多同学已经跃跃欲试想投入到区块链开发队伍当中来，可是又感觉无从下手，本文就基于以太坊平台，轻松带大家入区块链技术开发应用的大门。 以太坊是什么 我们要开发一个区块链应用，如果要从头开发一个区块链，是不现实的，这时我们就需要以太坊这样的平台。 以太坊（Ethereum）是一个建立在区块链技术之上的应用平台。它允许任何人在平台中建立和使用通过区块链技术运行的去中心化应用。 对这...',
 		viewerCoutent: '951',
 		recommendCount: '12',
-		img: 'https://img.mukewang.com/5afba9300001878502560256-210-130.jpg',
+		img: `${require('@/assets/article/6.jpg')}`,
 	},
 ]
 
