@@ -4,10 +4,10 @@ import './personCenterClass.scss'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import { loadData } from '@/redux/actions'
+import { fetchUser } from '@/redux/actions'
 const TabPane = Tabs.TabPane
 @withRouter
-@connect((state) => state, { loadData })
+@connect((state) => state, { fetchUser })
 class PersonCenterClass extends React.Component {
 	constructor(props) {
 		super(props)
@@ -18,14 +18,7 @@ class PersonCenterClass extends React.Component {
 	}
 	async componentDidMount() {
 		// fetch one
-		const res1 = await axios({
-			method: 'get',
-			url: `/api/users/${this.state.userId}`,
-		})
-		if (res1.data.code === 1) {
-		} else {
-			console.log('后端出错了')
-		}
+		await this.props.fetchUser(this.state.userId)
 		const joinCourse = this.props.userstatus.joinCourse
 		const res = await axios({
 			method: 'post',
