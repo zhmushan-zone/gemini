@@ -107,7 +107,7 @@ class PersonCener extends React.Component {
 				name: '课程',
 				icon: 'kecheng',
 				to: `/personCenter/${UserId}/class`,
-				is: this.props.location.pathname === `/personCenter/${UserId}/class`,
+				is: this.props.location.pathname === `/personCenter/${UserId}/class` && isOwn,
 				component: personCenterClass,
 			},
 			{

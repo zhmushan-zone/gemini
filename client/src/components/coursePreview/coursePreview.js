@@ -278,7 +278,6 @@ export default class CoursePreview extends Component {
 							</div>
 							{rateArray.map((v, i) => {
 								console.log(users[i])
-								
 								return (
 									<div className='evaluation-item' key={i}>
 										<div className='avatar'>

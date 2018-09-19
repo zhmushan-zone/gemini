@@ -1,66 +1,101 @@
 import React from 'react'
-import { Tabs } from 'antd'
+import { Tabs, message } from 'antd'
 import './personCenterClass.scss'
+import axios from 'axios'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 const TabPane = Tabs.TabPane
+@connect((state) => state, {})
 class PersonCenterClass extends React.Component {
-  componentDidMount() {
-    
-  }
-  callback = (key) => {
-    console.log(key)
-  }
-  render() {
-    return (
-      <div className="person-center-class-container">
-        <Tabs defaultActiveKey="1" onChange={this.callback}>
-          <TabPane tab="最近学习" key="1" >
-            <div className="study-tl">
-              <div className="tl-item">
-                <div className="time">
-                  <b>2018</b>
-                  <em>5月25日</em>
-                </div>
-                <div className="course-list">
-                  <ul>
-                    <li className="course-one">
-                      <div className="course-list-img">
-                        <a href="">
-                          <img src={require('@/assets/imgs/test-course.jpg')} alt="" />
-                        </a>
-                      </div>
-                      <div className="course-list-cont">
-                        <h3 className="study-hd">
-                          Storm基础入门
-                          <span className="i-new">更新完毕</span>
-                          {/* 收藏和删除 */}
-                          <div className="share-box">
-                            <div className="show-btn"></div>
-                          </div>
-                        </h3>
-                        <div className="study-points">
-                          <span className="i-left">已学4%</span>
-                          <span className="i-mid">用时11分</span>
-                          <span className="i-right">学习至１－７操作数据库</span>
-                        </div>
-                        <div className="catog-points">
-                          <span className="i-left span-common">
-                            <a>笔记<i>0</i></a>
-                          </span>
-                          <span className="i-right span-common">
-                            <a>问答<i>0</i></a>
-                          </span>
-                          <a className="btn-red continute-btn">继续学习</a>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </TabPane>
-        </Tabs>
-      </div>
-    )
-  }
+	constructor(props) {
+		super(props)
+		this.state = {
+			courses: [],
+		}
+	}
+	async componentDidMount() {
+		const joinCourse = this.props.userstatus.joinCourse
+		const res = await axios({
+			method: 'post',
+			url: '/api/courses/ids',
+			data: joinCourse,
+		})
+		if (res.data.code === 1) {
+			this.setState({
+				courses: res.data.data,
+			})
+		} else {
+			return message.error('举报失败')
+		}
+	}
+	callback = (key) => {
+		console.log(key)
+	}
+	render() {
+		const { courses } = this.state
+		return (
+			<div className='person-center-class-container'>
+				<Tabs defaultActiveKey='1' onChange={this.callback}>
+					<TabPane tab='最近学习' key='1'>
+						{courses.map((v) => {
+							return (
+								<div className='study-tl' key={v.id}>
+									<div className='tl-item'>
+										<div className='time'>
+											<b>{v.updateAt.split(' ')[0].split('-')[0]}</b>
+											<em>
+												{v.updateAt.split(' ')[0].split('-')[1] + '月' + v.updateAt.split(' ')[0].split('-')[2] + '日'}
+											</em>
+											<em>{v.updateAt.split(' ')[1]}</em>
+										</div>
+										<div className='course-list'>
+											<ul>
+												<li className='course-one'>
+													<div className='course-list-img'>
+														<a href=''>
+															<img src={v.coverImg ? `/cover-img/${v.coverImg}` : null} alt='' />
+														</a>
+													</div>
+													<div className='course-list-cont'>
+														<h3 className='study-hd'>
+															{v.title}
+															<span className='i-new'>更新完毕</span>
+															{/* 收藏和删除 */}
+															<div className='share-box'>
+																<div className='show-btn' />
+															</div>
+														</h3>
+														<div className='study-points'>
+															<span className='i-left'>已学{parseInt(Math.random() * 99 + 1, 10)}%</span>
+															<span className='i-mid'>用时{parseInt(Math.random() * 130 + 1, 10)}分</span>
+														</div>
+														<div className='catog-points'>
+															<span className='i-left span-common'>
+																<a>
+																	加入课程的人数：<i>{v.joinersId.length}</i>
+																</a>
+															</span>
+															<span className='i-right span-common'>
+																{/* <a>
+																	问答<i>0</i>
+																</a> */}
+															</span>
+															<Link className='btn-red continute-btn' to={`/video/${v.id}`}>
+																继续学习
+															</Link>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							)
+						})}
+					</TabPane>
+				</Tabs>
+			</div>
+		)
+	}
 }
 export default PersonCenterClass
