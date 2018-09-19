@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 
 export const config = {
-  port: 9999,
+  port: process.argv[2] || 9999,
   token: {
     secret: 'sdkjfnaskfjnhewkjnfkn',
     expiresIn: '30 days'
