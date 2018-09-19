@@ -17,12 +17,13 @@ export default class ArticleSample extends Component {
 			article: '',
 		}
 	}
-	async fetchOne(){
+	async fetchOne() {
 		// fetch one
 		const res = await axios({
 			method: 'get',
 			url: `/api/articles/${this.props.match.params.id}`,
 		})
+		console.log(res.data.code)
 		if (res.data.code === 1) {
 			Cookies.set('commentsId', res.data.data.commentsId)
 			this.setState({
@@ -36,7 +37,7 @@ export default class ArticleSample extends Component {
 		await this.fetchOne()
 		await this.props.fetchArticleAll()
 	}
-	async changeDate(){
+	async changeDate() {
 		await this.fetchOne()
 		await this.props.fetchArticleAll()
 	}

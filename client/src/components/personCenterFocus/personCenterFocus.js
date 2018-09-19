@@ -15,38 +15,42 @@ export default class PersonCenterFocus extends Component {
 		}
 	}
 	async componentDidMount() {
-		const watch = await this.props.userstatus.watchUsersId
-		const watched = await this.props.userstatus.watchedUsersId
+		const watch = this.props.userstatus.watchUsersId
+		const watched = this.props.userstatus.watchedUsersId
+		console.log(watch)
+		console.log(watched)
 		// watch
-		await axios({
+		let res = await axios({
 			method: 'POST',
 			url: ' /api/users/ids',
 			data: watch,
-		}).then((res) => {
+		})
+		if (res.data.code === 1) {
 			this.setState({
 				users: res.data.data,
 			})
-		})
+		}
 		// watched
-		await axios({
+		let res2 = await axios({
 			method: 'POST',
 			url: ' /api/users/ids',
 			data: watched,
-		}).then((res) => {
-			this.setState({
-				watchedUsers: res.data.data,
-			})
 		})
+		if (res2.data.code === 1) {
+			this.setState({
+				watchedUsers: res2.data.data,
+			})
+		}
 	}
 	render() {
-		const { users,watchedUsers } = this.state
+		const { users, watchedUsers } = this.state
 		return (
 			<div className='person-center-focus'>
 				<Tabs defaultActiveKey='1' onChange={this.callback} size='large'>
 					<TabPane tab='我关注的' key='1'>
 						<div className='concern-list'>
 							<ul>
-								{users &&users.length!==0? (
+								{users && users.length !== 0 ? (
 									users.map((v) => {
 										return (
 											<li className='box' key={v.id}>
@@ -75,7 +79,7 @@ export default class PersonCenterFocus extends Component {
 					<TabPane tab='我的粉丝' key='2'>
 						<div className='concern-list'>
 							<ul>
-								{watchedUsers&&watchedUsers.length!==0 ? (
+								{watchedUsers && watchedUsers.length !== 0 ? (
 									watchedUsers.map((v) => {
 										return (
 											<li className='box' key={v.id}>
@@ -94,9 +98,7 @@ export default class PersonCenterFocus extends Component {
 										)
 									})
 								) : (
-									<p>
-										你还没有粉丝，真难受
-									</p>
+									<p>你还没有粉丝，真难受</p>
 								)}
 							</ul>
 						</div>
