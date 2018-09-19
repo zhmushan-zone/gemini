@@ -31,7 +31,7 @@ class ExcellentUsers extends React.Component {
   }
 
   render () {
-    const designation = ['经验第一人', '经验第二人', '经验第三人']
+    const designation = ['回答问题最多', '获取积分最多', '发表文章最多']
     const topThreeItems = users.slice(0, 3).map((item, index) => {
       return (
         <div className="top-three-item" key={index}>
@@ -66,7 +66,7 @@ class ExcellentUsers extends React.Component {
           <div className="excellent-user-info-window"
             style={{left: this.state.x, top: this.state.y, display: this.state.windowDisplay}}>
             <div style={{fontSize: 16}}>{this.state.name}</div>
-            <div style={{fontSize: 12}}>经验值{this.state.experience}</div>
+            <div style={{fontSize: 12}}>积分{this.state.experience}</div>
           </div>
         </div>
       </div>
