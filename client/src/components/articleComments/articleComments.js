@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ArticleCommentsItem from '../articleCommentsItem/articleCommentsItem'
 import { getArticleComment, setReplyComment, commentUp } from '@/redux/actions.js'
-import Cookies from 'js-cookie'
 import './articleComments.scss'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
@@ -9,11 +8,9 @@ import { dateSortByUpdate } from '@/util/dateSort.js'
 @withRouter
 @connect((state) => state, { getArticleComment, setReplyComment, commentUp })
 class ArticleComments extends Component {
-	async componentDidMount() {
-		const commentsId =  await JSON.parse(Cookies.get('commentsId'))
-		setTimeout(()=>{
-			this.props.getArticleComment(commentsId)
-		},200)
+	componentDidMount() {
+		const commentsId = this.props.thisArticle.commentsId
+		this.props.getArticleComment(commentsId)
 	}
 	render() {
 		const articleComment = dateSortByUpdate(this.props.article.comment)

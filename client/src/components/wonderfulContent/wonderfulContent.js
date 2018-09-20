@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 class WonderfulContent extends React.Component {
 	async componentDidMount() {
 		const grid = document.querySelector('.masonry')
-		const msnry = new Masonry(grid, {
+		new Masonry(grid, {
 			// options...
 			itemSelector: '.grid-item',
 			gutter: 18,

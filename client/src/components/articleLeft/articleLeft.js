@@ -181,7 +181,7 @@ export default class articleLeft extends Component {
 					</Modal>
 					{/* 评论 */}
 					{/* <div id='all-comments'>暂无评论</div> */}
-					<ArticleComments articleId={this.state.categoryId} />
+					<ArticleComments articleId={this.state.categoryId} thisArticle={thisArticle} />
 					{/* article- */}
 					<div className='article_wrap'>
 						<div className='line-con'>
