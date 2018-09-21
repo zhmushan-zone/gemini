@@ -20,16 +20,14 @@ class AutoRoute extends React.Component {
 		if (publicList.indexOf(pathname) !== -1) {
 			return null
 		}
-		if (_id) {
-			axios
-				.get(`/api/users/${_id}`)
-				.then(async (res) => {
-					await this.props.loadData(res.data.data)
-				})
-				.catch((rej) => {
-					this.props.history.push('/login')
-				})
-		}
+		axios
+			.get(`/api/users/${_id}`)
+			.then(async (res) => {
+				await this.props.loadData(res.data.data)
+			})
+			.catch((rej) => {
+				this.props.history.push('/login')
+			})
 	}
 
 	render() {

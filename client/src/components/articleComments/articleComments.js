@@ -9,8 +9,14 @@ import { dateSortByUpdate } from '@/util/dateSort.js'
 @connect((state) => state, { getArticleComment, setReplyComment, commentUp })
 class ArticleComments extends Component {
 	componentDidMount() {
-		const commentsId = this.props.thisArticle.commentsId
+		const commentsId = this.props.commentsId
 		this.props.getArticleComment(commentsId)
+	}
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.match.params.id !== this.props.match.params.id) {
+			const commentsId = nextProps.commentsId
+			this.props.getArticleComment(commentsId)
+		}
 	}
 	render() {
 		const articleComment = dateSortByUpdate(this.props.article.comment)
