@@ -66,6 +66,7 @@ export default class VideoPage extends Component {
 			comment: '请输入',
 		})
 	}
+	
 	async componentDidMount() {
 		// 获取课程
 		await axios({
@@ -74,10 +75,17 @@ export default class VideoPage extends Component {
 			headers: {
 				token: Cookies.get('_token'),
 			},
-		}).then((res) => {
-			this.setState({
+		}).then(async (res) => {
+			await this.setState({
 				course: res.data.data,
 			})
+			try {
+				if (this.state.course.sections[0].nodes[0].video) {
+					this.setState({
+						videoId: res.data.data.sections[0].nodes[0].video,
+					})
+				}
+			} catch (error) {}
 		})
 	}
 	comment() {
@@ -232,5 +240,3 @@ export default class VideoPage extends Component {
 		)
 	}
 }
-// 5b17d27bc8eff3b610c9323c
-// this.props.match.params.id
