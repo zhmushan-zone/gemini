@@ -9,7 +9,7 @@ export const config = {
   email: {
     resendTime: 60000,
     expiresIn: 300000,
-    from: 'Gemini <zhangtest@yeah.net>',
+    from: 'IT Alley <zhangtest@yeah.net>',
     subject: '收到来自 IT Alley 的验证邮件',
     html: (captcha: string) => getEmailTemplate().replace('{{captcha}}', captcha),
     host: 'smtp.yeah.net',
