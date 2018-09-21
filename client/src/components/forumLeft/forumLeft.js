@@ -44,6 +44,7 @@ class ForumLeft extends Component {
       return <a onClick={() => this.setState({showContent: index})} key={index}>{item}</a>
     })
     let problems = [...this.props.problems]
+    console.log(this.props.problems)
     problems = this.problemFilter(showContent, problems)
     return (
       <div className="forum-wrapper">

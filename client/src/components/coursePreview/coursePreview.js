@@ -121,7 +121,7 @@ export default class CoursePreview extends Component {
 				? rateValue.reduce((a, b) => {
 						return a + b
 					})
-				: 0
+				: 5
 		let rateLength = rateArray.length === 0 ? 1 : rateArray.length
 		let average = num / rateLength
 		// let rateCommentArray = rateComment ? Object.keys(rateComment) : []
@@ -281,7 +281,14 @@ export default class CoursePreview extends Component {
 								return (
 									<div className='evaluation-item' key={i}>
 										<div className='avatar'>
-											{<img src={users[i] ? `/avatar/${users[i].avatar}` : defaultAvatar} alt='' />}
+											{
+												<img
+													src={
+														users[i] ? `/avatar/${users[i].avatar}` : loginuser ? `/avatar/${loginuser}` : defaultAvatar
+													}
+													alt=''
+												/>
+											}
 										</div>
 										<div className='content'>
 											<div className='top'>

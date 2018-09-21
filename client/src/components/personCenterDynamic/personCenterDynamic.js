@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import Cookies from 'js-cookie'
 import Loading from '@/common/loading/loading'
 import './PersonCenterDynamic.scss'
 import { withRouter } from 'react-router'
@@ -15,15 +14,15 @@ class PersonCenterDynamic extends React.Component {
 		}
 	}
 	componentDidMount = async () => {
-			axios({
-				method: 'GET',
-				url: `/api/users/${this.state.UserId}/activities`,
-			}).then((res) => {
-				this.setState({
-					activities: res.data.data,
-					show: false,
-				})
+		axios({
+			method: 'GET',
+			url: `/api/users/${this.state.UserId}/activities`,
+		}).then((res) => {
+			this.setState({
+				activities: res.data.data,
+				show: false,
 			})
+		})
 	}
 
 	render() {
@@ -34,11 +33,11 @@ class PersonCenterDynamic extends React.Component {
 			<div className='dynamic-container'>
 				{/* <p className="nodata">暂无任何动态</p> */}
 				<ul>
-					{activities.length!==0 ? (
-						activities.map((v) => {
+					{activities.length !== 0 ? (
+						activities.map((v, i) => {
 							const item = v.body
 							return (
-								<li className='item' key={item.createAt}>
+								<li className='item' key={i}>
 									<div className='activity'>
 										<a className='link'>
 											<div className='meta-box'>

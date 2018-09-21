@@ -67,7 +67,6 @@ export default class VideoPage extends Component {
 	}
 	async componentDidMount() {
 		// 获取课程
-		console.log(this.state.courseId)
 		await axios({
 			method: 'GET',
 			url: `/api/courses/${this.state.courseId}`,
@@ -78,7 +77,7 @@ export default class VideoPage extends Component {
 			this.setState({
 				course: res.data.data,
 			})
-			Cookies.set('video-commentsId', res.data.data.commentsId)
+			// Cookies.set('video-commentsId', res.data.data.commentsId)
 		})
 	}
 	comment() {
@@ -130,7 +129,6 @@ export default class VideoPage extends Component {
 
 	// 点击章节看视频
 	seeMovie(videoId) {
-		console.log(videoId)
 		this.setState({ videoId: videoId })
 	}
 	render() {
@@ -181,7 +179,7 @@ export default class VideoPage extends Component {
 						</dl>
 					</div>
 					<video
-						src={`/video/${videoId}`}
+						src={videoId ? `/video/${videoId}` : ''}
 						className='video'
 						controls={[ 'PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen' ]}
 					/>

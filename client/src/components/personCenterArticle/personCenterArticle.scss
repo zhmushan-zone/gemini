@@ -27,7 +27,8 @@
 			line-height: 28px;
 			color: #4d555d;
 			margin-bottom: 10px;
-			display: flex;
+			max-height: 364px;
+			overflow: hidden;
 			img {
 				width: 200px;
 				height: auto;
