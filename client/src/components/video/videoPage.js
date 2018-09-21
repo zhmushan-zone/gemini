@@ -129,7 +129,6 @@ export default class VideoPage extends Component {
 
 	// 点击章节看视频
 	seeMovie(videoId) {
-		console.log(videoId)
 		this.setState({ videoId: videoId })
 	}
 	render() {
@@ -180,7 +179,7 @@ export default class VideoPage extends Component {
 						</dl>
 					</div>
 					<video
-						src={`/video/${videoId}`}
+						src={videoId ? `/video/${videoId}` : ''}
 						className='video'
 						controls={[ 'PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen' ]}
 					/>

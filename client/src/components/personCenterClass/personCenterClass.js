@@ -73,8 +73,8 @@ class PersonCenterClass extends React.Component {
 															</div>
 														</h3>
 														<div className='study-points'>
-															<span className='i-left'>已学{parseInt(Math.random() * 99 + 1, 10)}%</span>
-															<span className='i-mid'>用时{parseInt(Math.random() * 130 + 1, 10)}分</span>
+															{/* <span className='i-left'>已学{parseInt(Math.random() * 99 + 1, 10)}%</span> */}
+															{/* <span className='i-mid'>用时{parseInt(Math.random() * 130 + 1, 10)}分</span> */}
 														</div>
 														<div className='catog-points'>
 															<span className='i-left span-common'>
