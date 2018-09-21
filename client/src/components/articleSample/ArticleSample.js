@@ -21,7 +21,6 @@ export default class ArticleSample extends Component {
 			method: 'get',
 			url: `/api/articles/${this.props.match.params.id}`,
 		})
-		console.log(res.data.code)
 		if (res.data.code === 1) {
 			this.setState({
 				article: res.data.data,
@@ -46,7 +45,9 @@ export default class ArticleSample extends Component {
 		return (
 			<React.Fragment>
 				<div className='article-container'>
-					{articleArray && article ? <ArticleLeft thisArticle={article} articleData={articleArray} /> : null}
+					{articleArray && article ? (
+						<ArticleLeft thisArticle={article} articleData={articleArray} changeDate={this.changeDate.bind(this)} />
+					) : null}
 					{authorId && article ? (
 						<ArticleRight
 							authorId={article.authorId}

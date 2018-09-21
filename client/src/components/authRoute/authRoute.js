@@ -17,11 +17,9 @@ class AutoRoute extends React.Component {
 		var publicList = [ '/login' ]
 		var pathname = this.props.location.pathname
 		var _id = Cookies.get('_id')
-		var _token = Cookies.get('_token')
 		if (publicList.indexOf(pathname) !== -1) {
 			return null
 		}
-
 		axios
 			.get(`/api/users/${_id}`)
 			.then(async (res) => {

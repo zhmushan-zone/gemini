@@ -51,6 +51,18 @@ class Nav extends React.Component {
 			this.setState({
 				selected: 1,
 			})
+		} else if (pathname.split('/')[1] === 'article') {
+			this.setState({
+				selected: 3,
+			})
+		} else if (pathname.split('/')[1] === 'excellentSeven') {
+			this.setState({
+				selected: 3,
+			})
+		} else if (pathname.split('/')[1] === 'excellentThirty') {
+			this.setState({
+				selected: 3,
+			})
 		}
 		await this.props.fetchMessage()
 		this.props.msg.map((item) => {

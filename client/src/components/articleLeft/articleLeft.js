@@ -29,12 +29,14 @@ export default class articleLeft extends Component {
 			categoryId: this.props.match.params.id,
 			commentValue: '您的内容。。',
 			upersId: [],
+			thisArticle: '',
 		}
 	}
 	componentDidMount() {
 		const { upersId } = this.props.thisArticle
 		this.setState({
 			upersId: upersId,
+			thisArticle: this.props.thisArticle,
 		})
 	}
 
@@ -96,13 +98,30 @@ export default class articleLeft extends Component {
 			[key]: e.target.value,
 		})
 	}
+	async componentWillReceiveProps(nextProps) {
+		if (nextProps.match.params.id !== this.props.match.params.id) {
+			console.log(nextProps.match.params.id)
+			const res = await axios({
+				method: 'get',
+				url: `/api/articles/${nextProps.match.params.id}`,
+			})
+			if (res.data.code === 1) {
+				console.log(res.data.data)
+				this.setState({
+					thisArticle: res.data.data,
+				})
+			} else {
+				console.log('后端出错了')
+			}
+		}
+	}
 
 	render() {
-		const { visible, confirmLoading, commentValue, upersId } = this.state
+		let { visible, confirmLoading, commentValue, upersId, thisArticle } = this.state
 		let { userstatus } = this.props
 		let articleData = dateSortByCreate(this.props.articleData)
-		let thisArticle = this.props.thisArticle
-		let { content, title, type, id } = thisArticle
+		let { content, title, type, id, commentsId } = thisArticle
+		console.log(commentsId)
 		try {
 			var con = Marked(content)
 			var Tag = type.map((v, i) => {
@@ -181,7 +200,12 @@ export default class articleLeft extends Component {
 					</Modal>
 					{/* 评论 */}
 					{/* <div id='all-comments'>暂无评论</div> */}
-					<ArticleComments articleId={this.state.categoryId} />
+					{commentsId ? (
+						<ArticleComments articleId={this.state.categoryId} thisArticle={thisArticle} commentsId={commentsId} />
+					) : (
+						''
+					)}
+
 					{/* article- */}
 					<div className='article_wrap'>
 						<div className='line-con'>
