@@ -95,7 +95,7 @@ export class UserController {
       }
     }
 
-    return success(user.activities);
+    return success(user.activities.filter(a => a.body));
   }
 
   @Get('shoppingcart')

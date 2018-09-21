@@ -168,8 +168,8 @@ export class Common extends BaseEntity {
     private readonly userService: UserService
   ) {
     super();
-    scheduleJob('0 0 0 * * 1', this.emptyIssueReplyNumWeekly);
-    scheduleJob('0 0 0 * * 1', this.emptyArticleUpNumWeekly);
-    scheduleJob('0 0 0 1 * *', this.emptyArticleUpNumMonthly);
+    // scheduleJob('0 0 0 * * 1', this.emptyIssueReplyNumWeekly);
+    // scheduleJob('0 0 0 * * 1', this.emptyArticleUpNumWeekly);
+    // scheduleJob('0 0 0 1 * *', this.emptyArticleUpNumMonthly);
   }
 }
