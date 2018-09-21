@@ -161,6 +161,20 @@ class ForumProblemPageCommentsItem extends Component {
       }
     })
     if (res.data.code === 1) {
+      console.log(this.state.to, this.props.issueId, this.state.to)
+      await axios({
+        method: 'post',
+        url: '/api/notices',
+        headers: {
+          token: _token
+        },
+        data: {
+          type: this.state.to === this.props.authorId ? 1 : 2,
+          reason: '',
+          srcId: this.props.issueId,
+          to: this.state.to
+        }
+      })
       const oldReplys = [...this.state.replys]
       this.setState({
         replys: [

@@ -15,10 +15,12 @@
     }
   }
   .info-wapper {
-    margin: 24px auto 24px 40px;
+    margin: 24px auto 24px 0;
     .info-box {
       margin-bottom: 12px;
       display: flex;
+      box-sizing: border-box;
+      padding-left: 40px;
       label {
         display: block;
         width: 120px;

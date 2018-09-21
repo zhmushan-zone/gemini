@@ -29,6 +29,7 @@ export default class VideoPage extends Component {
 			courseId: this.props.match.params.courseId,
 			course: '',
 			videoId: '',
+			firstVideo: '',
 		}
 		this.openCourseSider = this.openCourseSider.bind(this)
 		this.closeCourseSider = this.closeCourseSider.bind(this)
@@ -65,6 +66,7 @@ export default class VideoPage extends Component {
 			comment: '请输入',
 		})
 	}
+	
 	async componentDidMount() {
 		// 获取课程
 		await axios({
@@ -73,11 +75,17 @@ export default class VideoPage extends Component {
 			headers: {
 				token: Cookies.get('_token'),
 			},
-		}).then((res) => {
-			this.setState({
+		}).then(async (res) => {
+			await this.setState({
 				course: res.data.data,
 			})
-			Cookies.set('video-commentsId', res.data.data.commentsId)
+			try {
+				if (this.state.course.sections[0].nodes[0].video) {
+					this.setState({
+						videoId: res.data.data.sections[0].nodes[0].video,
+					})
+				}
+			} catch (error) {}
 		})
 	}
 	comment() {
@@ -129,11 +137,16 @@ export default class VideoPage extends Component {
 
 	// 点击章节看视频
 	seeMovie(videoId) {
-		console.log(videoId)
 		this.setState({ videoId: videoId })
 	}
 	render() {
 		const { visible, confirmLoading, course, videoId } = this.state
+		try {
+			if (course.sections[0].nodes[0].video) {
+				console.log(course.sections[0].nodes[0].video)
+			}
+		} catch (error) {}
+
 		return (
 			<React.Fragment>
 				<VideoHeader courseName={course.title} />
@@ -180,7 +193,7 @@ export default class VideoPage extends Component {
 						</dl>
 					</div>
 					<video
-						src={`/video/${videoId}`}
+						src={videoId ? `/video/${videoId}` : null}
 						className='video'
 						controls={[ 'PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen' ]}
 					/>
@@ -227,5 +240,3 @@ export default class VideoPage extends Component {
 		)
 	}
 }
-// 5b17d27bc8eff3b610c9323c
-// this.props.match.params.id

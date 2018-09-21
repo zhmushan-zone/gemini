@@ -1,0 +1,35 @@
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 500px;
+  line-height: 160px;
+  background: #364d79;
+  overflow: hidden;
+}
+
+.banner-img {
+  height: 500px;
+
+  div {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .15);
+    padding-top: 150px;
+
+    h1 {
+      font-size: 40px;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 0 8px rgba(0,0,0,0.2);
+    }
+  }
+}
+
+.banner-img1 {
+  background: url("../../assets/imgs/banner3.jpg") 0 / cover;
+}
+.banner-img2 {
+  background: url("../../assets/imgs/banner2.jpg") 0 / cover;
+}
+.banner-img3 {
+  background: url("../../assets/imgs/banner1.jpg") 0 / cover;
+}

@@ -7,7 +7,6 @@ const initState = {
 	username: '',
 	email: '',
 	re_username: '',
-	forget_email: '',
 	id: '',
 	redirectTo: '',
 	job: '未设置',
@@ -82,7 +81,7 @@ const shoppingCartInit = {
 }
 
 const messageInit = {
-	msg: []
+	msg: [],
 }
 
 export function userstatus(state = initState, action) {
@@ -94,7 +93,7 @@ export function userstatus(state = initState, action) {
 				...state,
 				...action.payload,
 				redirectTo: '/home',
-				...action.username,
+				username: action.username,
 			}
 		case ActionTypes.FORGET_PASS:
 			return {
@@ -357,6 +356,7 @@ export function report(state = reportInit, action) {
 export function User(state = Userinit, action) {
 	switch (action.type) {
 		case ActionTypes.FETCH_ONE_USER:
+			console.log(action.data)
 			return {
 				...state,
 				...action.data,
@@ -413,6 +413,7 @@ export function video(state = videoinit, action) {
 				...state,
 				rate: { ...state.rate, ...action.rateObj },
 				rateComment: { ...state.rateComment, ...action.rateCommentObj },
+				code: action.code,
 			}
 		default:
 			return state
@@ -450,7 +451,7 @@ export function message(state = messageInit, action) {
 		case ActionTypes.FETCH_MESSAGE:
 			return {
 				...state,
-				msg: action.payload
+				msg: action.payload,
 			}
 		default:
 			return state
@@ -469,5 +470,5 @@ export default combineReducers({
 	problemComment,
 	report,
 	shoppingCart,
-	message
+	message,
 })

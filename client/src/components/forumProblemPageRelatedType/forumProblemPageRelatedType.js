@@ -40,9 +40,6 @@ class ForumProblemPageRelatedType extends Component {
                       {allClass[item]}
                     </Link>
                   </div>
-                  <p className="related-type-item-follow-num">
-                    14827人关注
-                  </p>
                 </div>
               </div>
               <div className="related-type-item-right">

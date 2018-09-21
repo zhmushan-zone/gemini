@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 
 export const config = {
-  port: 9999,
+  port: process.argv[2] || 9999,
   token: {
     secret: 'sdkjfnaskfjnhewkjnfkn',
     expiresIn: '30 days'
@@ -9,8 +9,8 @@ export const config = {
   email: {
     resendTime: 60000,
     expiresIn: 300000,
-    from: 'Gemini <zhangtest@yeah.net>',
-    subject: 'Welcome to Gemini',
+    from: 'IT Alley <zhangtest@yeah.net>',
+    subject: '收到来自 IT Alley 的验证邮件',
     html: (captcha: string) => getEmailTemplate().replace('{{captcha}}', captcha),
     host: 'smtp.yeah.net',
     auth: {
@@ -77,7 +77,7 @@ export const config = {
     notice: {
       // 当用户发布的问题被回答时
       issueReply: (id: string, time: string, title: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               答疑
@@ -97,7 +97,7 @@ export const config = {
       `,
       // 当用户在某问题中的回答被回复时
       issueSubReply: (id: string, time: string, title: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               答疑
@@ -105,9 +105,9 @@ export const config = {
           </div>
           <div class="message-center-item-right">
             <div class="message-center-item-content">
-              <span>你的提问</span>
+              <span>你在</span>
               <a>${title}</a>
-              <span>有新的回答</span>
+              <span>的回答有新的回复</span>
             </div>
             <div class="message-center-item-time">
               ${time}
@@ -117,7 +117,7 @@ export const config = {
       `,
       // 当用户在某问题中在某个回答下的回复被他人回复
       issueSubReply2: (id: string, time: string, title: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               答疑
@@ -137,7 +137,7 @@ export const config = {
       `,
       // 当用户发布的问题通过审核时
       issuePass: (id: string, time: string, title: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               答疑
@@ -157,7 +157,7 @@ export const config = {
       `,
       // 当用户发布的问题审核失败
       issueFail: (time: string, title: string, reason: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               答疑
@@ -178,7 +178,7 @@ export const config = {
       `,
       // 当用户的问题被他人举报
       issueReported: (time: string, title: string, reason: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               答疑
@@ -199,7 +199,7 @@ export const config = {
       `,
       // 当用户在某问题中的回答被他人举报
       issueReplyReported: (id: string, time: string, title: string, reason: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               答疑
@@ -220,7 +220,7 @@ export const config = {
       `,
       // 当用户在某问题下的回答的回复被人举报
       issueSubReplyReported: (id: string, time: string, title: string, reason: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               答疑
@@ -241,7 +241,7 @@ export const config = {
       `,
       // 当用户发布的文章被评论时
       articleReply: (id: string, time: string, title: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               看法
@@ -261,7 +261,7 @@ export const config = {
       `,
       // 当用户在文章中的评论被回复
       articleSubReply: (id: string, time: string, title: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               看法
@@ -281,7 +281,7 @@ export const config = {
       `,
       // 当用户在某文章中的评论下的回复被他人回复
       articleSubReply2: (id: string, time: string, title: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               看法
@@ -301,7 +301,7 @@ export const config = {
       `,
       // 当用户发布的文章通过审核时
       articlePass: (id: string, time: string, title: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               看法
@@ -321,7 +321,7 @@ export const config = {
       `,
       // 当用户发布的文章审核失败
       articleFail: (time: string, title: string, reason: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               看法
@@ -342,7 +342,7 @@ export const config = {
       `,
       // 当用户的文章被他人举报
       articleReported: (time: string, title: string, reason: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               看法
@@ -363,7 +363,7 @@ export const config = {
       `,
       // 当用户在某文章中的评论被他人举报
       articleReplyReported: (id: string, time: string, title: string, reason: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               看法
@@ -384,7 +384,7 @@ export const config = {
       `,
       // 当用户在某文章下的评论的回复被人举报
       articleSubReplyReported: (id: string, time: string, title: string, reason: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               看法
@@ -405,7 +405,7 @@ export const config = {
       `,
       // 当用户在某课程中的评论被他人举报
       courseReplyReported: (id: string, time: string, title: string, reason: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               课程
@@ -426,7 +426,7 @@ export const config = {
       `,
       // 当用户在某课程下的评论的回复被人举报
       courseSubReplyReported: (id: string, time: string, title: string, reason: string, isRead = false) => `
-        <div class="message-center-item-${isRead ? null : 'un'}read">
+        <div class="message-center-item-${isRead ? '' : 'un'}read">
           <div class="message-center-item-left">
             <div>
               课程

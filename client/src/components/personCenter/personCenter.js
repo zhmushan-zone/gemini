@@ -13,7 +13,7 @@ import personCenterClass from '../personCenterClass/personCenterClass'
 import personCenterFocus from '../personCenterFocus/personCenterFocus'
 import personCenterYuanwen from '../personCenterYuanwen/personCenterYuanwen'
 import './personCenter.scss'
-import {defaultAvatar,notSetText} from  '@/const'
+import { defaultAvatar, notSetText } from '@/const'
 @connect((state) => state, { changeAvatar, cancelAvatar, fetchUser })
 class PersonCener extends React.Component {
 	constructor(props) {
@@ -22,7 +22,7 @@ class PersonCener extends React.Component {
 			visible: false,
 			confirmLoading: false,
 			imgurl: defaultAvatar,
-			UserId: this.props.match.params.id
+			UserId: this.props.match.params.id,
 		}
 	}
 	componentDidMount = async () => {
@@ -31,7 +31,7 @@ class PersonCener extends React.Component {
 
 	showModal = () => {
 		this.setState({
-			visible: true
+			visible: true,
 		})
 	}
 	changAvatar = () => {
@@ -45,14 +45,14 @@ class PersonCener extends React.Component {
 			reader.onload = function(e) {
 				var txt = e.target.result
 				_this.setState({
-					imgurl: txt
+					imgurl: txt,
 				})
 			}
 		})
 	}
 	handleOk = () => {
 		this.setState({
-			confirmLoading: true
+			confirmLoading: true,
 		})
 		var avatar = document.getElementById('avatar').files[0]
 		var bodyFormData = new FormData()
@@ -65,8 +65,8 @@ class PersonCener extends React.Component {
 			headers: {
 				'Content-Type': 'multipart/form-data',
 				id: Cookies.get('_id'),
-				token: Cookies.get('_token')
-			}
+				token: Cookies.get('_token'),
+			},
 		})
 			.then(function(res) {
 				if (res.data.code === 1) {
@@ -80,64 +80,64 @@ class PersonCener extends React.Component {
 		setTimeout(() => {
 			this.setState({
 				visible: false,
-				confirmLoading: false
+				confirmLoading: false,
 			})
 		}, 100)
 	}
 	handleCancel = () => {
 		this.setState({
 			visible: false,
-			imgurl: ''
+			imgurl: '',
 		})
 	}
 	render() {
 		const { UserId } = this.state
-		const {userstatus} = this.props
-		const isOwn = 	UserId===Cookies.get("_id")
-		const data = isOwn?userstatus:userstatus.personCenterInfo
+		const { userstatus } = this.props
+		const isOwn = UserId === Cookies.get('_id')
+		const data = isOwn ? userstatus : userstatus.personCenterInfo
 		const nav = [
 			{
 				name: '动态',
 				icon: 'home',
 				to: `/personCenter/${UserId}`,
 				is: this.props.location.pathname === `/personCenter/${UserId}`,
-				component: PersonCenterDynamic
+				component: PersonCenterDynamic,
 			},
 			{
 				name: '课程',
 				icon: 'kecheng',
 				to: `/personCenter/${UserId}/class`,
-				is: this.props.location.pathname === `/personCenter/${UserId}/class`,
-				component: personCenterClass
+				is: this.props.location.pathname === `/personCenter/${UserId}/class` && isOwn,
+				component: personCenterClass,
 			},
 			{
 				name: '个人信息',
 				icon: 'gerenxinxi',
 				to: `/personCenter/${UserId}/set`,
 				is: this.props.location.pathname === `/personCenter/${UserId}/set`,
-				component: PersonCenterInformation
+				component: PersonCenterInformation,
 			},
 			{
 				name: '文章',
 				icon: 'icon_article',
 				to: `/personCenter/${UserId}/article`,
 				is: this.props.location.pathname === `/personCenter/${UserId}/article`,
-				component: PersonCenterArticle
+				component: PersonCenterArticle,
 			},
 			{
 				name: '关注',
 				icon: 'guanzhuxuanzhong',
 				to: `/personCenter/${UserId}/focus`,
 				is: this.props.location.pathname === `/personCenter/${UserId}/focus`,
-				component: personCenterFocus
+				component: personCenterFocus,
 			},
 			{
 				name: '问答',
 				icon: 'wenti_icon',
 				to: `/personCenter/${UserId}/yuanwen`,
 				is: this.props.location.pathname === `/personCenter/${UserId}/yuanwen`,
-				component: personCenterYuanwen
-			}
+				component: personCenterYuanwen,
+			},
 		]
 		const personCenterNav = nav.map((v) => {
 			return (
@@ -148,27 +148,16 @@ class PersonCener extends React.Component {
 					</NavLink>
 				</li>
 			)
-    })
+		})
 		return (
 			<div className='personCenter-container'>
 				<div className='header'>
 					<div className='user-info'>
 						<div className='user-pic'>
 							<div className='user-pic-bg'>
-							{
-								isOwn?<label onClick={this.showModal}>更换</label>:null
-							}
-								
-								<img
-									src={
-										data.avatar ? (
-											`/avatar/${data.avatar}`
-										) : (
-											`${defaultAvatar}`
-										)
-									}
-									alt=''
-								/>
+								{isOwn ? <label onClick={this.showModal}>更换</label> : null}
+
+								<img src={data.avatar ? `/avatar/${data.avatar}` : `${defaultAvatar}`} alt='' />
 								<Modal
 									title='更换头像'
 									visible={this.state.visible}
@@ -181,21 +170,18 @@ class PersonCener extends React.Component {
 									<div className='change-avatar-container'>
 										<input type='file' id='avatar' style={{ display: 'none' }} />
 										<label htmlFor='avatar' onClick={this.changAvatar} />
-										<img
-											src={this.state.imgurl ? this.state.imgurl : `/avatar/${data.avatar}`}
-											alt=''
-										/>
+										<img src={this.state.imgurl ? this.state.imgurl : `/avatar/${data.avatar}`} alt='' />
 									</div>
 								</Modal>
 							</div>
 						</div>
-						<div className='user-info-right'>
-							<h3 className='user-name'>
-								{data.nickname ? data.nickname : data.username}
-							</h3>
-						</div>
-						<div className='user-sign'>
-							<p className='user-desc'>{data.signature ? data.signature : notSetText}</p>
+						<div className='message-information'>
+							<div className='user-info-right'>
+								<h3 className='user-name'>{data.nickname ? data.nickname : data.username}</h3>
+							</div>
+							<div className='user-sign'>
+								<p className='user-desc'>{data.signature ? data.signature : notSetText}</p>
+							</div>
 						</div>
 						<div className='study-info'>
 							<div className='item follows'>
@@ -212,19 +198,19 @@ class PersonCener extends React.Component {
 							</div>
 							<div className='item follows'>
 								<div className='u-info-learn' title='学习时长335小时18分'>
-									<em>１</em>
+									<em>{this.props.User.integral ? parseInt(this.props.User.integral, 10) : 0}</em>
 									<span>积分</span>
 								</div>
 							</div>
 							<div className='item follows'>
 								<div className='u-info-learn' title='学习时长335小时18分'>
-									<em>１</em>
+									<em>{this.props.User.watchUsersId ? this.props.User.watchUsersId.length : 0}</em>
 									<span>关注</span>
 								</div>
 							</div>
 							<div className='item follows'>
 								<div className='u-info-learn' title='学习时长335小时18分'>
-									<em>0</em>
+									<em>{this.props.User.watchedUsersId ? this.props.User.watchedUsersId.length : 0}</em>
 									<span>粉丝</span>
 								</div>
 							</div>
@@ -237,7 +223,7 @@ class PersonCener extends React.Component {
 					</div>
 					<div className='u-container'>
 						{nav.map((v) => {
-							return v.is ? <v.component key={v.component} isOwn={isOwn}/> : null
+							return v.is ? <v.component key={v.component} isOwn={isOwn} /> : null
 						})}
 					</div>
 				</div>

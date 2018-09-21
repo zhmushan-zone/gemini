@@ -23,11 +23,13 @@ export default class articleExcellentSeven extends Component {
 				token: Cookies.get('_token'),
 			},
 		}).then((res) => {
+			console.log(res.data)
 			this.setState({
 				articleWeeklyId: res.data.data,
 			})
 		})
 		const { articleWeeklyId } = this.state
+		console.log(articleWeeklyId)
 		let sortable = Object.keys(articleWeeklyId).sort((a, b) => articleWeeklyId[a] - articleWeeklyId[b])
 		// 获取文章
 		await axios({
@@ -52,23 +54,25 @@ export default class articleExcellentSeven extends Component {
 				<div className='article-wrapper'>
 					{articleWeekly ? (
 						articleWeekly.map((v, i) => {
-							const type = []
-							v.type.map((v) => {
-								type.push(ArticleType[v])
-							})
-							return (
-								<OpinionMainCenterList
-									key={v.createAt}
-									title={v.title}
-									category={ArticleCategory[v.category]}
-									see={v.viewnum}
-									author={v.authorUsername}
-									time={v.createAt}
-									tag={type}
-									coverImg={`/cover-img/${v.coverImg}`}
-									articleId={v.id}
-								/>
-							)
+							if (i < 10) {
+								const type = []
+								v.type.map((v) => {
+									type.push(ArticleType[v])
+								})
+								return (
+									<OpinionMainCenterList
+										key={v.createAt}
+										title={v.title}
+										category={ArticleCategory[v.category]}
+										see={v.viewnum}
+										author={v.authorUsername}
+										time={v.createAt}
+										tag={type}
+										coverImg={`/cover-img/${v.coverImg}`}
+										articleId={v.id}
+									/>
+								)
+							}
 						})
 					) : null}
 					{show ? <Loading /> : null}

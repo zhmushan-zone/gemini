@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tabs, Button } from 'antd'
 import './personCenterArticle.scss'
+import Marked from 'marked'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 const TabPane = Tabs.TabPane
@@ -56,7 +57,12 @@ class PersonCenterArticle extends React.Component {
 											<a href={`/article/${v.id}`}>{v.title}</a>
 											{v.status === 0 ? <span className='unreviewed-class'>未审核</span> : null}
 										</div>
-										<div className='content'>{v.content}</div>
+										<div
+											className='content'
+											dangerouslySetInnerHTML={{
+												__html: Marked(v.content),
+											}}
+										/>
 										<div className='bottom'>
 											<div className='right-info'>
 												<span>浏览{v.viewnum}</span>
@@ -85,7 +91,11 @@ class PersonCenterArticle extends React.Component {
 											<div>
 												<img src={`/cover-img/${v.coverImg}`} alt='' />
 											</div>
-											{v.content}
+											<p
+												dangerouslySetInnerHTML={{
+													__html: Marked(v.content),
+												}}
+											/>
 										</div>
 										<div className='bottom'>
 											<div className='right-info'>

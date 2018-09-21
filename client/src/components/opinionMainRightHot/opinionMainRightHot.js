@@ -9,7 +9,7 @@ export default class opinionMainRightHot extends Component {
 			<div className='hot_article-container'>
 				<div className='top'>
 					<h3>热门文章</h3>
-					<div className='more'>更多</div>
+					{/* <div className='more'>更多</div> */}
 				</div>
 				<ul className='hot-article-list'>
 					{hotSort(this.props.artcileArray).map((v, i) => {

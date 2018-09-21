@@ -3,15 +3,7 @@
 		background: #000;
 		background: url("https://img.mukewang.com/szimg/5b50881e00011f0620000560.jpg") 0 / cover fixed;
 
-		&:before {
-			content: '';
-			position: absolute;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			filter: blur(20px);
-		}
+		
 
 		.w {
 			padding-top: 20px;
@@ -19,6 +11,7 @@
 			display: flex;
 			justify-content: space-between;
 			width: 80%;
+			cursor: pointer;
 		}
 		.path {
 			font-size: 12px;

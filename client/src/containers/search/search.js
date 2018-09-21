@@ -53,6 +53,7 @@ class Search extends Component {
       })
     }
   }
+  
   render() {
     console.log(this.props)
     const courses = [...this.props.courses]

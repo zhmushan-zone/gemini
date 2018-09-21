@@ -90,7 +90,7 @@ export default class PersonCenterYuanwen extends Component {
 									<div className='article-item' key={v.id}>
 										<div className='item-title'>
 											<img src={require(`@/assets/forumIcon/${v.tags[0]}.jpg`)} alt='' />
-											<a href={`/article/${v.id}`}>{v.title}</a>
+											<a href={`../../forum/details/${v.id}`}>{v.title}</a>
 											{v.status === 0 ? <span className='unreviewed-class'>未审核</span> : null}
 										</div>
 										<div
@@ -122,7 +122,7 @@ export default class PersonCenterYuanwen extends Component {
 									<div className='article-item' key={v.id}>
 										<div className='item-title'>
 											<img src={require(`@/assets/forumIcon/${v.tags[0]}.jpg`)} alt='' />
-											<a href={`/article/${v.id}`}>{v.title}</a>
+											<a href={`../../forum/details/${v.id}`}>{v.title}</a>
 											{v.status === 0 ? <span className='unreviewed-class'>未审核</span> : null}
 										</div>
 										<div
@@ -154,7 +154,7 @@ export default class PersonCenterYuanwen extends Component {
 									<div className='article-item' key={v.id}>
 										<div className='item-title'>
 											<img src={require(`@/assets/forumIcon/${v.tags[0]}.jpg`)} alt='' />
-											<a href={`/article/${v.id}`}>{v.title}</a>
+											<a href={`../../forum/details/${v.id}`}>{v.title}</a>
 										</div>
 										<div
 											className='content'

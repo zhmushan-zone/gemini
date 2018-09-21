@@ -37,5 +37,7 @@ yarn-debug.log*
 yarn-error.log*
 
 server/private
-server/public
+server/public/avatar
+server/public/cover-img
+server/public/video
 server/.cache

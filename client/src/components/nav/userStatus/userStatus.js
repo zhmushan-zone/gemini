@@ -13,6 +13,7 @@ class UserStatus extends React.Component {
 		this.state = {
 			isLogin: Cookies.get('_id') ? true : false,
 			isUserInfoShow: false,
+			_id: Cookies.get('_id'),
 		}
 	}
 	//  鼠标移到头像显示用户板块
@@ -33,16 +34,17 @@ class UserStatus extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log(nextProps.shoppingcart)
 		if (nextProps.shoppingcart.length !== this.props.shoppingcart) {
-			this.props.stateChange('shoppingCartCount', nextProps.shoppingcart.length)
+			if (this.props.stateChange) {
+				this.props.stateChange('shoppingCartCount', nextProps.shoppingcart.length)
+			}
 		}
 	}
 
 	render() {
 		const nickname = this.props.nickname ? this.props.nickname : this.props.username
 		const linkStyle = this.state.isUserInfoShow ? { border: '2px solid #f01414' } : { border: 'none' }
-		const loginUser = this.props.id
+		const loginUser = this.state._id
 		return (
 			<div className='userStatus' onMouseEnter={() => this.toggleHover()} onMouseLeave={() => this.toggleHover()}>
 				{this.state.isLogin ? (
@@ -72,7 +74,9 @@ class UserStatus extends React.Component {
 												<span className='user-info-experience'>经验868</span>
 											</a>
 											<a href='#javascript'>
-												<span className='user-info-integral'>积分{parseInt(this.props.integral, 10)}</span>
+												<span className='user-info-integral'>
+													积分{this.props.integral ? parseInt(this.props.integral, 10) : 0}
+												</span>
 											</a>
 										</div>
 									</div>
@@ -80,16 +84,16 @@ class UserStatus extends React.Component {
 								<div className='user-info-center'>
 									<ul>
 										<li>
-											<a href='#javascript'>我的课程</a>
+											<a href={`/personCenter/${this.state._id}/class`}>我的课程</a>
 										</li>
 										<li>
-											<a href='#javascript'>订单中心</a>
+											<a href={`/personCenter/${this.state._id}/yuanwen`}>我的问答</a>
 										</li>
 										<li>
-											<a href='#javascript'>我的文章</a>
+											<a href={`/personCenter/${this.state._id}/article`}>我的文章</a>
 										</li>
 										<li>
-											<a href='#javascript'>个人设置</a>
+											<a href={`/personCenter/${this.state._id}/set`}>个人设置</a>
 										</li>
 									</ul>
 								</div>

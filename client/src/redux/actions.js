@@ -915,7 +915,10 @@ function courseRateSuccess(rate, rateComment) {
 	var rateCommentObj = {
 		[userid]: rateComment,
 	}
-	return { type: ActionTypes.COURSE_RATE, rateObj, rateCommentObj }
+	return { type: ActionTypes.COURSE_RATE, rateObj, rateCommentObj, code: 1 }
+}
+function courseRateError() {
+	return { type: ActionTypes.COURSE_RATE, code: 0 }
 }
 export function courseRate(courseId, rate, rateComment) {
 	const _token = Cookies.get('_token')
@@ -933,6 +936,8 @@ export function courseRate(courseId, rate, rateComment) {
 		})
 		if (res.data.code === 1) {
 			dispatch(courseRateSuccess(rate, rateComment))
+		} else {
+			dispatch(courseRateError())
 		}
 	}
 }
@@ -1037,6 +1042,7 @@ export function deleteShoppingCartCourse(courses) {
 }
 /* ----------------------------------------------获取所有消息---------------------------------------------- */
 function fetchMessageSuccess(msgs) {
+	console.log(msgs)
 	return { type: ActionTypes.FETCH_MESSAGE, payload: msgs }
 }
 
@@ -1047,8 +1053,8 @@ export function fetchMessage() {
 			method: 'get',
 			url: '/api/notices',
 			headers: {
-				token: _token
-			}
+				token: _token,
+			},
 		})
 		if (res.data.code === 1) {
 			dispatch(fetchMessageSuccess(res.data.data))
@@ -1057,7 +1063,7 @@ export function fetchMessage() {
 }
 /* ----------------------------------------------更新消息---------------------------------------------- */
 export function updateMessage(msgs) {
-	return dispatch => {
+	return (dispatch) => {
 		dispatch(fetchMessageSuccess(msgs))
 	}
 }
