@@ -3,6 +3,7 @@ import './login.scss'
 import { login, removeMsg, register, forgetPassword, RegisterSendEamil, checkedCaptcha } from '@/redux/actions.js'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import Loading from '@/common/loading/loading'
 import { Alert } from 'antd'
 import SendEmail from '../../components/sendEmail/sendEmail'
 import Register from '../../components/register/register'
@@ -21,6 +22,7 @@ class Login extends React.Component {
 			show: false,
 			email: '',
 			isSec: '',
+			loading: false,
 		}
 		this.registerSendEamil = this.registerSendEamil.bind(this)
 	}
@@ -37,7 +39,7 @@ class Login extends React.Component {
 		if (this.props.userstatus.msg) {
 			setTimeout(() => {
 				this.props.removeMsg()
-			}, 2000)
+			}, 1000)
 		}
 	}
 
@@ -72,10 +74,14 @@ class Login extends React.Component {
 	}
 
 	async registerSendEamil() {
+		await this.setState({
+			loading: true,
+		})
 		await this.props.RegisterSendEamil(this.state.email)
 		if (this.props.userstatus.code === 1) {
 			this.setState({
 				isSec: true,
+				loading: false,
 			})
 			setTimeout(() => {
 				this.setState({
@@ -303,6 +309,7 @@ class Login extends React.Component {
 						</svg>
 					</a>
 				</div>
+				{this.state.loading ? <Loading /> : null}
 			</div>
 		)
 	}

@@ -29,6 +29,7 @@ export default class VideoPage extends Component {
 			courseId: this.props.match.params.courseId,
 			course: '',
 			videoId: '',
+			firstVideo: '',
 		}
 		this.openCourseSider = this.openCourseSider.bind(this)
 		this.closeCourseSider = this.closeCourseSider.bind(this)
@@ -77,7 +78,6 @@ export default class VideoPage extends Component {
 			this.setState({
 				course: res.data.data,
 			})
-			// Cookies.set('video-commentsId', res.data.data.commentsId)
 		})
 	}
 	comment() {
@@ -133,6 +133,12 @@ export default class VideoPage extends Component {
 	}
 	render() {
 		const { visible, confirmLoading, course, videoId } = this.state
+		try {
+			if (course.sections[0].nodes[0].video) {
+				console.log(course.sections[0].nodes[0].video)
+			}
+		} catch (error) {}
+
 		return (
 			<React.Fragment>
 				<VideoHeader courseName={course.title} />
@@ -179,7 +185,7 @@ export default class VideoPage extends Component {
 						</dl>
 					</div>
 					<video
-						src={videoId ? `/video/${videoId}` : ''}
+						src={videoId ? `/video/${videoId}` : null}
 						className='video'
 						controls={[ 'PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen' ]}
 					/>

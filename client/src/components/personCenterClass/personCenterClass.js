@@ -5,6 +5,7 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import { fetchUser } from '@/redux/actions'
+import { dateSortByUpdate } from '@/util/dateSort.js'
 const TabPane = Tabs.TabPane
 @withRouter
 @connect((state) => state, { fetchUser })
@@ -37,7 +38,7 @@ class PersonCenterClass extends React.Component {
 		console.log(key)
 	}
 	render() {
-		const { courses } = this.state
+		const courses = dateSortByUpdate(this.state.courses)
 		return (
 			<div className='person-center-class-container'>
 				<Tabs defaultActiveKey='1' onChange={this.callback}>
@@ -73,7 +74,7 @@ class PersonCenterClass extends React.Component {
 															</div>
 														</h3>
 														<div className='study-points'>
-															{/* <span className='i-left'>已学{parseInt(Math.random() * 99 + 1, 10)}%</span> */}
+															<span className='i-left'>评论：{v.commentsId.length+"条"}</span>
 															{/* <span className='i-mid'>用时{parseInt(Math.random() * 130 + 1, 10)}分</span> */}
 														</div>
 														<div className='catog-points'>
@@ -83,9 +84,9 @@ class PersonCenterClass extends React.Component {
 																</a>
 															</span>
 															<span className='i-right span-common'>
-																{/* <a>
-																	问答<i>0</i>
-																</a> */}
+																<a>
+																	价格：<i>{v.price + '积分'}</i>
+																</a>
 															</span>
 															<Link className='btn-red continute-btn' to={`/video/${v.id}`}>
 																去学习

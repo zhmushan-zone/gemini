@@ -28,7 +28,6 @@ class PersonCenterDynamic extends React.Component {
 	render() {
 		let UserActivityType = [ '创建文章', '点赞文章', '创建问题', '关注问题', '回答问题', '创建文章评论', '加入课程' ]
 		let { activities } = this.state
-		console.log(activities)
 		return (
 			<div className='dynamic-container'>
 				{/* <p className="nodata">暂无任何动态</p> */}
