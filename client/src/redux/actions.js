@@ -208,7 +208,16 @@ function changeAvatarFunc(id) {
 export function changeAvatar(name) {
 	return changeAvatarFunc(name)
 }
+/* --------------------------------------------------更新我的课程-------------------------------------------------------------- */
+function updateMyCourseSuccess (courses) {
+	return { type: ActionTypes.UPDATE_MY_COURSE, payload: courses }
+}
 
+export function updateMyCourse (courses) {
+	return (dispatch) => {
+		dispatch(updateMyCourseSuccess(courses))
+	}
+}
 /* --------------------------------------------------创建课程-------------------------------------------------------------- */
 // 创建课程成功
 function createCourseSuccess(course) {

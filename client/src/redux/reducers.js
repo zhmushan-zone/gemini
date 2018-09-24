@@ -20,6 +20,7 @@ const initState = {
 	watchedUsersId: [],
 	personCenterInfo: '',
 	shoppingcart: [],
+	joinCourse: []
 }
 
 const courseInitState = {
@@ -159,6 +160,11 @@ export function userstatus(state = initState, action) {
 			return {
 				...state,
 				watchUsersId: action.data,
+			}
+		case ActionTypes.UPDATE_MY_COURSE:
+			return {
+				...state,
+				joinCourse: action.payload
 			}
 		default:
 			return state

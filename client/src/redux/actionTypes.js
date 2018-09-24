@@ -18,6 +18,8 @@ export const LOGOUT = 'LOGOUT'
 export const UPDATE_PERSON_MSG = 'UPDATE_PERSON_MSG'
 // 修改头像
 export const CHANGE_AVATAR = 'CHANGE_AVATAR'
+// 修改已加入课程
+export const UPDATE_MY_COURSE = 'UPDATE_MY_COURSE'
 // 创建课程成功
 export const CREATE_COURSE_SUCCESS = 'CREATE_COURSE_SUCCESS'
 // 课程列表
