@@ -24,7 +24,7 @@ export class VideoController {
 
   @Post()
   @Allow(UserRole.ADMIN)
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FilesInterceptor('video', Infinity, {
     dest: config.path.video
   }))

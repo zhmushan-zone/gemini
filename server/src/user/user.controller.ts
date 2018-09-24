@@ -296,7 +296,7 @@ export class UserController {
 
   @Delete(':id')
   @Allow(UserRole.ADMIN)
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @UseGuards(AuthGuard('jwt'))
   async delete(@Param('id') id: string) {
     await this.userService.delete(id);
     return success();

@@ -35,9 +35,7 @@ class UserStatus extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.shoppingcart.length !== this.props.shoppingcart) {
-			if (this.props.stateChange) {
-				this.props.stateChange('shoppingCartCount', nextProps.shoppingcart.length)
-			}
+			// this.props.stateChange('shoppingCartCount', nextProps.shoppingcart.length)
 		}
 	}
 

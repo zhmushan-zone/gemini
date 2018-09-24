@@ -26,11 +26,12 @@ class PersonCenterDynamic extends React.Component {
 	}
 
 	render() {
+		console.log(this.state.activities)
 		let UserActivityType = [ '创建文章', '点赞文章', '创建问题', '关注问题', '回答问题', '创建文章评论', '加入课程' ]
 		let { activities } = this.state
 		return (
 			<div className='dynamic-container'>
-				{/* <p className="nodata">暂无任何动态</p> */}
+				{/* <p className="nodata">暂无任何动态</p>
 				<ul>
 					{activities.length !== 0 ? (
 						activities.map((v, i) => {
@@ -55,7 +56,7 @@ class PersonCenterDynamic extends React.Component {
 						})
 					) : null}
 				</ul>
-				{this.state.show ? <Loading /> : null}
+				{this.state.show ? <Loading /> : null} */}
 			</div>
 		)
 	}

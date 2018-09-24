@@ -2658,12 +2658,6 @@ dom-urls@^1.1.0:
   dependencies:
     urijs "^1.16.1"
 
-dom7@^2.1.2:
-  version "2.1.2"
-  resolved "http://registry.npm.taobao.org/dom7/download/dom7-2.1.2.tgz#a914070c0abe8465384997a9c4f34475f67f75bd"
-  dependencies:
-    ssr-window "^1.0.1"
-
 domain-browser@^1.1.1:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/domain-browser/download/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
@@ -8136,10 +8130,6 @@ sshpk@^1.7.0:
     jsbn "~0.1.0"
     tweetnacl "~0.14.0"
 
-ssr-window@^1.0.1:
-  version "1.0.1"
-  resolved "http://registry.npm.taobao.org/ssr-window/download/ssr-window-1.0.1.tgz#30752a6a4666e7767f0b7e6aa6fc2fdbd0d9b369"
-
 state-toggle@^1.0.0:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/state-toggle/download/state-toggle-1.0.1.tgz#c3cb0974f40a6a0f8e905b96789eb41afa1cde3a"
@@ -8362,13 +8352,6 @@ sw-toolbox@^3.4.0:
   dependencies:
     path-to-regexp "^1.0.1"
     serviceworker-cache-polyfill "^4.0.0"
-
-swiper@^4.4.1:
-  version "4.4.1"
-  resolved "http://registry.npm.taobao.org/swiper/download/swiper-4.4.1.tgz#9eeca17c5bfa4a27663963b2640119e5fc668255"
-  dependencies:
-    dom7 "^2.1.2"
-    ssr-window "^1.0.1"
 
 symbol-observable@^1.0.3, symbol-observable@^1.2.0:
   version "1.2.0"
