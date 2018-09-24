@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import "./coursePreview.scss"
 import { Tabs, Input } from "antd"
 import CustomIcon from "@/common/customIcon/customIcon"
-import { getVideoComment, getCourseOne, courseRate } from "@/redux/actions.js"
+import { getVideoComment, getCourseOne, courseRate, updateMyCourse } from "@/redux/actions.js"
 import { Rate } from "antd"
 import Share from "@/share"
 import axios from "axios"
@@ -16,7 +16,7 @@ const { TextArea } = Input
 @withRouter
 @connect(
   state => state,
-  { getVideoComment, getCourseOne, courseRate }
+  { getVideoComment, getCourseOne, courseRate, updateMyCourse }
 )
 export default class CoursePreview extends Component {
   constructor(props) {
@@ -48,6 +48,7 @@ export default class CoursePreview extends Component {
         data: [courseId]
       })
       if (res.data.code === 1) {
+        this.props.updateMyCourse([courseId, ...this.props.userstatus.joinCourse])
         message.success("加入课程成功")
       }
       this.props.history.push(`/video/${this.state.courseId}`)
@@ -375,7 +376,6 @@ export default class CoursePreview extends Component {
               })}
             </TabPane>
           </Tabs>
-          ,
         </div>
       </div>
     )
