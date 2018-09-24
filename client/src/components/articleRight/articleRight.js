@@ -1,26 +1,33 @@
 import React, { Component } from "react"
-import { Icon } from "antd"
+import { Icon, message } from "antd"
 import CoursePreview from "@/common/coursePreview/coursePreview"
 import "./articleRight.scss"
 import { defaultAvatar } from "@/const"
 import axios from "axios"
 import { withRouter, Link } from "react-router-dom"
 import { notSetText } from "@/const.js"
+import Cookies from "js-cookie"
 @withRouter
 export default class articleRight extends Component {
   constructor(props) {
     super(props)
     this.state = {
       follow: false,
-      thisAuthorArticle: []
+      thisAuthorArticle: [],
     }
   }
   toFollow = async () => {
-    const authorId = await this.props.authorId
-    await this.props.focusUser(authorId)
-    this.setState({
-      follow: !this.state.follow
-    })
+    let { _id } = Cookies.get("_id")
+    console.log(_id)
+    if (_id) {
+      const authorId = await this.props.authorId
+      await this.props.focusUser(authorId)
+      this.setState({
+        follow: !this.state.follow
+      })
+    } else {
+      message.warn("请登录")
+    }
   }
   componentDidMount() {
     if (this.props.authorId) {
