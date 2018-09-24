@@ -43,6 +43,22 @@
       border-radius: 8px;
       box-sizing: border-box;
 
+      .purchase-ok-content {
+        font-size: 30px;
+        padding-top: 160px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .go-to-my-class {
+        text-align: center;
+
+        a {
+          text-decoration: underline;
+          color: #f01414;
+        }
+      }
+      
       .shopping-cart-info-alert {
         font-size: 24px;
         color: #4d555d;

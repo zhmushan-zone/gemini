@@ -6,6 +6,7 @@ import { withRouter, NavLink } from 'react-router-dom'
 import classnames from 'classnames'
 import { connect } from 'react-redux'
 import { fetchMessage } from '@/redux/actions'
+import Cookies from 'js-cookie'
 
 import './nav.scss'
 
@@ -174,21 +175,26 @@ class Nav extends React.Component {
 							</span>
 						</div>
 					</div>
-					<div className='nav-shopping-cart-wrapper' style={{ paddingTop: 12 }}>
-						<Link to={`/shoppingCart`} className='nav-shopping-cart'>
-							<Icon type='shopping-cart' theme='outlined' />
-							<span style={{ marginLeft: 10 }}>购物车</span>
-							{this.state.shoppingCartCount ? (
-								<span className='nav-shopping-cart-count'>{this.state.shoppingCartCount}</span>
-							) : null}
-						</Link>
-					</div>
-					<div className='nav-message-center-wrapper'>
-						<Link to={'/messageCenter'} className='nav-message-center'>
-							<Icon type='bell' theme='filled' />
-							{this.state.isHaveUnRead ? <span className='new-message-alert' /> : null}
-						</Link>
-					</div>
+					{
+						Cookies.get('_token') ? 
+						<React.Fragment>
+							<div className='nav-shopping-cart-wrapper' style={{ paddingTop: 12 }}>
+								<Link to={`/shoppingCart`} className='nav-shopping-cart'>
+									<Icon type='shopping-cart' theme='outlined' />
+									<span style={{ marginLeft: 10 }}>购物车</span>
+									{this.state.shoppingCartCount ? (
+										<span className='nav-shopping-cart-count'>{this.state.shoppingCartCount}</span>
+									) : null}
+								</Link>
+							</div>
+							<div className='nav-message-center-wrapper'>
+								<Link to={'/messageCenter'} className='nav-message-center'>
+									<Icon type='bell' theme='filled' />
+									{this.state.isHaveUnRead ? <span className='new-message-alert' /> : null}
+								</Link>
+							</div>
+						</React.Fragment> : null
+					}
 					{!is ? <UserStatus stateChange={this.stateChange} /> : null}
 				</div>
 			</nav>
