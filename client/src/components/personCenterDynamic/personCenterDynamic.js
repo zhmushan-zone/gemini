@@ -31,32 +31,38 @@ class PersonCenterDynamic extends React.Component {
 		let { activities } = this.state
 		return (
 			<div className='dynamic-container'>
-				{/* <p className="nodata">暂无任何动态</p>
 				<ul>
-					{activities.length !== 0 ? (
-						activities.map((v, i) => {
-							const item = v.body
-							return (
-								<li className='item' key={i}>
-									<div className='activity'>
-										<a className='link'>
-											<div className='meta-box'>
-												<div className='action'>{UserActivityType[v.type]}</div>
-												<div className='data'>{item.createAt}</div>
-											</div>
-											<div className='content'>
-												<div className='title'>
-													{v.type === 4 && v.type === 5 && v.type === 6 ? item.content : item.title}
+					{
+						this.state.show ? <Loading style={{marginTop: 60}} /> : 
+						(
+							<React.Fragment>
+								{activities.length !== 0 ? (
+									activities.map((v, i) => {
+										const item = v.body
+										return (
+											<li className='item' key={i}>
+												<div className='activity'>
+													<a className='link'>
+														<div className='meta-box'>
+															<div className='action'>{UserActivityType[v.type]}</div>
+															<div className='data'>{item.createAt}</div>
+														</div>
+														<div className='content'>
+															<div className='title'>
+																{v.type === 4 && v.type === 5 && v.type === 6 ? item.content : item.title}
+															</div>
+														</div>
+													</a>
 												</div>
-											</div>
-										</a>
-									</div>
-								</li>
-							)
-						})
-					) : null}
+											</li>
+										)
+									})
+								) : <p className="nodata">暂无任何动态</p>
+					}
+							</React.Fragment>
+						)
+					}
 				</ul>
-				{this.state.show ? <Loading /> : null} */}
 			</div>
 		)
 	}
