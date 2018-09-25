@@ -89,7 +89,7 @@ class MessageCenter extends Component {
             }
           }
         }).then(res => {
-          return message.success(res)
+          message.success(res)
         })
       },
       onCancel() {},

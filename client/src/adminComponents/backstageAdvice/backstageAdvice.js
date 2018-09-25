@@ -5,8 +5,11 @@ import { connect } from 'react-redux'
 import { fetchAdvice, updateAdvice } from '@/redux/actions'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { dateSortByCreate } from '@/util/dateSort'
 
 import './backstageAdvice.scss'
+
+const confirm = Modal.confirm
 
 @connect(
   state => state.advice,
@@ -72,18 +75,30 @@ class BackstageAdvice extends Component {
     }
   }
 
-  async delete(record) {
-    const _token = Cookies.get('_token')
-    const res = await axios({
-      method: 'delete',
-      url: `/api/suggestions/${record.id}`,
-      headers: {
-        token: _token
-      }
+  delete(record) {
+    confirm({
+      title: '操作确认',
+      content: '您是否确认要删除这条记录？',
+      onOk: async () => {
+        const _token = Cookies.get('_token')
+        const res = await axios({
+          method: 'delete',
+          url: `/api/suggestions/${record.key}`,
+          headers: {
+            token: _token
+          }
+        })
+        if (res.data.code === 1) {
+          let newData = [...this.props.advice]
+          newData = newData.filter(item => item.id !== record.key)
+          await this.props.updateAdvice(newData)
+          message.success('删除成功')
+        }
+      },
+      onCancel() {
+        console.log('Cancel')
+      },
     })
-    if (res.data.code === 1) {
-      
-    }
   }
   
   handleCancel = (e) => {
@@ -104,6 +119,11 @@ class BackstageAdvice extends Component {
       title: '时间',
       dataIndex: 'time',
       key: 'time',
+      render: (text, record) => (
+        <span>
+          {text.split(' ')[0]}
+        </span>
+      )
     }, {
       title: '状态',
       dataIndex: 'status',
@@ -127,7 +147,7 @@ class BackstageAdvice extends Component {
         const advice = {}
         advice.key = item.id
         advice.user = '该用户已成仙'
-        advice.time = item.createAt.split(' ')[0]
+        advice.time = item.createAt
         advice.content = item.msg
         advice.isRead = item.isRead
         data.push(advice)
@@ -136,6 +156,7 @@ class BackstageAdvice extends Component {
     if (this.state.showType.length !== 3) {
       data = data.filter((item) => item.isRead === Boolean(this.state.showType[0])) 
     }
+    data.reverse()
     return (
       <div className="backstage-advice">
         <div className="backstage-advice-tag-wrapper">

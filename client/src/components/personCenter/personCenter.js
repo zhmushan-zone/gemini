@@ -40,7 +40,8 @@ class PersonCener extends React.Component {
 
 	showModal2 = () => {
 		this.setState({
-      visible2: true,
+			visible2: true,
+			adviceContent: ''
     })
 	}
 	
@@ -281,6 +282,7 @@ class PersonCener extends React.Component {
           visible={this.state.visible2}
           onOk={this.handleOk2}
 					onCancel={this.handleCancel2}
+					destroyOnClose={true}
 					okText="确认"
 					cancelText="取消"
         >
