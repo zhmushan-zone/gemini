@@ -113,7 +113,7 @@ class PersonCener extends React.Component {
 				token: _token
 			},
 			data: {
-				msg: this.state.msg
+				msg: this.state.adviceContent
 			}
 		}).then((res) => {
 			if (res.data.code === 1) {
@@ -204,6 +204,7 @@ class PersonCener extends React.Component {
 
 								<img src={data.avatar ? `/avatar/${data.avatar}` : `${defaultAvatar}`} alt='' />
 								<Modal
+									className="person-center-modal"
 									title='更换头像'
 									visible={this.state.visible}
 									onOk={this.handleOk}
@@ -275,6 +276,7 @@ class PersonCener extends React.Component {
 					</div>
 				</div>
 				<Modal
+					className="person-center-modal"
           title="意见反馈"
           visible={this.state.visible2}
           onOk={this.handleOk2}

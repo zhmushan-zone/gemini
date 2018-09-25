@@ -85,6 +85,10 @@ const messageInit = {
 	msg: [],
 }
 
+const adviceInit = {
+	advice: []
+}
+
 export function userstatus(state = initState, action) {
 	switch (action.type) {
 		// case ActionTypes.LOGIN:
@@ -464,6 +468,19 @@ export function message(state = messageInit, action) {
 	}
 }
 
+/* -------------------- advice------------------- */
+export function advice(state = adviceInit, action) {
+	switch (action.type) {
+		case ActionTypes.FETCH_ADVICE:
+			return {
+				...state,
+				advice: action.payload
+			}
+		default:
+			return state
+	}
+}
+
 export default combineReducers({
 	userstatus,
 	course,
@@ -477,4 +494,5 @@ export default combineReducers({
 	report,
 	shoppingCart,
 	message,
+	advice
 })

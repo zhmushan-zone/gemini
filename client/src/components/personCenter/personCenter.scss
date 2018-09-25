@@ -163,6 +163,14 @@
 		width: 788px;
 		min-height: 589px;
 	}
+
+}
+
+.person-center-modal {
+	.ant-btn.ant-btn-primary {
+		background-color: #e45d54;
+		border-color: #e45d54;
+	}
 }
 
 .change-avatar-container {
@@ -213,9 +221,4 @@ a {
   & + span {
     padding-left: 10px;
   }
-}
-
-.ant-btn.ant-btn-primary {
-	background-color: #e45d54;
-	border-color: #e45d54;
 }

@@ -9,6 +9,7 @@ import BackstageCourseInfo from '../backstageCourseInfo/backstageCourseInfo'
 import BackstageProblemList from '../backstageProblemList/backstageProblemList'
 import BackstageCheckCenter from '../backstageCheckCenter/backstageCheckCenter'
 import BackstageReportCenter from '../backstageReportCenter/backstageReportCenter'
+import BackstageAdvice from '../backstageAdvice/backstageAdvice'
 import AdminBreadcrumb from '../adminBreadcrumb/adminBreadcrumb'
 
 @withRouter
@@ -75,6 +76,12 @@ export default class BackstageConent extends Component {
         path: '/admin/report',
         address: '举报中心'
       },
+      {
+        name: 'BackstageAdvice',
+        component: BackstageAdvice,
+        path: '/admin/advice',
+        address: '反馈中心'
+      }
 
     ]
     return (

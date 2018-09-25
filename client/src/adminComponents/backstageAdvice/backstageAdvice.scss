@@ -1,0 +1,19 @@
+.backstage-advice {
+  margin: 24px;
+  padding: 24px;
+  border-radius: 3px;
+  background: #fff;
+
+  .backstage-advice-tag-wrapper {
+    display: flex;
+    margin-bottom: 24px;
+
+    .backstage-advice-tag-title {
+      width: 88px;
+    }
+
+    .backstage-advice-tag-container {
+      flex: 1;
+    }
+  }
+}

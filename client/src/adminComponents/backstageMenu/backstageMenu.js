@@ -51,14 +51,19 @@ class BackstageMenu extends React.Component {
           <span>举报中心</span>
           <Link to="/admin/report"></Link>
         </Menu.Item>
+        <Menu.Item key="8">
+          <Icon type="safety" />
+          <span>反馈中心</span>
+          <Link to="/admin/advice"></Link>
+        </Menu.Item>
         <SubMenu key="sub3" title={<span><Icon type="mail" /><span>结果页</span></span>}>
-          <Menu.Item key="8">成功</Menu.Item>
-          <Menu.Item key="9">失败</Menu.Item>
+          <Menu.Item key="9">成功</Menu.Item>
+          <Menu.Item key="10">失败</Menu.Item>
         </SubMenu>
         <SubMenu key="sub1" title={<span><Icon type="mail" /><span>异常页</span></span>}>
-          <Menu.Item key="10">403</Menu.Item>
-          <Menu.Item key="11">404</Menu.Item>
-          <Menu.Item key="12">500</Menu.Item>
+          <Menu.Item key="11">403</Menu.Item>
+          <Menu.Item key="12">404</Menu.Item>
+          <Menu.Item key="13">500</Menu.Item>
         </SubMenu>
       </Menu>
     )

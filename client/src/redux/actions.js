@@ -1110,3 +1110,29 @@ export function updateMessage(msgs) {
     dispatch(fetchMessageSuccess(msgs))
   }
 }
+/* ----------------------------------------------获取用户反馈---------------------------------------------- */
+function fetchAdviceSuccess(advices) {
+	return { type: ActionTypes.FETCH_ADVICE, payload: advices }
+}
+
+export function fetchAdvice() {
+	const _token = Cookies.get('_token')
+	return async (dispatch) => {
+		const res = await axios({
+			method: 'get',
+			url: '/api/suggestions',
+			headers: {
+				token: _token
+			}
+		})
+		if (res.data.code === 1) {
+			dispatch(fetchAdviceSuccess(res.data.data))
+		}
+	}
+}
+
+export function updateAdvice(advices) {
+	return dispatch => {
+		dispatch(fetchAdviceSuccess(advices))
+	}
+}
