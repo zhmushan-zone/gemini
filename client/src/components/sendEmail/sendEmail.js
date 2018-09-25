@@ -23,7 +23,7 @@ export default class SendEmail extends Component {
             onBlur={inputBlur}
             onChange={this.props.handleChange.bind(this, "email")}
           />
-          <a onClick={registerSendEamil} className="sendEmail">
+          <a onClick={registerSendEamil} className="sendEmail" >
             {isSec ? `邮件已经发送` : "发送邮件"}
           </a>
           <u />

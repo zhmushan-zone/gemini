@@ -18,9 +18,9 @@ export default class opinionMainCenter extends Component {
 	render() {
 		let articleData
 		if (this.props.article.articleArray.length !== 0) {
-			articleData = this.props.article.articleArray
+			articleData = this.props.article.articleArray.filter((item) => item.status === 1)
 		} else if (this.props.articleArray) {
-			articleData = this.props.articleArray
+			articleData = this.props.articleArray.filter((item) => item.status === 1)
 		}
 		const pathname = this.props.history.location.pathname
 		return (

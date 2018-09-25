@@ -20,7 +20,7 @@ const initState = {
 	watchedUsersId: [],
 	personCenterInfo: '',
 	shoppingcart: [],
-	joinCourse: []
+	joinCourse: [],
 }
 
 const courseInitState = {
@@ -168,7 +168,7 @@ export function userstatus(state = initState, action) {
 		case ActionTypes.UPDATE_MY_COURSE:
 			return {
 				...state,
-				joinCourse: action.payload
+				joinCourse: action.payload,
 			}
 		default:
 			return state
@@ -235,6 +235,7 @@ export function article(state = articleInit, action) {
 				...state,
 				code: action.code,
 				article: action.article,
+				msg: action.msg,
 			}
 		case ActionTypes.CREATE_ARTICLE_ERROR:
 			return {

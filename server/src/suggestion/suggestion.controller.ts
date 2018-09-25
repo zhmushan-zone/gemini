@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Get, Param, Put } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Get, Param, Put, Delete } from '@nestjs/common';
 import { CreateSuggestionDTO } from './dto/create-suggestion.dto';
 import { SuggestionService } from './suggestion.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -19,7 +19,7 @@ export class SuggestionController {
   @Post()
   @UseGuards(AuthGuard('jwt'))
   async create(@Usr() user: User, @Body() createSuggestionDTO: CreateSuggestionDTO) {
-    const suggestion = await this.suggestionService.save(user.id.toHexString(), createSuggestionDTO);
+    const suggestion = await this.suggestionService.save(user.username, createSuggestionDTO);
     return success(suggestion);
   }
 
@@ -44,6 +44,14 @@ export class SuggestionController {
   @UseGuards(AuthGuard('jwt'))
   async read(@Param('id') id: string) {
     await this.suggestionService.updateById(id, { isRead: true } as Suggestion);
+    return success();
+  }
+
+  @Delete(':id')
+  @Allow(UserRole.ADMIN)
+  @UseGuards(AuthGuard('jwt'))
+  async del(@Param('id') id: string) {
+    await this.suggestionService.delete(id);
     return success();
   }
 }

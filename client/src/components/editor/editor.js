@@ -25,39 +25,31 @@ class Editor extends React.Component {
 			articleImage: '',
 			articleTag: [],
 			imgurl: '',
-			selectValue: ''
+			selectValue: '',
 		}
 	}
 	handleChange(value) {
 		this.setState({
-			articleContent: value
+			articleContent: value,
 		})
 	}
 	handleChangeSelect = (value) => {
 		this.setState({
-			selectValue: value
+			selectValue: value,
 		})
-	}
-	// 隔一段时间关闭消息提示
-	autoCloseMsg = () => {
-		if (this.props.userstatus.msg) {
-			setTimeout(() => {
-				this.props.removeMsg()
-			}, 2000)
-		}
 	}
 	handleChecked(check, text, index) {
 		if (check) {
 			this.state.articleTag.push(index)
 			this.setState({
-				articleTag: this.state.articleTag
+				articleTag: this.state.articleTag,
 			})
 		} else {
 			this.state.articleTag.map((v) => {
 				if (v === index) {
 					this.state.articleTag.splice(index, 1)
 					this.setState({
-						articleTag: this.state.articleTag
+						articleTag: this.state.articleTag,
 					})
 				}
 				return null
@@ -65,14 +57,11 @@ class Editor extends React.Component {
 		}
 		console.log(this.state.articleTag)
 	}
-	// 关闭提示
-	handleErrorClose = () => {
-		this.props.removeMsg()
-	}
+
 	geteditorHeader = (articleName) => [
 		this.setState({
-			articleName: articleName
-		})
+			articleName: articleName,
+		}),
 	]
 	// 选择封面
 	selectCover = () => {
@@ -87,7 +76,7 @@ class Editor extends React.Component {
 			reader.onload = function(e) {
 				var txt = e.target.result
 				_this.setState({
-					imgurl: txt
+					imgurl: txt,
 				})
 			}
 			axios({
@@ -96,15 +85,15 @@ class Editor extends React.Component {
 				data: bodyFormData,
 				headers: {
 					'Content-Type': 'multipart/form-data',
-					token: Cookies.get('_token')
-				}
+					token: Cookies.get('_token'),
+				},
 			})
 				.then((res) => {
 					console.log(res)
 					if (res.data.code === 1) {
 						// 图片
 						this.setState({
-							articleImage: res.data.data
+							articleImage: res.data.data,
 						})
 					}
 				})
@@ -115,35 +104,22 @@ class Editor extends React.Component {
 	}
 	sendArticle = async () => {
 		await this.props.publishArticle(this.state)
-		this.autoCloseMsg()
 		if (this.props.article.code === 1 && this.props.article.msg === '') {
 			message.success('发表成功，自动跳转至文章页面')
 			let id = this.props.article.article.id
 			setTimeout(() => {
 				this.props.history.push(`/article/${id}`)
 			}, 500)
+		} else {
+			message.warn(this.props.article.msg)
 		}
 		console.log(this.state)
 	}
 
 	render() {
-		let { msg } = this.props.article
 		let { articleContent, imgurl } = this.state
 		return (
 			<div className='editorContainer'>
-				{/* 提示 */}
-				<div className='error-msg'>
-					{msg ? (
-						<Alert
-							description={msg}
-							type='error'
-							showIcon
-							className='errorMsg'
-							closable
-							afterClose={this.handleErrorClose}
-						/>
-					) : null}
-				</div>
 				<EditorHeader editorHeader={(articleName) => this.geteditorHeader(articleName)} />
 				<SimpleMDE onChange={this.handleChange.bind(this)} value={articleContent} />
 
