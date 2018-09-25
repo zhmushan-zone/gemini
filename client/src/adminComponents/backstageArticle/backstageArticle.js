@@ -63,6 +63,9 @@ export default class BackstageArticle extends Component {
 	}
 
 	isSimilar2(string, arr2) {
+		if (arr2.length === 0) {
+			return true
+		}
 		return arr2.includes(string)
 	}
 
@@ -113,8 +116,8 @@ export default class BackstageArticle extends Component {
 						<Select
 							mode='multiple'
 							style={{ width: '100%' }}
-							placeholder='请选择用户'
-							defaultValue={[ 'admin' ]}
+							placeholder='请选择用户(不选即为全部)'
+							defaultValue={[ '所有用户' ]}
 							onChange={this.handleChange}
 						>
 							{children}
