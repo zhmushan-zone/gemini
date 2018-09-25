@@ -8,8 +8,9 @@ import { ResponseCode } from '../common/utils';
 @Injectable()
 export class SuggestionService {
 
-  save(userId: string, suggestion: Suggestion) {
+  save(username: string, suggestion: Suggestion) {
     const obj = this.suggestionRepository.create(suggestion);
+    obj.from = username;
     return this.suggestionRepository.save(obj);
   }
 
@@ -26,6 +27,11 @@ export class SuggestionService {
     if (!doc) return new GeminiError(ResponseCode.NOT_EXISIT);
     for (const key in suggestion) doc[key] = suggestion[key];
     return this.suggestionRepository.save(doc);
+  }
+
+  async delete(id: string) {
+    const suggestion = await this.suggestionRepository.findOne(id);
+    return this.suggestionRepository.delete(suggestion);
   }
 
   constructor(
