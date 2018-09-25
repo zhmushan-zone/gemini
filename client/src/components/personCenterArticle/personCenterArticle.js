@@ -75,7 +75,7 @@ class PersonCenterArticle extends React.Component {
 							})
 						) : (
 							<p className='notattend'>
-								你还没有任何原创文章，快去<a>发表文章</a>吧
+								你还没有任何原创文章，快去<a style={{color:'red'}}>发表文章</a>吧
 							</p>
 						)}
 					</TabPane>
@@ -109,7 +109,7 @@ class PersonCenterArticle extends React.Component {
 							})
 						) : (
 							<p className='notattend'>
-								你还没有喜欢任何文章，快去<a>看看文章</a>吧
+								你还没有喜欢任何文章，快去<a style={{color:'red'}}>看看文章</a>吧
 							</p>
 						)}
 					</TabPane>
