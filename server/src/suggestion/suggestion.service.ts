@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { MongoRepository } from 'typeorm';
 import { Suggestion } from './suggestion.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { GeminiError } from '../common/error';
+import { ResponseCode } from '../common/utils';
 
 @Injectable()
 export class SuggestionService {
@@ -17,6 +19,13 @@ export class SuggestionService {
 
   findById(id: string) {
     return this.suggestionRepository.findOne(id);
+  }
+
+  async updateById(id: string, suggestion: Suggestion) {
+    const doc = await this.suggestionRepository.findOne(id);
+    if (!doc) return new GeminiError(ResponseCode.NOT_EXISIT);
+    for (const key in suggestion) doc[key] = suggestion[key];
+    return this.suggestionRepository.save(doc);
   }
 
   constructor(

@@ -10,11 +10,15 @@ export class Suggestion extends BaseEntity {
   @Column()
   msg: string;
 
+  @Column()
+  isRead: boolean;
+
   @BeforeInsert()
   beforeInsert() {
     super.beforeInsert();
     if (!this.from) this.from = '';
     if (!this.msg) this.msg = '';
+    if (!this.isRead) this.isRead = false;
   }
 
   @BeforeUpdate()
