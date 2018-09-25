@@ -23,7 +23,7 @@ export default class opinionMainRightHotPerson extends Component {
     let _id = Cookies.get("_id")
     console.log(_id)
     if (_id) {
-      this.props.focusUser(id)
+      await this.props.focusUser(id)
       // this.setState({
       // 	follow: !this.state.follow,
       // })
