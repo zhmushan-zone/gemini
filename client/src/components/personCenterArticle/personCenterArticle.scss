@@ -1,66 +1,68 @@
 .person-center-article {
-	padding-top: 46px;
-	.ant-tabs-tab {
-		&:hover {
-			color: red;
-		}
-	}
-	.ant-tabs-tab-active {
-		color: red;
-	}
-	.ant-tabs-ink-bar {
-		background: red;
-	}
-	.notattend {
-		margin-top: 150px;
-		font-size: 18px;
-		color: #b5b9bc;
-		text-align: center;
-		a {
-			color: #f01400;
-		}
-	}
-	.article-item {
-		border-bottom: 1px solid #edf1f2;
-		.content {
-			font-size: 14px;
-			line-height: 28px;
-			color: #4d555d;
-			margin-bottom: 10px;
-			max-height: 364px;
-			overflow: hidden;
-			img {
-				width: 200px;
-				height: auto;
-			}
-			> div {
-				padding-right: 20px;
-			}
-		}
-		.bottom {
-			display: flex;
-			flex-direction: row-reverse;
-		}
-		.item-title {
-			padding: 30px 0 20px;
-			a {
-				font-size: 20px;
-				font-weight: 700;
-				line-height: 20px;
-				color: #14191e;
-				&:hover {
-					color: #f01400;
-					transition: all 0.2;
-				}
-			}
-		}
-		.right-info {
-			span {
-				padding-left: 20px;
-			}
-		}
-	}
+  padding-top: 46px;
+  .ant-tabs-tab {
+    &:hover {
+      color: red;
+    }
+  }
+  .ant-tabs-tab-active {
+    color: red;
+  }
+  .ant-tabs-ink-bar {
+    background: red;
+  }
+  .notattend {
+    margin-top: 150px;
+    font-size: 18px;
+    color: #b5b9bc;
+    text-align: center;
+    a {
+      color: #f01400;
+    }
+  }
+  .article-item {
+    border-bottom: 1px solid #edf1f2;
+    .content {
+      font-size: 14px;
+      line-height: 28px;
+      color: #4d555d;
+      margin-bottom: 10px;
+      max-height: 364px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      img {
+        width: 200px;
+        height: auto;
+      }
+      > div {
+        padding-right: 20px;
+      }
+    }
+    .bottom {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+    .item-title {
+      padding: 30px 0 20px;
+      a {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 20px;
+        color: #14191e;
+        &:hover {
+          color: #f01400;
+          transition: all 0.2;
+        }
+      }
+    }
+    .right-info {
+      span {
+        padding-left: 20px;
+      }
+    }
+  }
 }
-.person-center-yuanwen{
-	padding-top: 46px;
+.person-center-yuanwen {
+  padding-top: 46px;
 }

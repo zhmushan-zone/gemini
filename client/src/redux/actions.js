@@ -183,24 +183,25 @@ export function RegisterSendEamil(email) {
 }
 /* --------------------------------------------------检测是否验证码正确-------------------------------------------------------------- */
 
-export function checkedCaptcha(captcha) {
-  if (!captcha) {
-    return errorMsg("验证码都不写吗？")
-  }
-  const email = Cookies.get("email")
-  return async dispatch => {
-    const res = await axios({
-      method: "post",
-      url: `/api/users/email/validate/${email}`,
-      headers: {
-        captcha: captcha
-      }
-    })
-    if (res.data.code === 1) {
-      Cookies.set("captcha", captcha)
-    }
-  }
-}
+
+// export function checkedCaptcha(captcha) {
+//   if (!captcha) {
+//     return errorMsg("验证码都不写吗？")
+//   }
+//   const email = Cookies.get("email")
+//   return async dispatch => {
+//     const res = await axios({
+//       method: "post",
+//       url: `/api/users/email/validate/${email}`,
+//       headers: {
+//         captcha: captcha
+//       }
+//     })
+//     if (res.data.code === 1) {
+//       Cookies.set("captcha", captcha)
+//     }
+//   }
+// }
 /* --------------------------------------------------登出-------------------------------------------------------------- */
 
 export function logout() {
@@ -218,14 +219,14 @@ export function changeAvatar(name) {
   return changeAvatarFunc(name)
 }
 /* --------------------------------------------------更新我的课程-------------------------------------------------------------- */
-function updateMyCourseSuccess (courses) {
-	return { type: ActionTypes.UPDATE_MY_COURSE, payload: courses }
+function updateMyCourseSuccess(courses) {
+  return { type: ActionTypes.UPDATE_MY_COURSE, payload: courses }
 }
 
-export function updateMyCourse (courses) {
-	return (dispatch) => {
-		dispatch(updateMyCourseSuccess(courses))
-	}
+export function updateMyCourse(courses) {
+  return dispatch => {
+    dispatch(updateMyCourseSuccess(courses))
+  }
 }
 /* --------------------------------------------------创建课程-------------------------------------------------------------- */
 // 创建课程成功
