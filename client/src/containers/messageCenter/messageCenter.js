@@ -31,15 +31,15 @@ class MessageCenter extends Component {
     const templateData = []
     data.length > 1 ? dateSortByCreate(data) : null
     data.map(v => templateData.push(v.template))
-    await templateData.join('')
+    const content = templateData.join('')
     this.setState({
       loading: false,
-      content: templateData
+      content
     })
     socket.on('notice', (data) => {
       const newMsg = [data, ...this.props.msg]
       const oldContent = this.state.content
-      const newContent = [data.template, oldContent].join()
+      const newContent = [data.template, oldContent].join('')
       this.setState({
         content: newContent
       })
@@ -53,10 +53,10 @@ class MessageCenter extends Component {
       const templateData = []
       data.length > 1 ? dateSortByCreate(data) : null
       data.map(v => templateData.push(v.template))
-      templateData.join('')
+      const content = templateData.join('')
       this.setState({
         loading: false,
-        content: templateData
+        content
       })
     }
   }
@@ -97,6 +97,7 @@ class MessageCenter extends Component {
   }
   
   render() {
+    console.log(this.state.content)
     let unreadMsg = []
     let unreadMsgIds = []
     if (this.props.msg.length) {

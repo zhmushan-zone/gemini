@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { Modal } from 'antd'
+import { Modal, Input, message } from 'antd'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import CustomIcon from '@/common/customIcon/customIcon'
@@ -14,15 +14,18 @@ import personCenterFocus from '../personCenterFocus/personCenterFocus'
 import personCenterYuanwen from '../personCenterYuanwen/personCenterYuanwen'
 import './personCenter.scss'
 import { defaultAvatar, notSetText } from '@/const'
+const { TextArea } = Input
 @connect((state) => state, { changeAvatar, cancelAvatar, fetchUser })
 class PersonCener extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			visible: false,
+			visible2: false,
 			confirmLoading: false,
 			imgurl: defaultAvatar,
 			UserId: this.props.match.params.id,
+			adviceContent: ''
 		}
 	}
 	componentDidMount = async () => {
@@ -34,6 +37,13 @@ class PersonCener extends React.Component {
 			visible: true,
 		})
 	}
+
+	showModal2 = () => {
+		this.setState({
+      visible2: true,
+    })
+	}
+	
 	changAvatar = () => {
 		var _this = this
 		document.getElementById('avatar').addEventListener('change', function() {
@@ -90,6 +100,41 @@ class PersonCener extends React.Component {
 			imgurl: '',
 		})
 	}
+
+	handleOk2 = async (e) => {
+		if (!this.state.adviceContent) {
+			return message.warning('您的建议不能为空')
+		}
+		const _token = Cookies.get('_token')
+		axios({
+			method: 'post',
+			url: '/api/suggestions',
+			headers: {
+				token: _token
+			},
+			data: {
+				msg: this.state.msg
+			}
+		}).then((res) => {
+			if (res.data.code === 1) {
+				this.setState({
+					adviceContent: ''
+				})
+				message.success('发送成功，感谢您的反馈')
+			}
+		})
+    this.setState({
+			visible2: false
+		})
+  }
+
+  handleCancel2 = (e) => {
+    this.setState({
+      visible2: false,
+    })
+  }
+
+	
 	render() {
 		const { UserId } = this.state
 		const { userstatus } = this.props
@@ -118,7 +163,7 @@ class PersonCener extends React.Component {
 				component: PersonCenterInformation,
 			},
 			{
-				name: '文章',
+				name: '看法',
 				icon: 'icon_article',
 				to: `/personCenter/${UserId}/article`,
 				is: this.props.location.pathname === `/personCenter/${UserId}/article`,
@@ -192,12 +237,6 @@ class PersonCener extends React.Component {
 							</div>
 							<div className='item follows'>
 								<div className='u-info-learn' title='学习时长335小时18分'>
-									<em>9953</em>
-									<span>经验</span>
-								</div>
-							</div>
-							<div className='item follows'>
-								<div className='u-info-learn' title='学习时长335小时18分'>
 									<em>{this.props.User.integral ? parseInt(this.props.User.integral, 10) : 0}</em>
 									<span>积分</span>
 								</div>
@@ -219,7 +258,15 @@ class PersonCener extends React.Component {
 				</div>
 				<div className='wrap'>
 					<div className='slider'>
-						<ul>{personCenterNav}</ul>
+						<ul>
+							{personCenterNav}
+							<li>
+								<a onClick={() => this.showModal2()}>
+									<CustomIcon type="fankui" className='my-icon' />
+									<span>意见反馈</span>
+								</a>
+							</li>
+						</ul>
 					</div>
 					<div className='u-container'>
 						{nav.map((v) => {
@@ -227,6 +274,16 @@ class PersonCener extends React.Component {
 						})}
 					</div>
 				</div>
+				<Modal
+          title="意见反馈"
+          visible={this.state.visible2}
+          onOk={this.handleOk2}
+					onCancel={this.handleCancel2}
+					okText="确认"
+					cancelText="取消"
+        >
+          <TextArea rows={4} placeholder="请输入您的意见，我们一定虚心采纳" onChange={(e) => this.setState({adviceContent: e.target.value})} />
+        </Modal>
 			</div>
 		)
 	}

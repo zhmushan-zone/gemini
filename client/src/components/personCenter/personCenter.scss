@@ -87,7 +87,7 @@
 		}
 		.study-info {
 			position: absolute;
-			top: 70px;
+			bottom: 40px;
 			right: 20px;
 			min-width: 200px;
 			text-align: right;
@@ -210,4 +210,9 @@ a {
 	& + span {
 		padding-left: 10px;
 	}
+}
+
+.ant-btn.ant-btn-primary {
+	background-color: #e45d54;
+	border-color: #e45d54;
 }
