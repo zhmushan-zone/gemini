@@ -13,7 +13,7 @@ import {
 import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import Loading from "@/common/loading/loading"
-import { Alert, message } from "antd"
+import { message } from "antd"
 import SendEmail from "../../components/sendEmail/sendEmail"
 import Register from "../../components/register/register"
 @connect(

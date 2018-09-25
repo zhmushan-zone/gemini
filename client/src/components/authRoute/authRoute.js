@@ -14,19 +14,14 @@ class AutoRoute extends React.Component {
 	}
 
 	componentDidMount() {
-		var publicList = [ '/login' ]
-		var pathname = this.props.location.pathname
 		var _id = Cookies.get('_id')
-		if (publicList.indexOf(pathname) !== -1) {
-			return null
-		}
 		axios
 			.get(`/api/users/${_id}`)
 			.then(async (res) => {
 				await this.props.loadData(res.data.data)
 			})
 			.catch((rej) => {
-				this.props.history.push('/login')
+				console.log(rej)
 			})
 	}
 
