@@ -69,9 +69,6 @@ class UserStatus extends React.Component {
 										</div>
 										<div className='user-info-assets'>
 											<a href='#javascript'>
-												<span className='user-info-experience'>经验868</span>
-											</a>
-											<a href='#javascript'>
 												<span className='user-info-integral'>
 													积分{this.props.integral ? parseInt(this.props.integral, 10) : 0}
 												</span>
@@ -94,14 +91,6 @@ class UserStatus extends React.Component {
 											<a href={`/personCenter/${this.state._id}/set`}>个人设置</a>
 										</li>
 									</ul>
-								</div>
-								<div className='user-info-history'>
-									<CustomIcon className='user-info-icon-shizhong' type='shizhong' />
-									<div className='user-info-history-title'>React是世界上最好的框架</div>
-									<div className='user-info-history-section'>1-1 初识React</div>
-									<a className='user-info-history-continue' href='#javascript'>
-										继续
-									</a>
 								</div>
 								<div className='user-info-logout'>
 									<a className='user-info-logout-btn' href='#javascript' onClick={() => this.logout()}>
