@@ -10,43 +10,40 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 @connect((state) => state, {})
 export default class opinionFocus extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props)
-		this.state={
-			articleArray:[]
+		this.state = {
+			articleArray: [],
 		}
 	}
-	componentDidMount = () => {
+	componentDidMount = async () => {
 		// 关注tag
 		const watchTag = Cookies.get('tags')
+		const token = Cookies.get('_token')
 		console.log(watchTag)
-		if (watchTag&&watchTag.length!==0) {
-			axios({
+		if (watchTag && watchTag.length !== 0) {
+			await axios({
 				method: 'put',
 				url: `/api/users/watch/article-type/${watchTag}`,
 				headers: {
-					token: Cookies.get('_token')
-				}
+					token: token,
+				},
 			}).then((res) => {
-				// console.log(res)	
-				
+				// console.log(res)
 			})
 		}
 
-		setTimeout(() => {
-			const token = Cookies.get('_token')
-			axios({
-				method: 'get',
-				url: '/api/articles/watch-article-type',
-				headers: {
-					token: token
-				}
-			}).then((res) => {
-				this.setState({
-					articleArray:res.data.data
-				})
+		await axios({
+			method: 'get',
+			url: '/api/articles/watch-article-type',
+			headers: {
+				token: token,
+			},
+		}).then((res) => {
+			this.setState({
+				articleArray: res.data.data,
 			})
-		}, 100)
+		})
 		console.log(this.state.articleArray)
 	}
 
@@ -55,7 +52,7 @@ export default class opinionFocus extends Component {
 			<div className='opinion-container'>
 				<div className='opinionMain-container'>
 					<OpinionSideBar />
-					<OpinionMainCenter articleArray={this.state.articleArray}/>
+					<OpinionMainCenter articleArray={this.state.articleArray} />
 					<OpinionMainRight />
 				</div>
 			</div>

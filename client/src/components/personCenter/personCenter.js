@@ -30,6 +30,11 @@ class PersonCener extends React.Component {
 	}
 	componentDidMount = async () => {
 		await this.props.fetchUser(this.state.UserId)
+		if (this.props.User.avatar) {
+			this.setState({
+				imgurl: '',
+			})
+		}
 	}
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.match.params.id !== this.props.match.params.id) {
@@ -96,12 +101,11 @@ class PersonCener extends React.Component {
 				console.log(res)
 			})
 
-		setTimeout(() => {
-			this.setState({
-				visible: false,
-				confirmLoading: false,
-			})
-		}, 100)
+		this.setState({
+			visible: false,
+			confirmLoading: false,
+			imgurl: '',
+		})
 	}
 	handleCancel = () => {
 		this.setState({
@@ -202,6 +206,7 @@ class PersonCener extends React.Component {
 				</li>
 			)
 		})
+		console.log(this.state.imgurl)
 		return (
 			<div className='personCenter-container'>
 				<div className='header'>
