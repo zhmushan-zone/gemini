@@ -18,19 +18,8 @@ export default class opinionFocus extends Component {
 	}
 	componentDidMount = async () => {
 		// 关注tag
-		const watchTag = Cookies.get('tags')
+
 		const token = Cookies.get('_token')
-		if (watchTag && watchTag.length !== 0) {
-			await axios({
-				method: 'put',
-				url: `/api/users/watch/article-type/${watchTag}`,
-				headers: {
-					token: token,
-				},
-			}).then((res) => {
-				// console.log(res)
-			})
-		}
 
 		await axios({
 			method: 'get',
