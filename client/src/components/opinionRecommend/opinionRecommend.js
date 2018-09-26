@@ -15,10 +15,11 @@ export default class opinionRecommend extends Component {
 	componentDidMount = async () => {
 		// 获取所有文章
 		await this.props.fetchArticleAll()
-		const watchTag = Cookies.get('tags')
+		const watchTag = JSON.parse(Cookies.get('tags'))
 		const token = Cookies.get('_token')
 		if (watchTag && watchTag.length !== 0) {
 			for (let index = 0; index < watchTag.length; index++) {
+				console.log(watchTag[index])
 				await axios({
 					method: 'put',
 					url: `/api/users/watch/article-type/${watchTag[index]}`,
