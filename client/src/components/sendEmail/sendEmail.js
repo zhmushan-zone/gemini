@@ -1,39 +1,37 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { countDown } from '@/redux/actions'
 import './sendEmail.scss'
+
+@connect(
+	state => state.countDown,
+	{ countDown }
+)
 export default class SendEmail extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			time: 60,
-		}
-	}
-	componentWillUnmount() {
-		clearInterval(this.newTimer)
 	}
 
-	timeToZero() {
-		let { time } = this.state
-		this.newTimer = setInterval(() => {
-			this.setState({
-				time: time - 1,
-			})
+	timeToZero = () => {
+		let num = 60
+		const timer = setInterval(() => {
+			if (num === -1) {
+				clearInterval(timer)
+				this.props.countDown(60)
+			}
+			const newTime = num--
+			this.props.countDown(newTime)
 		}, 1000)
-		if (this.state.time <= 0) {
-			clearInterval(this.newTimer)
-		}
 	}
-	shouldComponentUpdate = (nextProps, nextState) => {
-    if(nextState.time>this.state.time){
-      return false
-    }
-    return true
-  }
-  
-	render() {
-		let { email, inputFocus, inputBlur, registerSendEamil, isSec, captcha, goToNextRegister } = this.props
-		if (isSec) {
+	
+	componentWillReceiveProps(nextProps) {
+		if (!this.props.isSec && nextProps.isSec) {
 			this.timeToZero()
 		}
+	}
+	
+	render() {
+		let { email, inputFocus, inputBlur, registerSendEamil, isSec, captcha, goToNextRegister } = this.props
 		return (
 			<div className='send-email-contanier'>
 				<div className='f_row'>
@@ -47,7 +45,7 @@ export default class SendEmail extends Component {
 						onChange={this.props.handleChange.bind(this, 'email')}
 					/>
 					<a onClick={registerSendEamil} className={`sendEmail ${isSec ? 'noclick' : ''}`}>
-						{isSec ? `${this.state.time}` : '发送邮件'}
+						{isSec ? `${this.props.count}可重新发送` : '发送邮件'}
 					</a>
 					<u />
 				</div>

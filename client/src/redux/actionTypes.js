@@ -97,3 +97,5 @@ export const COURSE_RATE = 'COURSE_RATE'
 export const FETCH_MESSAGE = 'FETCH_MESSAGE'
 // 获取反馈
 export const FETCH_ADVICE = 'FETCH_ADVICE'
+// 倒计时
+export const COUNT_DOWN = 'COUNT_DOWN'

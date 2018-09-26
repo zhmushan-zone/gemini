@@ -89,6 +89,10 @@ const adviceInit = {
 	advice: []
 }
 
+const countDownInit = {
+	count: 60
+}
+
 export function userstatus(state = initState, action) {
 	switch (action.type) {
 		// case ActionTypes.LOGIN:
@@ -482,6 +486,19 @@ export function advice(state = adviceInit, action) {
 	}
 }
 
+/* -------------------- 倒计时------------------- */
+export function countDown(state = countDownInit, action) {
+	switch (action.type) {
+		case ActionTypes.COUNT_DOWN:
+			return {
+				...state,
+				count: action.payload
+			}
+		default:
+			return state
+	}
+}
+
 export default combineReducers({
 	userstatus,
 	course,
@@ -495,5 +512,6 @@ export default combineReducers({
 	report,
 	shoppingCart,
 	message,
-	advice
+	advice,
+	countDown
 })

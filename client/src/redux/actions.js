@@ -1129,3 +1129,13 @@ export function updateAdvice(advices) {
 		dispatch(fetchAdviceSuccess(advices))
 	}
 }
+/* ----------------------------------------------倒计时---------------------------------------------- */
+function countDownSuccess(count) {
+  return { type: ActionTypes.COUNT_DOWN, payload: count }
+}
+
+export function countDown(count) {
+  return dispatch => {
+    dispatch(countDownSuccess(count))
+  }
+}
