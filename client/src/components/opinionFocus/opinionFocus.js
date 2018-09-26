@@ -20,7 +20,6 @@ export default class opinionFocus extends Component {
 		// 关注tag
 		const watchTag = Cookies.get('tags')
 		const token = Cookies.get('_token')
-		console.log(watchTag)
 		if (watchTag && watchTag.length !== 0) {
 			await axios({
 				method: 'put',
