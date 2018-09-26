@@ -70,11 +70,11 @@ class Login extends React.Component {
 				isSec: true,
 				loading: false,
 			})
-			setTimeout(() => {
-				this.setState({
-					isSec: false,
-				})
-			}, 1000 * 60)
+			// setTimeout(() => {
+			// 	this.setState({
+			// 		isSec: false,
+			// 	})
+			// }, 1000 * 60)
 		} else {
 			this.setState({
 				isSec: false,
@@ -172,6 +172,11 @@ class Login extends React.Component {
 		const formBox = this.formBox
 		this.classCal(formBox, 'remove', 'level-forget')
 		this.classCal(formBox, 'add', 'level-login')
+	}
+	handleToZero() {
+		this.setState({
+			isSec: false,
+		})
 	}
 
 	render() {
@@ -294,6 +299,7 @@ class Login extends React.Component {
 									re_username={this.state.re_username}
 									goToNextRegister={this.goToNextRegister}
 									isSec={this.state.isSec}
+									isToZero={this.handleToZero.bind(this)}
 								/>
 							)}
 						</form>
