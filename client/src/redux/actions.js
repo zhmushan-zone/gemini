@@ -20,7 +20,7 @@ export function loadData(userinfo) {
 
 function authSuccess(obj) {
 	const { username, data } = obj
-	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: data, username }
+	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: data, username,code:1}
 }
 
 export function register(username, password, repet_pass) {

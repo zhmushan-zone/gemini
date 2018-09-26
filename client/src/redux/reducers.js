@@ -86,11 +86,11 @@ const messageInit = {
 }
 
 const adviceInit = {
-	advice: []
+	advice: [],
 }
 
 const countDownInit = {
-	count: 60
+	count: 60,
 }
 
 export function userstatus(state = initState, action) {
@@ -103,6 +103,7 @@ export function userstatus(state = initState, action) {
 				...action.payload,
 				redirectTo: '/home',
 				username: action.username,
+				code: action.code,
 			}
 		case ActionTypes.FORGET_PASS:
 			return {
@@ -479,7 +480,7 @@ export function advice(state = adviceInit, action) {
 		case ActionTypes.FETCH_ADVICE:
 			return {
 				...state,
-				advice: action.payload
+				advice: action.payload,
 			}
 		default:
 			return state
@@ -492,7 +493,7 @@ export function countDown(state = countDownInit, action) {
 		case ActionTypes.COUNT_DOWN:
 			return {
 				...state,
-				count: action.payload
+				count: action.payload,
 			}
 		default:
 			return state
@@ -513,5 +514,5 @@ export default combineReducers({
 	shoppingCart,
 	message,
 	advice,
-	countDown
+	countDown,
 })
