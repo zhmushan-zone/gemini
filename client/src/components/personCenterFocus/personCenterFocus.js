@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { Tabs } from 'antd'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import { defaultAvatar } from '@/const'
 import './personCenterFocus.scss'
 const TabPane = Tabs.TabPane
-@connect((state) => state, {})
+@connect((state) => state, {  })
 export default class PersonCenterFocus extends Component {
 	constructor(props) {
 		super(props)
@@ -14,11 +15,9 @@ export default class PersonCenterFocus extends Component {
 			watchedUsers: [],
 		}
 	}
-	async componentDidMount() {
-		const watch = this.props.userstatus.watchUsersId
-		const watched = this.props.userstatus.watchedUsersId
-		console.log(watch)
-		console.log(watched)
+	async fetchWatchAndWatched() {
+		const watch = this.props.User.watchUsersId
+		const watched = this.props.User.watchedUsersId
 		// watch
 		let res = await axios({
 			method: 'POST',
@@ -42,6 +41,9 @@ export default class PersonCenterFocus extends Component {
 			})
 		}
 	}
+	async componentDidMount() {
+		await this.fetchWatchAndWatched()
+	}
 	render() {
 		const { users, watchedUsers } = this.state
 		return (
@@ -58,7 +60,9 @@ export default class PersonCenterFocus extends Component {
 													<img src={v.avatar ? `/avatar/${v.avatar}` : defaultAvatar} alt='' />
 												</div>
 												<div className='right-c'>
-													<div className='title'>{v.username}</div>
+													<div className='title'>
+														<Link to={`/personCenter/${v.id}`}>{v.username}</Link>
+													</div>
 													<p className='desc'>{v.job}</p>
 													<div className='fs-line'>
 														<a className='first'>关注{v.watchedUsersId.length}</a>

@@ -37,7 +37,9 @@ export default class VideoPageContentQuestionList extends Component {
 									<img src={v.authorAvatar ? `/avatar/${v.authorAvatar}` : defaultAvatar} alt='' />
 								</div>
 								<div className='r-content'>
-									<h2>{v.title}</h2>
+									<h2 onClick={()=>{
+										this.props.history.push(`/forum/details/${v.id}`)
+									}}>{v.title}</h2>
 									<p
 										className='con'
 										dangerouslySetInnerHTML={{

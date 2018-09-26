@@ -28,7 +28,7 @@ export function register(username, password, repet_pass) {
 		return errorMsg('请输入注册的账号的密码')
 	}
 	if (username.length < 2) {
-		return errorMsg('用户名最少6位')
+		return errorMsg('用户名最少2位')
 	}
 	if (password.length < 6 || password.length >= 14) {
 		return errorMsg('密码个数不能少于６位或者大于14位')

@@ -65,7 +65,13 @@ class PersonCenterClass extends React.Component {
 														</a>
 													</div>
 													<div className='course-list-cont'>
-														<h3 className='study-hd'>
+														<h3
+															className='study-hd'
+															style={{cursor:'pointer'}}
+															onClick={() => {
+																this.props.history.push(`/class/${v.id}`)
+															}}
+														>
 															{v.title}
 															<span className='i-new'>更新完毕</span>
 															{/* 收藏和删除 */}
@@ -74,7 +80,7 @@ class PersonCenterClass extends React.Component {
 															</div>
 														</h3>
 														<div className='study-points'>
-															<span className='i-left'>评论：{v.commentsId.length+"条"}</span>
+															<span className='i-left'>评论：{v.commentsId.length + '条'}</span>
 															{/* <span className='i-mid'>用时{parseInt(Math.random() * 130 + 1, 10)}分</span> */}
 														</div>
 														<div className='catog-points'>

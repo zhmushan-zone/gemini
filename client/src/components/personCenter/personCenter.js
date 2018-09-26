@@ -25,11 +25,19 @@ class PersonCener extends React.Component {
 			confirmLoading: false,
 			imgurl: defaultAvatar,
 			UserId: this.props.match.params.id,
-			adviceContent: ''
+			adviceContent: '',
 		}
 	}
 	componentDidMount = async () => {
 		await this.props.fetchUser(this.state.UserId)
+	}
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.match.params.id !== this.props.match.params.id) {
+			this.props.fetchUser(nextProps.match.params.id)
+		}
+		this.setState({
+			UserId: nextProps.match.params.id,
+		})
 	}
 
 	showModal = () => {
@@ -41,10 +49,10 @@ class PersonCener extends React.Component {
 	showModal2 = () => {
 		this.setState({
 			visible2: true,
-			adviceContent: ''
-    })
+			adviceContent: '',
+		})
 	}
-	
+
 	changAvatar = () => {
 		var _this = this
 		document.getElementById('avatar').addEventListener('change', function() {
@@ -111,31 +119,30 @@ class PersonCener extends React.Component {
 			method: 'post',
 			url: '/api/suggestions',
 			headers: {
-				token: _token
+				token: _token,
 			},
 			data: {
-				msg: this.state.adviceContent
-			}
+				msg: this.state.adviceContent,
+			},
 		}).then((res) => {
 			if (res.data.code === 1) {
 				this.setState({
-					adviceContent: ''
+					adviceContent: '',
 				})
 				message.success('发送成功，感谢您的反馈')
 			}
 		})
-    this.setState({
-			visible2: false
+		this.setState({
+			visible2: false,
 		})
-  }
+	}
 
-  handleCancel2 = (e) => {
-    this.setState({
-      visible2: false,
-    })
-  }
+	handleCancel2 = (e) => {
+		this.setState({
+			visible2: false,
+		})
+	}
 
-	
 	render() {
 		const { UserId } = this.state
 		const { userstatus } = this.props
@@ -205,7 +212,7 @@ class PersonCener extends React.Component {
 
 								<img src={data.avatar ? `/avatar/${data.avatar}` : `${defaultAvatar}`} alt='' />
 								<Modal
-									className="person-center-modal"
+									className='person-center-modal'
 									title='更换头像'
 									visible={this.state.visible}
 									onOk={this.handleOk}
@@ -264,7 +271,7 @@ class PersonCener extends React.Component {
 							{personCenterNav}
 							<li>
 								<a onClick={() => this.showModal2()}>
-									<CustomIcon type="fankui" className='my-icon' />
+									<CustomIcon type='fankui' className='my-icon' />
 									<span>意见反馈</span>
 								</a>
 							</li>
@@ -277,17 +284,21 @@ class PersonCener extends React.Component {
 					</div>
 				</div>
 				<Modal
-					className="person-center-modal"
-          title="意见反馈"
-          visible={this.state.visible2}
-          onOk={this.handleOk2}
+					className='person-center-modal'
+					title='意见反馈'
+					visible={this.state.visible2}
+					onOk={this.handleOk2}
 					onCancel={this.handleCancel2}
 					destroyOnClose={true}
-					okText="确认"
-					cancelText="取消"
-        >
-          <TextArea rows={4} placeholder="请输入您的意见，我们一定虚心采纳" onChange={(e) => this.setState({adviceContent: e.target.value})} />
-        </Modal>
+					okText='确认'
+					cancelText='取消'
+				>
+					<TextArea
+						rows={4}
+						placeholder='请输入您的意见，我们一定虚心采纳'
+						onChange={(e) => this.setState({ adviceContent: e.target.value })}
+					/>
+				</Modal>
 			</div>
 		)
 	}
