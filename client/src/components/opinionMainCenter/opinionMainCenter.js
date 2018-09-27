@@ -9,6 +9,9 @@ import OpinionFocusSelect from '../opinionFocusSelect/opinionFocusSelect'
 @withRouter
 @connect((state) => state, { fetchArticleByCategory })
 export default class opinionMainCenter extends Component {
+	componentDidMount(){
+		
+	}
 	async componentWillReceiveProps(nextProps) {
 		if (this.props.match.params.category !== nextProps.match.params.category) {
 			const category = nextProps.match.params.category
