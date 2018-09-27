@@ -33,7 +33,12 @@ class PersonCenterInformation extends React.Component {
 		this.setState({
 			confirmLoading: true,
 		})
-		await this.props.changePersonMsg(this.state)
+		let username = this.refs.inputUsername.value
+		let job = this.refs.inputJob.value
+		let city = this.refs.inputCity.value
+		let signature = this.refs.inputSignature.value
+		let sex = this.refs.radioSex1.checked ? 0 : 1
+		await this.props.changePersonMsg(username, job, city, sex, signature)
 		this.props.userstatus.msg === '成功' ? this.success() : null
 		setTimeout(() => {
 			this.setState({
@@ -58,31 +63,35 @@ class PersonCenterInformation extends React.Component {
 
 	render() {
 		const { visible, confirmLoading, sex, username, job, signature, city } = this.state
-		const { userstatus, isOwn } = this.props
+		const { userstatus, isOwn, User } = this.props
 		const { TextArea } = Input
 		const RadioGroup = Radio.Group
-		const information = [
-			{
-				name: '昵称',
-				value: userstatus.username ? userstatus.username : userstatus.nickname,
-			},
-			{
-				name: '职位',
-				value: userstatus.job ? userstatus.job : notSetText,
-			},
-			{
-				name: '城市',
-				value: userstatus.city ? userstatus.city : notSetText,
-			},
-			{
-				name: '性别',
-				value: userstatus.sex ? (userstatus.sex === 0 ? '女' : '男') : notSetText,
-			},
-			{
-				name: '个性签名',
-				value: userstatus.signature ? userstatus.signature : notSetText,
-			},
-		]
+
+		let information
+		if (User.job) {
+			information = [
+				{
+					name: '昵称',
+					value: User.nickname,
+				},
+				{
+					name: '职位',
+					value: User.job ? User.job : notSetText,
+				},
+				{
+					name: '城市',
+					value: User.city ? User.city : notSetText,
+				},
+				{
+					name: '性别',
+					value: User.sex,
+				},
+				{
+					name: '个性签名',
+					value: User.signature ? User.signature : notSetText,
+				},
+			]
+		}
 
 		return (
 			<div className='person-information-container'>
@@ -105,49 +114,97 @@ class PersonCenterInformation extends React.Component {
 						confirmLoading={confirmLoading}
 						onCancel={this.handleCancel}
 					>
-						<Input
-							placeholder='昵称'
-							size='large'
-							defaultValue='1'
-							value={username}
-							style={{ marginBottom: 20 }}
-							onChange={this.handleChange.bind(this, 'username')}
-						/>
-						<Input
-							placeholder='职位'
-							size='large'
-							value={job}
-							style={{ marginBottom: 20 }}
-							onChange={this.handleChange.bind(this, 'job')}
-						/>
-						<Input
-							placeholder='城市'
-							size='large'
-							value={city}
-							style={{ marginBottom: 20 }}
-							onChange={this.handleChange.bind(this, 'city')}
-						/>
-						<RadioGroup value={sex} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'sex')}>
-							<Radio value={1}>男</Radio>
-							<Radio value={0}>女</Radio>
-						</RadioGroup>
-						<TextArea
-							rows={4}
-							value={signature}
-							placeholder='个性签名'
-							onChange={this.handleChange.bind(this, 'signature')}
-						/>
+						<div className='contentInput'>
+							<input
+								defaultValue={this.props.User.nickname}
+								// value={username}
+								ref='inputUsername'
+								className='nickname'
+								id='nickname'
+								type='text'
+								onChange={(e) => {
+									this.setState({
+										username: e.target.value,
+									})
+								}}
+							/>
+
+							<input
+								placeholder='职位'
+								defaultValue={this.props.User.job}
+								ref='inputJob'
+								type='text'
+								// value={job}
+								style={{ marginBottom: 20 }}
+								onChange={this.handleChange.bind(this, 'job')}
+							/>
+							<input
+								placeholder='城市'
+								defaultValue={this.props.User.city}
+								ref='inputCity'
+								type='text'
+								// value={city}
+								style={{ marginBottom: 20 }}
+								onChange={this.handleChange.bind(this, 'city')}
+							/>
+							{/* <RadioGroup value={sex} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'sex')}>
+								<Radio value={1}>男</Radio>
+								<Radio value={0}>女</Radio>
+							</RadioGroup> */}
+							<div className='radio-container'>
+								<div className='radio'>
+									<input id='radio-1' name='sex' value='0' ref='radioSex1' type='radio' defaultChecked />
+									<label htmlFor='radio-1' className='radio-label'>
+										女
+									</label>
+								</div>
+								<div className='radio'>
+									<input id='radio-2' name='sex' value='1' ref='radioSex2' type='radio' />
+									<label htmlFor='radio-2' className='radio-label'>
+										男
+									</label>
+								</div>
+
+								{/* <input
+									type='radio'
+									name='sex'
+									value='0'
+									onChange={this.handleChange.bind(this, 'sex')}
+									ref='radioSex1'
+								/>女
+								<input
+									type='radio'
+									name='sex'
+									value='1'
+									onChange={this.handleChange.bind(this, 'sex')}
+									ref='radioSex2'
+								/>男 */}
+							</div>
+
+							<textarea
+								rows={4}
+								defaultValue={this.props.User.signature}
+								ref='inputSignature'
+								// value={signature}
+								className='signature'
+								id='signature'
+								placeholder='个性签名'
+								onChange={this.handleChange.bind(this, 'signature')}
+							/>
+						</div>
 					</Modal>
 				</div>
 				<div className='info-wapper'>
-					{information.map((v) => {
-						return (
-							<div className='info-box' key={v.name}>
-								<label htmlFor=''>{v.name}</label>
-								<div className='content'>{v.value}</div>
-							</div>
-						)
-					})}
+					{information ? (
+						information.map((v) => {
+							return (
+								<div className='info-box' key={v.name}>
+									<label htmlFor=''>{v.name}</label>
+									<div className='content'>{v.value}</div>
+								</div>
+							)
+						})
+					) : null}
 				</div>
 			</div>
 		)

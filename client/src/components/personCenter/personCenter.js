@@ -101,11 +101,13 @@ class PersonCener extends React.Component {
 				console.log(res)
 			})
 
-		this.setState({
-			visible: false,
-			confirmLoading: false,
-			imgurl: '',
-		})
+		setTimeout(() => {
+			this.setState({
+				visible: false,
+				confirmLoading: false,
+				imgurl: '',
+			})
+		}, 500)
 	}
 	handleCancel = () => {
 		this.setState({
