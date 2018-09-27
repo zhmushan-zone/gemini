@@ -1,20 +1,23 @@
-import React, { Component } from 'react'
-import './coursePreview.scss'
-import { Tabs, Input } from 'antd'
-import CustomIcon from '@/common/customIcon/customIcon'
-import { getVideoComment, getCourseOne, courseRate, updateMyCourse, updateUserShoppingCart } from '@/redux/actions.js'
-import { Rate } from 'antd'
-import Share from '@/share'
-import axios from 'axios'
-import Cookies from 'js-cookie'
-import { defaultAvatar } from '@/const'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
-import { message } from 'antd'
+import React, { Component } from "react"
+import "./coursePreview.scss"
+import { Tabs, Input } from "antd"
+import CustomIcon from "@/common/customIcon/customIcon"
+import { getVideoComment, getCourseOne, courseRate, updateMyCourse, updateUserShoppingCart } from "@/redux/actions.js"
+import { Rate } from "antd"
+import Share from "@/share"
+import axios from "axios"
+import Cookies from "js-cookie"
+import { defaultAvatar } from "@/const"
+import { connect } from "react-redux"
+import { withRouter } from "react-router"
+import { message } from "antd"
 const TabPane = Tabs.TabPane
 const { TextArea } = Input
 @withRouter
-@connect((state) => state, { getVideoComment, getCourseOne, courseRate, updateMyCourse, updateUserShoppingCart })
+@connect(
+  state => state,
+  { getVideoComment, getCourseOne, courseRate, updateMyCourse, updateUserShoppingCart }
+)
 export default class CoursePreview extends Component {
 	constructor(props) {
 		super(props)
@@ -209,141 +212,180 @@ export default class CoursePreview extends Component {
 					</div>
 				</div>
 
-				<div className='course-content'>
-					<div className='course-aside-info'>
-						<div className='learn-btn'>
-							<button onClick={() => this.toStudy()}>
-								{this.props.video.course.price === 0 || isJoin === false ? '开始学习' : '加入购物车'}
-							</button>
-						</div>
-						<div className='course-info-tip'>
-							<dl className='first'>
-								<dt>课程须知</dt>
-								<dd>1、了解 Unity3D引擎基本操作</dd>
-								<dd>2、了解基本 C#语法</dd>
-							</dl>
-							<dl>
-								<dt>老师告诉你能学到什么？</dt>
-								<dd>1、Rigidbody组件的面板属性</dd>
-								<dd>2、了解基本 C#语法</dd>
-								<dd>2、了解基本 C++语法</dd>
-							</dl>
-							<dl />
-						</div>
-					</div>
-					<Tabs defaultActiveKey='1' onChange={this.callback} size='large' className='tab-course-preview'>
-						<TabPane tab='课程章节' key='1'>
-							<div className='chapter'>
-								<div className='course-description'>{course.desc}</div>
-							</div>
-							{sections ? (
-								sections.map((v, i) => (
-									<div className='chapter course-wrap' key={v.title}>
-										<ul className='video'>
-											<li>{`第${i + 1}章- ` + v.title}</li>
-											{v.nodes ? (
-												<React.Fragment>
-													{v.nodes.map((b, j) => {
-														return (
-															<li
-																key={b.title}
-																className='hover'
-																onClick={() => {
-																	this.handleSee(b.video)
-																}}
-															>
-																<CustomIcon type={'video02'} size={16} className='video-logo' />
-																{`${i + 1}-${j + 1}- ` + b.title}
-															</li>
-														)
-													})}
-												</React.Fragment>
-											) : null}
-										</ul>
-									</div>
-								))
-							) : null}
-						</TabPane>
-						<TabPane tab='课程评论' key='2'>
-							{comment ? (
-								comment.map((v) => {
-									return (
-										<div className='comment-item' key={v.id}>
-											<div className='avatar'>
-												<img src={v.authorAvatar ? `/avatar/${v.authorAvatar}` : defaultAvatar} alt='' />
-											</div>
-											<div className='content'>
-												<a href='' className='username' style={{ color: '#93999f' }}>
-													{v.authorUsername}
-												</a>
-												<p>{v.content}</p>
-												<p>{v.createAt}</p>
-											</div>
-										</div>
-									)
-								})
-							) : null}
-						</TabPane>
-						<TabPane tab='用户评价' key='3'>
-							<div className='evaluation-info'>
-								<div className='evaluation-title'>综合评分</div>
-								<div className='evaluation-score'>{average.toFixed(2)}</div>
-								<Rate disabled value={average - 0} />
-							</div>
-							<div className='evaluate'>
-								<div className='your'>
-									<h2>请输入您的评分</h2>
-									<Rate allowHalf defaultValue={0} onChange={(rate) => this.setState({ rate: rate })} />
-								</div>
-								<div className='evaluate-item'>
-									<div className='avatar'>
-										<img src={loginuser ? `/avatar/${loginuser}` : defaultAvatar} alt='' />
-									</div>
-									<div className='your-evalute'>
-										<TextArea
-											placeholder='您的总结'
-											rows={4}
-											value={this.state.summary}
-											onChange={(e) => this.setState({ summary: e.target.value })}
-										/>
-									</div>
-								</div>
-								<div className='send-evaluate-p'>
-									<div className='send-evaluate' onClick={this.handleSendRate.bind(this)}>
-										发表
-									</div>
-								</div>
-							</div>
-							{rateArray.map((v, i) => {
-								console.log(rate[v])
-								return (
-									<div className='evaluation-item' key={i}>
-										<div className='avatar'>
-											{
-												<img
-													src={
-														users[i] ? `/avatar/${users[i].avatar}` : loginuser ? `/avatar/${loginuser}` : defaultAvatar
-													}
-													alt=''
-												/>
-											}
-										</div>
-										<div className='content'>
-											<div className='top'>
-												<span>{users[i] ? users[i].username : this.props.userstatus.username}</span>
-												<Rate disabled value={rate[v] - 0} />
-											</div>
-											<div className='con'>
-												<p>{rateComment[v]}</p>
-											</div>
-										</div>
-									</div>
-								)
-							})}
-						</TabPane>
-					</Tabs>
-				</div>
-			</div>
-		)
-	}
+        <div className="course-content">
+          <div className="course-aside-info">
+            <div className="learn-btn">
+              <button onClick={() => this.toStudy()}>
+                {this.props.video.course.price === 0 || isJoin === false
+                  ? "开始学习"
+                  : "加入购物车"}
+              </button>
+            </div>
+            <div className="course-info-tip">
+              <dl className="first">
+                <dt>课程须知</dt>
+                <dd>1、了解 Unity3D引擎基本操作</dd>
+                <dd>2、了解基本 C#语法</dd>
+              </dl>
+              <dl>
+                <dt>老师告诉你能学到什么？</dt>
+                <dd>1、Rigidbody组件的面板属性</dd>
+                <dd>2、了解基本 C#语法</dd>
+                <dd>2、了解基本 C++语法</dd>
+              </dl>
+              <dl />
+            </div>
+          </div>
+          <Tabs
+            defaultActiveKey="1"
+            onChange={this.callback}
+            size="large"
+            className="tab-course-preview"
+          >
+            <TabPane tab="课程章节" key="1">
+              <div className="chapter">
+                <div className="course-description">{course.desc}</div>
+              </div>
+              {sections
+                ? sections.map((v, i) => (
+                    <div className="chapter course-wrap" key={v.title}>
+                      <ul className="video">
+                        <li>{`第${i + 1}章- ` + v.title}</li>
+                        {v.nodes ? (
+                          <React.Fragment>
+                            {v.nodes.map((b, j) => {
+                              return (
+                                <li
+                                  key={b.title}
+                                  className="hover"
+                                  onClick={() => {
+                                    this.handleSee(b.video)
+                                  }}
+                                >
+                                  <CustomIcon
+                                    type={"video02"}
+                                    size={16}
+                                    className="video-logo"
+                                  />
+                                  {`${i + 1}-${j + 1}- ` + b.title}
+                                </li>
+                              )
+                            })}
+                          </React.Fragment>
+                        ) : null}
+                      </ul>
+                    </div>
+                  ))
+                : null}
+            </TabPane>
+            <TabPane tab="课程评论" key="2">
+              {comment
+                ? comment.map(v => {
+                    return (
+                      <div className="comment-item" key={v.id}>
+                        <div className="avatar">
+                          <img
+                            src={
+                              v.authorAvatar
+                                ? `/avatar/${v.authorAvatar}`
+                                : defaultAvatar
+                            }
+                            alt=""
+                          />
+                        </div>
+                        <div className="content">
+                          <a
+                            href=""
+                            className="username"
+                            style={{ color: "#93999f" }}
+                          >
+                            {v.authorUsername}
+                          </a>
+                          <p>{v.content}</p>
+                          <p>{v.createAt}</p>
+                        </div>
+                      </div>
+                    )
+                  })
+                : null}
+            </TabPane>
+            <TabPane tab="用户评价" key="3">
+              <div className="evaluation-info">
+                <div className="evaluation-title">综合评分</div>
+                <div className="evaluation-score">{average}</div>
+                <Rate disabled value={average - 0} />
+              </div>
+              <div className="evaluate">
+                <div className="your">
+                  <h2>请输入您的评分</h2>
+                  <Rate
+                    allowHalf
+                    defaultValue={0}
+                    onChange={rate => this.setState({ rate: rate })}
+                  />
+                </div>
+                <div className="evaluate-item">
+                  <div className="avatar">
+                    <img
+                      src={loginuser ? `/avatar/${loginuser}` : defaultAvatar}
+                      alt=""
+                    />
+                  </div>
+                  <div className="your-evalute">
+                    <TextArea
+                      placeholder="您的总结"
+                      rows={4}
+                      value={this.state.summary}
+                      onChange={e => this.setState({ summary: e.target.value })}
+                    />
+                  </div>
+                </div>
+                <div className="send-evaluate-p">
+                  <div
+                    className="send-evaluate"
+                    onClick={this.handleSendRate.bind(this)}
+                  >
+                    发表
+                  </div>
+                </div>
+              </div>
+              {rateArray.map((v, i) => {
+                return (
+                  <div className="evaluation-item" key={i}>
+                    <div className="avatar">
+                      {
+                        <img
+                          src={
+                            users[i]
+                              ? `/avatar/${users[i].avatar}`
+                              : loginuser
+                                ? `/avatar/${loginuser}`
+                                : defaultAvatar
+                          }
+                          alt=""
+                        />
+                      }
+                    </div>
+                    <div className="content">
+                      <div className="top">
+                        <span>
+                          {users[i]
+                            ? users[i].username
+                            : this.props.userstatus.username}
+                        </span>
+                        <Rate disabled value={rate[v] - 0} />
+                      </div>
+                      <div className="con">
+                        <p>{rateComment[v]}</p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </TabPane>
+          </Tabs>
+        </div>
+      </div>
+    )
+  }
 }

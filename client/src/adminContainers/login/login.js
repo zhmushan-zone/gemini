@@ -19,13 +19,6 @@ class Login extends React.Component {
     }
     this.handleLogin = this.handleLogin.bind(this)
   }
-  componentDidMount() {
-    document.addEventListener('keydown', (e) => {
-      if(e.code==='Enter'){
-        this.login()
-      }
-    })
-  }
 
   handleChange(key, e) {
     this.setState({

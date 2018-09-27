@@ -11,7 +11,6 @@ import axios from 'axios'
 import './messageCenter.scss'
 
 const confirm = Modal.confirm
-const socket = io(`/?token=${Cookies.get('_token')}`)
 
 @connect(
   state => state.message,
@@ -36,15 +35,18 @@ class MessageCenter extends Component {
       loading: false,
       content
     })
-    socket.on('notice', (data) => {
-      const newMsg = [data, ...this.props.msg]
-      const oldContent = this.state.content
-      const newContent = [data.template, oldContent].join('')
-      this.setState({
-        content: newContent
+    if (Cookies.get('_token')) {
+      const socket = io(`/?token=${Cookies.get('_token')}`)
+      socket.on('notice', (data) => {
+        const newMsg = [data, ...this.props.msg]
+        const oldContent = this.state.content
+        const newContent = [data.template, oldContent].join('')
+        this.setState({
+          content: newContent
+        })
+        this.props.updateMessage(newMsg)
       })
-      this.props.updateMessage(newMsg)
-    })
+    }
   }
 
   componentWillReceiveProps(nextProps) {

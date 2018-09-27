@@ -54,11 +54,12 @@ export class CourseService {
   }
 
   search(keyword: string) {
+    const regex = new RegExp(keyword, 'i');
     return this.courseRepository.find({
       where: {
         $or: [
-          { title: { $regex: keyword } },
-          { decs: { $regex: keyword } }
+          { title: { $regex: regex } },
+          { decs: { $regex: regex } }
         ]
       }
     });

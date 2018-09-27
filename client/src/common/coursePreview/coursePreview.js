@@ -38,7 +38,7 @@ class CoursePreview extends React.Component {
     const value = rateValues.length ? rateValues.reduce(function(prev, next){
       return prev+next
       //return total + Math.round(num);//对数组元素四舍五入并计算总和
-    }) : 5
+    }) / rateValues.length : 5
     return value
   }
   

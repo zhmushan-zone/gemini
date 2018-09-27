@@ -125,11 +125,12 @@ export class IssueService {
   }
 
   search(keyword: string) {
+    const regex = new RegExp(keyword, 'i');
     return this.issueRepository.find({
       where: {
         $or: [
-          { title: { $regex: keyword } },
-          { content: { $regex: keyword } }
+          { title: { $regex: regex } },
+          { content: { $regex: regex } }
         ]
       }
     });

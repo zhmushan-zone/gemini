@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { Modal, Input, message } from 'antd'
+import { Modal, Input, message, Icon } from 'antd'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import CustomIcon from '@/common/customIcon/customIcon'
@@ -22,6 +22,7 @@ class PersonCener extends React.Component {
 		this.state = {
 			visible: false,
 			visible2: false,
+			visible3: false,
 			confirmLoading: false,
 			imgurl: defaultAvatar,
 			UserId: this.props.match.params.id,
@@ -149,6 +150,19 @@ class PersonCener extends React.Component {
 		})
 	}
 
+	showModal3 = () => {
+    this.setState({
+      visible3: true,
+    })
+  }
+
+  handleCancel3 = (e) => {
+    this.setState({
+      visible3: false,
+    })
+  }
+
+	
 	render() {
 		const { UserId } = this.state
 		const { userstatus, User } = this.props
@@ -245,25 +259,24 @@ class PersonCener extends React.Component {
 						</div>
 						<div className='study-info'>
 							<div className='item follows'>
-								<div className='u-info-learn' title='学习时长335小时18分'>
-									<em>335h</em>
-									<span>学习时长 </span>
-								</div>
-							</div>
-							<div className='item follows'>
-								<div className='u-info-learn' title='学习时长335小时18分'>
+								<div className='u-info-learn'>
 									<em>{this.props.User.integral ? parseInt(this.props.User.integral, 10) : 0}</em>
-									<span>积分</span>
+									<span>
+										积分
+										<a style={{color: '#fff', fontSize: 16}} onClick={this.showModal3}>
+											<Icon type="question-circle" theme="outlined" />
+										</a>
+									</span>
 								</div>
 							</div>
 							<div className='item follows'>
-								<div className='u-info-learn' title='学习时长335小时18分'>
+								<div className='u-info-learn'>
 									<em>{this.props.User.watchUsersId ? this.props.User.watchUsersId.length : 0}</em>
 									<span>关注</span>
 								</div>
 							</div>
 							<div className='item follows'>
-								<div className='u-info-learn' title='学习时长335小时18分'>
+								<div className='u-info-learn'>
 									<em>{this.props.User.watchedUsersId ? this.props.User.watchedUsersId.length : 0}</em>
 									<span>粉丝</span>
 								</div>
@@ -314,6 +327,40 @@ class PersonCener extends React.Component {
 						onChange={(e) => this.setState({ adviceContent: e.target.value })}
 					/>
 				</Modal>
+				<Modal
+          title="积分规则"
+          visible={this.state.visible3}
+					onCancel={this.handleCancel3}
+					footer={null}
+        >
+					<h5>课程:</h5>
+          <p>
+						1、当对一门课程完成评分并评价时，加5积分。
+					</p>
+					<p>
+						2、当你在某门课程下的回复收到别人赞同时，每10个赞同加2积分。
+					</p>
+					<h5>答疑:</h5>
+					<p>
+						1、为防止用户刷分，每发起一个问题，会扣除用户5积分。
+					</p>
+					<p>
+						2、当你认真回答别人的问题后，会获得3积分的奖励，当你的回答收获赞同时，每10个赞同会增加2积分
+					</p>
+					<p>
+						3、为了鼓励用户积极回答，答疑区设有排行榜，当每周和每月结算时，榜上有名的用户会获得不等的大量积分的奖励。
+					</p>
+					<h5>看法:</h5>
+					<p>
+						1、当你发布的文章通过官方审核后，会奖励你20积分
+					</p>
+					<p>
+						2、当你的文章收获赞同后，每10个赞同会奖励你4积分
+					</p>
+					<p>
+						3、与答疑类似，文章区也会有排行奖励。
+					</p>
+        </Modal>
 			</div>
 		)
 	}
