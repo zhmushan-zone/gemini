@@ -310,7 +310,7 @@ export default class CoursePreview extends Component {
                   <h2>请输入您的评分</h2>
                   <Rate
                     allowHalf
-                    defaultValue={5}
+                    defaultValue={0}
                     onChange={rate => this.setState({ rate: rate })}
                   />
                 </div>
