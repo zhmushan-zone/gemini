@@ -29,7 +29,7 @@ class VideoComments extends Component {
 				course: res.data.data,
 			})
 		})
-		this.props.getVideoComment(this.state.course.commentsId)
+		await this.props.getVideoComment(this.state.course.commentsId)
 	}
 	render() {
 		const videoComment = dateSortByUpdate(this.props.video.comment)

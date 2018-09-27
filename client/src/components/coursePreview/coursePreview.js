@@ -25,6 +25,7 @@ export default class CoursePreview extends Component {
 			rate: '',
 			users: [],
 			shoppingCartCourses: [],
+			comments: [],
 		}
 	}
 	stateChange(key, value) {
@@ -89,7 +90,6 @@ export default class CoursePreview extends Component {
 						users.push(data[j])
 					}
 				}
-				console.log(i)
 				if (i === rateArray.length - 1) {
 					console.log('object')
 					this.setState({
@@ -98,6 +98,20 @@ export default class CoursePreview extends Component {
 				}
 			}
 		})
+		let commentsId = this.props.video.course.commentsId
+		let res = await axios({
+			method: 'POST',
+			url: `/api/articles/comment/ids`,
+			headers: {
+				token: Cookies.get('_token'),
+			},
+			data: commentsId,
+		})
+		if (res.data.code === 1) {
+			this.setState({
+				comments: res.data.data,
+			})
+		}
 	}
 	callback(key) {
 		console.log(key)
@@ -123,7 +137,7 @@ export default class CoursePreview extends Component {
 		const video = this.props.video
 		const { course } = video
 		const sections = course.sections ? course.sections : []
-		const comment = video.comment
+		const comment = this.state.comments
 		const difficulty = [ '初级', '中级', '高级' ]
 		let loginuser = this.props.userstatus.avatar
 		let rateComment = video.rateComment

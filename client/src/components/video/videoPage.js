@@ -38,11 +38,11 @@ export default class VideoPage extends Component {
 	showModal = () => {
 		this.setState({
 			visible: true,
+			questionShow: false,
 		})
 	}
 	handleOk = async () => {
 		await this.setState({
-			comment: '请输入',
 			confirmLoading: true,
 		})
 		await this.props.sendVideoComment(this.state.courseId, this.state.comment)
@@ -65,7 +65,7 @@ export default class VideoPage extends Component {
 			comment: '请输入',
 		})
 	}
-	
+
 	async componentDidMount() {
 		// 获取课程
 		await axios({
