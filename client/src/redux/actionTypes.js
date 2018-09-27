@@ -99,3 +99,5 @@ export const FETCH_MESSAGE = 'FETCH_MESSAGE'
 export const FETCH_ADVICE = 'FETCH_ADVICE'
 // 倒计时
 export const COUNT_DOWN = 'COUNT_DOWN'
+// 更新用户购物车
+export const UPDATE_USER_SHOPPING_CART = 'UPDATE_USER_SHOPPING_CART'

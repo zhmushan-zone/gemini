@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import "./coursePreview.scss"
 import { Tabs, Input } from "antd"
 import CustomIcon from "@/common/customIcon/customIcon"
-import { getVideoComment, getCourseOne, courseRate, updateMyCourse } from "@/redux/actions.js"
+import { getVideoComment, getCourseOne, courseRate, updateMyCourse, updateUserShoppingCart } from "@/redux/actions.js"
 import { Rate } from "antd"
 import Share from "@/share"
 import axios from "axios"
@@ -16,7 +16,7 @@ const { TextArea } = Input
 @withRouter
 @connect(
   state => state,
-  { getVideoComment, getCourseOne, courseRate, updateMyCourse }
+  { getVideoComment, getCourseOne, courseRate, updateMyCourse, updateUserShoppingCart }
 )
 export default class CoursePreview extends Component {
   constructor(props) {
@@ -65,7 +65,8 @@ export default class CoursePreview extends Component {
           data: [...shoppingCartCourses, this.state.courseId]
         })
         if (res.data.code === 1) {
-          this.props.history.push("../shoppingCart")
+          this.props.updateUserShoppingCart([this.state.courseId, ...this.props.userstatus.shoppingcart])
+          message.success('加入购物车成功')
         }
       } else {
         message.warn("你可以观看视频了")

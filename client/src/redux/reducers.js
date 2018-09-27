@@ -175,6 +175,11 @@ export function userstatus(state = initState, action) {
 				...state,
 				joinCourse: action.payload,
 			}
+		case ActionTypes.UPDATE_USER_SHOPPING_CART:
+			return {
+				...state,
+				shoppingcart: action.payload
+			}
 		default:
 			return state
 	}
