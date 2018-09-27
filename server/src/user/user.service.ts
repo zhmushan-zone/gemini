@@ -73,11 +73,12 @@ export class UserService {
   }
 
   search(keyword: string) {
+    const regex = new RegExp(keyword, 'i');
     return this.userRepository.find({
       where: {
         $or: [
-          { username: { $regex: keyword } },
-          { nickname: { $regex: keyword } }
+          { username: { $regex: regex } },
+          { nickname: { $regex: regex } }
         ]
       }
     });

@@ -94,11 +94,12 @@ export class ArticleService {
   }
 
   search(keyword: string) {
+    const regex = new RegExp(keyword, 'i');
     return this.articleRepository.find({
       where: {
         $or: [
-          { title: { $regex: keyword } },
-          { content: { $regex: keyword } }
+          { title: { $regex: regex } },
+          { content: { $regex: regex } }
         ]
       }
     });
