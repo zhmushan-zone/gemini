@@ -273,7 +273,7 @@ export default class CoursePreview extends Component {
 						<TabPane tab='用户评价' key='3'>
 							<div className='evaluation-info'>
 								<div className='evaluation-title'>综合评分</div>
-								<div className='evaluation-score'>{average}</div>
+								<div className='evaluation-score'>{average.toFixed(2)}</div>
 								<Rate disabled value={average - 0} />
 							</div>
 							<div className='evaluate'>
