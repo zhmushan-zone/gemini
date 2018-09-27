@@ -66,30 +66,28 @@ class PersonCenterInformation extends React.Component {
 		const { isOwn, User } = this.props
 
 		let information
-		if (User.job) {
-			information = [
-				{
-					name: '昵称',
-					value: User.nickname,
-				},
-				{
-					name: '职位',
-					value: User.job ? User.job : notSetText,
-				},
-				{
-					name: '城市',
-					value: User.city ? User.city : notSetText,
-				},
-				{
-					name: '性别',
-					value: User.sex,
-				},
-				{
-					name: '个性签名',
-					value: User.signature ? User.signature : notSetText,
-				},
-			]
-		}
+		information = [
+			{
+				name: '昵称',
+				value: User.nickname,
+			},
+			{
+				name: '职位',
+				value: User.job ? User.job : notSetText,
+			},
+			{
+				name: '城市',
+				value: User.city ? User.city : notSetText,
+			},
+			{
+				name: '性别',
+				value: User.sex,
+			},
+			{
+				name: '个性签名',
+				value: User.signature ? User.signature : notSetText,
+			},
+		]
 
 		return (
 			<div className='person-information-container'>
@@ -171,16 +169,14 @@ class PersonCenterInformation extends React.Component {
 					</Modal>
 				</div>
 				<div className='info-wapper'>
-					{information ? (
-						information.map((v) => {
-							return (
-								<div className='info-box' key={v.name}>
-									<label htmlFor=''>{v.name}</label>
-									<div className='content'>{v.value}</div>
-								</div>
-							)
-						})
-					) : null}
+					{information.map((v) => {
+						return (
+							<div className='info-box' key={v.name}>
+								<label htmlFor=''>{v.name}</label>
+								<div className='content'>{v.value}</div>
+							</div>
+						)
+					})}
 				</div>
 			</div>
 		)
