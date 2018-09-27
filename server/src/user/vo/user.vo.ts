@@ -21,7 +21,7 @@ export class UserVO extends User {
     this.watchedUsersId = user.watchedUsersId;
     this.role = user.role;
     this.joinCourse = user.joinCourse;
-    this.integral = user.integral;
+    this.integral = Number.parseInt(user.integral.toString());
     this.shoppingcart = user.shoppingcart;
     this.createAt = user.createAt;
     this.updateAt = user.updateAt;
