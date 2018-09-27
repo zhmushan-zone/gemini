@@ -18,7 +18,6 @@ class BackstageAnalyze1 extends React.Component {
 		}
 	}
 	handleChange = (pagination, filters, sorter) => {
-		console.log('Various parameters', pagination, filters, sorter)
 		this.setState({})
 	}
 	async componentDidMount() {

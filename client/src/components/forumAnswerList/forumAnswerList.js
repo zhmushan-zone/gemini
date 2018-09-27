@@ -53,7 +53,6 @@ class ForumAnswerList extends Component {
 
   callback = key => {
     if (key === "2" && !this.state.totalyData.length) {
-      console.log(1)
       axios({
         method: 'get',
         url: '/api/issues/reply-num-totally'

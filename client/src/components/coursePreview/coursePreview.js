@@ -54,7 +54,6 @@ export default class CoursePreview extends Component {
       this.props.history.push(`/video/${this.state.courseId}`)
     } else {
       let shoppingCartCourses = this.props.userstatus.shoppingcart
-      console.log(shoppingCartCourses)
       if (shoppingCartCourses.indexOf(this.state.courseId) === -1) {
         let res = await axios({
           method: "put",
@@ -74,7 +73,6 @@ export default class CoursePreview extends Component {
       }
     }
 
-    // console.log(this.state.course)
   }
   async componentDidMount() {
     //获取指定课程
@@ -342,7 +340,6 @@ export default class CoursePreview extends Component {
                 </div>
               </div>
               {rateArray.map((v, i) => {
-                console.log(users[i])
                 return (
                   <div className="evaluation-item" key={i}>
                     <div className="avatar">

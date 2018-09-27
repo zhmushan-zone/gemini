@@ -20,7 +20,6 @@ class ForumProblemPageComments extends Component {
             </div>
             {
               this.props.replys.map(item => {
-                console.log(item)
                 return <ForumProblemPageCommentsItem
                   issueId={this.props.problemId}
                   myAvatar={this.props.avatar}

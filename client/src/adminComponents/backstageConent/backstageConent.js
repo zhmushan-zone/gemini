@@ -101,7 +101,6 @@ export default class BackstageConent extends Component {
               return <Route path={v.path} component={v.component} key={v.name}></Route>
             } else if (v.path.indexOf(':') !== -1 && this.props.location.pathname.indexOf(v.path.split(':')[0]) !== -1) {
               const addressArr = v.address.split('-')
-              console.log(v.path)
               return (
                 <React.Fragment key={v.name}>
                   <AdminBreadcrumb addressArr={addressArr} />

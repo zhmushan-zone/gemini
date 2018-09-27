@@ -60,7 +60,6 @@ export default class VideoPage extends Component {
 		})
 	}
 	handleCancel = () => {
-		console.log('Clicked cancel button')
 		this.setState({
 			visible: false,
 			comment: '请输入',

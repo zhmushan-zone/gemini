@@ -15,7 +15,6 @@ class OnlineStudyingOperation extends Component {
   }
 
   switchClick (isHide) {
-    console.log(isHide)
     this.props.operationChange('isHideAttenedCourse', isHide)
   }
 

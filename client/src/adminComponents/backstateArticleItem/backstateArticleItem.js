@@ -15,7 +15,6 @@ export default class backstateArticleItem extends Component {
 	}
 
 	showModal = (obj) => {
-		console.log(obj)
 		this.setState({
 			visible: true,
 			authorUsername: obj.authorUsername,
@@ -25,14 +24,12 @@ export default class backstateArticleItem extends Component {
 	}
 
 	handleOk = (e) => {
-		console.log(e)
 		this.setState({
 			visible: false,
 		})
 	}
 
 	handleCancel = (e) => {
-		console.log(e)
 		this.setState({
 			visible: false,
 		})

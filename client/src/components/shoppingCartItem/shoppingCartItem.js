@@ -35,9 +35,7 @@ class ShoppingCartItem extends Component {
       onOk: () => {
         return new Promise(async (resolve, reject) => {
           const newCourse = [...this.props.courses]
-          console.log(newCourse)
           newCourse.splice(this.props.index, 1)
-          console.log(newCourse)
           await this.props.deleteShoppingCartCourse(newCourse)
           resolve('移除成功')
         }).then(res => {

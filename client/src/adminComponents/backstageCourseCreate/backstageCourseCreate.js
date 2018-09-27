@@ -66,7 +66,6 @@ class BackstageCourseCreate extends React.Component {
   }
 
   handleSubmit() {
-    console.log(1)
   }
 
   render() {
