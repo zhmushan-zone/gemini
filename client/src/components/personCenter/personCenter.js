@@ -151,7 +151,7 @@ class PersonCener extends React.Component {
 
 	render() {
 		const { UserId } = this.state
-		const { userstatus } = this.props
+		const { userstatus, User } = this.props
 		const isOwn = UserId === Cookies.get('_id')
 		const data = isOwn ? userstatus : userstatus.personCenterInfo
 		const nav = [
@@ -208,7 +208,6 @@ class PersonCener extends React.Component {
 				</li>
 			)
 		})
-		console.log(this.state.imgurl)
 		return (
 			<div className='personCenter-container'>
 				<div className='header'>
@@ -285,9 +284,18 @@ class PersonCener extends React.Component {
 						</ul>
 					</div>
 					<div className='u-container'>
-						{nav.map((v) => {
-							return v.is ? <v.component key={v.component} isOwn={isOwn} /> : null
-						})}
+						{this.props.User.watchedUsersId ? (
+							nav.map((v) => {
+								return v.is ? (
+									<v.component
+										key={v.component}
+										isOwn={isOwn}
+										watchedUsersId={this.props.User.watchedUsersId}
+										watchUsersId={this.props.User.watchUsersId}
+									/>
+								) : null
+							})
+						) : null}
 					</div>
 				</div>
 				<Modal

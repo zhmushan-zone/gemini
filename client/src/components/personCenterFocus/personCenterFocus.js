@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { defaultAvatar } from '@/const'
 import './personCenterFocus.scss'
 const TabPane = Tabs.TabPane
-@connect((state) => state, {  })
+@connect((state) => state, {})
 export default class PersonCenterFocus extends Component {
 	constructor(props) {
 		super(props)
@@ -16,8 +16,8 @@ export default class PersonCenterFocus extends Component {
 		}
 	}
 	async fetchWatchAndWatched() {
-		const watch = this.props.User.watchUsersId
-		const watched = this.props.User.watchedUsersId
+		const watch = this.props.watchUsersId
+		const watched = this.props.watchedUsersId
 		// watch
 		let res = await axios({
 			method: 'POST',
