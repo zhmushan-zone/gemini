@@ -5,7 +5,7 @@ import CustomIcon from '@/common/customIcon/customIcon'
 import { Checkbox } from 'antd'
 import defaultAvatar from '@/const'
 import { connect } from 'react-redux'
-import { deleteShoppingCartCourse } from '@/redux/actions'
+import { deleteShoppingCartCourse, updateUserShoppingCart } from '@/redux/actions'
 
 import './shoppingCartItem.scss'
 
@@ -13,7 +13,7 @@ const confirm = Modal.confirm
 
 @connect(
   null,
-  { deleteShoppingCartCourse }
+  { deleteShoppingCartCourse, updateUserShoppingCart }
 )
 class ShoppingCartItem extends Component {
   onChange = (e) => {
@@ -37,6 +37,7 @@ class ShoppingCartItem extends Component {
           const newCourse = [...this.props.courses]
           newCourse.splice(this.props.index, 1)
           await this.props.deleteShoppingCartCourse(newCourse)
+          await this.props.updateUserShoppingCart(newCourse)
           resolve('移除成功')
         }).then(res => {
           message.success(res)

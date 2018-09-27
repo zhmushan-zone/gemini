@@ -4,7 +4,7 @@ import CustomIcon from '@/common/customIcon/customIcon'
 import ShoppingCartItem from '../shoppingCartItem/shoppingCartItem'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getShoppingCart, deleteShoppingCartCourse, updateMyCourse } from '@/redux/actions'
+import { getShoppingCart, deleteShoppingCartCourse, updateMyCourse, updateUserShoppingCart } from '@/redux/actions'
 import Loading from '@/common/loading/loading'
 import axios from 'axios'
 import Cookies from 'js-cookie'
@@ -15,7 +15,7 @@ const confirm = Modal.confirm
 
 @connect(
   state => state,
-  { getShoppingCart, deleteShoppingCartCourse, updateMyCourse }
+  { getShoppingCart, deleteShoppingCartCourse, updateMyCourse, updateUserShoppingCart }
 )
 class ShoppingCart extends Component {
   constructor(props) {
@@ -84,8 +84,10 @@ class ShoppingCart extends Component {
           })
           if (res.data.code === 1) {
             await this.props.deleteShoppingCartCourse(newCourses)
+            await this.props.updateUserShoppingCart(newCourses)
             this.props.updateMyCourse([...ids, ...this.props.userstatus.joinCourse])
             resolve('购买成功')
+            
           }
         }).then(res => {
           message.success(res)
