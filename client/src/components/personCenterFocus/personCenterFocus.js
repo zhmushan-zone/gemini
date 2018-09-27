@@ -42,7 +42,6 @@ export default class PersonCenterFocus extends Component {
 		}
 	}
 	async componentDidMount() {
-		console.log(1)
 		await this.fetchWatchAndWatched()
 	}
 	render() {
