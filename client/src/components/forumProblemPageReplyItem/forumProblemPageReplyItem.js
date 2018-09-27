@@ -100,7 +100,7 @@ class ForumProblemPageReplyItem extends Component {
                   <span style={{color: '#14191e', lineHeight: '23px', padding: '0 2px'}}>回复</span>
                   <a>
                     {toUserName}
-                    {replyAuthorId === from ?
+                    {replyAuthorId === to ?
                       <span style={{color: '#14191e'}}>(回答者)</span> : null
                     } 
                   </a>

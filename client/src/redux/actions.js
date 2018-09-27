@@ -1060,6 +1060,16 @@ export function getShoppingCart() {
 		}
 	}
 }
+/* ----------------------------------------------更改userstatus的购物车---------------------------------------------- */
+function updateUserShoppingCartSuccess(shoppingcart) {
+	return { type: ActionTypes.UPDATE_USER_SHOPPING_CART, payload: shoppingcart }
+}
+
+export function updateUserShoppingCart(shoppingcart) {
+	return dispatch => {
+		dispatch(updateUserShoppingCartSuccess(shoppingcart))
+	}
+}
 /* ----------------------------------------------删除购物车内课程---------------------------------------------- */
 export function deleteShoppingCartCourse(courses) {
 	const _token = Cookies.get('_token')

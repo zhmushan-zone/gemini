@@ -58,7 +58,7 @@ class ForumLeft extends Component {
           </div>
           <div className="is-only-show-attention">
             <span>只显示关注内容</span>
-            <Switch className="show-attention-switch" defaultChecked onChange={(v) => this.setState({isOnlyShowAttention: v})} />
+            <Switch className="show-attention-switch" onChange={(v) => this.setState({isOnlyShowAttention: v})} />
           </div>
         </div>
         <div className="fourm-problem-wrapper">

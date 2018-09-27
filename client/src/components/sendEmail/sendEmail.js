@@ -8,7 +8,6 @@ import './sendEmail.scss'
 	{ countDown }
 )
 export default class SendEmail extends Component {
-
 	timeToZero = () => {
 		let num = 60
 		const timer = setInterval(() => {
