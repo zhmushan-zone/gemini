@@ -1,43 +1,122 @@
 .person-information-container {
-  .title {
-    line-height: 40px;
-    font-size: 16px;
-    font-weight: 700;
-    padding-top: 46px;
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #d0d6d9;
-    .edit-info {
-      color: #93999f;
-      font-weight: 400;
-      font-size: 14px;
-    }
-  }
-  .info-wapper {
-    margin: 24px auto 24px 0;
-    .info-box {
-      margin-bottom: 12px;
-      display: flex;
-      box-sizing: border-box;
-      padding-left: 40px;
-      label {
-        display: block;
-        width: 120px;
-        line-height: 20px;
-        padding: 20px 0;
-        text-align: center;
-        background-color: #f3f5f7;
-        color: #07111b;
-        font-weight: 700;
-      }
-      .content {
-        width: 708px;
-        margin-left: 8px;
-        line-height: 20px;
-        padding: 20px 0 20px 22px;
-        border-bottom: 1px solid #d9dde1;
-      }
-    }
-  }
+	.title {
+		line-height: 40px;
+		font-size: 16px;
+		font-weight: 700;
+		padding-top: 46px;
+		display: flex;
+		justify-content: space-between;
+		padding-bottom: 10px;
+		border-bottom: 1px solid #d0d6d9;
+		.edit-info {
+			color: #93999f;
+			font-weight: 400;
+			font-size: 14px;
+		}
+	}
+	.info-wapper {
+		margin: 24px auto 24px 0;
+		.info-box {
+			margin-bottom: 12px;
+			display: flex;
+			box-sizing: border-box;
+			padding-left: 40px;
+			label {
+				display: block;
+				width: 120px;
+				line-height: 20px;
+				padding: 20px 0;
+				text-align: center;
+				background-color: #f3f5f7;
+				color: #07111b;
+				font-weight: 700;
+			}
+			.content {
+				width: 708px;
+				margin-left: 8px;
+				line-height: 20px;
+				padding: 20px 0 20px 22px;
+				border-bottom: 1px solid #d9dde1;
+			}
+		}
+	}
+}
+.contentInput {
+	display: flex;
+	flex-direction: column;
+	input {
+		height: 30px;
+		border-radius: 4px;
+	}
+
+	input[type=text],
+	textarea {
+		transition: all 0.30s ease-in-out;
+		outline: none;
+		padding: 3px 0px 3px 3px;
+		margin: 5px 1px 3px 0px;
+		border: 1px solid #dddddd;
+	}
+
+	input[type=text]:focus,
+	textarea:focus {
+		box-shadow: 0 0 5px rgb(241, 59, 13);
+		padding: 3px 0px 3px 3px;
+		margin: 5px 1px 3px 0px;
+		border: 1px solid rgb(250, 78, 34);
+	}
+
+	.radio-container {
+		display: flex;
+		$color1: #f4f4f4;
+		$color2: rgb(241, 59, 13);
+		.radio {
+			margin: 0.5rem;
+			input[type="radio"] {
+				position: absolute;
+				opacity: 0;
+				+ .radio-label {
+					&:before {
+						content: '';
+						background: $color1;
+						border-radius: 100%;
+						border: 1px solid darken($color1, 25%);
+						display: inline-block;
+						width: 1.4em;
+						height: 1.4em;
+						position: relative;
+						top: -0.2em;
+						margin-right: 1em;
+						vertical-align: top;
+						cursor: pointer;
+						text-align: center;
+						transition: all 250ms ease;
+					}
+				}
+				&:checked {
+					+ .radio-label {
+						&:before {
+							background-color: $color2;
+							box-shadow: inset 0 0 0 4px $color1;
+						}
+					}
+				}
+				&:focus {
+					+ .radio-label {
+						&:before {
+							outline: none;
+							border-color: $color2;
+						}
+					}
+				}
+				+ .radio-label {
+					&:empty {
+						&:before {
+							margin-right: 0;
+						}
+					}
+				}
+			}
+		}
+	}
 }

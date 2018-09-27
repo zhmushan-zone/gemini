@@ -20,7 +20,7 @@ export function loadData(userinfo) {
 
 function authSuccess(obj) {
 	const { username, data } = obj
-	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: data, username,code:1}
+	return { msg: '', type: ActionTypes.AUTH_SUCCESS, payload: data, username, code: 1 }
 }
 
 export function register(username, password, repet_pass) {
@@ -116,11 +116,15 @@ function updateSuccesss(obj) {
 	return { payload: { ...obj }, type: ActionTypes.UPDATE_PERSON_MSG }
 }
 
-export function changePersonMsg(a) {
-	const { sex, username, job, city, signature } = a
+export function changePersonMsg(username, job, city, sex, signature) {
 	const _id = Cookies.get('_id')
 	const _token = Cookies.get('_token')
-	console.log(_id)
+	let sexName
+	if (sex === 1) {
+		sexName = '男'
+	} else if (sex === 0) {
+		sexName = '女'
+	}
 	return async (dispatch) => {
 		const res = await axios({
 			method: 'put',
@@ -138,10 +142,11 @@ export function changePersonMsg(a) {
 			},
 		})
 		if (res.data.code === 1) {
+			console.log(sexName)
 			return dispatch(
 				updateSuccesss({
 					msg: res.data.msg,
-					sex: sex === 1 ? '男' : '女',
+					sex: sexName,
 					username,
 					job,
 					city,
@@ -1115,8 +1120,8 @@ export function fetchAdvice() {
 			method: 'get',
 			url: '/api/suggestions',
 			headers: {
-				token: _token
-			}
+				token: _token,
+			},
 		})
 		if (res.data.code === 1) {
 			dispatch(fetchAdviceSuccess(res.data.data))
@@ -1125,17 +1130,17 @@ export function fetchAdvice() {
 }
 
 export function updateAdvice(advices) {
-	return dispatch => {
+	return (dispatch) => {
 		dispatch(fetchAdviceSuccess(advices))
 	}
 }
 /* ----------------------------------------------倒计时---------------------------------------------- */
 function countDownSuccess(count) {
-  return { type: ActionTypes.COUNT_DOWN, payload: count }
+	return { type: ActionTypes.COUNT_DOWN, payload: count }
 }
 
 export function countDown(count) {
-  return dispatch => {
-    dispatch(countDownSuccess(count))
-  }
+	return (dispatch) => {
+		dispatch(countDownSuccess(count))
+	}
 }

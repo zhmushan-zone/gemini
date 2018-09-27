@@ -372,10 +372,26 @@ export function report(state = reportInit, action) {
 export function User(state = Userinit, action) {
 	switch (action.type) {
 		case ActionTypes.FETCH_ONE_USER:
-			console.log(action.data)
+			let sex
+			if (action.data.sex === 0) {
+				sex = '女'
+			} else {
+				sex = '男'
+			}
 			return {
 				...state,
 				...action.data,
+				sex: sex,
+			}
+		case ActionTypes.UPDATE_PERSON_MSG:
+			return {
+				...state,
+				job: action.payload.job,
+				nickname: action.payload.username,
+				msg: action.payload.msg,
+				city: action.payload.city,
+				signature: action.payload.signature,
+				sex: action.payload.sex,
 			}
 		default:
 			return state
