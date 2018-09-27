@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import OpinionMainCenterList from '../opinionMainCenterList/opinionMainCenterList'
-import { ArticleType ,ArticleCategory} from '@/const'
+import { ArticleType, ArticleCategory } from '@/const'
 import './FetchArticleList.scss'
 import { dateSortByCreate } from '@/util/dateSort'
 import { withRouter } from 'react-router'
