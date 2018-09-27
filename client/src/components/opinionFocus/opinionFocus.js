@@ -37,7 +37,6 @@ export default class opinionFocus extends Component {
 				})
 			// 获取关注的所有文章
 			let { watchTags } = this.state
-			console.log(watchTags)
 			if (watchTags && watchTags.length !== 0) {
 				for (let index = 0; index < watchTags.length; index++) {
 					await axios({
