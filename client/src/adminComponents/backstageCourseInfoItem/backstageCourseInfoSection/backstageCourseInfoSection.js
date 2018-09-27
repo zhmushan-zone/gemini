@@ -22,7 +22,6 @@ class BackstageCourseInfoSection extends Component {
   
   addSubSection = () => {
     const oldCourse = this.props.course
-    console.log(this.props.course)
     const sectionNum = this.props.sectionNum
     confirm({
       title: '您是否想为该章节添加小节？',

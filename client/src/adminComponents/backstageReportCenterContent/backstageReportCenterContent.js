@@ -12,7 +12,6 @@ class BackstageReportCenterContent extends Component {
 	}
 
 	handleChange(value) {
-		console.log(`selected ${value}`)
 	}
 
 	stateChange(key, value) {

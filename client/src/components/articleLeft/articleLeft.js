@@ -115,13 +115,11 @@ export default class articleLeft extends Component {
   }
   async componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.id !== this.props.match.params.id) {
-      console.log(nextProps.match.params.id)
       const res = await axios({
         method: "get",
         url: `/api/articles/${nextProps.match.params.id}`
       })
       if (res.data.code === 1) {
-        console.log(res.data.data)
         this.setState({
           thisArticle: res.data.data
         })
@@ -142,7 +140,6 @@ export default class articleLeft extends Component {
     let { userstatus } = this.props
     let articleData = dateSortByCreate(this.props.articleData)
     let { content, title, type, id, commentsId } = thisArticle
-    console.log(commentsId)
     try {
       var con = Marked(content)
       var Tag = type.map((v, i) => {

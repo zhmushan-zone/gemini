@@ -6,7 +6,6 @@ const Option = Select.Option
 class TypeSelect extends Component {
 
   handleChange(value) {
-    console.log(value)
     const types = value.map(item => {
       return type2.indexOf(item)
     })

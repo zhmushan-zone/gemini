@@ -54,7 +54,6 @@ class BackstateUser extends React.Component {
 	}
 	async deleteUser(item) {
 		const _token = Cookie.get('_token')
-		console.log(item)
 		await Axios({
 			method: 'DELETE',
 			url: `/api/users/${item.key}`,

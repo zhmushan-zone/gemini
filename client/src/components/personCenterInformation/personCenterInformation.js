@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Modal, Input, Radio, message } from 'antd'
+import { Modal, message } from 'antd'
 import './PersonCenterInformation.scss'
 import { changePersonMsg } from '@/redux/actions'
 import CustomIcon from '@/common/customIcon/customIcon'
@@ -62,10 +62,8 @@ class PersonCenterInformation extends React.Component {
 	}
 
 	render() {
-		const { visible, confirmLoading, sex, username, job, signature, city } = this.state
-		const { userstatus, isOwn, User } = this.props
-		const { TextArea } = Input
-		const RadioGroup = Radio.Group
+		const { visible, confirmLoading } = this.state
+		const { isOwn, User } = this.props
 
 		let information
 		if (User.job) {
@@ -117,7 +115,6 @@ class PersonCenterInformation extends React.Component {
 						<div className='contentInput'>
 							<input
 								defaultValue={this.props.User.nickname}
-								// value={username}
 								ref='inputUsername'
 								className='nickname'
 								id='nickname'
@@ -134,7 +131,6 @@ class PersonCenterInformation extends React.Component {
 								defaultValue={this.props.User.job}
 								ref='inputJob'
 								type='text'
-								// value={job}
 								style={{ marginBottom: 20 }}
 								onChange={this.handleChange.bind(this, 'job')}
 							/>
@@ -143,14 +139,10 @@ class PersonCenterInformation extends React.Component {
 								defaultValue={this.props.User.city}
 								ref='inputCity'
 								type='text'
-								// value={city}
 								style={{ marginBottom: 20 }}
 								onChange={this.handleChange.bind(this, 'city')}
 							/>
-							{/* <RadioGroup value={sex} style={{ marginBottom: 20 }} onChange={this.handleChange.bind(this, 'sex')}>
-								<Radio value={1}>男</Radio>
-								<Radio value={0}>女</Radio>
-							</RadioGroup> */}
+
 							<div className='radio-container'>
 								<div className='radio'>
 									<input id='radio-1' name='sex' value='0' ref='radioSex1' type='radio' defaultChecked />
@@ -164,28 +156,12 @@ class PersonCenterInformation extends React.Component {
 										男
 									</label>
 								</div>
-
-								{/* <input
-									type='radio'
-									name='sex'
-									value='0'
-									onChange={this.handleChange.bind(this, 'sex')}
-									ref='radioSex1'
-								/>女
-								<input
-									type='radio'
-									name='sex'
-									value='1'
-									onChange={this.handleChange.bind(this, 'sex')}
-									ref='radioSex2'
-								/>男 */}
 							</div>
 
 							<textarea
 								rows={4}
 								defaultValue={this.props.User.signature}
 								ref='inputSignature'
-								// value={signature}
 								className='signature'
 								id='signature'
 								placeholder='个性签名'

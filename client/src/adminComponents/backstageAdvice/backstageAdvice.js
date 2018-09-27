@@ -64,7 +64,6 @@ class BackstageAdvice extends Component {
           item.isRead = true
         }
       }
-      console.log(newData)
       await this.props.updateAdvice(newData)
       this.setState({
         visible: false,
@@ -96,13 +95,11 @@ class BackstageAdvice extends Component {
         }
       },
       onCancel() {
-        console.log('Cancel')
       },
     })
   }
   
   handleCancel = (e) => {
-    console.log(e)
     this.setState({
       visible: false,
       currentAdvice: ''

@@ -19,7 +19,6 @@ class ReporCenterTable extends Component {
 	}
 
 	showModal = (item) => {
-		console.log(item)
 		this.setState({
 			visible: true,
 			reporter: item.reporter,

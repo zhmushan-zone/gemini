@@ -49,7 +49,6 @@ class BackstageCheckProblemTable extends Component {
   }
 
   agree (id, authorId) {
-    console.log(authorId)
     confirm({
       title: '请确认您的操作',
       content: '您是否要批准该条请求，请您确认',

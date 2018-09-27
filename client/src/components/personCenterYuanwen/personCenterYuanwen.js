@@ -53,7 +53,6 @@ export default class PersonCenterYuanwen extends Component {
         show: false
       })
     })
-    console.log(this.props.userstatus.watchIssuesId)
 
     // 我的回答
     await axios({

@@ -35,7 +35,6 @@ export default class ArticleExcellentThirty extends Component {
 			url: `/api/articles/ids`,
 			data: sortable,
 		}).then((res) => {
-			console.log(res)
 			this.setState({
 				articleMonthly: res.data.data,
 				show: false,
@@ -44,7 +43,6 @@ export default class ArticleExcellentThirty extends Component {
 	}
 	render() {
 		const { articleMonthly, show } = this.state
-		console.log(articleMonthly)
 		return (
 			<div className='article-excellent-thirty-container'>
 				<div className='headImg'>30日精选文章</div>
