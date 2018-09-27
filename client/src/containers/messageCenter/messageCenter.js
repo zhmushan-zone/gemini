@@ -11,7 +11,7 @@ import axios from 'axios'
 import './messageCenter.scss'
 
 const confirm = Modal.confirm
-const socket = io(`http://localhost:9999?token=${Cookies.get('_token')}`)
+const socket = io(`/?token=${Cookies.get('_token')}`)
 
 @connect(
   state => state.message,
@@ -25,7 +25,7 @@ class MessageCenter extends Component {
       loading: true
     }
   }
-  
+
   async componentDidMount() {
     const data = [...this.props.msg]
     const templateData = []
@@ -46,7 +46,7 @@ class MessageCenter extends Component {
       this.props.updateMessage(newMsg)
     })
   }
-  
+
   componentWillReceiveProps(nextProps) {
     if (this.props.msg !== nextProps.msg) {
       const data = [...nextProps.msg]
@@ -60,7 +60,7 @@ class MessageCenter extends Component {
       })
     }
   }
-  
+
   readMsg(msgs, msgsId) {
     confirm({
       title: '设置确认',
@@ -95,7 +95,7 @@ class MessageCenter extends Component {
       onCancel() {},
     })
   }
-  
+
   render() {
     console.log(this.state.content)
     let unreadMsg = []
@@ -115,10 +115,10 @@ class MessageCenter extends Component {
             <a onClick={unreadMsg.length ? () => this.readMsg(this.props.msg, unreadMsgIds) : null}>全部设为已读</a>
           </div>
           {
-            this.state.loading ? 
+            this.state.loading ?
             <Loading style={{marginTop: 100}} /> :
             (
-              this.state.content ? 
+              this.state.content ?
               <div  dangerouslySetInnerHTML={{__html: this.state.content}} />
               : <p style={{textAlign: 'center', color: '#999', fontSize: 16, paddingTop: 150}}>暂无消息</p>
             )
