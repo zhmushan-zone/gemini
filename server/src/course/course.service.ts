@@ -46,6 +46,13 @@ export class CourseService {
     return this.courseRepository.save(doc);
   }
 
+  async updateByIdWithAdmin(id: string, course: Course) {
+    const doc = await this.courseRepository.findOne(id);
+    if (!doc) return new GeminiError(ResponseCode.NOT_EXISIT);
+    for (const key in course) doc[key] = course[key];
+    return this.courseRepository.save(doc);
+  }
+
   search(keyword: string) {
     return this.courseRepository.find({
       where: {

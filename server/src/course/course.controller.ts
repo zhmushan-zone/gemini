@@ -17,7 +17,7 @@ import { CreateCourseDTO, UpdateCourseDTO } from './dto';
 import { CourseService } from './course.service';
 import { success, response, ResponseCode } from '../common/utils';
 import { CourseVO } from './vo/course.vo';
-import { User, UserActivityType, CommentParent } from '../user/user.entity';
+import { User, UserActivityType, CommentParent, UserRole } from '../user/user.entity';
 import { GeminiError } from '../common/error';
 import { UserService } from '../user/user.service';
 import { CreateCommentDTO } from '../article/dto';
@@ -28,6 +28,7 @@ import { ObjectId } from 'mongodb';
 import { from, forkJoin } from 'rxjs';
 import { map, scan } from 'rxjs/operators';
 import { config } from '../config';
+import { Allow } from '../user/role.decorators';
 
 @Controller('/api/courses')
 export class CourseController {
@@ -142,13 +143,13 @@ export class CourseController {
   }
 
   @Put(':id')
+  @Allow(UserRole.ADMIN)
   @UseGuards(AuthGuard('jwt'))
   async updateOne(
-    @Usr() user: User,
     @Body() updateCourseDTO: UpdateCourseDTO,
     @Param('id') id: string
   ) {
-    const res = await this.courseService.updateById(user.id.toHexString(), id, updateCourseDTO);
+    const res = await this.courseService.updateByIdWithAdmin(id, updateCourseDTO);
     if (res instanceof GeminiError) return response(res.code);
     return success(new CourseVO(res));
   }
