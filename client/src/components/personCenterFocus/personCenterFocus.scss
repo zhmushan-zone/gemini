@@ -18,6 +18,7 @@
 		display: flex;
 		ul {
 			display: flex;
+			flex-wrap: wrap;
 		}
 		.box {
 			width: 300px;
@@ -39,9 +40,12 @@
 				flex-direction: column;
 				.title {
 					font-weight: 700;
-					color: #07111b;
 					padding-bottom: 8px;
 					width: 100%;
+
+					a {
+						color: #07111b;
+					}
 				}
 				.desc {
 					text-overflow: ellipsis;

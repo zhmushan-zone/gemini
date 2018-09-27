@@ -398,6 +398,11 @@ export function User(state = Userinit, action) {
 				signature: action.payload.signature,
 				sex: action.payload.sex,
 			}
+		case ActionTypes.LOAD_DATA:
+			return {
+				...state,
+				...action.payload,
+			}
 		default:
 			return state
 	}

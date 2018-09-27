@@ -14,6 +14,7 @@ export default class SendEmail extends Component {
 			if (num === -1) {
 				clearInterval(timer)
 				this.props.countDown(60)
+				this.props.isToZero()
 			}
 			const newTime = num--
 			this.props.countDown(newTime)
@@ -41,7 +42,7 @@ export default class SendEmail extends Component {
 						onChange={this.props.handleChange.bind(this, 'email')}
 					/>
 					<a onClick={registerSendEamil} className={`sendEmail ${isSec ? 'noclick' : ''}`}>
-						{isSec ? `${this.props.count}可重新发送` : '发送邮件'}
+						{isSec ? `${this.props.count}s可重新发送` : '发送邮件'}
 					</a>
 					<u />
 				</div>

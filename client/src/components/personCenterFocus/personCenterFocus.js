@@ -42,6 +42,7 @@ export default class PersonCenterFocus extends Component {
 		}
 	}
 	async componentDidMount() {
+		console.log(1)
 		await this.fetchWatchAndWatched()
 	}
 	render() {
@@ -91,7 +92,9 @@ export default class PersonCenterFocus extends Component {
 													<img src={v.avatar ? `/avatar/${v.avatar}` : defaultAvatar} alt='' />
 												</div>
 												<div className='right-c'>
-													<div className='title'>{v.username}</div>
+													<div className='title'>
+														<Link to={`/personCenter/${v.id}`}>{v.username}</Link>
+													</div>
 													<p className='desc'>{v.job}</p>
 													<div className='fs-line'>
 														<a className='first'>关注{v.watchedUsersId.length}</a>
