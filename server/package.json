@@ -21,7 +21,7 @@
     "@nestjs/typeorm": "^5.0.0",
     "@nestjs/websockets": "^5.3.7",
     "class-transformer": "^0.1.9",
-    "class-validator": "^0.8.5",
+    "class-validator": "^0.14.0",
     "fastify-formbody": "^2.0.0",
     "jsonwebtoken": "^8.2.2",
     "mongodb": "^3.1.0-beta4",
